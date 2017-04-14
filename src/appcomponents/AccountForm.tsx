@@ -1,0 +1,155 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import {connect} from 'react-redux';
+import DatePicker from 'material-ui/DatePicker';
+import Checkbox from 'material-ui/Checkbox';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+//import {Transforms,Validators} from '../lib/helpers';
+import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
+
+
+export interface Props {
+  validate(data: any): {isValid: boolean,errors: any};
+  genders: {id: any, name: any}[];
+}
+
+export interface AccountFormInterface {
+  firstname: string;
+  lastname: string;
+  middlename: string;
+  gender: number;
+  dob: number;
+}
+
+export interface State {
+  values: AccountFormInterface;
+  errors: AccountFormInterface;
+}
+
+export default class LoginForm extends React.Component<Props, State>{
+  constructor (props) {
+    super(props);
+    this.state = {
+      values: {
+        firstname: '',
+        lastname: '',
+        middlename: '',
+        gender: null,
+        dob: null,
+      },
+      errors: {
+        firstname: '',
+        lastname: '',
+        middlename: '',
+        gender: null,
+        dob: null
+      }
+    }
+  }
+
+  handleChange = (event) => {
+   
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      values: {...this.state.values,[name]: value},
+      errors: {...this.state.errors,[name]: ''}
+    } as any);
+  }
+
+  handleSubmit = (event) => {
+    const {validate} = this.props;
+    const result = validate(this.state.values);
+    console.log(result);
+    if(!result.isValid){
+      this.setState({
+        errors: result.errors
+      });
+    }
+    event.preventDefault();
+  }
+  handleSelectChange = (valueName) => {
+    return (event,key,payload) => {
+      this.setState({
+        values: {...this.state.values,[valueName]: payload},
+        errors: {...this.state.errors,[valueName]: ''}
+      } as any);
+    }
+  }
+
+
+  excuseKeyboard = (event) => {
+      event.target.focus();
+  }
+
+  render(){
+    const {genders} = this.props;
+    console.log(genders);
+    return (
+      <div>
+      <form onSubmit={this.handleSubmit}>
+      
+
+        <div>
+        <TextField 
+              floatingLabelText={'First Name'} 
+              hintText={''} 
+              multiLine={false}
+              name='firstname'
+              value={this.state.values.firstname}
+              fullWidth={true}
+              onChange={this.handleChange}
+              //ref={(input) => { (this as any).textInput = input; }}
+              errorText={this.state.errors.firstname} />
+        </div>
+        <div>
+        <TextField 
+              floatingLabelText={'Last Name'} 
+              hintText={''} 
+              multiLine={false}
+              name='lastname'
+              value={this.state.values.lastname}
+              fullWidth={true}
+              onChange={this.handleChange}
+              //ref={(input) => { (this as any).textInput = input; }}
+              errorText={this.state.errors.lastname} />
+        </div>
+        <div>
+        <TextField 
+              floatingLabelText={'Middle Name'} 
+              hintText={''} 
+              multiLine={false}
+              name='middlename'
+              value={this.state.values.middlename}
+              fullWidth={true}
+              onChange={this.handleChange}
+              //ref={(input) => { (this as any).textInput = input; }}
+              errorText={this.state.errors.middlename} />
+        </div>
+        <div>
+        <SelectField
+          floatingLabelText="Gender"
+          errorText={this.state.errors.gender} 
+          value={this.state.values.gender}
+          onChange={this.handleSelectChange('gender')}
+        >
+          {genders.map((gender) => {
+            return <MenuItem key={gender.id} value={gender.id} primaryText={gender.name} />
+          })}
+          
+        </SelectField>
+        </div>
+        <div style={flexParentRowStyle as any}>
+          <div style={flexRowItemStyle as any}>
+            <RaisedButton primary={true} type="submit" label="Save" />
+          </div>
+        </div>
+      </form>
+      </div>
+    );
+  }
+}
