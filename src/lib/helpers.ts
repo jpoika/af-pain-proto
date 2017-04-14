@@ -44,8 +44,15 @@ export namespace Validators {
   }
 
   export const isEmail = (input) => {
-    let re = new RegExp('^[^\s@]+@[^\s@]+\.[^\s@]+$')
+    var re = /\S+@\S+\.\S+/;
     return re.test(input);
+  }
+
+  export const isString = (input) => {
+    if (typeof input === 'string' || input instanceof String){
+      return true;
+    }
+    return false;
   }
 }
 

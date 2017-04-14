@@ -35,6 +35,8 @@ interface MyProps {
   appConfig: any;
   leftIcon: any;
   flashMessage: {message: string, open: boolean};
+  appNameShort: string;
+  appNameLong: string;
 }
 
 interface MyState {
@@ -80,15 +82,15 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
   }
 
   render () {
-    const {categories,pathOnTouchTap,appConfig,leftIcon,flashMessage} = this.props;
+    const {categories,pathOnTouchTap,appConfig,leftIcon,flashMessage,appNameShort,appNameLong} = this.props;
     return (
        
         <div>
             <Helmet
-                    titleTemplate="%s - Drugs Module"
-                    defaultTitle="Alcohol and Drugs Module"
+                    titleTemplate={'%s - ' + appNameShort}
+                    defaultTitle={appNameLong}
                     meta={[
-                      { name: 'description', content: 'Alcohol and Drugs Module' },
+                      { name: 'description', content: appNameLong },
                     ]}
             />
             <AppBar

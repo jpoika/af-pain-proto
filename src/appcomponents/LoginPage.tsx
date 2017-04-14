@@ -7,11 +7,11 @@ export interface Props extends PageProps, LoginProps{
 export default class LoginPage extends React.Component<Props, any>{
   render(){
 
-    const {appBarTitle,page,title,onCancelClick} = this.props
+    const {appBarTitle,page,title,onCancelClick,validate} = this.props
 
     return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
 
-                    <LoginForm onCancelClick={onCancelClick} />
+                    <LoginForm validate={validate} onCancelClick={onCancelClick} />
                     
             </BasicPage>;
   }

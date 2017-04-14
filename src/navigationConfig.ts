@@ -76,15 +76,15 @@ export default {
   '11': {
     id: '11',
     name: 'Extras',
-    routes: [new RegExp('/main/mtracker')],
+    routes: [new RegExp('/main/extras')],
     level: 2,
-    pathname: '/main/mtracker',
+    pathname: '/main/extras',
     childrenIds: []
   },
   '12': {
     id: '12',
     name: 'Settings',
-    routes: [new RegExp('/main/extras')],
+    routes: [new RegExp('/main/settings')],
     level: 2,
     pathname: '/main/settings',
     childrenIds: []

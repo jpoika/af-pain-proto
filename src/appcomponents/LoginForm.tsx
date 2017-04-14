@@ -11,6 +11,7 @@ import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
 
 export interface Props {
   onCancelClick(Event: any): any;
+  validate(data: any): {isValid: boolean,errors: any}
 }
 
 export interface State {
@@ -45,10 +46,17 @@ export default class LoginForm extends React.Component<Props, State>{
   }
 
   handleSubmit = (event) => {
-
-    
+    const {validate} = this.props;
+    const result = validate(this.state.values);
+    console.log(result);
+    if(!result.isValid){
+      this.setState({
+        errors: result.errors
+      });
+    }
     event.preventDefault();
   }
+
   excuseKeyboard = (event) => {
       event.target.focus();
   }

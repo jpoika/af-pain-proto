@@ -21,7 +21,9 @@ interface Props {
   pathOnTouchTap(path:string): any
   appConfig: any;
   parentRoute: any;
-  flashMessage: {message: string, open: boolean}
+  flashMessage: {message: string, open: boolean};
+  appNameShort: string;
+  appNameLong: string;
 }
 
 interface State {
@@ -95,10 +97,10 @@ const backIcon = (path) => {
 class AppContainer extends React.Component<Props, State>{
   render(){
     
-    const {menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage} = this.props;
+    const {menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong} = this.props;
 
     const leftIcon = !parentRoute ? createMenuItems(menuItems,pathOnTouchTap) : backIcon(parentRoute.pathname) ;
-    return <AppBarPage leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage}>
+    return <AppBarPage leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage} appNameShort={appNameShort} appNameLong={appNameLong}>
               {this.props.children}
            </AppBarPage>
   }
@@ -112,7 +114,9 @@ const stateToProps = (state) => {
       parentSite: 'http://afterdeployment.dcoe.mil'
     },
     parentRoute: state.navigation.paths.parent,
-    flashMessage: state.view.flash
+    flashMessage: state.view.flash,
+    appNameShort: 'Pain Proto',
+    appNameLong: 'Air Force Pain Proto'
   }
 }
 const dispatchToProps = (distatch,ownProps) => {
