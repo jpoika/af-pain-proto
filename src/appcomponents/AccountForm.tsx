@@ -7,13 +7,15 @@ import DatePicker from 'material-ui/DatePicker';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {Transforms,Validators} from '../lib/helpers';
 //import {Transforms,Validators} from '../lib/helpers';
 import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
-
+import {AccountInterface} from '../res/data/account'
 
 export interface Props {
   validate(data: any): {isValid: boolean,errors: any};
   genders: {id: any, name: any}[];
+  savedAccount: AccountInterface;
 }
 
 export interface AccountFormInterface {
@@ -32,14 +34,9 @@ export interface State {
 export default class LoginForm extends React.Component<Props, State>{
   constructor (props) {
     super(props);
+    console.log(props.savedAccount);
     this.state = {
-      values: {
-        firstname: '',
-        lastname: '',
-        middlename: '',
-        gender: null,
-        dob: null,
-      },
+      values: {...props.savedAccount},
       errors: {
         firstname: '',
         lastname: '',
@@ -80,7 +77,15 @@ export default class LoginForm extends React.Component<Props, State>{
       } as any);
     }
   }
+  handleDateChange = (name) => {
+    return (event, date) => {
 
+      this.setState({
+        values: {...this.state.values,[name]: Transforms.dateToMS(date,null)},
+        errors: {...this.state.errors,[name]: ''}
+      } as any);
+    }
+  }
 
   excuseKeyboard = (event) => {
       event.target.focus();
@@ -142,6 +147,18 @@ export default class LoginForm extends React.Component<Props, State>{
           })}
           
         </SelectField>
+        </div>
+        <div>
+            <DatePicker 
+                value={Transforms.msToDate(this.state.values.dob)}
+                floatingLabelText={'Date of Birth'}
+                locale={'en-US'}
+                firstDayOfWeek={0}
+                errorText={this.state.errors.dob}
+                onChange={this.handleDateChange('dob')}
+                onTouchTap={this.excuseKeyboard}
+                name='dob'
+                autoOk={false} />
         </div>
         <div style={flexParentRowStyle as any}>
           <div style={flexRowItemStyle as any}>

@@ -3,7 +3,6 @@ export enum GenderEnum {
   Female
 }
 
-console.log(GenderEnum);
 export const GenderList = [
   {id: GenderEnum.Male, name: GenderEnum[GenderEnum.Male]},
   {id: GenderEnum.Female, name: GenderEnum[GenderEnum.Female]}

@@ -3,6 +3,7 @@ import Home from './containers/Home';
 import Login from './containers/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
+import SplashPage from './components/SplashPage';
 import Debug from './containers/Debug';
 import PageContainer from './containers/Main';
 import * as React from 'react';
@@ -13,20 +14,41 @@ import {Router, hashHistory} from 'react-router';
 import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
 import {registerPromise,appMiddleware} from 'local-t2-sw-redux';
-import { createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware, compose} from 'redux'
 import reducer from './reducers';
 import {asynRouteMaker,syncRoute} from './lib/helpers';
 import {windowResize} from './actions/device';
 import navigationConfig from './navigationConfig';
+import * as localForage from 'localforage'
+import createMigration from 'redux-persist-migrate';
+import {persistStore, autoRehydrate, purgeStoredState, getStoredState} from 'redux-persist';
+let reducerKey = 'migrations'; // name of the migration reducer
+
+const manifest = {
+  '00001': (state) => ({...state, navigation: undefined}),
+};
 
 
+
+const storageConfig = {
+  keyPrefix: 'reduxPresistPainProto',
+  storage: localForage
+};
+
+
+
+
+ 
+const migration = createMigration(manifest, reducerKey);
+const persistEnhancer = compose(migration, autoRehydrate());
 let store = createStore(reducer,
     applyMiddleware(
         routerMiddleware(hashHistory),
         thunkMiddleware,
         navigationCreateMiddleware(navigationConfig),
         appMiddleware({url: 'http://localhost:3014/version.json',interval: 30000})
-      )
+      ),
+    persistEnhancer as any
   );
 
 var _timeOutResizeId = null;
@@ -119,7 +141,25 @@ interface MyState {
 }
 
 export default class AppProvider extends React.Component<MyProps,  MyState>{
+  constructor(store){
+    super(store);
+    this.state = {
+      rehydrated: false
+    }
+  }
+  componentWillMount () { // only called on first load or hard browser refresh
+
+    persistStore(store, storageConfig, (err,state) => {
+
+        this.setState({ rehydrated: true });
+    });
+  }
+
+
   render(){
+   if(!this.state.rehydrated){
+     return <Theme><SplashPage /></Theme>
+   }
    return (
             <Provider store={store}>
               <Router history={history} routes={siteRoutes} />
