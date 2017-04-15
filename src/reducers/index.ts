@@ -19,7 +19,7 @@ const defaultUser = {
 }
 
 const user = (state: any = defaultUser, action: any) => {
-  console.log(state,action)
+
   switch(action.type){
     case FLAG_AS_AUTHENTICATED:
       state = {...state,authenticated: true};

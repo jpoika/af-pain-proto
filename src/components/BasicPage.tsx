@@ -20,13 +20,13 @@ export default class BasicPage extends React.Component<Props, State> {
     componentWillMount () {
       const {title} = this.props;
 
-      this.props.appBarTitle(title);
+      this.props.appBarTitle && this.props.appBarTitle(title);
     }
 
     componentWillReceiveProps(nextProps) {
       const {title} = nextProps;
  
-      this.props.appBarTitle(title);
+      this.props.appBarTitle && this.props.appBarTitle(title);
     }
     //<CardTitle title={subtitle} />
     render() {

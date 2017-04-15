@@ -111,6 +111,7 @@ const quickRoutes = [
 
 const mainSubRoutes = [
   asyncRoute('settings',System.import('./containers/Account')),
+  asyncRoute('assessment-start',System.import('./containers/AssessWizard'))
 ];
 
 
