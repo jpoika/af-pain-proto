@@ -25,17 +25,15 @@ import {persistStore, autoRehydrate, purgeStoredState, getStoredState} from 'red
 let reducerKey = 'migrations'; // name of the migration reducer
 
 const manifest = {
-  '00001': (state) => ({...state, navigation: undefined}),
+  '9': (state) => ({...state, painLevels: undefined})
 };
 
-
-
+//const migration = createMigration(manifest, reducerKey);
+//const persistEnhancer = compose(migration, autoRehydrate());
 const storageConfig = {
   keyPrefix: 'reduxPresistPainProto',
   storage: localForage
 };
-
-
 
 
  
@@ -46,7 +44,7 @@ let store = createStore(reducer,
         routerMiddleware(hashHistory),
         thunkMiddleware,
         navigationCreateMiddleware(navigationConfig),
-        appMiddleware({url: 'http://localhost:3014/version.json',interval: 30000})
+        appMiddleware({url: '',interval: 30000})
       ),
     persistEnhancer as any
   );

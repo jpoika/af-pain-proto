@@ -3,6 +3,7 @@ import BasicPage, {Props as PageProps} from '../components/BasicPage';
 import AccountContainer  from '../containers/Account';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
+import MedicationsList  from '../containers/MedicationsList';
 import {
   Step,
   Stepper,
@@ -54,28 +55,39 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
     }
   };
 
-  renderStepActions = (step) => {
+  renderBackButton = (step) => {
     const {stepIndex,maxSteps} = this.props;
+     return <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              disableTouchRipple={true}
+              disableFocusRipple={true}
+              onTouchTap={this.handlePrev}
+            />;
+  }
 
+  renderStepActions = (step, backOnly=false) => {
+    const {stepIndex,maxSteps} = this.props;
+    const backButton = this.renderBackButton(step);
     return (
       <div style={{margin: '12px 0'}}>
-        <RaisedButton
+
+        {!backOnly && <RaisedButton
           label={stepIndex === (maxSteps - 1) ? 'Finish' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
           onTouchTap={this.handleNext}
           style={{marginRight: 12}}
-        />
+        />}
         {step > 0 && (
-
           <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            onTouchTap={this.handlePrev}
-          />
+              label="Back"
+              disabled={stepIndex === 0}
+              disableTouchRipple={true}
+              disableFocusRipple={true}
+              onTouchTap={this.handlePrev}
+            />
         )}
 
 
@@ -108,32 +120,31 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel title={'Curren Pain Level'} assessmentId={1} categoryId={1} />
-                 {this.renderStepActions(2)}
+                 <OverallPainLevel actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={1} categoryId={1} />
+                 
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Acceptable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel title={'Acceptable Pain Level'} assessmentId={1} categoryId={2} />
-                 {this.renderStepActions(3)}
+                 <OverallPainLevel actions={this.renderBackButton(3)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={1} categoryId={2} />
+                 
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel title={'Tolerable Pain Level'} assessmentId={1} categoryId={3} />
-                 {this.renderStepActions(4)}
+                 <OverallPainLevel actions={this.renderBackButton(4)} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={1} categoryId={3} />
+                 
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
-                 <h2>Current Medications</h2>
-                 {this.renderStepActions(5)}
+                  <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
                 </StepContent>
               </Step>
 
