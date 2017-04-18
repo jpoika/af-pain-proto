@@ -4,17 +4,19 @@ import { assessSetOverallPain } from '../actions/assessment';
 import {PainLevelInterface} from '../res/data/pain';
 
 const getSavedPain= (assessmentId, painCategoryId, state) => {
-  const {assessments, bodySectionIds} = state;
+  const {assessments, bodySectionIds,painLevels} = state;
+  const defaultPainLevelId = 1;
   if(!assessmentId){
-    return 0;
+    return painLevels[defaultPainLevelId];
   }
   if(typeof assessments[assessmentId] === 'undefined'){
-    return 0;
+    return painLevels[defaultPainLevelId];
   }
   if(typeof assessments[assessmentId].painLevels[painCategoryId] === 'undefined'){
-    return 0;
+    return painLevels[defaultPainLevelId];
   }
-  return assessments[assessmentId].painLevels[painCategoryId];
+  let painLevelId = assessments[assessmentId].painLevels[painCategoryId];
+  return painLevels[painLevelId];
 }
 
 
