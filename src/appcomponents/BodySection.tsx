@@ -1,13 +1,17 @@
 import * as React from "react";
-import PainSelector, {Props as PainSelectProps} from './PainSelector';
+import {BodySectionInterface} from '../res/data/body';
+import {PainLevelInterface} from '../res/data/pain';
+import PainSelectorDialog from './PainSelectorDialog';
 export interface Props{
-  image: string;
-  id?: string;
+  section: BodySectionInterface
+  markPain(sectionId: number, painLevelId: number): any;
+  assessmentId: number;
+  savedPain: PainLevelInterface;
 }
 
 export interface State{
   selected: boolean;
-  painLevel: number;
+  painLevel: PainLevelInterface;
 }
 
 import Dialog from 'material-ui/Dialog';
@@ -21,88 +25,13 @@ import RaisedButton from 'material-ui/RaisedButton';
  * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
  */
 
-export interface DialogProps extends PainSelectProps{
-  open: boolean;
-  handleClose(): any;
-}
-export interface DialogState{
-  open: boolean;
-  painLevel: 0;
-}
-class BodySectionDialog extends React.Component<any, any> {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      open: this.props.open,
-      painLevel: 0
-    }
-  }
-
-  componentWillReceiveProps = (nextProps)=> {
-
-      this.setState(
-        {
-          open: nextProps.open
-        }
-      ) 
-
-  }
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    const {handleClose} = this.props;
-    handleClose();
-    this.setState({open: false});
-  };
-
-  handleSelect = (painLevel) => {
-    
-    this.setState({
-      painLevel: painLevel
-    });
-    const {selectPain} = this.props;
-    selectPain(painLevel);
-    this.handleClose();
-    
-  }
-
-  render() {
-    
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />
-    ];
-
-    return (
-      <div>
-        <Dialog
-          title="Dialog With Actions"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-         <PainSelector selectPain={this.handleSelect} /> 
-        </Dialog>
-      </div>
-    );
-  }
-}
-
 
 export default class BodySection extends React.Component<Props, State>{
   constructor(props){
     super(props);
     this.state = {
       selected: false,
-      painLevel: 0
+      painLevel: props.savedPain
     }
   }
 
@@ -114,7 +43,9 @@ export default class BodySection extends React.Component<Props, State>{
   }
 
   handleSelectPain = (painLevel) => {
-    console.log(painLevel)
+
+    const {section,markPain} = this.props;
+    markPain(section.id,painLevel);
     this.setState({
       painLevel: painLevel,
       selected: false
@@ -126,15 +57,36 @@ export default class BodySection extends React.Component<Props, State>{
       selected: false
     });
   }
-
+  handlePainColor = () => {
+    const {painLevel} = this.state;
+    if(painLevel.level === 0){
+      return '#000000'
+    }
+    if(painLevel.level < 3){
+      return '#3C9344';
+    }
+    if(painLevel.level < 5){
+      return '#8FB545';
+    }
+    if(painLevel.level < 7){
+      return '#EAD23A';
+    }
+    if(painLevel.level < 9){
+      return '#D67034';
+    }
+    return '#A12629';
+  }
   render(){
-    const {image,id} = this.props;
-
+    const {section} = this.props;
+    let imageStyles = {opacity: this.state.painLevel.level > 0 ? 0.5 : 1};
+    if(this.state.painLevel.level > 0){
+      //imageStyles['border'] = '1px solid black';
+    }
     return (
       <div style={{position: 'relative'}}>
-          {this.state.painLevel > 0 && <div style={{fontSize: '4em',position: 'absolute',top: '20px', left: '10px'}}>{this.state.painLevel}</div>}
-          <img style={{opacity: this.state.painLevel > 0 ? 0.5 : 1}} onClick={this.handleClick} src={image}  id={id} />
-          <BodySectionDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} /> 
+          {this.state.painLevel.level > 0 && <div style={{color: this.handlePainColor(), fontSize: '4em',position: 'absolute',top: '40px', left: '24px'}}>{this.state.painLevel.level}</div>}
+          <img style={imageStyles} onClick={this.handleClick} src={section.image}  key={section.id} />
+          <PainSelectorDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} /> 
       </div>
       )
     

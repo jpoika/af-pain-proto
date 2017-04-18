@@ -1,12 +1,15 @@
 import * as React from "react";
-
+import {PainLevelInterface} from '../res/data/pain';
 export interface Props {
-  selectPain(painLevel: number);
+  selectPain(painLevel: PainLevelInterface);
+  painLevels: any[];
 }
-
+const getPainColumn = (level,width,selectPain) => {
+  return <td><img src={level.image} onClick={selectPain(level)} width={width} height="16" /></td>;
+}
 export default class PainSelector extends React.Component<Props, any>{
 
-  selectPain = (pain: number) => {
+  selectPain = (pain: PainLevelInterface) => {
     const {selectPain} = this.props;
     return (event) => {
      
@@ -17,23 +20,25 @@ export default class PainSelector extends React.Component<Props, any>{
 
 
   render(){
-
+    const {painLevels} = this.props;
     return <div>
-      <h3>Pain Select</h3>
+      <h3>Select Your Pain Level from the Graphic Below</h3>
           <table cellPadding={0} cellSpacing={0}>
             <tbody>
               <tr>
-                  <td><img src={require('../res/images/scale_0.jpg')} onClick={this.selectPain(0)} width="36" height="16" /></td>
-                  <td><img src={require('../res/images/scale_1.jpg')} onClick={this.selectPain(1)} width="35" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_2.jpg')} onClick={this.selectPain(2)} width="32" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_3.jpg')} onClick={this.selectPain(3)} width="32" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_4.jpg')} onClick={this.selectPain(4)} width="34" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_5.jpg')} onClick={this.selectPain(5)} width="31" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_6.jpg')} onClick={this.selectPain(6)} width="33" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_7.jpg')} onClick={this.selectPain(7)} width="31" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_8.jpg')} onClick={this.selectPain(8)} width="32" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_9.jpg')} onClick={this.selectPain(9)} width="34" height="16"  /></td>
-                  <td><img src={require('../res/images/scale_10.jpg')} onClick={this.selectPain(10)} width="30" height="16"   /></td>
+                 {getPainColumn(painLevels[0],'36',this.selectPain)}
+                 {getPainColumn(painLevels[1],'35',this.selectPain)}
+                 {getPainColumn(painLevels[2],'32',this.selectPain)}
+                 {getPainColumn(painLevels[3],'32',this.selectPain)}
+                 {getPainColumn(painLevels[4],'34',this.selectPain)}
+                 {getPainColumn(painLevels[5],'31',this.selectPain)}
+                 {getPainColumn(painLevels[6],'33',this.selectPain)}
+                 {getPainColumn(painLevels[7],'31',this.selectPain)}
+                 {getPainColumn(painLevels[8],'32',this.selectPain)}
+                 {getPainColumn(painLevels[9],'34',this.selectPain)}
+                 {getPainColumn(painLevels[10],'30',this.selectPain)}
+      
+
               </tr>
               </tbody>
             </table>

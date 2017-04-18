@@ -113,18 +113,6 @@ export default class LoginForm extends React.Component<Props, State>{
         </div>
         <div>
         <TextField 
-              floatingLabelText={'Last Name'} 
-              hintText={''} 
-              multiLine={false}
-              name='lastname'
-              value={this.state.values.lastname}
-              fullWidth={true}
-              onChange={this.handleChange}
-              //ref={(input) => { (this as any).textInput = input; }}
-              errorText={this.state.errors.lastname} />
-        </div>
-        <div>
-        <TextField 
               floatingLabelText={'Middle Name'} 
               hintText={''} 
               multiLine={false}
@@ -134,6 +122,18 @@ export default class LoginForm extends React.Component<Props, State>{
               onChange={this.handleChange}
               //ref={(input) => { (this as any).textInput = input; }}
               errorText={this.state.errors.middlename} />
+        </div>
+        <div>
+        <TextField 
+              floatingLabelText={'Last Name'} 
+              hintText={''} 
+              multiLine={false}
+              name='lastname'
+              value={this.state.values.lastname}
+              fullWidth={true}
+              onChange={this.handleChange}
+              //ref={(input) => { (this as any).textInput = input; }}
+              errorText={this.state.errors.lastname} />
         </div>
         <div>
         <SelectField

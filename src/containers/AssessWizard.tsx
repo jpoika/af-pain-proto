@@ -3,20 +3,21 @@ import AssessWizard from '../appcomponents/InitialAssessWizard';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers';
+import {assessMoveStep} from '../actions/assessment';
+
 
 const stateToProps = (state, ownProps) => {
 
   return {
     title: 'Home',
     page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
-    stepIndex: 0
+    stepIndex: state.initialAssessment.step,
+    maxSteps: 6
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    selectPain: (painLevel: number) => {
-      console.log(painLevel);
-    }
+    nextStep: (step: number) => dispatch(assessMoveStep(step))
   }
 }
 export default connect(stateToProps,dispatchToProps)

@@ -5,7 +5,10 @@ import {appReducer} from 'local-t2-sw-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
 import {viewReducer} from '../lib/local-t2-view';
 import {FLAG_AS_AUTHENTICATED,FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
-
+import {ASSESS_MOVE_STEP} from '../actions/assessment';
+import { normalize, schema } from 'normalizr';
+import {bodySectionList} from '../res/data/body';
+import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds} from './assessments'
 
 const defaultUser = {
   status: 0,
@@ -43,6 +46,19 @@ const user = (state: any = defaultUser, action: any) => {
   return state;
 }
 
+const defaultInitAssess = {
+  step: 0
+}
+
+const initialAssessment = (state = defaultInitAssess, action: any) => {
+  switch (action.type) {
+    case ASSESS_MOVE_STEP:
+      state = {...state, step: action.stepIndex}
+      break;
+  }
+  return state;
+}
+
 
 const appHub = combineReducers({
   routing: routerReducer,
@@ -50,7 +66,14 @@ const appHub = combineReducers({
   device,
   app: appReducer,
   navigation: navigationReducer,
-  view: viewReducer
+  view: viewReducer,
+  initialAssessment,
+  bodySections,
+  bodySectionIds,
+  assessments,
+  assessmentIds,
+  painLevels,
+  painLevelIds
 });
 
 export default appHub;

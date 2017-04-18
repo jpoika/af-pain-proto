@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers'
 import {flagUserAuthenticated,updateAccountInfo} from '../actions';
 import {GenderList,AccountInterface} from '../res/data/account'
+import {assessMoveStep} from '../actions/assessment';
 
 const validateData = (data) => {
    let isValid = true;
@@ -18,7 +19,7 @@ const validateData = (data) => {
          acc[propName] = !Validators.isString(data[propName]) || !data[propName].length ? 'Required.' : '';
          break; 
        case 'middlename':
-         acc[propName] = !Validators.isString(data[propName]) || !data[propName].length ? 'Required.' : '';
+         acc[propName] = ''; //not required
          break;
        case 'dob':
          acc[propName] = !Validators.isNumeric(data[propName]) || data[propName] === -1? 'Please enter a valid Date of Birth' : '';
@@ -62,6 +63,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       const result = validateData(data);
       if(result.isValid){
         dispatch(updateAccountInfo(data));
+        dispatch(assessMoveStep(1));
       }
       return result;
     }
