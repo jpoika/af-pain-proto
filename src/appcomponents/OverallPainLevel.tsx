@@ -19,6 +19,7 @@ export interface Props {
 
 export interface State {
   painLevel: PainLevelInterface;
+  isSaved: boolean;
 }
 
 
@@ -33,13 +34,15 @@ export default class OverallPain extends React.Component<Props, State>{
   constructor(props){
     super(props);
     this.state = {
-      painLevel: this.props.painLevel
+      painLevel: this.props.painLevel,
+      isSaved: this.props.isSaved
     }
   }
 
   handleSelectPain = (painLevel:PainLevelInterface) => {
     this.setState({
-      painLevel: painLevel
+      painLevel: painLevel,
+      isSaved: true //well not necessarily saved //TODO change name to ?isDirty?
     });
   }
 
@@ -50,8 +53,8 @@ export default class OverallPain extends React.Component<Props, State>{
   }
 
   render(){
-    const {title,isSaved,step,actions} = this.props;
-    const {painLevel} = this.state;
+    const {title,step,actions} = this.props;
+    const {painLevel,isSaved} = this.state;
     let additionalActions = null
     if(actions){
       additionalActions = actions;

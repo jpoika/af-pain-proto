@@ -5,7 +5,7 @@ export interface Props {
   painLevels: any[];
 }
 const getPainColumn = (level,width,selectPain) => {
-  return <td><img src={level.image} onClick={selectPain(level)} width={width} height="16" /></td>;
+  return <td key={level.id}><img src={level.image}  onClick={selectPain(level)} width={width} height="16" /></td>;
 }
 export default class PainSelector extends React.Component<Props, any>{
 
