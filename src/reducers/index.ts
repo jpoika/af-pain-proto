@@ -11,7 +11,8 @@ import {ASSESS_MOVE_STEP, ASSESS_MOVE_STEP_IF_NEXT} from '../actions/assessment'
 import { normalize, schema } from 'normalizr';
 import {bodySectionList} from '../res/data/body';
 import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds} from './assessments';
-import {medications, medicationIds} from './medications';
+import {medications, medicationIds} from './medication';
+import {allergies, allergyIds} from './allergy';
 
 const defaultUser = {
   status: 0,
@@ -87,7 +88,9 @@ const appHub = combineReducers({
   painLevelIds,
   migrations,
   medications,
-  medicationIds
+  medicationIds,
+  allergies,
+  allergyIds
 });
 
 export default appHub;

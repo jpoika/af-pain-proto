@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers'
 import {flagUserAuthenticated,updateAccountInfo} from '../actions';
 import {GenderList,AccountInterface} from '../res/data/account'
-import {assessMoveStepIfNext} from '../actions/assessment';
+import {assessMoveStep} from '../actions/assessment';
 
 const validateData = (data) => {
    let isValid = true;
@@ -63,7 +63,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       const result = validateData(data);
       if(result.isValid){
         dispatch(updateAccountInfo(data));
-        dispatch(assessMoveStepIfNext(1));
+        dispatch(assessMoveStep(1));
       }
       return result;
     }

@@ -11,7 +11,8 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch) => {
   return {
-    addMedication: () => dispatch(medicationAddBlank())
+    addMedication: () => dispatch(medicationAddBlank()),
+    deleteMedication: (id: number) => dispatch(medicationRemove(id))
   }
 }
 export default connect(stateToProps,dispatchToProps)

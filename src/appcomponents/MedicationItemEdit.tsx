@@ -5,22 +5,27 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
-
+import {flexParentRowStyle, flexRowItemStyle} from '../components/commonStyles';
 export interface Props{
   medication: MedicationInterface;
   update(medication: MedicationInterface): any;
   deleteItem(medicationId: number): any;
-  validate(data: any): any;
+  validate(data: MedicationInterface): any;
+  onSave?(medication: MedicationInterface): any
+  routes: {id: number, name: string, description: string}[],
+  amountUnits: {id: number, name: string, description: string}[],
+  frequencyUnits: string[]
 }
 
 export interface State{
   values: any;
   errors: any;
+  mode: number; //0 view 1//edit
 }
 
 function normalizeValues(medication: MedicationInterface){
   let medValues = {...medication};
-  delete medValues[medication.id];
+  //delete medValues[medication.id];
   return medValues;
 }
 
@@ -37,12 +42,16 @@ function normalizeErrors(medication: MedicationInterface){
 }
 
 export default class MedicationItem extends React.Component<Props, State>{
+ public static defaultProps: Partial<Props> = {
+      onSave: () => {}
+  };
   constructor (props) {
     super(props);
 
     this.state = {
       values: normalizeValues(this.props.medication),
-      errors: normalizeErrors(this.props.medication)
+      errors: normalizeErrors(this.props.medication),
+      mode: this.props.medication.name ? 1 : 0
     };
   }
 
@@ -51,7 +60,7 @@ export default class MedicationItem extends React.Component<Props, State>{
     deleteItem(medication.id);
   }
 
-  handleUpdate = (event) => {
+  handleUpdate = (data) => {
     //const {deleteItem,medication} = this.props;
     //deleteItem(medication.id);
   }
@@ -67,14 +76,21 @@ export default class MedicationItem extends React.Component<Props, State>{
   }
 
   handleSubmit = (event) => {
-    const {validate} = this.props;
-    const result = validate(this.state.values);
 
+     const {validate,update,onSave} = this.props;
+     console.log(this.state.values);
+ 
+    const result = validate(this.state.values);
+   
     if(!result.isValid){
       this.setState({
         errors: result.errors
       });
+    }else{
+      onSave(this.state.values);
+      update(this.state.values);
     }
+    
     event.preventDefault();
   }
 
@@ -88,10 +104,24 @@ export default class MedicationItem extends React.Component<Props, State>{
   }
 
   render(){
-    const {medication} = this.props;
+    const {medication,amountUnits,frequencyUnits,routes} = this.props;
     const {values,errors} = this.state;
-    return <Paper style={{padding: '5px', width: '90%',marginBottom: '15px',marginLeft: '10px'}}>
+    return <Paper style={{padding: '5px', width: '97%',marginBottom: '15px',marginLeft: '10px'}}>
+            <form onSubmit={this.handleSubmit}>
             <div>
+            <div>
+              <SelectField
+                floatingLabelText="Method of intake"
+                errorText={this.state.errors.routeId} 
+                value={this.state.values.routeId}
+                onChange={this.handleSelectChange('routeId')}
+              >
+                {routes.map((ru) => {
+                  return <MenuItem key={ru.id} value={ru.id} primaryText={ru.name} />
+                })}
+                
+              </SelectField>
+            </div>
             <TextField 
                   floatingLabelText={'Perscription name'} 
                   hintText={''} 
@@ -109,14 +139,26 @@ export default class MedicationItem extends React.Component<Props, State>{
                   floatingLabelText={'Amount'} 
                   hintText={'Numbers Only Please'} 
                   multiLine={false}
-                  name='name'
+                  name='amount'
                   value={values.amount}
              
                   onChange={this.handleChange}
                   //ref={(input) => { (this as any).textInput = input; }}
                   errorText={errors.amount} />
             </div>
-
+            <div>
+              <SelectField
+                floatingLabelText="Amount Unit"
+                errorText={this.state.errors.amountUnitId} 
+                value={this.state.values.amountUnitId}
+                onChange={this.handleSelectChange('amountUnitId')}
+              >
+                {amountUnits.map((au) => {
+                  return <MenuItem key={au.id} value={au.id} primaryText={au.name} />
+                })}
+                
+              </SelectField>
+            </div>
             <div>
             <TextField 
                   floatingLabelText={'Frequency'} 
@@ -130,7 +172,28 @@ export default class MedicationItem extends React.Component<Props, State>{
                   errorText={errors.frequency} />
 
             </div>
-            <RaisedButton onTouchTap={this.handleDelete}>Delete</RaisedButton>
+            <div>
+              <SelectField
+                floatingLabelText="Frequency Unit"
+                errorText={this.state.errors.frequencyUnit} 
+                value={this.state.values.frequencyUnit}
+                onChange={this.handleSelectChange('frequencyUnit')}
+              >
+                {frequencyUnits.map((fu) => {
+                  return <MenuItem key={fu} value={fu} primaryText={fu} />
+                })}
+                
+              </SelectField>
+            </div>
+            <div style={flexParentRowStyle as any}>
+              <div style={flexRowItemStyle as any}>
+                <RaisedButton primary={true} type="submit">Save</RaisedButton>
+              </div>
+              <div style={flexRowItemStyle as any}>
+                <RaisedButton onTouchTap={this.handleDelete}>Delete</RaisedButton>
+              </div>
+            </div>
+            </form>
           </Paper>
               
   }

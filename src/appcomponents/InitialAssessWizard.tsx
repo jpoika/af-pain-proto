@@ -4,6 +4,7 @@ import AccountContainer  from '../containers/Account';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
+import AllergiesManager  from '../containers/AllergiesManager';
 import {
   Step,
   Stepper,
@@ -97,7 +98,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
 
   render(){
 
-    const {appBarTitle,page,title} = this.props
+    const {appBarTitle,page,title, maxSteps} = this.props
 
     return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
@@ -148,8 +149,15 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                 </StepContent>
               </Step>
 
+              <Step>
+                <StepLabel>Allergies</StepLabel>
+                <StepContent>
+                  <AllergiesManager actions={this.renderBackButton(5)} onComplete={this.handleNext}  />
+                </StepContent>
+              </Step>
+
              </Stepper>
-        {this.props.stepIndex > 5 && (
+        {this.props.stepIndex >= maxSteps && (
           
           <RaisedButton
                 label="Start Over"

@@ -29,7 +29,7 @@ export const medicationEdit = (medication: MedicationInterface) => {
 
 export const medicationAddBlank = () => {
   return (dispatch,getState) => {
-      dispatch(medicationAdd(makeMedication(nextId(getState().medicationIds),'Test Test')));
+      dispatch(medicationAdd(makeMedication(nextId(getState().medicationIds),'')));
   }
 }
 

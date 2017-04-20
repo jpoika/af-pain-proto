@@ -11,6 +11,7 @@ export interface MedicationInterface {
 export interface MedicationRouteInterface {
   id: number;
   name: string;
+  description: string;
 }
 
 export interface AmountUnitInterface {
@@ -26,12 +27,12 @@ export const amountUnits:AmountUnitInterface[] = [
 ];
 
 export const routes:MedicationRouteInterface[] = [
-  {id: 1, name: "RA"},
-  {id: 2, name: "Oral"},
-  {id: 3, name: "IV/IM"},
-  {id: 4, name: "Topical"},
-  {id: 5, name: "PCA"},
-  {id: 6, name: "Other"} 
+  {id: 1, name: "RA", description: ''},
+  {id: 2, name: "Oral", description: ''},
+  {id: 3, name: "IV/IM", description: ''},
+  {id: 4, name: "Topical", description: ''},
+  {id: 5, name: "PCA", description: ''},
+  {id: 6, name: "Other", description: ''} 
 ]
 
 export const frequencyUnits = [
@@ -43,18 +44,18 @@ export const frequencyUnits = [
 export const makeMedication = (
                   id: number,
                   name: string, 
-                  amount: number = null,
-                  amountUnitId: number = null, 
-                  routeId: number = null,
-                  frequency: number = null,
+                  amount: number = 0,
+                  amountUnitId: number = 0, 
+                  routeId: number = 0,
+                  frequency: number = 0,
                   frequencyUnit: string = ''
             ):MedicationInterface => {
             return {
               id,
               name,
               amount,
-              amountUnitId:  null,
-              routeId: null,
+              amountUnitId,
+              routeId,
               frequency,
               frequencyUnit
             }
