@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import { medicationAddBlank,medicationRemove,medicationEdit} from '../actions/medication';
 import {Validators} from '../lib/helpers'
+import {viewActions} from '../lib/local-t2-view';
 
 const validateData = (data) => {
    let isValid = true;
@@ -53,6 +54,12 @@ const dispatchToProps = (dispatch) => {
     validate: (data: MedicationInterface) => {
       const result = validateData(data);
       console.log(result);
+      if(result.isValid){
+          dispatch(viewActions.sendMessage('Medication Saved'));
+      } else {
+        dispatch(viewActions.sendMessage('Please correct any errors above'));
+      }
+      
       return result;
     }
   }

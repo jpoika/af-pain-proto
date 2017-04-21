@@ -2,6 +2,7 @@
 const categories = [
   {id: 8, title: 'Intro', path: '/', featured: true, img: ''},
   {id: 7, title: 'Home', path: '/main', featured: true, img: ''},
+  {id: 11, title: 'Account Home', path: '/main/account-home', featured: true, img: ''},
   {id: 1, title: 'Initial Assessment',  path: '/main/assessment-start', featured: true, img: ''},
   {id: 2, title: 'Pain Education & Resources',  path: '/main/resources', featured: false, img: ''},
   {id: 3, title: 'Progress & Assessment',  path: '/main/progress', featured: false, img: ''},
@@ -19,7 +20,8 @@ const categoriesMap = categories.reduce((acc,cat) => {
 
 export const mainMenu = [
     {id: 1, type: 'divider' , item: {}, children: []},
-    {id: 2, type: 'link' , item: categoriesMap[7], children: []},
+    {id: 2, type: 'nonauth_link' , item: categoriesMap[7], children: []},
+    {id: 2, type: 'auth_link' , item: categoriesMap[11], children: []},
     {id: 3, type: 'divider' , item: {}, children: []},
     {id: 4, type: 'link' , item: categoriesMap[1], children: []},
     {id: 5, type: 'link' , item: categoriesMap[2], children: []},

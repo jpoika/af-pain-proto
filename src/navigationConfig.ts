@@ -89,4 +89,12 @@ export default {
     pathname: '/main/settings',
     childrenIds: []
   },
+  '13': {
+    id: '13',
+    name: 'Account Home',
+    routes: [new RegExp('/main/account-home')],
+    level: 2,
+    pathname: '/main/account-home',
+    childrenIds: []
+  }
 };

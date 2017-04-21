@@ -1,6 +1,7 @@
 export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
 
+
 export const messageStart = (message) => {
   return {
     type: T2_APP_MESSAGE_START,

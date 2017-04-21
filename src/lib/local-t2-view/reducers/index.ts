@@ -1,5 +1,5 @@
 import {T2_APP_MESSAGE_CLEAR, T2_APP_MESSAGE_START} from '../actions';
-
+import {REHYDRATE} from 'redux-persist/constants'
 const defaultView = {
   flash: {
     message: '',
@@ -17,6 +17,7 @@ const view = (state = defaultView, action) => {
       state = {...state};
       break;
     case T2_APP_MESSAGE_CLEAR:
+    case REHYDRATE:
       state.flash = {...state.flash, message: '', open: false}
       state = {...state};
       break;

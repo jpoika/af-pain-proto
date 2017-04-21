@@ -1,6 +1,6 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import AccountContainer  from '../containers/Account';
+import AccountContainer  from '../containers/AccountEdit';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';

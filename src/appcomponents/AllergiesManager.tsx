@@ -93,7 +93,7 @@ export default class AllergiesManager extends React.Component<Props, State>{
     const addButtonText = allergies.length > 0  ? 'Add More': 'Add Allergy';
     return <div>
               <h1>Allergies</h1>
-              <h3>Please list any allergy you are taking.</h3>
+              <h3>Please list any allergies you have.</h3>
               <div style={styles.wrapper as any}>
                 {allergies.map((med) => {
                   return <AllergyChipViewItem key={med.id} onDelete={this.handleDeleteItem}  onSelect={this.handleSelect} allergy={med} />

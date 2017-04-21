@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import categoriesData,{mainMenu} from '../res/data/menus';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import {viewActions} from '../lib/local-t2-view';
+
 import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -24,26 +24,61 @@ interface Props {
   flashMessage: {message: string, open: boolean};
   appNameShort: string;
   appNameLong: string;
+  user: {authenticated: boolean}
 }
 
 interface State {
  
 }
-const subMenuItems = (menuItems,pathOnTouchTap) => {
-      return menuItems.length ? menuItems.map(menuItem => {
+
+const userMenuFilter = (items,user) => {
+  return items.filter((item) => {
+
+        switch(item.type){
+          case 'auth_link':
+            if(user.authenticated){
+              return false;
+            }
+            break;
+          case 'nonauth_link':
+            if(!user.authenticated){
+              return false;
+            }
+            break;
+        }
+        return true;
+
+  });
+}
+
+const makeLink = (user,menuItem,pathOnTouchTap) => {
+    if(menuItem.children.length){
+      return <MenuItem key={menuItem.id} menuItems={subMenuItems(user,menuItem.children,pathOnTouchTap)} primaryText={menuItem.item.title}  />;
+    }
+    return <MenuItem key={menuItem.id}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)}  />;
+}
+const subMenuItems = (user,menuItems,pathOnTouchTap) => {
+      console.log(menuItems);
+      var menuItemsFinal = menuItems.length ? userMenuFilter(menuItems,user).map(menuItem => {
 
         switch(menuItem.type){
           case 'divider':
             return <Divider key={menuItem.id} />;
+          case 'auth_link':
+            return <MenuItem key={menuItem.id} menuItems={subMenuItems(user,menuItem.children,pathOnTouchTap)}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)} />;
+          case 'nonauth_link':
+            return <MenuItem key={menuItem.id} menuItems={subMenuItems(user,menuItem.children,pathOnTouchTap)}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)} />;
           case 'link':
-            return <MenuItem key={menuItem.id} menuItems={subMenuItems(menuItem.children,pathOnTouchTap)}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)} />;
+            return <MenuItem key={menuItem.id} menuItems={subMenuItems(user,menuItem.children,pathOnTouchTap)}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)} />;
           case 'link_absolute':
             return <MenuItem key={menuItem.id} primaryText={menuItem.item.title} href={menuItem.item.path} />;
         }
 
       }) : null;
+      console.log(menuItemsFinal);
+      return menuItemsFinal;
 }
-const createMenuItems = (menuItems,pathOnTouchTap) => {
+const createMenuItems = (user, menuItems,pathOnTouchTap) => {
 
   const secretTap = (path) => {
     const tapMax = 3;
@@ -69,18 +104,19 @@ const createMenuItems = (menuItems,pathOnTouchTap) => {
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-          {menuItems.map(menuItem => {
+          {userMenuFilter(menuItems,user).map(menuItem => {
    
             switch(menuItem.type){
               case 'divider':
                 return <Divider key={menuItem.id} />;
               case 'link':
-                if(menuItem.children.length){
-                  return <MenuItem key={menuItem.id} menuItems={subMenuItems(menuItem.children,pathOnTouchTap)} primaryText={menuItem.item.title}  />;
-                }
-                return <MenuItem key={menuItem.id}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)}  />;
+                return makeLink(user,menuItem,pathOnTouchTap);
               case 'link_absolute':
                 return <MenuItem key={menuItem.id} primaryText={menuItem.item.title} href={menuItem.item.path} />;
+              case 'auth_link':
+                return makeLink(user,menuItem,pathOnTouchTap);
+              case 'nonauth_link':
+                return makeLink(user,menuItem,pathOnTouchTap);
             }
 
           })}
@@ -97,9 +133,9 @@ const backIcon = (path) => {
 class AppContainer extends React.Component<Props, State>{
   render(){
     
-    const {menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong} = this.props;
+    const {user, menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong} = this.props;
 
-    const leftIcon = !parentRoute ? createMenuItems(menuItems,pathOnTouchTap) : backIcon(parentRoute.pathname) ;
+    const leftIcon = !parentRoute ? createMenuItems(user, menuItems,pathOnTouchTap) : backIcon(parentRoute.pathname) ;
     return <AppBarPage leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage} appNameShort={appNameShort} appNameLong={appNameLong}>
               {this.props.children}
            </AppBarPage>
@@ -116,7 +152,8 @@ const stateToProps = (state) => {
     parentRoute: state.navigation.paths.parent,
     flashMessage: state.view.flash,
     appNameShort: 'Pain Proto',
-    appNameLong: 'Air Force Pain Proto'
+    appNameLong: 'Air Force Pain Proto',
+    user: state.user
   }
 }
 const dispatchToProps = (distatch,ownProps) => {
