@@ -11,6 +11,7 @@ import Toggle from 'material-ui/Toggle';
 import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
 import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
+import AlertNurseDialog from '../containers/AlertNurseDialog';
 //import SnackBarNotice from './SnackBarNoticeComponent';
 //import AppBarMenuIcon from './AppBarMenuIconDrawer';
 import HomeIcon from 'material-ui/svg-icons/action/home';
@@ -19,7 +20,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import {push, replace} from 'react-router-redux';
 import AppSnackBar from './AppSnackBar';
-
+import IconMenu from 'material-ui/IconMenu';
+import FlatButton from 'material-ui/FlatButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import PersionIcon from 'material-ui/svg-icons/social/person';
 //import {FlashMessageInterface} from './data/workbook';
 
 
@@ -37,6 +41,7 @@ interface MyProps {
   flashMessage: {message: string, open: boolean};
   appNameShort: string;
   appNameLong: string;
+  alertNurse(): any;
 }
 
 interface MyState {
@@ -44,6 +49,18 @@ interface MyState {
   open?: boolean
 }
 
+/*
+<FlatButton>
+           Alert Nurse
+              <PersionIcon />
+        </FlatButton> */
+
+const rightNurseIcon = (props) => {
+  const {alertNurse} = props;
+  return (<FlatButton onTouchTap={alertNurse} secondary={true} icon={<PersionIcon />} >
+           Alert Nurse
+          </FlatButton>);
+};
 
 
 export default class AppBarPage extends React.Component<MyProps, MyState>{
@@ -82,7 +99,7 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
   }
 
   render () {
-    const {categories,pathOnTouchTap,appConfig,leftIcon,flashMessage,appNameShort,appNameLong} = this.props;
+    const {categories,pathOnTouchTap,appConfig,leftIcon,flashMessage,appNameShort,appNameLong, alertNurse} = this.props;
     return (
        
         <div>
@@ -97,15 +114,16 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
                 title={this.state.title}
                 titleStyle={{textAlign: 'center'}}
                 iconElementLeft={leftIcon}
-               
+                iconElementRight={rightNurseIcon(this.props)}
                  />
                 <div style={{'padding': '5px'} as any}>
                   <div>
-                    {React.cloneElement((this.props as any).children, { appBarTitle: this.handleTitle, categories, pathOnTouchTap, appConfig: appConfig })}
+                    {React.cloneElement((this.props as any).children, { appBarTitle: this.handleTitle, categories, pathOnTouchTap, alertNurse, appConfig: appConfig })}
                   </div>
                 </div>
                 <AppSnackBar {...flashMessage} />
                 <AppSnackBarContainer />
+                <AlertNurseDialog />
                 {/*
                 <Eula />
                 <SnackBarNotice flash={flash} />

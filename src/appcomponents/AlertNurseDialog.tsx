@@ -6,26 +6,39 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 export interface Props{
   open: boolean;
+  closeNurseDialog(): any
 }
 export interface State{
-  open: boolean;
+
 }
 
 export default class AlertNurseDialog extends React.Component<Props, State>{
   constructor(props){
     super(props);
-    this.state = {
-      open: this.props.open
-    };
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    this.props.closeNurseDialog()
+  }
+  /*
+  shouldComponentUpdate(nextProps, nextState){
+    console.log(nextProps, nextState);
+    if(nextProps.open !== nextState.open){
+      return true;
+    }
+    return false;
+  }
+  */
+  componentWillReceiveProps(nextProps){
+
+    this.setState({
+      open: nextProps.open
+    });
   }
 
   render(){
 
-    const {open} = this.state;
+    const {open} = this.props;
 
     return (<div>
             <Dialog
@@ -34,7 +47,9 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
               open={open}
               onRequestClose={this.handleClose}
             >
-              <h3>Test Nurse</h3>
+              <h2>
+                Test Nurse
+              </h2>
               </Dialog>
             </div>);
   }

@@ -14,6 +14,8 @@ import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+import {alertNurse} from '../actions/nurse';
+
 interface Props {
   appBarTitle(msg: string): any;
   menuItems: any[];
@@ -25,6 +27,7 @@ interface Props {
   appNameShort: string;
   appNameLong: string;
   user: {authenticated: boolean}
+  alertNurse(): any;
 }
 
 interface State {
@@ -133,10 +136,10 @@ const backIcon = (path) => {
 class AppContainer extends React.Component<Props, State>{
   render(){
     
-    const {user, menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong} = this.props;
+    const {user, menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong,alertNurse} = this.props;
 
     const leftIcon = !parentRoute ? createMenuItems(user, menuItems,pathOnTouchTap) : backIcon(parentRoute.pathname) ;
-    return <AppBarPage leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage} appNameShort={appNameShort} appNameLong={appNameLong}>
+    return <AppBarPage alertNurse={alertNurse} leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage} appNameShort={appNameShort} appNameLong={appNameLong}>
               {this.props.children}
            </AppBarPage>
   }
@@ -156,7 +159,7 @@ const stateToProps = (state) => {
     user: state.user
   }
 }
-const dispatchToProps = (distatch,ownProps) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
     pathOnTouchTap: (path,preventDefault = true) => {
       return (event) => {
@@ -164,8 +167,12 @@ const dispatchToProps = (distatch,ownProps) => {
           event.preventDefault();
           event.stopPropagation();
         }
-        distatch(push(path));
+        dispatch(push(path));
       }
+    },
+    alertNurse: () => {
+      console.log("alerting nurse from Main.tsx");
+      dispatch(alertNurse())
     }
   }
 }

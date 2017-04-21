@@ -13,7 +13,7 @@ import {bodySectionList} from '../res/data/body';
 import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds} from './assessments';
 import {medications, medicationIds} from './medication';
 import {allergies, allergyIds} from './allergy';
-
+import {nurseSystem} from './nurse';
 const defaultUser = {
   status: 0,
   username: '',
@@ -90,7 +90,8 @@ const appHub = combineReducers({
   medications,
   medicationIds,
   allergies,
-  allergyIds
+  allergyIds,
+  nurseSystem
 });
 
 export default appHub;
