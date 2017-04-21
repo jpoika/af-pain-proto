@@ -62,8 +62,8 @@ export default {
     name: 'New Pain',
     routes: [new RegExp('/main/newpain')],
     level: 2,
-    pathname: '/main/assessment',
-    childrenIds: ['8']
+    pathname: '/main/newpain',
+    childrenIds: []
   },
   '8': {
     id: '8',
@@ -95,6 +95,6 @@ export default {
     routes: [new RegExp('/main/account-home')],
     level: 2,
     pathname: '/main/account-home',
-    childrenIds: []
+    childrenIds: ['8','12']
   }
 };

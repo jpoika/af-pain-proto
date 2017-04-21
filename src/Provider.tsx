@@ -111,6 +111,7 @@ const mainSubRoutes = [
   asyncRoute('settings',System.import('./containers/AccountEdit')),
   asyncRoute('assessment-start',System.import('./containers/AssessWizard')),
   asyncRoute('account-home',System.import('./containers/AccountHome')),
+  asyncRoute('mtracker',System.import('./containers/MedTrackerPage'))
 ];
 
 
