@@ -96,5 +96,13 @@ export default {
     level: 2,
     pathname: '/main/account-home',
     childrenIds: ['8','12']
+  },
+  '14': {
+    id: '14',
+    name: 'Account Home',
+    routes: [new RegExp('/main/test-signaler')],
+    level: 2,
+    pathname: '/main/test-signaler',
+    childrenIds: []
   }
 };

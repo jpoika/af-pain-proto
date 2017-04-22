@@ -3,15 +3,7 @@ export const MEDICATION_ADD = 'T2.MEDICATION_ADD';
 export const MEDICATION_REMOVE = 'T2.MEDICATION_REMOVE';
 export const MEDICATION_EDIT = 'T2.MEDICATION_EDIT';
 
-
-export const getMax = function(array){
-  return Math.max.apply(null,array);
-}
-
-export const nextId = (array) => {
-  let nextId = array.length ? getMax(array) + 1 : 1;
-  return nextId;
-}
+import {nextId} from './_helper';
 
 export const medicationAdd = (medication: MedicationInterface) => {
   return {

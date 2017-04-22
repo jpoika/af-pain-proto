@@ -10,7 +10,8 @@ const categories = [
   {id: 5, title: 'New Pain',  path: '/main/newpain', featured: false, img: ''},
   {id: 10, title: 'Med Tracker',  path: '/main/mtracker', featured: false, img: ''},
   {id: 6, title: 'Extras',  path: '/main/extras', featured: false, img: ''},
-  {id: 9, title: 'Settings',  path: '/main/settings', featured: false, img: ''}
+  {id: 9, title: 'Settings',  path: '/main/settings', featured: false, img: ''},
+  {id: 12, title: 'Test Alert Screen',  path: '/main/test-signaler', featured: false, img: ''}
 ];
 
 const categoriesMap = categories.reduce((acc,cat) => {
@@ -32,7 +33,8 @@ export const mainMenu = [
     ]},
     {id: 7, type: 'link' , item: categoriesMap[6], children: []},
     {id: 8, type: 'link' , item: categoriesMap[9], children: []},
-    {id: 10, type: 'divider' , item: {}}
+    {id: 10, type: 'divider' , item: {}},
+    {id: 14, type: 'link' , item: categoriesMap[12], children: []},
 ];
 
 export default categories;

@@ -9,11 +9,13 @@ export const ALERT_NURSE_DIALOGUE_CLOSE = 'T2.ALERT_NURSE_DIALOGUE_CLOSE';
 export const RECIEVE_MESSAGE_FROM_NURSE = 'T2.RECIEVE_MESSAGE_FROM_NURSE';
 export const RECIEVE_NURSE_ACKNOWLEDGE = 'T2.RECIEVE_NURSE_ACKNOWLEDGE'; //nurse acknowleged
 export const SYSTEM_MESSAGE = 'T2.SYSTEM_MESSAGE';
+import {nextId} from './_helper';
+
 const tmpSimulatedContact = () => {
   return new Promise<any>((res,rej) => {
       setTimeout(() => {
         res(recieveNurseMessage("On my way"));
-      },10000)
+      },4000)
   });
 
 }
@@ -30,10 +32,11 @@ export const alertNurseDialogueClose = () => {
   }
 }
 
-export const systemMessage = (message) => {
-  return {
-    type: SYSTEM_MESSAGE,
-    message
+export const systemMessage = (messageString: string) => {
+  
+  return (dispatch,getState) => {
+    const newMessage = createMessage(SYSTEM_MESSAGE,nextId(getState().nurseSystem.messageIds),messageString);
+    dispatch(newMessage);
   }
 }
 export const alertNurseEnd = () => {
@@ -69,9 +72,19 @@ export const alertNurse = () => {
   }
 }
 
-export const recieveNurseMessage = (message: string) => {
+const createMessage = (type: string, id: number,  messageString: string) => {
+  let ts = new Date();
+  let tsMs = ts.getTime();
   return {
-    type: RECIEVE_MESSAGE_FROM_NURSE,
-    message
+    type,
+    message: {id, message: messageString},
+    timestamep: tsMs
+  }
+}
+
+export const recieveNurseMessage = (messageString: string) => {
+  return (dispatch,getState) => {
+    const newMessage = createMessage(RECIEVE_MESSAGE_FROM_NURSE,nextId(getState().nurseSystem.messageIds),messageString);
+    dispatch(newMessage);
   }
 }

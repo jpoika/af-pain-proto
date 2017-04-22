@@ -9,7 +9,7 @@ import {assessMoveStep} from '../actions/assessment';
 const stateToProps = (state, ownProps) => {
 
   return {
-    title: 'Home',
+    title: 'Initial Assessment',
     page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
     stepIndex: state.initialAssessment.step,
     maxSteps: 7
