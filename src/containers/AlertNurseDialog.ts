@@ -1,6 +1,6 @@
 import AlertNurseDialog from '../appcomponents/AlertNurseDialog';
 import {connect} from 'react-redux';
-import {alertNurseDialogueClose} from '../actions/nurse'
+import {alertNurseDialogueClose,alertNurse} from '../actions/nurse'
 
 const getLastMessage = (nurseSystem) => {
   return nurseSystem.messageIds.length ? 
@@ -25,7 +25,13 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch) => {
   return {
-    closeNurseDialog: () => dispatch(alertNurseDialogueClose())
+    closeNurseDialog: () => dispatch(alertNurseDialogueClose()),
+    alertNurse: () => {
+      dispatch(alertNurse());
+    },
+    cancelAlertNurse: () => {
+      //TODO
+    }
   }
 }
 export default connect(stateToProps,dispatchToProps)

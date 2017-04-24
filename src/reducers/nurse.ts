@@ -10,7 +10,7 @@ import {
 } from '../actions/nurse';
 
 const defaultSystem = {
-  status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout
+  status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout, 4: user_confirm
   dialogStatus: 0, // 0: closed 1: Open
   messages: {},
   messageIds: []
@@ -20,7 +20,7 @@ export const nurseSystem = (state = defaultSystem,action) => {
 
   switch (action.type) {
     case ALERT_NURSE_DIALOGUE_OPEN:
-      state = {...state,dialogStatus: 1};
+      state = {...state,dialogStatus: 1,status: 4};
       state = {...state}
       break;
     case ALERT_NURSE_DIALOGUE_CLOSE:

@@ -8,9 +8,12 @@ import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done'
 import ErrorIcon from 'material-ui/svg-icons/alert/error'
 import MessageIcon from 'material-ui/svg-icons/communication/message'
+import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles'
 export interface Props{
   open: boolean;
   closeNurseDialog(): any;
+  alertNurse(): any;
+  cancelAlertNurse(): any;
   status: number;
   messages: {id: number, message: string, timestamp: number}[]
 }
@@ -38,6 +41,13 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
   handleClose = () => {
     this.props.closeNurseDialog()
   }
+  handleCancelContactNurse = (event) => {
+    this.handleClose();
+  }
+  handleNurseAlert = (event) => {
+    const {alertNurse} = this.props;
+    alertNurse();
+  }
   /*
   shouldComponentUpdate(nextProps, nextState){
     console.log(nextProps, nextState);
@@ -61,6 +71,14 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
         onTouchTap={this.handleClose}
       />
     ];
+
+    const nurseConfirm = (<div> 
+                               <div> Are you sure you would like to contact the nurse? </div>
+                               <div style={flexParentRowStyle as any}>
+                                 <div style={flexRowItemStyle as any}><RaisedButton primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton></div>
+                                 <div style={flexRowItemStyle as any}><RaisedButton type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton></div>
+                               </div>
+                         </div>);
     return (<div>
             <Dialog
               title="Alert Nurse"
@@ -69,11 +87,11 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
               actions={actions}
               onRequestClose={this.handleClose}
             >
-  
+              {status === 4 && nurseConfirm}
               {status === 1 && <div> Contacting Nurse <CircularProgress /> </div>}
               {status === 2 && <div> Nurse Acknowledge <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
               {status === 3 && <div> Request Timeout <ErrorIcon /> </div>}
-              {messages.map(msg => (<div key={msg.id}><MessageIcon /> {msg.message}</div>))}
+              {status === 6 /*disbled */ && messages.map(msg => (<div key={msg.id}><MessageIcon /> {msg.message}</div>))}
           
               </Dialog>
             </div>);

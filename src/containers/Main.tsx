@@ -14,7 +14,7 @@ import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import {alertNurse} from '../actions/nurse';
+import {alertNurseDialogueOpen} from '../actions/nurse';
 
 interface Props {
   appBarTitle(msg: string): any;
@@ -172,7 +172,7 @@ const dispatchToProps = (dispatch,ownProps) => {
     },
     alertNurse: () => {
       console.log("alerting nurse from Main.tsx");
-      dispatch(alertNurse())
+      dispatch(alertNurseDialogueOpen())
     }
   }
 }
