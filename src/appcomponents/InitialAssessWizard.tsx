@@ -79,7 +79,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
           disableFocusRipple={true}
           primary={true}
           onTouchTap={this.handleNext}
-          style={{marginRight: 12}}
+          labelColor="#FFFFFF"
         />}
         {step > 0 && (
           <FlatButton

@@ -16,11 +16,20 @@ const getMessages = (nurseSystem, limit = 0) => {
   }
 }
 
+const getConfirmMessage = (nurseSystem, limit = 0) => {
+  if(nurseSystem.status === 5){
+    return `You've indicated you are experiencing intollerable pain. 
+    Would you like to speak to a nurse`;
+  }
+  return 'Are you sure you would like to contact the nurse?'
+}
+
 const stateToProps = (state, ownProps) => {
   return {
     open: state.nurseSystem.dialogStatus > 0,
     status: state.nurseSystem.status,
-    messages: getMessages(state.nurseSystem,3)
+    messages: getMessages(state.nurseSystem,3),
+    confirmMessage: getConfirmMessage(state.nurseSystem)
   }
 }
 const dispatchToProps = (dispatch) => {

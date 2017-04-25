@@ -29,6 +29,31 @@ import PersionIcon from 'material-ui/svg-icons/social/person';
 
 //import {userLogin,userLogout} from './actions';
 //import Eula from './Eula';
+const styles = {
+  bgDiv: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: 'url(' + require('../res/images/usaf_logo.png') + ') center center',
+    opacity: 0.1,
+    width: '100%',
+    height: '100%',
+    zIndex: -2,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '400px'
+  },
+  wrapper: {
+    overflowY: 'auto'
+  },
+  content: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexFlow: 'row',
+    height: '100%'
+  },
+};
 
 
 interface MyProps {
@@ -49,15 +74,10 @@ interface MyState {
   open?: boolean
 }
 
-/*
-<FlatButton>
-           Alert Nurse
-              <PersionIcon />
-        </FlatButton> */
 
 const rightNurseIcon = (props) => {
   const {alertNurse} = props;
-  return (<FlatButton onTouchTap={alertNurse} secondary={true} icon={<PersionIcon />} >
+  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={alertNurse} secondary={true} icon={<PersionIcon />} >
            Alert Nurse
           </FlatButton>);
 };
@@ -103,6 +123,7 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
     return (
        
         <div>
+            <div style={styles.bgDiv} />
             <Helmet
                     titleTemplate={'%s - ' + appNameShort}
                     defaultTitle={appNameLong}

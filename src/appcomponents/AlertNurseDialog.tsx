@@ -15,7 +15,8 @@ export interface Props{
   alertNurse(): any;
   cancelAlertNurse(): any;
   status: number;
-  messages: {id: number, message: string, timestamp: number}[]
+  messages: {id: number, message: string, timestamp: number}[],
+  confirmMessage: string;
 }
 export interface State{
   showLastMessage: boolean;
@@ -63,7 +64,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
  */
   render(){
 
-    const {open,status,messages} = this.props;
+    const {open,status,messages,confirmMessage} = this.props;
     const actions = [
       <FlatButton
         label="Close"
@@ -73,7 +74,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     ];
 
     const nurseConfirm = (<div> 
-                               <div> Are you sure you would like to contact the nurse? </div>
+                               <div>{confirmMessage}</div>
                                <div style={flexParentRowStyle as any}>
                                  <div style={flexRowItemStyle as any}><RaisedButton primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton></div>
                                  <div style={flexRowItemStyle as any}><RaisedButton type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton></div>

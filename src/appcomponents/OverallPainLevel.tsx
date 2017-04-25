@@ -66,13 +66,16 @@ export default class OverallPain extends React.Component<Props, State>{
               <img src={require("../res/images/scale_top.jpg")} width="400" />
               <PainSelector selectPain={this.handleSelectPain} />
               <div style={{margin: '12px 0'}}>
-
-                    <RaisedButton 
+                     <RaisedButton 
+                              label={additionalActions ? 'Next' : 'Save'}
                               disableTouchRipple={true}
                               disableFocusRipple={true}
-                              primary={true}type="button" onTouchTap={this.handleSave}
+                              primary={true} 
+                              type="button" 
+                              onTouchTap={this.handleSave}
+                              labelColor="#FFFFFF"
                               style={{marginRight: 12}}
-                            >{additionalActions ? 'Next' : 'Save'}</RaisedButton>
+                            />
 
                         {additionalActions}
 
