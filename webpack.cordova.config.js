@@ -55,7 +55,7 @@ module.exports = {
             'NODE_ENV': JSON.stringify('production')
           },
           '__DEVTOOLS__': true,
-          '__IS_CORDOVA_BUILD__': false,
+          '__IS_CORDOVA_BUILD__': true,
           '__CORDOVA_TEST_ONLY__': false
         }),
 
