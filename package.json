@@ -6,7 +6,8 @@
   "types": "./src/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "webpack --config webpack.pwa.config.js",
+    "build-web": "webpack --config webpack.web.config.js",
+    "build": "webpack --config webpack.cordova.config.js",
     "start": "webpack-dev-server",
     "serve": "node server.js"
   },

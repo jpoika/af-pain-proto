@@ -1,5 +1,11 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
+import AccountEdit from './containers/AccountEdit';
+import AssessWizard from './containers/AssessWizard';
+import AccountHome from './containers/AccountHome';
+import MedTrackerPage from './containers/MedTrackerPage';
+import AlertScreen from './containers/AlertScreen';
+
 import Login from './containers/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
@@ -71,7 +77,7 @@ if (__DEVTOOLS__) {
 }
 
 
-if(__INCLUDE_SERVICE_WORKER__){ // __INCLUDE_SERVICE_WORKER__ and other __VAR_NAME__ variables are used by webpack durring the build process. See <root>/webpack-production.config.js
+if(!__IS_CORDOVA_BUILD__){ // __INCLUDE_SERVICE_WORKER__ and other __VAR_NAME__ variables are used by webpack durring the build process. For example see <root>/webpack.web.config.js
   if ('serviceWorker' in navigator) {
     console.log("Registering Service Worker");
     /**
@@ -108,13 +114,12 @@ const quickRoutes = [
 
 
 const mainSubRoutes = [
-  asyncRoute('settings',System.import('./containers/AccountEdit')),
-  asyncRoute('assessment-start',System.import('./containers/AssessWizard')),
-  asyncRoute('account-home',System.import('./containers/AccountHome')),
-  asyncRoute('mtracker',System.import('./containers/MedTrackerPage')),
-  asyncRoute('test-signaler',System.import('./containers/AlertScreen'))
+  syncRoute('settings',AccountEdit),
+  syncRoute('assessment-start',AssessWizard),
+  syncRoute('account-home',AccountHome),
+  syncRoute('mtracker',MedTrackerPage),
+  syncRoute('test-signaler',AlertScreen)
 ];
-
 
 const siteRoutes = [
 

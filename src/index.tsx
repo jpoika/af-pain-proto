@@ -25,10 +25,25 @@ const render = (Component: any) => {
     );
 }
 
-render(Provider);
-// Hot Module Replacement API. Only used when running the dev server.
-if ((module as any).hot) {
-  (module as any).hot.accept('./Provider', () => {
-    render(Provider)
-  });
+if(__IS_CORDOVA_BUILD__){
+
+  document.addEventListener("deviceready", function(){
+
+    render(Provider); //don't load app until device ready
+  }, false);
+
+} else { //web build
+  
+  render(Provider);
+  // Hot Module Replacement API. Only used when running the dev server.
+
+  if ((module as any).hot) {
+    (module as any).hot.accept('./Provider', () => {
+      render(Provider)
+    });
+  }
 }
+
+
+
+

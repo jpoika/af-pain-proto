@@ -61,9 +61,12 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+          },
           '__DEVTOOLS__': true,
-          '__INCLUDE_SERVICE_WORKER__': false,
-          '__APP_HUB_URL__': '"http://localhost:3000"'
+          '__IS_CORDOVA_BUILD__': false,
+          '__CORDOVA_TEST_ONLY__': false
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
