@@ -87,6 +87,8 @@ const createMenuItems = (user, menuItems,pathOnTouchTap) => {
     const tapMax = 3;
     let tapCount = 0;
     return (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       tapCount++;
       if(tapCount >= tapMax){
         pathOnTouchTap(path)(event);

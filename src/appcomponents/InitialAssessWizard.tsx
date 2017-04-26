@@ -41,6 +41,8 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
   };
 
   handleNext = () => {
+    event.preventDefault();
+    event.stopPropagation();
     const {stepIndex,nextStep,maxSteps} = this.props;
     nextStep(stepIndex + 1)
     this.setState({
@@ -49,7 +51,9 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
     });
   };
 
-  handlePrev = () => {
+  handlePrev = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     const {stepIndex,nextStep} = this.props;
     if (stepIndex > 0) {
       nextStep(stepIndex - 1);

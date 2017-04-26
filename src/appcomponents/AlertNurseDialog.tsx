@@ -43,6 +43,8 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     this.props.closeNurseDialog()
   }
   handleCancelContactNurse = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.handleClose();
   }
   handleNurseAlert = (event) => {
@@ -76,8 +78,8 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     const nurseConfirm = (<div> 
                                <div>{confirmMessage}</div>
                                <div style={flexParentRowStyle as any}>
-                                 <div style={flexRowItemStyle as any}><RaisedButton primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton></div>
-                                 <div style={flexRowItemStyle as any}><RaisedButton type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton></div>
+                                 <RaisedButton style={flexRowItemStyle as any} primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>
+                                 <RaisedButton style={flexRowItemStyle as any} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
                                </div>
                          </div>);
     return (<div>

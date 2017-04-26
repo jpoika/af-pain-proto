@@ -77,7 +77,12 @@ interface MyState {
 
 const rightNurseIcon = (props) => {
   const {alertNurse} = props;
-  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={alertNurse} secondary={true} icon={<PersionIcon />} >
+  const handleAlertNurse = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    alertNurse();
+  }
+  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersionIcon />} >
            Alert Nurse
           </FlatButton>);
 };
