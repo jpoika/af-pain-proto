@@ -153,13 +153,6 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                 </StepContent>
               </Step>
 
-              <Step>
-                <StepLabel>Allergies</StepLabel>
-                <StepContent>
-                  <AllergiesManager actions={this.renderBackButton(5)} onComplete={this.handleNext}  />
-                </StepContent>
-              </Step>
-
              </Stepper>
         {this.props.stepIndex >= maxSteps && (
           

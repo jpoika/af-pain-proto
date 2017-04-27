@@ -3,9 +3,13 @@ import AppBarPage from '../components/AppBarPage'
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import AlarmSet from 'material-ui/svg-icons/action/alarm';
 import { Link } from 'react-router';
 import MenuDrawer from '../components/MenuDrawer';
 import MenuItem from 'material-ui/MenuItem';
+import TrackChangesIcon from 'material-ui/svg-icons/action/track-changes';
+import DoneIcon from 'material-ui/svg-icons/action/done';
+
 import categoriesData,{mainMenu} from '../res/data/menus';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
@@ -28,6 +32,7 @@ interface Props {
   appNameLong: string;
   user: {authenticated: boolean}
   alertNurse(): any;
+  initAssessComplete: boolean;
 }
 
 interface State {
@@ -61,7 +66,7 @@ const makeLink = (user,menuItem,pathOnTouchTap) => {
     return <MenuItem key={menuItem.id}  primaryText={menuItem.item.title} onTouchTap={pathOnTouchTap(menuItem.item.path)}  />;
 }
 const subMenuItems = (user,menuItems,pathOnTouchTap) => {
-      console.log(menuItems);
+     
       var menuItemsFinal = menuItems.length ? userMenuFilter(menuItems,user).map(menuItem => {
 
         switch(menuItem.type){
@@ -78,10 +83,10 @@ const subMenuItems = (user,menuItems,pathOnTouchTap) => {
         }
 
       }) : null;
-      console.log(menuItemsFinal);
+    
       return menuItemsFinal;
 }
-const createMenuItems = (user, menuItems,pathOnTouchTap) => {
+const createMenuItems = (user, menuItems,pathOnTouchTap,initAssessComplete) => {
 
   const secretTap = (path) => {
     const tapMax = 3;
@@ -109,8 +114,15 @@ const createMenuItems = (user, menuItems,pathOnTouchTap) => {
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
+           <Divider key={'menu_top_divider'} />
+             <MenuItem key={'menu_top_home'}  primaryText="Home" onTouchTap={pathOnTouchTap('/main/account-home')}  />
+             <MenuItem key={'menu_top_init_assess'} rightIcon={initAssessComplete ? <DoneIcon color={'green'} /> : null} primaryText="Initial Assessment" onTouchTap={pathOnTouchTap('/main/assessment-start')}  />
+             <MenuItem key={'menu_top_reassess'} rightIcon={initAssessComplete ? <AlarmSet /> : null} disabled={!initAssessComplete} primaryText="Pain Reassessment" onTouchTap={pathOnTouchTap('/main/reassess')}  />
+             <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker')}  />
+             <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" onTouchTap={pathOnTouchTap('/main/newpain')} />
+
           {userMenuFilter(menuItems,user).map(menuItem => {
-   
+            
             switch(menuItem.type){
               case 'divider':
                 return <Divider key={menuItem.id} />;
@@ -138,9 +150,9 @@ const backIcon = (path) => {
 class AppContainer extends React.Component<Props, State>{
   render(){
     
-    const {user, menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong,alertNurse} = this.props;
+    const {user, menuItems, categories, pathOnTouchTap,appConfig,parentRoute,flashMessage,appNameShort,appNameLong,alertNurse,initAssessComplete} = this.props;
 
-    const leftIcon = !parentRoute ? createMenuItems(user, menuItems,pathOnTouchTap) : backIcon(parentRoute.pathname) ;
+    const leftIcon = !parentRoute ? createMenuItems(user, menuItems,pathOnTouchTap,initAssessComplete) : backIcon(parentRoute.pathname) ;
     return <AppBarPage alertNurse={alertNurse} leftIcon={leftIcon} categories={categories} pathOnTouchTap={pathOnTouchTap} appConfig={appConfig} flashMessage={flashMessage} appNameShort={appNameShort} appNameLong={appNameLong}>
               {this.props.children}
            </AppBarPage>
@@ -158,7 +170,8 @@ const stateToProps = (state) => {
     flashMessage: state.view.flash,
     appNameShort: 'Pain Proto',
     appNameLong: 'Air Force Pain Proto',
-    user: state.user
+    user: state.user,
+    initAssessComplete: state.initialAssessment.step > 5
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

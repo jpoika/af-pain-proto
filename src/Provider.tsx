@@ -77,34 +77,6 @@ if (__DEVTOOLS__) {
 }
 
 
-if(!__IS_CORDOVA_BUILD__){ // __INCLUDE_SERVICE_WORKER__ and other __VAR_NAME__ variables are used by webpack durring the build process. For example see <root>/webpack.web.config.js
-  if ('serviceWorker' in navigator) {
-    console.log("Registering Service Worker");
-    /**
-     * Service workers are not supported currently in an iOS browsers
-     */
-    const registrationPromise = navigator.serviceWorker.register('./sw.js');
-    /**
-     * registerPromise takes the serviceWorker promise and listens for
-     * certain events which will trigger redux dispatch events
-     *
-     */
-   
-    registerPromise(registrationPromise, store).then(function (res) {
-      if (__DEVTOOLS__) {
-        console.log(res);
-      }
-    }).catch(function (e) {
-      if (__DEVTOOLS__) {
-        console.log(e);
-      }
-      throw e;
-    });
-  
-  }
-}
-
-
 const asyncRoute = asynRouteMaker({});
 
 
