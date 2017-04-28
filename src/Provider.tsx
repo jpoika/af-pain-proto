@@ -1,7 +1,8 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
 import AccountEdit from './containers/AccountEdit';
-import AssessWizard from './containers/AssessWizard';
+import InitialAssessWizard from './containers/InitialAssessWizard';
+import ReAssessmentWizard from './containers/ReAssessmentWizard';
 import AccountHome from './containers/AccountHome';
 import MedTrackerPage from './containers/MedTrackerPage';
 import AlertScreen from './containers/AlertScreen';
@@ -89,10 +90,11 @@ const quickRoutes = [
 
 const mainSubRoutes = [
   syncRoute('settings',AccountEdit),
-  syncRoute('assessment-start',AssessWizard),
+  syncRoute('assessment-start',InitialAssessWizard),
   syncRoute('account-home',AccountHome),
   syncRoute('mtracker',MedTrackerPage),
-  syncRoute('test-signaler',AlertScreen)
+  syncRoute('test-signaler',AlertScreen),
+  syncRoute('reassess',ReAssessmentWizard)
 ];
 
 const siteRoutes = [

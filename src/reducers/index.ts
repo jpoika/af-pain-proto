@@ -10,7 +10,7 @@ import {
 import {ASSESS_MOVE_STEP, ASSESS_MOVE_STEP_IF_NEXT} from '../actions/assessment';
 import { normalize, schema } from 'normalizr';
 import {bodySectionList} from '../res/data/body';
-import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds} from './assessments';
+import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds, assessmentSystem} from './assessments';
 import {medications, medicationIds} from './medication';
 import {allergies, allergyIds} from './allergy';
 import {nurseSystem} from './nurse';
@@ -54,20 +54,6 @@ const defaultInitAssess = {
   step: 0
 }
 
-const initialAssessment = (state = defaultInitAssess, action: any) => {
-  switch (action.type) {
-    case ASSESS_MOVE_STEP:
-      state = {...state, step: action.stepIndex}
-      break;
-    case ASSESS_MOVE_STEP_IF_NEXT:
-      console.log(state.step,action.stepIndex);
-      if(state.step=== action.stepIndex){
-        state = {...state, step: action.stepIndex + 1}
-      }
-      break;
-  }
-  return state;
-}
 
 export const migrations = (state = {}, action) => {
   return state;
@@ -79,11 +65,11 @@ const appHub = combineReducers({
   app: appReducer,
   navigation: navigationReducer,
   view: viewReducer,
-  initialAssessment,
   bodySections,
   bodySectionIds,
   assessments,
   assessmentIds,
+  assessmentSystem,
   painLevels,
   painLevelIds,
   migrations,

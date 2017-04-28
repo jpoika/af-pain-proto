@@ -2,13 +2,22 @@ import {bodySectionList} from '../res/data/body';
 import {painLevels as painLevelsRaw} from '../res/data/pain';
 import {assessmentPainCategories} from '../res/data/assessments';
 import { normalize, schema } from 'normalizr';
-import {ASSESS_MARK_BODY_SECTION_PAIN, ASSESS_SET_OVERALL_PAIN} from '../actions/assessment'
+import {
+  ASSESS_MARK_BODY_SECTION_PAIN, 
+  ASSESS_SET_OVERALL_PAIN,
+  ASSESS_MARK_COMPLETE,
+  ASSESS_MOVE_STEP,
+  ASSESS_MOVE_STEP_IF_NEXT
+} from '../actions/assessment'
+
 import {arrayPushUnique} from './helpers';
 const assessmentRawData = [
     {
       id: 1, 
       bodySections: {},
-      painLevels: {}
+      painLevels: {},
+      step: 0,
+      isComplete: false
     }
 ];
 
@@ -28,6 +37,36 @@ const normalizedBodySections = normalize(bodySectionList,bodySectionListSchema);
 const normalizedAssessments = normalize(assessmentRawData,assessmentListSchema);
 
 const normalizedPainLevels = normalize(painLevelsRaw,painLevelsListSchema);
+
+const systemDefault = {
+  lastCompletedAssessment: {
+    id: 0,
+    completedOn: null
+  }
+}
+export const _lastCompleteAssessment = (state, action: any) => {
+  switch (action.type) {
+    case ASSESS_MARK_COMPLETE:
+      state = {...state, id: action.assessmentId, completedOn: action.dateTs};
+      break;
+  }
+  return state;
+}
+
+
+export const assessmentSystem = (state = systemDefault,action: any) => {
+  switch (action.type) {
+    case ASSESS_MARK_COMPLETE:
+      // code...
+      state = {...state,lastCompletedAssessment: _lastCompleteAssessment(state.lastCompletedAssessment,action)}
+      break;
+    default:
+      // code...
+      break;
+  }
+  return state;
+}
+
 
 export const painLevels = (state = normalizedPainLevels.entities.pain_levels,action: any) => {
  return state;
@@ -71,3 +110,6 @@ export const bodySections = (state = normalizedBodySections.entities.bodySection
 export const bodySectionIds = (state = normalizedBodySections.result,action: any) => {
   return state;
 }
+
+
+
