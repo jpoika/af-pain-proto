@@ -91,10 +91,11 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
               onRequestClose={this.handleClose}
             >
               {status === 4 && nurseConfirm}
+              {status === 5 && nurseConfirm}
               {status === 1 && <div> Contacting Nurse <CircularProgress /> </div>}
               {status === 2 && <div> Nurse Acknowledge <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
               {status === 3 && <div> Request Timeout <ErrorIcon /> </div>}
-              {status === 6 /*disbled */ && messages.map(msg => (<div key={msg.id}><MessageIcon /> {msg.message}</div>))}
+              {status === 777 /*disbled */ && messages.map(msg => (<div key={msg.id}><MessageIcon /> {msg.message}</div>))}
           
               </Dialog>
             </div>);

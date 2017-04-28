@@ -6,6 +6,10 @@ export interface PainLevelInterface{
   level: number;
 }
 
+export interface PainLevelsObject {
+  [propName: string]: PainLevelInterface;
+}
+
 export const makePainLevel = (id: number, level: number, title: string, image:string, description: string = ''):PainLevelInterface => {
   return {
     id,

@@ -9,11 +9,6 @@ const assessmentRawData = [
       id: 1, 
       bodySections: {},
       painLevels: {}
-    },
-    {
-      id: 2, 
-      bodySections: {},
-      painLevels: {}
     }
 ];
 

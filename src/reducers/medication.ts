@@ -7,7 +7,6 @@ export const medications = (state={},action) => {
       state = {...state,[action.medication.id]: {...action.medication}}
       break;
     case MEDICATION_REMOVE:
-      console.log(MEDICATION_REMOVE);
       delete state[action.id];
       state = {...state};
       break;
@@ -22,7 +21,6 @@ export const medicationIds = (state=[],action) => {
       break;
     
     case MEDICATION_REMOVE:
-      console.log(MEDICATION_REMOVE);
       state = arrayRemove(action.id,state);
       break;
   }

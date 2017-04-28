@@ -14,7 +14,7 @@ export interface Props {
   step?: number;
   actions?: JSX.Element;
   onComplete?(): any;
-
+  checkPain?: boolean;
 }
 
 export interface State {
@@ -28,7 +28,8 @@ export default class OverallPain extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
       step: -1,
       actions: null,
-      onComplete: () => {}
+      onComplete: () => {},
+      checkPain: false
   };
 
   constructor(props){

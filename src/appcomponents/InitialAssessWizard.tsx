@@ -41,8 +41,6 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
   };
 
   handleNext = () => {
-    event.preventDefault();
-    event.stopPropagation();
     const {stepIndex,nextStep,maxSteps} = this.props;
     nextStep(stepIndex + 1)
     this.setState({
@@ -51,9 +49,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
     });
   };
 
-  handlePrev = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  handlePrev = () => {
     const {stepIndex,nextStep} = this.props;
     if (stepIndex > 0) {
       nextStep(stepIndex - 1);
@@ -141,7 +137,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(4)} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={1} categoryId={3} />
+                 <OverallPainLevel actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={1} categoryId={3} />
                  
                 </StepContent>
               </Step>
