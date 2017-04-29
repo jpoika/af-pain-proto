@@ -81,12 +81,13 @@ export const userDoesNotHaveHighPain = () => {
   }
 }
 
-export const checkForUserHighPain = (painLevel: PainLevelInterface) => {
+export const checkForUserHighPain = (painLevel: PainLevelInterface, assessmentId: number) => {
   return (dispatch,getState) => {
     const currentState = getState();
     const lastAssessment = getLastAssessment(currentState);
  
     if(lastAssessment){
+      console.log(lastAssessment);
       if(isPainInTolerable(lastAssessment,painLevel,currentState.painLevels)){
         if(!currentState.nurseSystem.userPromptedForPain){
           dispatch(alertNurseHighPain());
@@ -96,6 +97,8 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface) => {
       }else{
         dispatch(userDoesNotHaveHighPain());
       }
+    } else {
+      console.log('no last assessment');
     }
   }
 }

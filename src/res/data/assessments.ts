@@ -13,6 +13,25 @@ export const makePainCategory = (id: number, title: string, description: string 
 }
 
 
+export interface AssessmentInterface {
+  id: number;
+  bodySections: any;
+  painLevels: any;
+  step: number;
+  isComplete: boolean;
+}
+
+export const makeAssessment = (id:number,bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
+  return {
+    id,
+    bodySections,
+    painLevels,
+    step: 0,
+    isComplete: false
+  }
+}
+
+
 export const assessmentPainCategories = [
   makePainCategory(1,'Current Pain'),
   makePainCategory(1,'Acceptable Pain'),

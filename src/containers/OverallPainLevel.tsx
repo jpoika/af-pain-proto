@@ -1,6 +1,6 @@
 import OverallPainLevel from '../appcomponents/OverallPainLevel'
 import {connect} from 'react-redux';
-import { assessSetOverallPain, assessMoveStepIfNext } from '../actions/assessment';
+import { assessSetOverallPain} from '../actions/assessment';
 import {checkForUserHighPain} from '../actions/nurse';
 import {PainLevelInterface} from '../res/data/pain';
 
@@ -41,8 +41,9 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
    selectPain: (assessmentId:number, painCategoryId:number, painLevel:PainLevelInterface) => {
      ownProps.checkPain
+     console.log(ownProps);
      if(ownProps.checkPain){
-       dispatch(checkForUserHighPain(painLevel));
+       dispatch(checkForUserHighPain(painLevel, assessmentId));
      }
      dispatch(assessSetOverallPain(assessmentId,painCategoryId,painLevel.id))
    }

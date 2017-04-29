@@ -7,7 +7,7 @@ import {
   ASSESS_SET_OVERALL_PAIN,
   ASSESS_MARK_COMPLETE,
   ASSESS_MOVE_STEP,
-  ASSESS_MOVE_STEP_IF_NEXT
+  ASSESSMENT_EDIT
 } from '../actions/assessment'
 
 import {arrayPushUnique} from './helpers';
@@ -78,6 +78,14 @@ export const painLevelIds = (state = normalizedPainLevels.result,action: any) =>
 
 export const assessments = (state = normalizedAssessments.entities.assessments, action) => {
   switch (action.type) {
+    case ASSESS_MARK_COMPLETE:
+      state[action.assessmentId] = {...state[action.assessmentId],isComplete: true};
+      state = {...state};
+      break;
+    case ASSESS_MOVE_STEP:
+      state[action.assessmentId] = {...state[action.assessmentId],step: action.stepIndex};
+      state = {...state};
+      break;
     case ASSESS_MARK_BODY_SECTION_PAIN:
     
       let assessId = action.assessmentId;
@@ -95,11 +103,19 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       state[op_assessId] = {...state[op_assessId],painLevels: newPainLevels};
       state = {...state};
       break;
+    case ASSESSMENT_EDIT:
+      state = {...state,[action.assessment.id]: action.assessment};
+    break;
   }
   return state;
 }
 
-export const assessmentIds = (state = normalizedAssessments.result) => {
+export const assessmentIds = (state = normalizedAssessments.result,action: any) => {
+  switch(action.type){
+    case ASSESSMENT_EDIT:
+      state = arrayPushUnique(action.assessment.id,state);
+      break;
+  }
   return state;
 }
 

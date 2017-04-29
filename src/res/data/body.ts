@@ -13,6 +13,10 @@ const makeBodySection = (id: number, image: string, title: string ='', descripti
   }
 }
 
+export interface bodiesObjectInterface {
+  [propName: string]: BodySectionInterface
+}
+
 export const bodySectionList:BodySectionInterface[] = [
 
 makeBodySection(1,'bodyMap2.png'),

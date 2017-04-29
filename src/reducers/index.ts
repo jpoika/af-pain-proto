@@ -7,7 +7,6 @@ import {viewReducer} from '../lib/local-t2-view';
 import {
   FLAG_AS_AUTHENTICATED,
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
-import {ASSESS_MOVE_STEP, ASSESS_MOVE_STEP_IF_NEXT} from '../actions/assessment';
 import { normalize, schema } from 'normalizr';
 import {bodySectionList} from '../res/data/body';
 import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds, assessmentSystem} from './assessments';

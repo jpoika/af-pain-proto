@@ -101,7 +101,9 @@ export default class AssessmentWizard extends React.Component<Props, State>{
   render(){
 
     const {appBarTitle,page,title, maxSteps, assessmentId} = this.props
-
+    if(!assessmentId){
+      return <div>TODO ReAssess Not Created Yet</div>
+    }
     return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
 

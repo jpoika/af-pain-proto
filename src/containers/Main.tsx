@@ -19,6 +19,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import {alertNurseDialogueOpen} from '../actions/nurse';
+import {addAssessmentIfNecessary} from '../actions/assessment';
 
 interface Props {
   appBarTitle(msg: string): any;
@@ -171,7 +172,7 @@ const stateToProps = (state) => {
     appNameShort: 'Pain Proto',
     appNameLong: 'Air Force Pain Proto',
     user: state.user,
-    initAssessComplete: state.initialAssessment.step > 5
+    initAssessComplete: typeof state.assessments['1'] !== 'undefined' && state.assessments['1'].isComplete ? true : false
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
@@ -181,6 +182,10 @@ const dispatchToProps = (dispatch,ownProps) => {
         if(preventDefault ){
           event.preventDefault();
           event.stopPropagation();
+        }
+        if(path == '/main/reassess'){
+          console.log(path);
+          dispatch(addAssessmentIfNecessary());
         }
         dispatch(push(path));
       }

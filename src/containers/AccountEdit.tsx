@@ -65,7 +65,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       if(result.isValid){
         dispatch(updateAccountInfo(data));
         dispatch(viewActions.sendMessage('Account Info Saved'));
-        dispatch(assessMoveStep(1));
+        dispatch(assessMoveStep(1,1));
       } else {
         dispatch(viewActions.sendMessage('Please correct any errors above'));
       }
