@@ -1,4 +1,4 @@
-import {bodySectionList} from '../res/data/body';
+import {frontBodySectionList,backBodySectionList} from '../res/data/body';
 import {painLevels as painLevelsRaw} from '../res/data/pain';
 import {assessmentPainCategories} from '../res/data/assessments';
 import { normalize, schema } from 'normalizr';
@@ -33,7 +33,7 @@ const assessmentListSchema = new schema.Array(assessmentSchema);
 const painLevelsSchema = new schema.Entity('pain_levels');
 const painLevelsListSchema = new schema.Array(painLevelsSchema);
 
-const normalizedBodySections = normalize(bodySectionList,bodySectionListSchema);
+const normalizedFrontBodySections = normalize(frontBodySectionList,bodySectionListSchema);
 const normalizedAssessments = normalize(assessmentRawData,assessmentListSchema);
 
 const normalizedPainLevels = normalize(painLevelsRaw,painLevelsListSchema);
@@ -119,11 +119,11 @@ export const assessmentIds = (state = normalizedAssessments.result,action: any) 
   return state;
 }
 
-export const bodySections = (state = normalizedBodySections.entities.bodySections,action: any) => {
+export const frontBodySections = (state = normalizedFrontBodySections.entities.bodySections,action: any) => {
  return state;
 }
 
-export const bodySectionIds = (state = normalizedBodySections.result,action: any) => {
+export const frontBodySectionIds = (state = normalizedFrontBodySections.result,action: any) => {
   return state;
 }
 

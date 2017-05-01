@@ -8,8 +8,8 @@ import {
   FLAG_AS_AUTHENTICATED,
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
 import { normalize, schema } from 'normalizr';
-import {bodySectionList} from '../res/data/body';
-import {assessments,assessmentIds,bodySections,bodySectionIds,painLevels, painLevelIds, assessmentSystem} from './assessments';
+
+import {assessments,assessmentIds,frontBodySections,frontBodySectionIds,painLevels, painLevelIds, assessmentSystem} from './assessments';
 import {medications, medicationIds} from './medication';
 import {allergies, allergyIds} from './allergy';
 import {nurseSystem} from './nurse';
@@ -64,8 +64,8 @@ const appHub = combineReducers({
   app: appReducer,
   navigation: navigationReducer,
   view: viewReducer,
-  bodySections,
-  bodySectionIds,
+  frontBodySections,
+  frontBodySectionIds,
   assessments,
   assessmentIds,
   assessmentSystem,

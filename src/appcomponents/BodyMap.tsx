@@ -36,58 +36,41 @@ export default class BodyMap extends React.Component<Props, State>{
 
   render(){
     const {bodySections,assessmentId} = this.props;
+ 
+    let sectionRows = [];
+    for (var i=0; i < 26; i++) {
+      sectionRows.push(i);
+    }
+    
     return <div>
               <h3>Body Map</h3>
               <table style={ {borderCollapse: 'separate',borderSpacing: '0px' }} cellPadding="0" cellSpacing="0">
                 <tbody>
-                <tr style={trBody}>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap1.png')} /></td>
-                    <td style={tdBody}><div id="bm1_value"></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[1]} /></td>
-                    <td style={tdBody}><div id="bm2_value"></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[2]}  /></td>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap4.png')} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[3]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[4]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[5]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[6]} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[7]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[8]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[9]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[10]} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[11]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[12]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[13]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[14]} /></td>
-                </tr>   
-                <tr style={trBody}>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[15]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[16]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[17]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[18]} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap21.png')} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[19]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[20]} /></td>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap24.png')} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap25.png')} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[21]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[22]} /></td>
-                    <td style={tdBody}><img  src={require('../res/images/body_map/bodyMap28.png')} /></td>
-                </tr>
-                <tr style={trBody}>
-                    <td style={tdBody}><img src={require('../res/images/body_map/bodyMap29.png')} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[23]} /></td>
-                    <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[24]} /></td>
-                    <td style={tdBody}><img src={require('../res/images/body_map/bodyMap32.png')} /></td>
-                </tr> 
+                  {sectionRows.map(rowIdx => {
+                    let offset =  rowIdx  * 15;
+
+                    return (<tr style={trBody}>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset + 1]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +2]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +3]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +4]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +5]} /></td>
+
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +6]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +7]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +8]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +9]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +10]} /></td>
+
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +11]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +12]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +13]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +14]} /></td>
+                                <td style={tdBody}><div></div><BodySection assessmentId={assessmentId} markPain={this.handleMarkPain} section={bodySections[offset +15]} /></td>
+                            </tr>);
+                  })}
+
+
                 </tbody>                            
               </table>
                 

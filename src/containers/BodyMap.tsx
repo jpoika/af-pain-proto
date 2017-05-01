@@ -8,9 +8,8 @@ import {PainLevelInterface} from '../res/data/pain';
 const stateToProps = (state, ownProps) => {
   const initAssessmentId = 1;
   return {
-    title: 'Body Map',
-    bodySections: state.bodySections,
-    
+    title: 'Pain Map Front',
+    bodySections: state.frontBodySections,
   }
 }
 const dispatchToProps = (dispatch) => {

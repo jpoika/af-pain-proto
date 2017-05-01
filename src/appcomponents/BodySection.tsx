@@ -36,15 +36,18 @@ export default class BodySection extends React.Component<Props, State>{
   }
 
   handleClick = (event) => {
-
-    this.setState({
-      selected: true
-    });
+    const {section,markPain} = this.props;
+    if(!section.isBlank){
+      this.setState({
+        selected: true
+      });
+    }
   }
 
   handleSelectPain = (painLevel) => {
 
     const {section,markPain} = this.props;
+
     markPain(section.id,painLevel);
     this.setState({
       painLevel: painLevel,
@@ -84,7 +87,7 @@ export default class BodySection extends React.Component<Props, State>{
     }
     return (
       <div style={{position: 'relative'}}>
-          {this.state.painLevel.level > 0 && <div style={{color: this.handlePainColor(), fontSize: '4em',position: 'absolute',top: '40px', left: '24px'}}>{this.state.painLevel.level}</div>}
+          {this.state.painLevel.level > 0 && <div style={{color: this.handlePainColor(), fontSize: '3em',position: 'absolute',top: '20px', left: '5px'}}>{this.state.painLevel.level}</div>}
           <img style={imageStyles} onClick={this.handleClick} src={section.image}  key={section.id} />
           <PainSelectorDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} /> 
       </div>

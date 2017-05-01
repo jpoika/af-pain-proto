@@ -2,14 +2,16 @@ export interface BodySectionInterface{
   id: number;
   title: string;
   description: string;
-  image: string
+  image: string;
+  isBlank: boolean;
 }
-const makeBodySection = (id: number, image: string, title: string ='', description: string = ''):BodySectionInterface => {
+const makeBodySection = (id: number, image: string, isBlank:boolean = false, title: string ='', description: string = ''):BodySectionInterface => {
   return {
     id,
-    image: require('../images/body_map/' + image),
+    image,
     title,
-    description
+    description,
+    isBlank
   }
 }
 
@@ -17,38 +19,69 @@ export interface bodiesObjectInterface {
   [propName: string]: BodySectionInterface
 }
 
-export const bodySectionList:BodySectionInterface[] = [
+export const frontBodyMaskRanges = [
+  [1,6],
+  [10,21],
+  [25,36],
+  [40,50],
+  [56,64],
+  [72,78],
+  [88,93],
+  [103,108],
+  [118,123],
+  [133,137],
+  [149,152],
+  [164,167],
+  [179,181],
+  [195,196],
+  [210,211],
+  [221,221],
+  [225,227],
+  [229,230],
+  [236,237],
+  [240,245],
+  [251,260],
+  [266,275],
+  [281,290],
+  [296,305],
+  [311,320],
+  [326,335],
+  [341,351],
+  [355,366],
+  [370,381],
+  [385,390]
+];
 
-makeBodySection(1,'bodyMap2.png'),
-makeBodySection(2,'bodyMap3.png'),
+export const frontBodyMask = frontBodyMaskRanges.reduce((acc,range) => {
+  for(let i = range[0]; i <= range[1]; i++){
+    acc.push(i);
+  }
+  return acc;
+},[]);
 
-makeBodySection(3,'bodyMap5.png'),
-makeBodySection(4,'bodyMap6.png'),
-makeBodySection(5,'bodyMap7.png'),
-makeBodySection(6,'bodyMap8.png'),
+console.log(frontBodyMask);
 
-makeBodySection(7,'bodyMap9.png'),
-makeBodySection(8,'bodyMap10.png'),
-makeBodySection(9,'bodyMap11.png'),
-makeBodySection(10,'bodyMap12.png'),
+export const frontBodySectionList:BodySectionInterface[] = [];
+export const backBodySectionList:BodySectionInterface[] = [];
+
+const bodyRows = 26;
+const bodyCols = 15;
+for(let i = 0; i < bodyRows; i++){
+  for(let j = 0; j < bodyCols; j++){
+    let objId = (j+(i * 15))+1;
+    let frontImage = require('../images/body_map/front/images/Front_' + objId + '.png');
+    let backImage = require('../images/body_map/back/images/Back_' + objId + '.png');
+    frontBodySectionList.push(
+      makeBodySection(objId, frontImage,frontBodyMask.indexOf(objId) !== -1)
+    );
+    
+    backBodySectionList.push(
+      makeBodySection(objId, backImage)
+    );
+  }
+}
 
 
-makeBodySection(11,'bodyMap13.png'),
-makeBodySection(12,'bodyMap14.png'),
-makeBodySection(13,'bodyMap15.png'),
-makeBodySection(14,'bodyMap16.png'),
 
-makeBodySection(15,'bodyMap17.png'),
-makeBodySection(16,'bodyMap18.png'),
-makeBodySection(17,'bodyMap19.png'),
-makeBodySection(18,'bodyMap20.png'),
 
-makeBodySection(19,'bodyMap22.png'),
-makeBodySection(20,'bodyMap23.png'),
 
-makeBodySection(21,'bodyMap26.png'),
-makeBodySection(22,'bodyMap27.png'),
-
-makeBodySection(23,'bodyMap30.png'),
-makeBodySection(24,'bodyMap31.png')
-]
