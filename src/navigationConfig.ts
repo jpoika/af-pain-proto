@@ -31,7 +31,7 @@ export default {
     routes: [new RegExp('/main/assessment-start')],
     level: 1,
     pathname: '/main/assessment-start',
-    childrenIds: ['5']
+    childrenIds: []
   },
   '4': {
     id: '4',
@@ -95,14 +95,14 @@ export default {
     routes: [new RegExp('/main/account-home')],
     level: 2,
     pathname: '/main/account-home',
-    childrenIds: ['8','12']
+    childrenIds: ['8','12','9','7']
   },
   '14': {
     id: '14',
-    name: 'Account Home',
-    routes: [new RegExp('/main/test-signaler')],
+    name: 'Test Test',
+    routes: [new RegExp('/main/test-stub')],
     level: 2,
-    pathname: '/main/test-signaler',
+    pathname: '/main/test-stub',
     childrenIds: []
   }
 };
