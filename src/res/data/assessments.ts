@@ -19,15 +19,19 @@ export interface AssessmentInterface {
   painLevels: any;
   step: number;
   isComplete: boolean;
+  title: string;
+  type: string;
 }
 
-export const makeAssessment = (id:number,bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
+export const makeAssessment = (id:number, title:string, type: string, bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
   return {
     id,
     bodySections,
     painLevels,
     step: 0,
-    isComplete: false
+    isComplete: false,
+    type,
+    title
   }
 }
 

@@ -9,10 +9,11 @@ export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
 import {nextId} from './_helper';
 
-const getLastNonInitialAssessment = (state) => {
+const getLastNonInitialAssessment = (state,type) => {
   return state.assessmentIds
             .map(aid => state.assessments[aid])
             .filter(assess => assess.id !== 1)
+            .filter(assess => assess.type === type)
             .pop()
             ;
 }
@@ -36,23 +37,22 @@ export const assessMarkComplete = (assessmentId: number) => {
   }
 }
 
-export const addAssessmentIfNecessary = () => {
+export const addAssessmentIfNecessary = (type: string) => {
   return (dispatch,getState) => {
-    let lastReAssessment = getLastNonInitialAssessment(getState())
+    let lastReAssessment = getLastNonInitialAssessment(getState(),type)
     if(!lastReAssessment || lastReAssessment.isComplete){
-      console.log('YESS assess');
-      dispatch(addAssessment());
+      dispatch(addAssessment(type));
     } else {
       console.log('do not need new assess');
     }
   }
 }
 
-export const addAssessment = () => {
+export const addAssessment = (type: string) => {
   return (dispatch,getState) => {
     return dispatch(
             editAssessment(
-              makeAssessment(nextId(getState().assessmentIds))
+              makeAssessment(nextId(getState().assessmentIds),'',type)
             )
           );
   }

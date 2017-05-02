@@ -11,7 +11,7 @@ export default class LoginPage extends React.Component<Props, any>{
 
     return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
 
-                    <LoginForm validate={validate} onCancelClick={onCancelClick} />
+                  <h3>TODO</h3>
                     
             </BasicPage>;
   }

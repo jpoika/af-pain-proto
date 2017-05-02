@@ -133,58 +133,6 @@ export default class MedicationItem extends React.Component<Props, State>{
                   //ref={(input) => { (this as any).textInput = input; }}
                   errorText={errors.name} />
             </div>
-
-            <div>
-            <TextField 
-                  floatingLabelText={'Amount'} 
-                  hintText={'Numbers Only Please'} 
-                  multiLine={false}
-                  name='amount'
-                  value={values.amount}
-             
-                  onChange={this.handleChange}
-                  //ref={(input) => { (this as any).textInput = input; }}
-                  errorText={errors.amount} />
-            </div>
-            <div>
-              <SelectField
-                floatingLabelText="Amount Unit"
-                errorText={this.state.errors.amountUnitId} 
-                value={this.state.values.amountUnitId}
-                onChange={this.handleSelectChange('amountUnitId')}
-              >
-                {amountUnits.map((au) => {
-                  return <MenuItem key={au.id} value={au.id} primaryText={au.name} />
-                })}
-                
-              </SelectField>
-            </div>
-            <div>
-            <TextField 
-                  floatingLabelText={'Frequency'} 
-                  hintText={'Numbers Only Please'} 
-                  multiLine={false}
-                  name='frequency'
-                  value={values.frequency}
-             
-                  onChange={this.handleChange}
-                  //ref={(input) => { (this as any).textInput = input; }}
-                  errorText={errors.frequency} />
-
-            </div>
-            <div>
-              <SelectField
-                floatingLabelText="Frequency Unit"
-                errorText={this.state.errors.frequencyUnit} 
-                value={this.state.values.frequencyUnit}
-                onChange={this.handleSelectChange('frequencyUnit')}
-              >
-                {frequencyUnits.map((fu) => {
-                  return <MenuItem key={fu} value={fu} primaryText={fu} />
-                })}
-                
-              </SelectField>
-            </div>
             <div style={flexParentRowStyle as any}>
               <div style={flexRowItemStyle as any}>
                 <RaisedButton primary={true} type="submit">Save</RaisedButton>

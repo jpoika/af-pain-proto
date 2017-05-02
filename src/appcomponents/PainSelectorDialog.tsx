@@ -59,7 +59,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
     return (
       <div>
         <Dialog
-          title="Dialog With Actions"
+          title="Pain Level"
           actions={actions}
           modal={false}
           open={this.state.open}

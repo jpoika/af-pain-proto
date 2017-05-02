@@ -64,8 +64,8 @@ export default class OverallPain extends React.Component<Props, State>{
               <h1>{title}: {isSaved && painLevel.level}</h1>
               {isSaved && <h3>{painLevel.description}</h3>}
               {!isSaved && <h3>Select a Pain Level Below</h3>}
-              <img src={require("../res/images/scale_top.jpg")} width="400" />
-              <PainSelector selectPain={this.handleSelectPain} />
+              {/*<img src={require("../res/images/scale_top.jpg")} width="400" />*/}
+              <PainSelector selectPain={this.handleSelectPain} painLevel={painLevel} />
               <div style={{margin: '12px 0'}}>
                      <RaisedButton 
                               label={additionalActions ? 'Next' : 'Save'}

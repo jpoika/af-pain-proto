@@ -2,12 +2,13 @@ import Theme from './components/Theme';
 import Home from './containers/Home';
 import AccountEdit from './containers/AccountEdit';
 import InitialAssessWizard from './containers/InitialAssessWizard';
-import ReAssessmentWizard from './containers/ReAssessmentWizard';
+import ReAssessmentPage from './containers/ReAssessmentPage';
+import NewPainPage from './containers/NewPainPage';
 import AccountHome from './containers/AccountHome';
 import MedTrackerPage from './containers/MedTrackerPage';
 import AlertScreen from './containers/AlertScreen';
+import EducationResourcesPage from './containers/EducationResourcesPage';
 
-import Login from './containers/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import SplashPage from './components/SplashPage';
@@ -95,7 +96,10 @@ const mainSubRoutes = [
   syncRoute('account-home',AccountHome),
   syncRoute('mtracker',MedTrackerPage),
   syncRoute('test-signaler',AlertScreen),
-  syncRoute('reassess',ReAssessmentWizard)
+  syncRoute('reassess',ReAssessmentPage),
+  syncRoute('newpain',NewPainPage),
+  syncRoute('resources', EducationResourcesPage),
+  syncRoute('resources/:open', EducationResourcesPage)
 ];
 
 const siteRoutes = [
@@ -105,7 +109,6 @@ const siteRoutes = [
     indexRoute: Home,
     childRoutes: [
       syncRoute('/',PageContainer, quickRoutes, Home),
-      syncRoute('/login',PageContainer, quickRoutes, Login),
       syncRoute('/main',PageContainer, mainSubRoutes,Home),
       syncRoute('/debug',PageContainer, [],Debug),
       syncRoute('*',PageContainer,[],NotFound)

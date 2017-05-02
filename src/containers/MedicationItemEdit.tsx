@@ -15,14 +15,16 @@ const validateData = (data) => {
          acc[propName] = '';
          break;
        case 'name':
-       case 'frequencyUnit':
+      // case 'frequencyUnit':
          acc[propName] = !Validators.isString(data[propName]) || !data[propName].length ? 'Required.' : '';
          break;
+         /*
        case 'amount':
        case 'frequency':
          acc[propName] = !Validators.isNumeric(data[propName]) ? 'Please enter a number' : '';
          break; 
-       case 'amountUnitId':
+         */
+       //case 'amountUnitId':
        case 'routeId':
          acc[propName] = !Validators.isNumeric(data[propName]) || ! data[propName] ? "Required." : ''
          break;
@@ -53,9 +55,8 @@ const dispatchToProps = (dispatch) => {
     update: (medication: MedicationInterface) => dispatch(medicationEdit(medication)),
     validate: (data: MedicationInterface) => {
       const result = validateData(data);
-      console.log(result);
       if(result.isValid){
-          dispatch(viewActions.sendMessage('Medication Saved'));
+        dispatch(viewActions.sendMessage('Medication Saved'));
       } else {
         dispatch(viewActions.sendMessage('Please correct any errors above'));
       }

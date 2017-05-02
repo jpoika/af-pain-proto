@@ -154,6 +154,7 @@ export default class LoginForm extends React.Component<Props, State>{
                 floatingLabelText={'Date of Birth'}
                 locale={'en-US'}
                 firstDayOfWeek={0}
+                maxDate={new Date()}
                 errorText={this.state.errors.dob}
                 onChange={this.handleDateChange('dob')}
                 onTouchTap={this.excuseKeyboard}

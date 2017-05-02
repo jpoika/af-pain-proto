@@ -119,8 +119,8 @@ const createMenuItems = (user, menuItems,pathOnTouchTap,initAssessComplete) => {
              <MenuItem key={'menu_top_home'}  primaryText="Home" onTouchTap={pathOnTouchTap('/main/account-home')}  />
              <MenuItem key={'menu_top_init_assess'} rightIcon={initAssessComplete ? <DoneIcon color={'green'} /> : null} primaryText="Initial Assessment" onTouchTap={pathOnTouchTap('/main/assessment-start')}  />
              <MenuItem key={'menu_top_reassess'} rightIcon={initAssessComplete ? <AlarmSet /> : null} disabled={!initAssessComplete} primaryText="Pain Reassessment" onTouchTap={pathOnTouchTap('/main/reassess')}  />
-             <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker')}  />
-             <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" onTouchTap={pathOnTouchTap('/main/newpain')} />
+             <MenuItem key={'menu_top_med_tracker'} rightIcon={initAssessComplete ? <TrackChangesIcon color={'#3A7BAD'} /> : null} disabled={!initAssessComplete} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker')}  />
+             <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={pathOnTouchTap('/main/newpain')} />
 
           {userMenuFilter(menuItems,user).map(menuItem => {
             
@@ -185,7 +185,11 @@ const dispatchToProps = (dispatch,ownProps) => {
         }
         if(path == '/main/reassess'){
           console.log(path);
-          dispatch(addAssessmentIfNecessary());
+          dispatch(addAssessmentIfNecessary('reassessment'));
+        }
+        if(path == '/main/newpain'){
+          console.log(path);
+          dispatch(addAssessmentIfNecessary('newpain'));
         }
         dispatch(push(path));
       }

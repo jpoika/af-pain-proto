@@ -8,6 +8,7 @@ export default {
     childrenIds: [],
     parentId: null
   },
+  /*
   '10': {
     id: '10',
     name: 'Login',
@@ -16,7 +17,7 @@ export default {
     level: 0,
     childrenIds: [],
     parentId: null
-  },
+  }, */
   '2': {
     id: '2',
     name: 'Home',

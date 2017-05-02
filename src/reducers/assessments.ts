@@ -1,6 +1,6 @@
 import {bodySectionList} from '../res/data/body';
 import {painLevels as painLevelsRaw} from '../res/data/pain';
-import {assessmentPainCategories} from '../res/data/assessments';
+import {assessmentPainCategories,makeAssessment} from '../res/data/assessments';
 import { normalize, schema } from 'normalizr';
 import {
   ASSESS_MARK_BODY_SECTION_PAIN, 
@@ -12,13 +12,7 @@ import {
 
 import {arrayPushUnique} from './helpers';
 const assessmentRawData = [
-    {
-      id: 1, 
-      bodySections: {},
-      painLevels: {},
-      step: 0,
-      isComplete: false
-    }
+    makeAssessment(1,'','intial'),
 ];
 
 //const assessmentPainCategoriesSchema = new schema.Entity('assessment_pain_categories');

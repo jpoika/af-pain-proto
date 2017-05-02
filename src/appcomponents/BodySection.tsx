@@ -82,16 +82,22 @@ export default class BodySection extends React.Component<Props, State>{
   render(){
     const {section} = this.props;
     let imageStyles = {opacity: this.state.painLevel.level > 0 ? 0.5 : 1};
-    if(this.state.painLevel.level > 0){
-      //imageStyles['border'] = '1px solid black';
+    let painStyles = {color: this.handlePainColor(), fontSize: '2.2em',position: 'absolute',top: '20px', left: '5px'};
+    if(this.state.painLevel.level !== 10){
+      painStyles = {...painStyles,left: '12px'};
     }
+    imageStyles = {...imageStyles, width: '40px', height: '40px'}
+
     return (
       <div style={{position: 'relative'}}>
-          {this.state.painLevel.level > 0 && <div style={{color: this.handlePainColor(), fontSize: '3em',position: 'absolute',top: '20px', left: '5px'}}>{this.state.painLevel.level}</div>}
+          {this.state.painLevel.level > 0 && <div style={painStyles}>{this.state.painLevel.level}</div>}
           <img style={imageStyles} onClick={this.handleClick} src={section.image}  key={section.id} />
-          <PainSelectorDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} /> 
+          <PainSelectorDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} />
       </div>
       )
     
   }
 }
+
+
+
