@@ -9,7 +9,15 @@ import {
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
 import { normalize, schema } from 'normalizr';
 
-import {assessments,assessmentIds,frontBodySections,frontBodySectionIds,painLevels, painLevelIds, assessmentSystem} from './assessments';
+import {
+  assessments,
+  assessmentIds,
+  bodySections,
+  bodySectionIds,
+  painLevels, 
+  painLevelIds, 
+  assessmentSystem
+} from './assessments';
 import {medications, medicationIds} from './medication';
 import {allergies, allergyIds} from './allergy';
 import {nurseSystem} from './nurse';
@@ -64,13 +72,13 @@ const appHub = combineReducers({
   app: appReducer,
   navigation: navigationReducer,
   view: viewReducer,
-  frontBodySections,
-  frontBodySectionIds,
+  bodySections, //TODO remove (static data)
+  bodySectionIds, //TODO remove (static data)
   assessments,
   assessmentIds,
   assessmentSystem,
-  painLevels,
-  painLevelIds,
+  painLevels, //TODO remove (static data)
+  painLevelIds, //TODO remove (static data)
   migrations,
   medications,
   medicationIds,

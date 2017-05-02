@@ -66,12 +66,13 @@ export const editAssessment = (assessment:AssessmentInterface) => {
 }
 
 
-export const assessMarkPain = (assessmentId: number, bodySectionId: number, painLevelId: number) => {
+export const assessMarkPain = (assessmentId: number, side:string, bodySectionId: number, painLevelId: number) => {
   return {
     type: ASSESS_MARK_BODY_SECTION_PAIN,
     assessmentId,
     bodySectionId,
-    painLevelId
+    painLevelId,
+    side
   }
 }
 

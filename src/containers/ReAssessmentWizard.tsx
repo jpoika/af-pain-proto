@@ -7,7 +7,7 @@ import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {makeAssessment} from '../res/data/assessments';
 import {viewActions} from '../lib/local-t2-view';
 import {nextId} from '../actions/_helper';
-const maxSteps = 5;
+const maxSteps = 6;
 
 const get_or_create_current_assessment = (state) => {
   let lastAssessment = state.assessmentIds

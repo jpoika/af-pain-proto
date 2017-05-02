@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
-const maxSteps = 6;
+const maxSteps = 7;
 
 const get_assessment = (id,state) => {
   return state.assessments[id]

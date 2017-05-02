@@ -4,14 +4,16 @@ export interface BodySectionInterface{
   description: string;
   image: string;
   isBlank: boolean;
+  region: string;
 }
-const makeBodySection = (id: number, image: string, isBlank:boolean = false, title: string ='', description: string = ''):BodySectionInterface => {
+const makeBodySection = (id: number, region: string, image: string, isBlank:boolean = false, title: string ='', description: string = ''):BodySectionInterface => {
   return {
     id,
     image,
     title,
     description,
-    isBlank
+    isBlank,
+    region
   }
 }
 
@@ -59,28 +61,36 @@ export const frontBodyMask = frontBodyMaskRanges.reduce((acc,range) => {
   return acc;
 },[]);
 
-console.log(frontBodyMask);
+export const backBodyMask = frontBodyMask; //just being lazy for now //TODO
 
-export const frontBodySectionList:BodySectionInterface[] = [];
-export const backBodySectionList:BodySectionInterface[] = [];
+export const bodySectionList:BodySectionInterface[] = [];
 
 const bodyRows = 26;
 const bodyCols = 15;
 for(let i = 0; i < bodyRows; i++){
   for(let j = 0; j < bodyCols; j++){
-    let objId = (j+(i * 15))+1;
-    let frontImage = require('../images/body_map/front/images/Front_' + objId + '.png');
-    let backImage = require('../images/body_map/back/images/Back_' + objId + '.png');
-    frontBodySectionList.push(
-      makeBodySection(objId, frontImage,frontBodyMask.indexOf(objId) !== -1)
+    let frontId = (j+(i * 15))+1;
+    let backId = bodyRows * bodyCols + frontId;
+    let frontImage = require('../images/body_map/front/images/Front_' + frontId + '.png');
+    let backImage = require('../images/body_map/back/images/Back_' + frontId + '.png');
+
+    bodySectionList.push(
+      makeBodySection(frontId, 'front', frontImage, frontBodyMask.indexOf(frontId) !== -1)
     );
-    
-    backBodySectionList.push(
-      makeBodySection(objId, backImage)
+
+    bodySectionList.push(
+      makeBodySection(backId, 'back', backImage, backBodyMask.indexOf(frontId) !== -1)
     );
   }
 }
 
+export const frontBodySectionIds = bodySectionList
+                                      .filter((sect) => sect.region === 'front')
+                                      .map(sect => sect.id + '');
+                                      
+export const backBodySectionIds = bodySectionList
+                                      .filter((sect) => sect.region === 'back')
+                                      .map(sect => sect.id + '');
 
 
 

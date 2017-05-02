@@ -3,20 +3,26 @@ import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import { assessMarkPain } from '../actions/assessment';
 import {PainLevelInterface} from '../res/data/pain';
+import {frontBodySectionIds, backBodySectionIds} from '../res/data/body';
 
+const getBodySections = (allBodySections,sectionIds) => {
+    return sectionIds.map((sid) => {
+      return allBodySections[sid]
+    });
+};
 
 const stateToProps = (state, ownProps) => {
   const initAssessmentId = 1;
   return {
     title: 'Pain Map Front',
-    bodySections: state.frontBodySections,
+    bodySections: ownProps.side === 'back' ? getBodySections(state.bodySections,backBodySectionIds) : getBodySections(state.bodySections,frontBodySectionIds)
   }
 }
 const dispatchToProps = (dispatch) => {
   return {
-    markPain: (assessmentId: number, sectionId: number, painLevel: PainLevelInterface) => {
+    markPain: (assessmentId: number, side: string, sectionId: number, painLevel: PainLevelInterface) => {
       console.log(painLevel);
-      dispatch(assessMarkPain(assessmentId,sectionId,painLevel.id));
+      dispatch(assessMarkPain(assessmentId,side,sectionId,painLevel.id));
     }
   }
 }
