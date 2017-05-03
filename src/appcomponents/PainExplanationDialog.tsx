@@ -43,7 +43,7 @@ export default class PainExplanationDialog extends React.Component<Props, State>
                 <Dialog
                   title="Pain Levels"
                   modal={false}
-
+                
                   open={this.state.open}
                   actions={actions}
                   onRequestClose={this.handleClose}
