@@ -10,7 +10,7 @@ import {
   ASSESSMENT_EDIT
 } from '../actions/assessment'
 
-import {arrayPushUnique} from './helpers';
+import {arrayPushUnique} from './_helpers';
 const assessmentRawData = [
     makeAssessment(1,'','intial'),
 ];

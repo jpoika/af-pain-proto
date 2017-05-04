@@ -4,6 +4,7 @@ import {device} from './device';
 import {appReducer} from 'local-t2-sw-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
 import {viewReducer} from '../lib/local-t2-view';
+import {notifications, notificationIds} from './notifications';
 import {
   FLAG_AS_AUTHENTICATED,
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
@@ -84,7 +85,9 @@ const appHub = combineReducers({
   medicationIds,
   allergies,
   allergyIds,
-  nurseSystem
+  nurseSystem,
+  notifications,
+  notificationIds
 });
 
 export default appHub;

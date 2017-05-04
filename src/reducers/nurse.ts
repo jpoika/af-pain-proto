@@ -13,6 +13,7 @@ import {
   ALERT_NURSE_WITH_STATUS
 } from '../actions/nurse';
 import {REHYDRATE} from 'redux-persist/constants';
+import {arrayPushUnique, arrayRemove} from './_helpers';
 
 const defaultSystem = {
   status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout, 4: user_confirm
@@ -68,7 +69,7 @@ export const nurseSystem = (state = defaultSystem,action) => {
   return state;
 }
 
-import {arrayPushUnique, arrayRemove} from './helpers';
+
 export const messages = (state={},action) => {
   switch (action.type) {
     case RECIEVE_MESSAGE_FROM_NURSE:

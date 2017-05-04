@@ -29,7 +29,7 @@ export default {
   '9': {
     id: '9',
     name: 'Initial Assessment',
-    routes: [new RegExp('/main/assessment-start')],
+    routes: ['/main/assessment-start'],
     level: 1,
     pathname: '/main/assessment-start',
     childrenIds: []
@@ -37,7 +37,7 @@ export default {
   '4': {
     id: '4',
     name: 'Pain Education & Resources',
-    routes: ['/main/resources'],
+    routes: ['/main/resources','/main/resources/open'],
     pathname: '/main/resources',
     level: 1,
     childrenIds: []
@@ -53,7 +53,7 @@ export default {
   '5': {
     id: '5',
     name: 'Pain Reassessment',
-    routes: [new RegExp('/main/reassess')],
+    routes: ['/main/reassess'],
     level: 2,
     pathname: '/main/reassess',
     childrenIds: [],

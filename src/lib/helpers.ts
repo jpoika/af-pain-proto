@@ -78,13 +78,26 @@ export namespace Transforms {
 }
 
 export namespace Formats {
-  export const dateToString = (input: Date, format: any = '') => {
+  export const dateToDateString = (input: Date, format: any = '') => {
     return (input.getMonth() + 1) + '/' + input.getDate() + '/' + input.getFullYear();
   }
-  export const msToString = (input: number, format: any = '') => {
+  export const msToDateString = (input: number, format: any = '') => {
     let tmpDate = new Date();
     tmpDate.setTime(input);
-    return dateToString(tmpDate);
+    return dateToDateString(tmpDate);
+  }
+
+  export const dateToDateTimeString = (input: Date, format: any = '') => {
+    const hour = input.getHours();
+    const filledHour = hour > 9 ? hour : '0' + hour;
+    const minute = input.getMinutes();
+    const filledMinute = minute > 9 ? minute : '0' + minute;
+    return (input.getMonth() + 1) + '/' + input.getDate() + '/' + input.getFullYear() + ' ' + filledHour + ':' + filledMinute;
+  }
+  export const msToDateTimeString = (input: number, format: any = '') => {
+    let tmpDate = new Date();
+    tmpDate.setTime(input);
+    return dateToDateTimeString(tmpDate);
   }
 
 }

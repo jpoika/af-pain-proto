@@ -6,6 +6,7 @@ export const ASSESS_MARK_COMPLETE = 'T2.ASSESS_MARK_COMPLETE';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 
+import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
 import {nextId} from './_helper';
 
@@ -88,10 +89,10 @@ export const assessSetOverallPain = (assessmentId: number, painCategoryId: numbe
 var tmpIdasdf  = 0;
 export const sheduleInitialAssessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 5*1000);
-  return (dispatch,getState, {isReady, notification}) => {
+  let minutes_from_now = new Date(now.getTime() + 20*1000);
+  return (dispatch,getState) => {
     console.log('dispatching assessmentSchedule');
-       dispatch(assessmentSchedule(
+       dispatch(scheduleNotification(
 
           "Initial assessment",
           "Howdy! When you're ready please begin your initial assessment.",
@@ -99,21 +100,4 @@ export const sheduleInitialAssessment = () => {
       ));
   }
 }
-
-export const assessmentSchedule = (title,text,deadline) => {
-  tmpIdasdf++;
-  return (dispatch,getState, {isReady, notification}) => {
-    const scheduleArg = {
-        id: tmpIdasdf,
-        title,
-        text,
-        at: deadline,
-        data: { meetingId:"#123FG8" },
-        //sound: require('../res/audio/alert_chime.mp3')
-    }
-    console.log('scheduling with cordova plugin');
-    notification.schedule(scheduleArg);
-  }
-}
-
 

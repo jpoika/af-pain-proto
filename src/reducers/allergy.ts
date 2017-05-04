@@ -1,5 +1,5 @@
 import {ALLERGY_ADD, ALLERGY_REMOVE, ALLERGY_EDIT} from '../actions/allergy'
-import {arrayPushUnique, arrayRemove} from './helpers';
+import {arrayPushUnique, arrayRemove} from './_helpers';
 export const allergies = (state={},action) => {
   switch (action.type) {
     case ALLERGY_ADD:

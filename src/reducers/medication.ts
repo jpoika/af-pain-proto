@@ -1,5 +1,5 @@
 import {MEDICATION_ADD, MEDICATION_REMOVE, MEDICATION_EDIT} from '../actions/medication'
-import {arrayPushUnique, arrayRemove} from './helpers';
+import {arrayPushUnique, arrayRemove} from './_helpers';
 export const medications = (state={},action) => {
   switch (action.type) {
     case MEDICATION_ADD:

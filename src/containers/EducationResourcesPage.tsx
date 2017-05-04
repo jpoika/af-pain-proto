@@ -12,7 +12,7 @@ const stateToProps = (state,ownProps) => {
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    pageOpen: ownProps.pathOnTouchTap('main/resources/open')
+    pageOpen: ownProps.pathOnTouchTap('/main/resources/open')
   }
 }
 export default connect(stateToProps,dispatchToProps)

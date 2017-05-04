@@ -23,7 +23,8 @@ cordova.plugins.notification.local.on("click", function (notification) {
 export interface LocalNotificationInterface {
     on:  (eventName: string,cb: (any)) => any;
     data: any;
-    schedule: any; //TODO
+    schedule(arg, cb: (err: any, result: any) => void): Promise<any>;
+    clear(notificationId, cb: (err: any, result: any) => void): Promise<any>;
 }
 
 export default class LocalNotification{
@@ -47,8 +48,29 @@ export default class LocalNotification{
     }
 
     schedule = (arg: any) => {
-        this.notification.schedule(arg);
+        return new Promise((accept, reject) => {
+            this.notification.schedule(arg,(result) => {
+                if(result !== 'OK'){
+                    reject(result);
+                }else{
+                    accept(result);
+                }
+            });
+        });
     }
+
+    clear = (notificationId: number) => {
+        return new Promise((accept, reject) => {
+            this.notification.clear(notificationId,(result) => {
+                if(result !== 'OK'){
+                    reject(result);
+                }else{
+                    accept(result);
+                }
+            });
+        });
+    }
+
 
     on = (eventName:string,cb: (any) => void) => {
            this.notification.on(eventName,cb);

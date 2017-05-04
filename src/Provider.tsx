@@ -6,7 +6,7 @@ import ReAssessmentPage from './containers/ReAssessmentPage';
 import NewPainPage from './containers/NewPainPage';
 import AccountHome from './containers/AccountHome';
 import MedTrackerPage from './containers/MedTrackerPage';
-import AlertScreen from './containers/AlertScreen';
+import NotificationsDashbord from './containers/NotificationsDashbord';
 import EducationResourcesPage from './containers/EducationResourcesPage';
 import {viewActions} from './lib/local-t2-view';
 import {sheduleInitialAssessment} from './actions/assessment';
@@ -92,7 +92,6 @@ window.onresize = () => {
    }
    _timeOutResizeId = setTimeout(
           function(){
-              console.log('resize called');
               store.dispatch(windowResize(window.innerWidth,window.innerHeight));
           },
         500);
@@ -119,7 +118,7 @@ const mainSubRoutes = [
   syncRoute('assessment-start',InitialAssessWizard),
   syncRoute('account-home',AccountHome),
   syncRoute('mtracker',MedTrackerPage),
-  syncRoute('test-signaler',AlertScreen),
+  syncRoute('test-stub',NotificationsDashbord),
   syncRoute('reassess',ReAssessmentPage),
   syncRoute('newpain',NewPainPage),
   syncRoute('resources', EducationResourcesPage),
