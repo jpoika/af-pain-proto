@@ -1,4 +1,4 @@
-const monday_9_am = '?????'
+/*
 cordova.plugins.notification.local.schedule({
     id: 1,
     title: "Take Re-Assessment",
@@ -18,3 +18,44 @@ cordova.plugins.notification.local.on("click", function (notification) {
         break; 
     }
 });
+*/
+
+export interface LocalNotificationInterface {
+    on:  (eventName: string,cb: (any)) => any;
+    data: any;
+    schedule: any; //TODO
+}
+
+export default class LocalNotification{
+    public notification:LocalNotificationInterface;
+    public isReady:boolean = false;
+    public initCb: () => LocalNotificationInterface  //use generic for return value?
+    public onReadyCb: () => void = () => {};
+    
+    constructor(initCb: () => LocalNotificationInterface){
+        this.initCb = initCb;
+    }
+
+    init = () => {
+        this.notification = this.initCb();
+        this.isReady = true;
+        this.onReadyCb.call(this);
+    }
+
+    onReady = (cb) => {
+      this.onReadyCb = cb;
+    }
+
+    schedule = (arg: any) => {
+        this.notification.schedule(arg);
+    }
+
+    on = (eventName:string,cb: (any) => void) => {
+           this.notification.on(eventName,cb);
+    }
+
+    getNotificationObject = () => {
+        return this.notification;
+    }
+
+}

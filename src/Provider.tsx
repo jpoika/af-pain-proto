@@ -8,7 +8,8 @@ import AccountHome from './containers/AccountHome';
 import MedTrackerPage from './containers/MedTrackerPage';
 import AlertScreen from './containers/AlertScreen';
 import EducationResourcesPage from './containers/EducationResourcesPage';
-
+import {viewActions} from './lib/local-t2-view';
+import {sheduleInitialAssessment} from './actions/assessment';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import SplashPage from './components/SplashPage';
@@ -29,6 +30,7 @@ import {windowResize} from './actions/device';
 import navigationConfig from './navigationConfig';
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
+import LocalNotification from './lib/cordova/local-notifications';
 import {persistStore, autoRehydrate, purgeStoredState, getStoredState} from 'redux-persist';
 let reducerKey = 'migrations'; // name of the migration reducer
 
@@ -50,10 +52,32 @@ const storageConfig = {
  
 const migration = createMigration(manifest, reducerKey);
 const persistEnhancer = compose(migration, autoRehydrate());
+
+const localNotification = new LocalNotification(() => {
+  return cordova.plugins.notification.local;
+});
+
+
+localNotification.onReady(function(){
+    this.on('click',(notification) => {
+      console.log(notification);
+      store.dispatch(viewActions.sendMessage(notification.title));
+    });
+});
+
+
+const actionArgs:CordovaConfiguratorInterface = {
+  isReady: false,
+  plugins: {
+    notification: localNotification
+  }
+};
+
+
 let store = createStore(reducer,
     applyMiddleware(
         routerMiddleware(hashHistory),
-        thunkMiddleware,
+        thunkMiddleware.withExtraArgument(actionArgs),
         navigationCreateMiddleware(navigationConfig),
         appMiddleware({url: '',interval: 30000})
       ),
@@ -127,6 +151,21 @@ interface MyState {
   [propName: string]: any;
 }
 
+interface CordovaConfiguratorInterface {
+  isReady: boolean;
+  plugins: {[propName: string]: {init: () => void }}
+}
+
+function initCordova(config: CordovaConfiguratorInterface){
+    Object.keys(config.plugins).map((propName) => {
+      try {
+      config.plugins[propName].init();
+      } catch (e){
+        console.log('Error on init of cordova plugin: ' + propName);
+      }
+    });
+}
+
 export default class AppProvider extends React.Component<MyProps,  MyState>{
   constructor(store){
     super(store);
@@ -135,13 +174,24 @@ export default class AppProvider extends React.Component<MyProps,  MyState>{
     }
   }
   componentWillMount () { // only called on first load or hard browser refresh
+    actionArgs.isReady = true;
 
+    
+
+    if(__IS_CORDOVA_BUILD__){
+        initCordova(actionArgs)
+    }
+   
     persistStore(store, storageConfig, (err,state) => {
-
+        if(__IS_CORDOVA_BUILD__){
+          setTimeout(() => {
+            store.dispatch(sheduleInitialAssessment())
+            console.log('dispatching sheduleInitialAssessment');
+          },5000);
+        }
         this.setState({ rehydrated: true });
     });
   }
-
 
   render(){
    if(!this.state.rehydrated){

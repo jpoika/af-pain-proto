@@ -142,7 +142,8 @@ export const alertNurseTimeout = () => {
 
 
 export const alertNurse = () => {
-  return function(dispatch,getState){
+  return function(dispatch,getState,xtraTest){
+    console.log(xtraTest);
     dispatch(alertNurseStart())
     return tmpSimulatedContact().then((action) => {
         dispatch(action)
