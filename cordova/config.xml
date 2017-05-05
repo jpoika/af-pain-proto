@@ -26,4 +26,5 @@
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
     <plugin name="cordova-plugin-device" spec="~1.1.5" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.2" />
+    <plugin name="org.t2crypto" spec="../../cordova-plugin-t2crypto" />
 </widget>

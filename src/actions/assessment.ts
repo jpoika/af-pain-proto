@@ -116,7 +116,7 @@ export const sheduleInitialAssessment = () => {
   return (dispatch,getState) => {
     console.log('dispatching assessmentSchedule');
        dispatch(scheduleNotification(
-          "Initial assessment",
+          "Initial Pain Assessment",
           "Welcome! When you're ready please begin your initial assessment.",
           minutes_from_now,
           makeAssessmentData('initial')
@@ -130,8 +130,8 @@ export const sheduleReassessment = () => {
   return (dispatch,getState) => {
     console.log('dispatching assessmentSchedule');
        dispatch(scheduleNotification(
-          "Initial assessment",
-          "Welcome! When you're ready please begin your initial assessment.",
+          "Pain Reassessment",
+          "Hi! Let's take a quick moment to reassess your pain levels.",
           minutes_from_now,
           makeAssessmentData('reassessment')
       ));

@@ -33,6 +33,7 @@ import navigationConfig from './navigationConfig';
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
 import LocalNotification from './lib/cordova/local-notifications';
+import {initCordova,CordovaConfiguratorInterface} from './lib/cordova/cordova-helper';
 import {persistStore, autoRehydrate, purgeStoredState, getStoredState} from 'redux-persist';
 let reducerKey = 'migrations'; // name of the migration reducer
 
@@ -62,9 +63,7 @@ const localNotification = new LocalNotification(() => {
 
 localNotification.onReady(function(){
     this.on('click',(notification) => {
-      console.log(notification);
       store.dispatch(viewActions.sendMessage(notification.title));
-      console.log(notification);
       if(notification.data.app === 'af_pain'){
         switch(notification.data.type){
           case 'assessment':
@@ -161,20 +160,8 @@ interface MyState {
   [propName: string]: any;
 }
 
-interface CordovaConfiguratorInterface {
-  isReady: boolean;
-  plugins: {[propName: string]: {init: () => void }}
-}
 
-function initCordova(config: CordovaConfiguratorInterface){
-    Object.keys(config.plugins).map((propName) => {
-      try {
-      config.plugins[propName].init();
-      } catch (e){
-        console.log('Error on init of cordova plugin: ' + propName);
-      }
-    });
-}
+
 
 export default class AppProvider extends React.Component<MyProps,  MyState>{
   constructor(store){
@@ -195,9 +182,8 @@ export default class AppProvider extends React.Component<MyProps,  MyState>{
     persistStore(store, storageConfig, (err,state) => {
         if(__IS_CORDOVA_BUILD__){
           setTimeout(() => {
-            if(!store.getState().user.firstname){
+            if(!store.getState().notificationIds.length){ //check hand see if inital assessemnt reminder has been set
               store.dispatch(sheduleInitialAssessment());
-              console.log('dispatching sheduleInitialAssessment');
             }
 
           },1000);
