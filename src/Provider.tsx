@@ -195,9 +195,12 @@ export default class AppProvider extends React.Component<MyProps,  MyState>{
     persistStore(store, storageConfig, (err,state) => {
         if(__IS_CORDOVA_BUILD__){
           setTimeout(() => {
-            store.dispatch(sheduleInitialAssessment())
-            console.log('dispatching sheduleInitialAssessment');
-          },5000);
+            if(!store.getState().user.firstname){
+              store.dispatch(sheduleInitialAssessment());
+              console.log('dispatching sheduleInitialAssessment');
+            }
+
+          },1000);
         }
         this.setState({ rehydrated: true });
     });

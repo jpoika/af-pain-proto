@@ -31,11 +31,13 @@ export const assessMoveStep = (stepIndex: number,assessmentId: number) => {
 
 export const assessMarkComplete = (assessmentId: number) => {
   let date = new Date();
-
-  return {
-    type: ASSESS_MARK_COMPLETE,
-    assessmentId,
-    dateTs: date.getTime()
+  return (dispatch, getState) => {
+      dispatch(sheduleReassessment())
+      dispatch({
+                type: ASSESS_MARK_COMPLETE,
+                assessmentId,
+                dateTs: date.getTime()
+              });
   }
 }
 
@@ -100,7 +102,7 @@ export const assessmentNotificationClick = (data) => {
       case "initial":
         dispatch(push('/main/assessment-start'));
         break;
-      case "reassess":
+      case "reassessment":
         dispatch(addAssessmentIfNecessary('reassessment'));
         dispatch(push('/main/reassess'));
         break;
@@ -131,7 +133,7 @@ export const sheduleReassessment = () => {
           "Initial assessment",
           "Welcome! When you're ready please begin your initial assessment.",
           minutes_from_now,
-          makeAssessmentData('initial')
+          makeAssessmentData('reassessment')
       ));
   }
 }

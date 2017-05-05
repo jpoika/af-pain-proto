@@ -85,7 +85,16 @@ export default class LocalNotification{
     }
 
     on = (eventName:string,cb: (any) => void) => {
-           this.notification.on(eventName,cb);
+           this.notification.on(eventName,function(result){
+               if(typeof result.data !== 'undefined'){
+                   try {
+                       result.data = JSON.parse(result.data);
+                   } catch(e){
+                       console.log(e);
+                   }
+               }
+               cb(result);
+           });
     }
 
     getNotificationObject = () => {
