@@ -5,13 +5,13 @@ import FlatButton from 'material-ui/FlatButton';
 
 import Dialog from 'material-ui/Dialog';
 export interface Props extends PageProps{
-  deleteAccountAction: any;
+ deleteAccount: any;
 }
 
 export interface State{
   confirmOpen: boolean;
 }
-export default class AccountHome extends React.Component<Props, any> {
+export default class AccountHome extends React.Component<Props, State> {
 
   constructor(props){
     super(props);
@@ -21,13 +21,12 @@ export default class AccountHome extends React.Component<Props, any> {
   }
 
   handleDeleteAccountConfirmed = (event) => {
-    const {deleteAccountAction} = this.props;
-    deleteAccountAction();
+    const {deleteAccount} = this.props;
+    deleteAccount();
     this.handleClose();
   }
 
   handleDeleteAccount = (event) => {
-    const {deleteAccountAction} = this.props;
     this.setState({
       confirmOpen: true
     });
