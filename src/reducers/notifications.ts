@@ -1,5 +1,7 @@
 import {NOTIFICATION_EDIT,NOTIFICATION_WAS_DELETED} from '../actions/notifications';
 import {arrayPushUnique, arrayRemove} from './_helpers';
+
+
 const defaultNotifications = {
 
 };

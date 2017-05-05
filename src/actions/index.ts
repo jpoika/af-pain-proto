@@ -4,6 +4,7 @@ export const FLAG_AS_AUTHENTICATED = 'T2.FLAG_USER_AS_AUTHENTICATED';
 export const FLAG_AS_DEAUTHENTICATED = 'T2.FLAG_USER_AS_DEAUTHENTICATED';
 export const UPDATE_ACCOUNT_INFO = 'T2.UPDATE_ACCOUNT_INFO';
 export const SET_USERNAME = 'T2.SET_USERNAME';
+export const RESET_APP = 'T2.RESET_APP';
 
 import {AccountInterface} from '../res/data/account'
 export const flagUserAuthenticated = () => {
@@ -29,6 +30,12 @@ export const setUsername = (username: string) => {
   return {
     type: SET_USERNAME,
     username
+  }
+}
+
+export const deleteAccount = () => {
+  return {
+    type: RESET_APP
   }
 }
 

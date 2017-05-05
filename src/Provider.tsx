@@ -27,6 +27,8 @@ import { createStore, applyMiddleware, compose} from 'redux'
 import reducer from './reducers';
 import {asynRouteMaker,syncRoute} from './lib/helpers';
 import {windowResize} from './actions/device';
+import {assessmentNotificationClick} from './actions/assessment';
+
 import navigationConfig from './navigationConfig';
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
@@ -62,6 +64,15 @@ localNotification.onReady(function(){
     this.on('click',(notification) => {
       console.log(notification);
       store.dispatch(viewActions.sendMessage(notification.title));
+      console.log(notification);
+      if(notification.data.app === 'af_pain'){
+        switch(notification.data.type){
+          case 'assessment':
+            store.dispatch(assessmentNotificationClick(notification.data));
+            break;
+        }
+      }
+
     });
 });
 

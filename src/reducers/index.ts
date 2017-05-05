@@ -5,7 +5,9 @@ import {appReducer} from 'local-t2-sw-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
 import {viewReducer} from '../lib/local-t2-view';
 import {notifications, notificationIds} from './notifications';
+
 import {
+  RESET_APP,
   FLAG_AS_AUTHENTICATED,
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
 import { normalize, schema } from 'normalizr';
@@ -89,5 +91,12 @@ const appHub = combineReducers({
   notifications,
   notificationIds
 });
+const rootReducer = (state, action) => {
+  // if (action.type === 'RESET') return action.stateFromLocalStorage
+  if (action.type === RESET_APP) {
+    state = undefined;
+  }
 
-export default appHub;
+  return appHub(state, action)
+}
+export default rootReducer;

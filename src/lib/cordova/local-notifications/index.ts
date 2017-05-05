@@ -25,6 +25,7 @@ export interface LocalNotificationInterface {
     data: any;
     schedule(arg, cb: (err: any, result: any) => void): Promise<any>;
     clear(notificationId, cb: (err: any, result: any) => void): Promise<any>;
+    clearAll(cb: (err: any, result: any) => void): Promise<any>;
 }
 
 export default class LocalNotification{
@@ -71,6 +72,17 @@ export default class LocalNotification{
         });
     }
 
+    clearAll = () => {
+        return new Promise((accept, reject) => {
+            this.notification.clearAll((result) => {
+                if(result !== 'OK'){
+                    reject(result);
+                }else{
+                    accept(result);
+                }
+            });
+        });
+    }
 
     on = (eventName:string,cb: (any) => void) => {
            this.notification.on(eventName,cb);

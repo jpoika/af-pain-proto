@@ -3,11 +3,12 @@ export const NOTIFICATION_EDIT = 'T2.EDIT_NOTIFICATION';
 export const NOTIFICATION_TRIGGERED = 'T2.NOTIFICATION_TRIGGERED';
 //export const NOTIFICATION_DELETE = 'T2.NOTIFICATION_DELETE';
 export const NOTIFICATION_WAS_DELETED = 'T2.NOTIFICATION_DELETED';
+export const NOTIFICATION_CLEAR_ALL = 'T2.NOTIFICATION_CLEAR_ALL';
 
 import {nextId} from './_helper';
 
 
-export const scheduleNotification = (title,text,deadline, data = { meetingId:"#123FG8" }) => {
+export const scheduleNotification = (title,text,deadline, data = {}) => {
 
   return (dispatch,getState, {isReady, plugins}) => {
     const newId = nextId(getState().notificationIds);
@@ -31,6 +32,19 @@ export const editNotification = (schedule,timestamp) => {
     type: NOTIFICATION_EDIT,
     schedule,
     timestamp
+  }
+}
+
+export const clearAllNotifications = () => {
+  return (dispatch,getState, {isReady, plugins}) => {
+    plugins.notification.clearAll().then(() => {
+      dispatch({
+          type: NOTIFICATION_CLEAR_ALL
+        });
+    }).catch((e) => {
+       console.log(e);
+    });
+
   }
 }
 

@@ -8,6 +8,7 @@ export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
+import { push } from 'react-router-redux';
 import {nextId} from './_helper';
 
 const getLastNonInitialAssessment = (state,type) => {
@@ -86,17 +87,51 @@ export const assessSetOverallPain = (assessmentId: number, painCategoryId: numbe
   }
 }
 
-var tmpIdasdf  = 0;
+const makeAssessmentData = (name) => {
+  return {
+    app: 'af_pain',
+    type: 'assessment',
+    name
+  }
+}
+export const assessmentNotificationClick = (data) => {
+  return (dispatch, getState) => {
+    switch (data.name) {
+      case "initial":
+        dispatch(push('/main/assessment-start'));
+        break;
+      case "reassess":
+        dispatch(addAssessmentIfNecessary('reassessment'));
+        dispatch(push('/main/reassess'));
+        break;
+    }
+  }
+
+}
 export const sheduleInitialAssessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 20*1000);
+  let minutes_from_now = new Date(now.getTime() + 1*60*1000);
   return (dispatch,getState) => {
     console.log('dispatching assessmentSchedule');
        dispatch(scheduleNotification(
-
           "Initial assessment",
-          "Howdy! When you're ready please begin your initial assessment.",
-          minutes_from_now
+          "Welcome! When you're ready please begin your initial assessment.",
+          minutes_from_now,
+          makeAssessmentData('initial')
+      ));
+  }
+}
+
+export const sheduleReassessment = () => {
+  let now = new Date();//
+  let minutes_from_now = new Date(now.getTime() + 60*60*1000);
+  return (dispatch,getState) => {
+    console.log('dispatching assessmentSchedule');
+       dispatch(scheduleNotification(
+          "Initial assessment",
+          "Welcome! When you're ready please begin your initial assessment.",
+          minutes_from_now,
+          makeAssessmentData('initial')
       ));
   }
 }
