@@ -8,16 +8,6 @@ export default {
     childrenIds: [],
     parentId: null
   },
-  /*
-  '10': {
-    id: '10',
-    name: 'Login',
-    routes: ['/login'],
-    pathname: '/login',
-    level: 0,
-    childrenIds: [],
-    parentId: null
-  }, */
   '2': {
     id: '2',
     name: 'Home',
@@ -96,7 +86,7 @@ export default {
     routes: [new RegExp('/main/account-home')],
     level: 2,
     pathname: '/main/account-home',
-    childrenIds: ['8','12','9','7']
+    childrenIds: ['8','12','9','7','5']
   },
   '14': {
     id: '14',
