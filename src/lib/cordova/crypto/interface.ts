@@ -14,8 +14,8 @@ export interface DataInInterface { //TODO fix name
 }
 
 export interface CryptoPromiseInterface {
-  encryptRaw(data:DataInInterface): Promise<string>;
-  decryptRaw(data:DataInInterface): Promise<string>;
+  encryptRaw(data:DataInInterface): Promise<any>;
+  decryptRaw(data:DataInInterface): Promise<any>;
   changeAnswersUsingPin(data: ChangeAnswersWithPinInterface): Promise<boolean>;
   changePinUsingPin(data: ChangePinWithPinInterface): Promise<string>;
   changePinUsingAnswers(data: ChangePinWithAnswersInterface): Promise<string>;

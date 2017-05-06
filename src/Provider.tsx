@@ -1,5 +1,6 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
+import T2CordovaStorageEngine from './lib/cordova/crypto/T2CordovaStorageEngine';
 import AccountEdit from './containers/AccountEdit';
 import InitialAssessWizard from './containers/InitialAssessWizard';
 import ReAssessmentPage from './containers/ReAssessmentPage';

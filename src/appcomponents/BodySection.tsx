@@ -90,7 +90,7 @@ export default class BodySection extends React.Component<Props, State>{
 
     return (
       <div style={{position: 'relative'}}>
-          {this.state.painLevel.level > 0 && <div style={painStyles}>{this.state.painLevel.level}</div>}
+          {this.state.painLevel.level > 0 && <div style={painStyles as any}>{this.state.painLevel.level}</div>}
           <img style={imageStyles} onClick={this.handleClick} src={section.image}  key={section.id} />
           <PainSelectorDialog handleClose={this.handleClose} selectPain={this.handleSelectPain} open={this.state.selected} />
       </div>

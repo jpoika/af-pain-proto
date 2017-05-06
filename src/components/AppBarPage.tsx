@@ -128,7 +128,7 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
     return (
        
         <div>
-            <div style={styles.bgDiv} />
+            <div style={styles.bgDiv as any} />
             <Helmet
                     titleTemplate={'%s - ' + appNameShort}
                     defaultTitle={appNameLong}

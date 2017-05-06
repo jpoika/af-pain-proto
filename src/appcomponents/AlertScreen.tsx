@@ -107,8 +107,8 @@ export default class AlertScreen extends React.Component<Props, State>{
 
     const {alerting,screenColor,textColor} = this.state
 
-    return <div style={{position: 'relate', backgroundColor: screenColor, color: textColor, width: '100%',height: '100vh'}}>
-                <h1 style={styles.centerMessage}>Please Orient Device so the Nurse can see it</h1>
+    return <div style={{position: 'relate', backgroundColor: screenColor, color: textColor, width: '100%',height: '100vh'} as any}>
+                <h1 style={styles.centerMessage as any}>Please Orient Device so the Nurse can see it</h1>
                 <RaisedButton style={{position: 'absolute',bottom: 0,left: 0}} onTouchTap={this.handleClear} label="Cancel" fullWidth={true} />
                     
             </div>;

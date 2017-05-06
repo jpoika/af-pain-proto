@@ -1,4 +1,4 @@
-import {PromisePeristerTransform,BrowserCryptoPromise} from '../';
+/*
 
 
 describe('Testing data flow for promise-based persistor', () => {
@@ -34,3 +34,5 @@ describe('Testing data flow for promise-based persistor', () => {
 
 
 });
+
+*/

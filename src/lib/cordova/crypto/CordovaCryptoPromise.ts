@@ -49,14 +49,14 @@ export default class CordovaCryptoPromise implements CryptoPromiseInterface {
       });
   }
 
-  decryptRaw = (data:DataInInterface) => {
-      return new Promise((resolveDecrypt,rejectDecrypt) => {
+  decryptRaw = <Result>(data:DataInInterface):Promise<Result> => {
+      return new Promise<Result>((resolveDecrypt,rejectDecrypt) => {
             this.crypto.decryptRaw(data,(result) => {
                 if(result.RESULT !== -1){
                     if(this.debug){
                       console.log(result.RESULT);
                     }
-                    resolveDecrypt(result.RESULT);
+                    resolveDecrypt(result.RESULT as Result);
                 } else {
                   rejectDecrypt(errorMessage('decription operation failed',500));
                 }

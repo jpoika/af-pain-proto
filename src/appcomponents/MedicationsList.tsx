@@ -101,7 +101,7 @@ export default class MedicationsList extends React.Component<Props, State>{
               </div>
               {this.state.activeEdit && <MedicationItemEdit onSave={this.handleItemSave} deleteItem={this.handleDeleteItem} medication={this.state.activeEdit} />}
               <div>
-                <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle} secondary={true} type="button" onTouchTap={this.handleAddMedication}>{addButtonText}</FlatButton>
+                <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle as any} secondary={true} type="button" onTouchTap={this.handleAddMedication}>{addButtonText}</FlatButton>
               </div>
 
               <div style={{clear: 'both'}}>

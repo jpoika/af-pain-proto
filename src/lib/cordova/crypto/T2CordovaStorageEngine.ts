@@ -10,7 +10,7 @@ interface ConfigInterface {
   lockableFields: string[];
 }
 
-class T2CordovaStorageEngine implements StorageInterface {
+export default class T2CordovaStorageEngine implements StorageInterface {
   public isReady: boolean = false;
   private storage: StorageInterface;
   private crypto: CryptoPromiseInterface;
@@ -105,7 +105,7 @@ class T2CordovaStorageEngine implements StorageInterface {
                          });
            });
        }
-       return dataPromise;
+       return dataPromise as Promise<Result>;
   }
 
   removeItem  = <Result>(key:string, onComplete?: OnComplete<any>) => {

@@ -101,7 +101,7 @@ export default class AllergiesManager extends React.Component<Props, State>{
               </div>
               {this.state.activeEdit && <AllergyItemEdit onSave={this.handleItemSave} deleteItem={this.handleDeleteItem} allergy={this.state.activeEdit} />}
               <div>
-                <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle} secondary={true} type="button" onTouchTap={this.handleAdd}>{addButtonText}</FlatButton>
+                <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle as any} secondary={true} type="button" onTouchTap={this.handleAdd}>{addButtonText}</FlatButton>
               </div>
 
               <div style={{clear: 'both'}}>
