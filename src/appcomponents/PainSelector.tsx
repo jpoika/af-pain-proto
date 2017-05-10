@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 export interface Props {
   selectPain(painLevel: PainLevelInterface);
   painLevels: any[];
-  painLevel?: PainLevelInterface
+  painLevel: PainLevelInterface
 }
 export interface State {
 }
@@ -22,26 +22,11 @@ export default class PainSelector extends React.Component<Props, State>{
   constructor(props){
     super(props);
     this.state = {
+      painLevel: this.props.painLevel
     };
   }
-  handlePainColor = (painLevel) => {
-    if(painLevel.level === 0){
-      return '#000000'
-    }
-    if(painLevel.level < 3){
-      return '#3C9344';
-    }
-    if(painLevel.level < 5){
-      return '#8FB545';
-    }
-    if(painLevel.level < 7){
-      return '#EAD23A';
-    }
-    if(painLevel.level < 9){
-      return '#D67034';
-    }
-    return '#A12629';
-  }
+
+
 
   handleChange = (event, index, value) => {
       const {selectPain} = this.props;
@@ -50,7 +35,7 @@ export default class PainSelector extends React.Component<Props, State>{
 
   renderSelectItemText = (lvl) => {
     return <div>
-              <span style={{fontWeight: 'bolder',color: this.handlePainColor(lvl)}}>{lvl.title}</span> 
+              <span style={{fontWeight: 'bolder',color: lvl.color}}>{lvl.title}</span> 
               &nbsp;&nbsp;<span>{lvl.description}</span>
             </div>;
   }

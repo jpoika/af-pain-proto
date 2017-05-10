@@ -4,10 +4,12 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import PainSelector from '../containers/PainSelector';
 import {PainLevelInterface} from '../res/data/pain';
+import {BodySectionInterface} from '../res/data/body';
 export interface Props {
   handleClose(): any;
   selectPain(painLevel:PainLevelInterface): any;
   open: boolean;
+  painLevel:PainLevelInterface;
 }
 export default class PainSelectorDialog extends React.Component<Props, any> {
 
@@ -65,7 +67,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-         <PainSelector selectPain={this.handleSelect} /> 
+         <PainSelector painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
         </Dialog>
       </div>
     );

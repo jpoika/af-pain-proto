@@ -41,7 +41,8 @@ const manifest = {
   9: (state) => ({...state, painLevels: undefined}),
   10: (state) => ({...state, nurseSystem: {...state.nurseSystem,userHasHighPain: 0}}),
   12: (state) => ({...state, nurseSystem: undefined}),
-  13: (state) => ({...state, assessments: undefined, assessmentIds: undefined})
+  13: (state) => ({...state, assessments: undefined, assessmentIds: undefined}),
+  17: (state) => ({...state, bodySections: undefined})
 };
 
 //const migration = createMigration(manifest, reducerKey);

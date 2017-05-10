@@ -20,14 +20,14 @@ export interface Props{
   side: string;
   markPain(assessmentId: number, side: string, sectionId: number, painLevel: PainLevelInterface): any;
   dialogOpen?: boolean;
-  bodySections: {
-    [propName: string]: BodySectionInterface;
-  }
+  bodySections: BodySectionInterface[];
+  painMarkings: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
 }
 
 export interface State{
   dialogOpen: boolean;
   activeSection: BodySectionInterface;
+  currentPainLevel: PainLevelInterface;
 }
 
 export default class BodyPinMap extends React.Component<Props, State>{
@@ -50,7 +50,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
     } ,{});
     this.state = {
       dialogOpen: this.props.dialogOpen,
-      activeSection: null
+      activeSection: null,
+      currentPainLevel: null
     }
   }
 
@@ -62,14 +63,34 @@ export default class BodyPinMap extends React.Component<Props, State>{
      }
   }
 
+  isSectionSaved = (section: BodySectionInterface) => {
+     const {painMarkings} = this.props;
+     return painMarkings.filter(mark => mark.section.id === section.id).length > 0;
+  }
+
   handleLocateSection = (x: number, y:number) => {
     let relX = x - this.boundingRect.left;
     let relY = y - this.boundingRect.top;
     let col =  Math.floor(relX / 50);
     let row =  Math.floor(relY / 50);
     if(!this.shouldIgnore(row, col)){
-        this.handleTogglePainBox(row, col);
+      const section = this.handleResolveBodySection(row, col);
+      if(section && !this.isSectionSaved(section)){
+     
+        this.handleDialogOpen(section);
+      }
     }
+  }
+
+  handleResolveBodySection = (row, col) => {
+    const {bodySections} = this.props;
+    let filtered = bodySections.filter((section) => {
+       if(section.row === row && section.col === col){
+         return true;
+       }
+       return false;
+    });
+    return filtered.length ? filtered[0] : null;
   }
 
   isCellSelected = (row, col) => {
@@ -80,7 +101,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     return typeof this.ignoreMapFront[this.getCellId(row, col)] !== 'undefined';
   }
 
-  addToGridMap = (row, col, el) => {
+  addToGridMap = (row, col) => {
    
     this.gridMap[this.getCellId(row, col)] = [row, col];
  
@@ -100,17 +121,17 @@ export default class BodyPinMap extends React.Component<Props, State>{
     return 'cell' + row + '_' + col;
   }
 
-  handleTogglePainBox = (row, col) => {
-    if(this.isCellSelected(row, col)){
-      this.handleRemoveBodySelection(row, col); // this may never be called because child div consumes click event
-    }else{
-      this.handleAddBodySelection(row, col);
-    }
+  handleDialogOpen = (section:BodySectionInterface,painLevel: PainLevelInterface = null) => {
+    this.setState({
+      dialogOpen: true,
+      activeSection: section,
+      currentPainLevel: painLevel
+    });
   }
 
-  handleRemoveBodySelection = (row, col) => {
-    delete this.gridMap[this.getCellId(row, col)];
-    let element = document.getElementById(this.getCellId(row, col));
+  handleRemoveBodySelection = (section:BodySectionInterface) => {
+    delete this.gridMap[this.getCellId(section.row, section.col)];
+    let element = document.getElementById(this.getCellId(section.row, section.col));
     if(element){
       element.remove();
     }
@@ -121,28 +142,35 @@ export default class BodyPinMap extends React.Component<Props, State>{
     return offset + col + 1;
   }
 
-  handleAddBodySelection(row, col){
+  handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
+    this.handleRemoveBodySelection(section);
     let element = document.createElement('div');
-    var newContent = document.createTextNode(row + ', ' + col);
-    element.appendChild(newContent);
-    let left = col * 50;
-    let top = row * 50;
-    element.setAttribute('id',this.getCellId(row,col));
-    element.setAttribute('style',`border: 2px solid red; position: absolute; top: ${top}px; left: ${left}px; width: 50px; height: 50px;`)
+    let contentElement = document.createElement('h1');
+    contentElement.setAttribute('style',`color: ${painLevel.color};`);
+    var painLevelContent = document.createTextNode(painLevel.level + '');
+    contentElement.appendChild(painLevelContent);
+
+    
+    
+    element.appendChild(contentElement);
+    let left = section.col * 50;
+    let top = section.row * 50;
+    element.setAttribute('id',this.getCellId(section.row,section.col));
+    element.setAttribute('class','body-section-cell');
+    element.setAttribute('style',`border: 2px solid red; position: absolute; top: ${top}px; left: ${left}px; width: 50px; height: 50px; padding-left: 15px;`)
     this.mapBox.appendChild(element);
 
     element.addEventListener('click', (event) => {
-      this.handleRemoveBodySelection(row, col)
+       this.handleDialogOpen(section,painLevel);
     });
- 
-    const bsId = this.getCalcSectionId(row,col);
-    const {bodySections} = this.props;
-    this.setState({
-      dialogOpen: true,
-      activeSection: typeof bodySections[bsId] !== 'undefined' ? bodySections[bsId] : null
-    });
-//
-    this.addToGridMap(row, col, element);
+  }
+
+  handleClearCells(){
+     let cells = document.getElementsByClassName("body-section-cell");
+     for(let i = 0; i < cells.length; i++){
+       let item = cells.item(i);
+       item && item.remove();
+     }
   }
 
   handleUpdateBoundingClientRect = () => {
@@ -150,36 +178,46 @@ export default class BodyPinMap extends React.Component<Props, State>{
   }
 
   componentDidMount(){
-    this.handleUpdateBoundingClientRect();
+    const {painMarkings} = this.props;
+ 
+    painMarkings.map(({section, painLevel}) => {
+     this.handleAddBodySelection(section,painLevel)
+    });
   }  
   componentDidUpdate(){
-    this.handleUpdateBoundingClientRect();
+    const {painMarkings} = this.props;
+    painMarkings.map(({section, painLevel}) => {
+       this.handleAddBodySelection(section,painLevel)
+    });
   } 
 
   handleDialogClose = () => {
     this.setState({
-      dialogOpen: false
+      dialogOpen: false,
+      activeSection: null,
+      currentPainLevel: null
     });
   } 
 
   handleSelectPain = (painLevel:PainLevelInterface) => {
-    console.log(painLevel);
-    console.log(this.state.activeSection);
+
     const {markPain,assessmentId,side} = this.props;
     if(this.state.activeSection){
       markPain(assessmentId,side,this.state.activeSection.id,painLevel);
     }
+
   }
 
   render(){
-    const {title,bodyImage} = this.props
+    const {title,bodyImage,painMarkings} = this.props;
+ 
     return (
             <div>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{border: '2px solid black',position: 'relative', width: 750, height: 1300}} ref={(el) => { this.mapBox= el; }} >
                     <img src={bodyImage} width="750" height="1300" />
               </div>
         
-              <PainSelectorDialog handleClose={this.handleDialogClose} selectPain={this.handleSelectPain} open={this.state.dialogOpen} />
+              <PainSelectorDialog painLevel={this.state.currentPainLevel} handleClose={this.handleDialogClose} selectPain={this.handleSelectPain} open={this.state.dialogOpen} />
             </div>
            );
   }

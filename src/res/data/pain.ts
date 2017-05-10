@@ -2,12 +2,32 @@ export interface PainLevelInterface{
   id: number;
   title: string;
   description: string;
-  image: string,
+  image: string;
   level: number;
+  color: string;
 }
 
 export interface PainLevelsObject {
   [propName: string]: PainLevelInterface;
+}
+
+const resolvePainColor = (level) => {
+    if(level === 0){
+      return '#000000'
+    }
+    if(level < 3){
+      return '#3C9344';
+    }
+    if(level < 5){
+      return '#8FB545';
+    }
+    if(level < 7){
+      return '#EAD23A';
+    }
+    if(level < 9){
+      return '#D67034';
+    }
+    return '#A12629';
 }
 
 export const makePainLevel = (id: number, level: number, title: string, image:string, description: string = ''):PainLevelInterface => {
@@ -16,9 +36,12 @@ export const makePainLevel = (id: number, level: number, title: string, image:st
     image,
     title,
     description,
-    level
+    level,
+    color: resolvePainColor(level)
   }
 }
+
+
 
 export const painLevels:PainLevelInterface[] = [
   makePainLevel(1,0,'0',require('../images/scale_0.jpg'),"No pain"),

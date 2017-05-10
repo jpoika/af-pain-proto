@@ -1,14 +1,18 @@
 export interface BodySectionInterface{
   id: number;
+  row: number;
+  col: number;
   title: string;
   description: string;
   image: string;
   isBlank: boolean;
   region: string;
 }
-const makeBodySection = (id: number, region: string, image: string, isBlank:boolean = false, title: string ='', description: string = ''):BodySectionInterface => {
+const makeBodySection = (id: number, row: number, col: number, region: string, image: string, isBlank:boolean = false, title: string ='', description: string = ''):BodySectionInterface => {
   return {
     id,
+    row,
+    col,
     image,
     title,
     description,
@@ -73,13 +77,15 @@ for(let i = 0; i < bodyRows; i++){
     let backId = bodyRows * bodyCols + frontId;
     let frontImage = '';//require('../images/body_map/front/images/Front_' + frontId + '.png');
     let backImage = '';//require('../images/body_map/back/images/Back_' + frontId + '.png');
+    let row = Math.floor((frontId - 1)/15);
+    let col = (frontId - 1) % 15;
 
     bodySectionList.push(
-      makeBodySection(frontId, 'front', frontImage, frontBodyMask.indexOf(frontId) !== -1)
+      makeBodySection(frontId, row, col, 'front', frontImage, frontBodyMask.indexOf(frontId) !== -1)
     );
 
     bodySectionList.push(
-      makeBodySection(backId, 'back', backImage, backBodyMask.indexOf(frontId) !== -1)
+      makeBodySection(backId, row, col, 'back', backImage, backBodyMask.indexOf(frontId) !== -1)
     );
   }
 }
