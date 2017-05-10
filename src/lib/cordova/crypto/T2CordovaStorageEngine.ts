@@ -3,7 +3,7 @@ import {Storage as StorageInterface,OnComplete} from 'redux-persist';
 import {CryptoPromiseInterface} from './interface';
 
 interface ConfigInterface {
-  storageEngine: StorageInterface;
+  storage: StorageInterface;
   crypto: CryptoPromiseInterface;
   plainFields: string[];
   encryptFields: string[];
@@ -23,7 +23,7 @@ export default class T2CordovaStorageEngine implements StorageInterface {
 
 
   constructor(config: ConfigInterface){
-    this.storage = config.storageEngine;
+    this.storage = config.storage;
     this.crypto = config.crypto;
     this.plainFields = config.plainFields;
     this.lockableFields = config.lockableFields;

@@ -1,6 +1,5 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
-import T2CordovaStorageEngine from './lib/cordova/crypto/T2CordovaStorageEngine';
 import AccountEdit from './containers/AccountEdit';
 import InitialAssessWizard from './containers/InitialAssessWizard';
 import ReAssessmentPage from './containers/ReAssessmentPage';
@@ -29,7 +28,7 @@ import reducer from './reducers';
 import {asynRouteMaker,syncRoute} from './lib/helpers';
 import {windowResize} from './actions/device';
 import {assessmentNotificationClick} from './actions/assessment';
-
+import {T2CordovaStorageEngine, BrowserCryptoPromise} from './lib/cordova/crypto/';
 import navigationConfig from './navigationConfig';
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
@@ -52,6 +51,14 @@ const storageConfig = {
   storage: localForage
 };
 
+
+const storageEngine = new T2CordovaStorageEngine({
+  crypto: new BrowserCryptoPromise(),
+  storage: localForage,
+  plainFields: ['routing','device','app','navigation','painLevels','painLevelIds'],
+  encryptFields: ['assessmentIds','assessments','medications','user','notifications','notificationIds'],
+  lockableFields: ['assessmentIds','assessments']
+});
 
  
 const migration = createMigration(manifest, reducerKey);

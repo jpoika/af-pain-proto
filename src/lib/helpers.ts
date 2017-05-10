@@ -1,5 +1,5 @@
 
-console.log(__dirname);
+
 function errorLoading(err) {
  console.error('Dynamic page loading failed', err);
 }

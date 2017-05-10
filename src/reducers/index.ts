@@ -22,7 +22,6 @@ import {
   assessmentSystem
 } from './assessments';
 import {medications, medicationIds} from './medication';
-import {allergies, allergyIds} from './allergy';
 import {nurseSystem} from './nurse';
 const defaultUser = {
   status: 0,
@@ -75,18 +74,16 @@ const appHub = combineReducers({
   app: appReducer,
   navigation: navigationReducer,
   view: viewReducer,
-  bodySections, //TODO remove (static data)
-  bodySectionIds, //TODO remove (static data)
+  bodySections, //TODO remove? (static data)
+  bodySectionIds, //TODO remove? (static data)
   assessments,
   assessmentIds,
   assessmentSystem,
-  painLevels, //TODO remove (static data)
-  painLevelIds, //TODO remove (static data)
+  painLevels, //TODO remove? (static data)
+  painLevelIds, //TODO remove? (static data)
   migrations,
   medications,
   medicationIds,
-  allergies,
-  allergyIds,
   nurseSystem,
   notifications,
   notificationIds

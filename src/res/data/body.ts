@@ -71,8 +71,8 @@ for(let i = 0; i < bodyRows; i++){
   for(let j = 0; j < bodyCols; j++){
     let frontId = (j+(i * 15))+1;
     let backId = bodyRows * bodyCols + frontId;
-    let frontImage = require('../images/body_map/front/images/Front_' + frontId + '.png');
-    let backImage = require('../images/body_map/back/images/Back_' + frontId + '.png');
+    let frontImage = '';//require('../images/body_map/front/images/Front_' + frontId + '.png');
+    let backImage = '';//require('../images/body_map/back/images/Back_' + frontId + '.png');
 
     bodySectionList.push(
       makeBodySection(frontId, 'front', frontImage, frontBodyMask.indexOf(frontId) !== -1)
