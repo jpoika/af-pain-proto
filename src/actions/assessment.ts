@@ -1,10 +1,12 @@
 export const ASSESS_MOVE_STEP = 'T2.ASSESS_MOVE_STEP';
 export const ASSESS_MARK_BODY_SECTION_PAIN = 'T2.ASSESS_MARK_BODY_SECTION_PAIN';
+export const ASSESS_REMOVE_BODY_SECTION_PAIN = 'T2.ASSESS_REMOVE_BODY_SECTION_PAIN';
 export const ASSESS_SET_OVERALL_PAIN = 'T2.ASSESS_SET_OVERALL_PAIN';
 export const ASSESS_MOVE_STEP_IF_NEXT = 'T2.ASSESS_MOVE_STEP_IF_NEXT';
 export const ASSESS_MARK_COMPLETE = 'T2.ASSESS_MARK_COMPLETE';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
+
 
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
@@ -77,6 +79,15 @@ export const assessMarkPain = (assessmentId: number, side:string, bodySectionId:
     bodySectionId,
     painLevelId,
     side
+  }
+}
+
+export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: number) => {
+  
+  return {
+    type: ASSESS_REMOVE_BODY_SECTION_PAIN,
+    assessmentId,
+    bodySectionId
   }
 }
 

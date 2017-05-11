@@ -10,9 +10,14 @@ export interface Props {
   selectPain(painLevel:PainLevelInterface): any;
   open: boolean;
   painLevel:PainLevelInterface;
+  section?: BodySectionInterface;
+  deleteSection?: (sectionId: number) => void;
 }
 export default class PainSelectorDialog extends React.Component<Props, any> {
 
+  public static defaultProps: Partial<Props> = {
+    deleteSection: (sectionId: number) => {}
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -33,6 +38,13 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
   handleOpen = () => {
     this.setState({open: true});
   };
+
+  handleDelete = (event) => {
+    const {deleteSection, section,handleClose} = this.props;
+    console.log(section);
+    section && deleteSection(section.id);
+    this.handleClose();
+  }
 
   handleClose = () => {
     const {handleClose} = this.props;
@@ -57,6 +69,16 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
         onTouchTap={this.handleClose}
       />
     ];
+    if(this.props.painLevel){
+      actions.push(
+          <FlatButton
+            label="Remove"
+            secondary={true}
+            onTouchTap={this.handleDelete}
+          />
+
+        );
+    }
 
     return (
       <div>

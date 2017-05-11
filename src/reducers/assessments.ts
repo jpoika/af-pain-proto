@@ -7,7 +7,8 @@ import {
   ASSESS_SET_OVERALL_PAIN,
   ASSESS_MARK_COMPLETE,
   ASSESS_MOVE_STEP,
-  ASSESSMENT_EDIT
+  ASSESSMENT_EDIT,
+  ASSESS_REMOVE_BODY_SECTION_PAIN
 } from '../actions/assessment'
 
 import {arrayPushUnique} from './_helpers';
@@ -94,6 +95,10 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       state[assessId] = {...state[assessId],bodySections: bodySections};
  
 
+      state = {...state};
+      break;
+    case ASSESS_REMOVE_BODY_SECTION_PAIN:
+      delete state[action.assessmentId].bodySections[action.bodySectionId];
       state = {...state};
       break;
     case ASSESS_SET_OVERALL_PAIN:
