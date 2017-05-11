@@ -43,7 +43,7 @@ export default class PainSelector extends React.Component<Props, State>{
   render(){
     const {painLevels} = this.props;
     return <div>
-            <PainExplanationDialog painLevels={painLevels} />
+
               <SelectField
                 floatingLabelText="Pain Level"
                 value={this.props.painLevel}
@@ -53,6 +53,9 @@ export default class PainSelector extends React.Component<Props, State>{
               >
                 {painLevels.map(lvl => <MenuItem value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
               </SelectField>
+            
+            <PainExplanationDialog painLevels={painLevels} />
+            
       </div>
 
    }

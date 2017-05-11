@@ -3,6 +3,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {PainLevelInterface} from '../res/data/pain';
+import IconButton from 'material-ui/IconButton';
+import InfoIcon from 'material-ui/svg-icons/action/info';
 export interface Props {
   //selectPain(painLevel: PainLevelInterface);
   painLevels: any[];
@@ -11,6 +13,12 @@ export interface Props {
 export interface State {
   open: boolean;
 }
+
+const customContentStyle = {
+  width: '100%',
+  maxWidth: 'none'
+};
+
 const getPainColumn = (level,width) => {
   return <td key={level.id}><img src={level.image} width={width} height="16" /></td>;
 }
@@ -38,15 +46,18 @@ export default class PainExplanationDialog extends React.Component<Props, State>
       />
     ];
     const {painLevels} = this.props;
-    return <div>
-              <RaisedButton onTouchTap={this.handleOpen} label='Pain Levels Explained' />
+    return <span>
+              <IconButton style={{position: 'relative',top: -9}} onTouchTap={this.handleOpen} ><InfoIcon /></IconButton>
+  
                 <Dialog
                   title="Pain Levels"
                   modal={false}
-                
+                  autoScrollBodyContent={true}
                   open={this.state.open}
                   actions={actions}
                   onRequestClose={this.handleClose}
+                  contentStyle={customContentStyle}
+
                 >
 
                 <h3>Please Rate Your Pain According to the Graphic Below</h3>
@@ -70,7 +81,7 @@ export default class PainExplanationDialog extends React.Component<Props, State>
                 </table>
                 <img src={require("../res/images/scale_bottom.jpg")} width="400" />
               </Dialog>
-      </div>
+      </span>
 
    }
 }

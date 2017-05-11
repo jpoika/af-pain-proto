@@ -1,5 +1,6 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
+import NewPainButton from '../containers/NewPainButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -11,6 +12,17 @@ export interface Props extends PageProps{
 export interface State{
   confirmOpen: boolean;
 }
+
+const styles = {
+  appActionContainer: {
+
+    position: 'fixed',
+    bottom: 10,
+    right: 10,
+    margin: '0 auto'
+  }
+}
+
 export default class AccountHome extends React.Component<Props, State> {
 
   constructor(props){
@@ -54,6 +66,7 @@ export default class AccountHome extends React.Component<Props, State> {
 
 
     return (<BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+             <div style={{position: 'relative'}}>
               <Dialog
                 title="Delete Account"
                 modal={false}
@@ -66,7 +79,11 @@ export default class AccountHome extends React.Component<Props, State> {
               </Dialog>
 
                   <RaisedButton label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
-                    
+
+                 
+                    <NewPainButton style={styles.appActionContainer as any} />
+         
+              </div>
             </BasicPage>);
   }
 }

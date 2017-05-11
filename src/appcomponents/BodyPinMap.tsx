@@ -23,6 +23,7 @@ export interface Props{
   dialogOpen?: boolean;
   bodySections: BodySectionInterface[];
   painMarkings: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
+  gridSize: number;
 }
 
 export interface State{
@@ -33,22 +34,18 @@ export interface State{
 
 export default class BodyPinMap extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
-    dialogOpen: false
+    dialogOpen: false,
+    gridSize: 40
   };
 
   private mapBox;
   private boundingRect;
   //private tempEl;
   private gridMap = {};
-  private ignoreMaskFrontArray = ['cell25_0', 'cell25_1', 'cell25_2', 'cell25_3', 'cell25_4', 'cell25_5', 'cell24_5', 'cell23_5', 'cell23_4', 'cell24_4', 'cell24_3', 'cell24_2', 'cell24_1', 'cell24_0', 'cell23_0', 'cell23_1', 'cell23_2', 'cell23_3', 'cell22_4', 'cell22_3', 'cell22_2', 'cell22_1', 'cell22_0', 'cell21_0', 'cell18_1', 'cell20_0', 'cell19_0', 'cell19_1', 'cell20_1', 'cell21_1', 'cell21_2', 'cell21_3', 'cell21_4', 'cell20_4', 'cell19_4', 'cell18_4', 'cell17_4', 'cell17_3', 'cell18_3', 'cell19_3', 'cell20_3', 'cell20_2', 'cell19_2', 'cell18_0', 'cell18_2', 'cell16_4', 'cell16_3', 'cell17_2', 'cell16_2', 'cell16_1', 'cell17_1', 'cell17_0', 'cell16_0', 'cell15_4', 'cell15_3', 'cell15_0', 'cell14_0', 'cell13_0', 'cell12_0', 'cell11_1', 'cell11_0', 'cell10_1', 'cell10_0', 'cell9_1', 'cell9_0', 'cell8_1', 'cell8_2', 'cell8_0', 'cell7_0', 'cell7_1', 'cell7_2', 'cell6_2', 'cell6_1', 'cell6_0', 'cell5_2', 'cell5_1', 'cell5_0', 'cell4_3', 'cell4_2', 'cell3_3', 'cell3_2', 'cell4_1', 'cell3_1', 'cell4_0', 'cell3_0', 'cell2_0', 'cell2_1', 'cell2_2', 'cell2_3', 'cell2_4', 'cell3_4', 'cell2_5', 'cell1_5', 'cell1_4', 'cell0_5', 'cell0_4', 'cell0_3', 'cell1_3', 'cell1_2', 'cell0_2', 'cell0_1', 'cell1_1', 'cell1_0', 'cell0_0', 'cell0_9', 'cell0_10', 'cell1_9', 'cell2_9', 'cell1_10', 'cell0_11', 'cell0_13', 'cell0_14', 'cell0_12', 'cell1_11', 'cell1_12', 'cell1_13', 'cell1_14', 'cell2_14', 'cell2_13', 'cell2_12', 'cell2_11', 'cell2_10', 'cell3_10', 'cell3_12', 'cell3_11', 'cell3_13', 'cell3_14', 'cell4_14', 'cell4_13', 'cell4_12', 'cell4_11', 'cell5_12', 'cell5_13', 'cell5_14', 'cell6_12', 'cell6_13', 'cell6_14', 'cell7_12', 'cell7_13', 'cell7_14', 'cell8_12', 'cell8_13', 'cell8_14', 'cell9_13', 'cell9_14', 'cell10_14', 'cell10_13', 'cell11_13', 'cell11_14', 'cell12_14', 'cell13_14', 'cell14_14', 'cell15_14', 'cell16_14', 'cell16_13', 'cell16_12', 'cell16_11', 'cell15_11', 'cell15_10', 'cell16_10', 'cell17_10', 'cell17_11', 'cell17_12', 'cell17_13', 'cell17_14', 'cell18_10', 'cell18_11', 'cell18_12', 'cell18_13', 'cell18_14', 'cell19_14', 'cell19_13', 'cell19_12', 'cell19_11', 'cell19_10', 'cell20_10', 'cell20_11', 'cell20_12', 'cell20_13', 'cell20_14', 'cell21_14', 'cell21_13', 'cell21_12', 'cell21_11', 'cell21_10', 'cell22_10', 'cell22_11', 'cell22_12', 'cell22_13', 'cell22_14', 'cell23_14', 'cell23_13', 'cell23_12', 'cell23_11', 'cell23_10', 'cell23_9', 'cell24_9', 'cell24_10', 'cell24_12', 'cell24_13', 'cell24_14', 'cell24_11', 'cell25_9', 'cell25_10', 'cell25_11', 'cell25_12', 'cell25_13', 'cell25_14'];
-  private ignoreMapFront;
 
   constructor(props){
     super(props)
-    this.ignoreMapFront = this.ignoreMaskFrontArray.reduce((acc,cellId) => {
-        acc[cellId] = cellId;
-      return acc;
-    } ,{});
+
     this.state = {
       dialogOpen: this.props.dialogOpen,
       activeSection: null,
@@ -72,8 +69,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
   handleLocateSection = (x: number, y:number) => {
     let relX = x - this.boundingRect.left;
     let relY = y - this.boundingRect.top;
-    let col =  Math.floor(relX / 50);
-    let row =  Math.floor(relY / 50);
+    let col =  Math.floor(relX / this.props.gridSize);
+    let row =  Math.floor(relY / this.props.gridSize);
     if(!this.shouldIgnore(row, col)){
       const section = this.handleResolveBodySection(row, col);
       if(section && !this.isSectionSaved(section)){
@@ -103,7 +100,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   shouldIgnore = (row, col) => {
     const section = this.handleResolveBodySection(row, col);
-    return !section || typeof this.ignoreMapFront[this.getCellId(section)] !== 'undefined';
+    return !section || section.isBlank;
   }
 /*
   addToGridMap = (row, col) => {
@@ -150,19 +147,20 @@ export default class BodyPinMap extends React.Component<Props, State>{
   handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
     this.handleRemoveBodySelection(section);
     let element = document.createElement('div');
-    let contentElement = document.createElement('h1');
-    contentElement.setAttribute('style',`color: ${painLevel.color};`);
+    let contentElement = document.createElement('div');
+    const levelLeftOffset = painLevel.level > 9 ? '0' : '9';
+    contentElement.setAttribute('style',`color: ${painLevel.color}; font-size: 2.4em; margin: 7px 0px 0px ${levelLeftOffset}px;`);
     var painLevelContent = document.createTextNode(painLevel.level + '');
     contentElement.appendChild(painLevelContent);
 
     
     
     element.appendChild(contentElement);
-    let left = section.col * 50;
-    let top = section.row * 50;
+    let left = section.col * this.props.gridSize;
+    let top = section.row * this.props.gridSize;
     element.setAttribute('id',this.getCellId(section));
     element.setAttribute('class','body-section-cell');
-    element.setAttribute('style',`border-radius: 25px; background-color: white; position: absolute; top: ${top}px; left: ${left}px; width: 50px; height: 50px; padding-left: 17px;`)
+    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: white; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
     this.mapBox.appendChild(element);
 
     element.addEventListener('click', (event) => {
@@ -219,8 +217,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
  
     return (
             <div style={{overflow: 'auto'}}>
-              <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: 750, height: 1300}} ref={(el) => { this.mapBox= el; }} >
-                    <img src={bodyImage} width="750" height="1300" />
+              <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
+                    <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>
         
               <PainSelectorDialog section={this.state.activeSection} deleteSection={this.handleDeletePain} painLevel={this.state.currentPainLevel} handleClose={this.handleDialogClose} selectPain={this.handleSelectPain} open={this.state.dialogOpen} />

@@ -18,6 +18,8 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
   public static defaultProps: Partial<Props> = {
     deleteSection: (sectionId: number) => {}
   };
+
+
   constructor(props){
     super(props);
     this.state = {
@@ -69,6 +71,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
         onTouchTap={this.handleClose}
       />
     ];
+    
     if(this.props.painLevel){
       actions.push(
           <FlatButton
