@@ -5,7 +5,7 @@ import {appReducer} from 'local-t2-sw-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
 import {viewReducer} from '../lib/local-t2-view';
 import {notifications, notificationIds} from './notifications';
-import {messageDialogs, messageDialogIds,messages, messageIds} from './messages';
+import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,messagePrompts} from './messages';
 
 import {
   RESET_APP,
@@ -93,7 +93,9 @@ const appHub = combineReducers({
   messageDialogs, 
   messageDialogIds,
   messages, 
-  messageIds
+  messageIds,
+  messagePromptIds,
+  messagePrompts
 });
 const rootReducer = (state, action) => {
   // if (action.type === 'RESET') return action.stateFromLocalStorage

@@ -4,6 +4,7 @@ import {alertNurse} from '../actions/nurse'
 import {makeMessage} from '../res/data/messages';
 import {closePrompt} from '../actions/messages';
 
+/*
 const getLastMessage = (nurseSystem) => {
   return nurseSystem.messageIds.length ? 
                 nurseSystem.messageIds.map(mid => nurseSystem.messages[mid]).pop()
@@ -17,6 +18,7 @@ const getMessages = (nurseSystem, limit = 0) => {
     return messages.slice(0, limit)
   }
 }
+*/
 
 const getConfirmMessage = (promptName,state) => {
   const messageId = typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].messageId : null;
@@ -33,7 +35,7 @@ const isPromptOpen = (promptName,state) => {
 const stateToProps = (state, ownProps) => {
   return {
     open: isPromptOpen('nurse_prompt',state),
-    messages: [],//getMessages(state.nurseSystem,3),
+    messages: [],
     status: state.nurseSystem.status,
     confirmMessage: getConfirmMessage('nurse_prompt',state)
   }
@@ -45,9 +47,6 @@ const dispatchToProps = (dispatch) => {
     },
     alertNurse: () => {
       dispatch(alertNurse());
-    },
-    cancelAlertNurse: () => {
-      //TODO
     }
   }
 }

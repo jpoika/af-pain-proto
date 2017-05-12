@@ -1,3 +1,4 @@
+import {makeMessage} from './messages';
 export interface NurseSystemStatus {
   id: number;
   title: string;
@@ -20,4 +21,5 @@ export const statuses:NurseSystemStatus[] = [
   makeNurseSystemStatus(3,'nurse acknowledges',2),
   makeNurseSystemStatus(4,'alert timeout',3),
   makeNurseSystemStatus(5,'user_confirm',4),
-]
+];
+

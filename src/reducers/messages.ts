@@ -1,4 +1,10 @@
-import {MESSAGE_CREATE,MESSAGE_DELETE,MESSAGE_PROMPT_USER,MESSAGE_PROMPT_CLEAR} from '../actions/messages'
+import {
+  MESSAGE_CREATE,
+  MESSAGE_DELETE,
+  MESSAGE_PROMPT_USER,
+  MESSAGE_PROMPT_CLEAR,
+  MESSAGE_UPDATE_PROMPT
+} from '../actions/messages'
 import {arrayPushUnique,arrayRemove} from './_helpers';
 
 
@@ -31,20 +37,26 @@ export const messages = (state={},action) => {
 
 export const messagePromptIds = (state=[],action) => {
   switch (action.type) {
-    case MESSAGE_PROMPT_USER:
+    case MESSAGE_UPDATE_PROMPT:
       state = arrayPushUnique(action.prompt.id, state);
       break;
   }
   return state;
 }
 
+const getSavedPromptCount = (state,prompt) => {
+  return typeof state[prompt.id] !== 'undefined' ? state[prompt.id].count : 0;
+}
 
 export const messagePrompts = (state={},action) => {
   switch (action.type) {
-    case MESSAGE_PROMPT_USER:
-
-      state = {...state,[action.prompt.id]: action.prompts}
-      state[action.prompt.id].count += 1;
+    case MESSAGE_UPDATE_PROMPT: //do not advance count
+      var prompt = {...action.prompt, count: getSavedPromptCount(state,action.prompt)};
+      state = {...state,[action.prompt.id]: prompt};
+      break;
+    case MESSAGE_PROMPT_USER: //add 1 to count
+      var prompt = {...action.prompt, count: getSavedPromptCount(state,action.prompt) +  1};
+      state = {...state,[action.prompt.id]: prompt};
       break;
   }
   return state;

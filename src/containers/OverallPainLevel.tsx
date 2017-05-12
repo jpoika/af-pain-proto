@@ -41,7 +41,6 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
    selectPain: (assessmentId:number, painCategoryId:number, painLevel:PainLevelInterface) => {
      ownProps.checkPain
-     console.log(ownProps);
      if(ownProps.checkPain){
        dispatch(checkForUserHighPain(painLevel, assessmentId));
      }
