@@ -5,10 +5,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import DoneIcon from 'material-ui/svg-icons/action/done'
-import ErrorIcon from 'material-ui/svg-icons/alert/error'
-import MessageIcon from 'material-ui/svg-icons/communication/message'
-import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles'
+import DoneIcon from 'material-ui/svg-icons/action/done';
+import ErrorIcon from 'material-ui/svg-icons/alert/error';
+import MessageIcon from 'material-ui/svg-icons/communication/message';
+import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
+import {MessageInterface} from '../res/data/messages';
 export interface Props{
   open: boolean;
   closeNurseDialog(): any;
@@ -16,7 +17,7 @@ export interface Props{
   cancelAlertNurse(): any;
   status: number;
   messages: {id: number, message: string, timestamp: number}[],
-  confirmMessage: string;
+  confirmMessage: MessageInterface;
 }
 export interface State{
   showLastMessage: boolean;
@@ -51,19 +52,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     const {alertNurse} = this.props;
     alertNurse();
   }
-  /*
-  shouldComponentUpdate(nextProps, nextState){
-    console.log(nextProps, nextState);
-    if(nextProps.open !== nextState.open){
-      return true;
-    }
-    return false;
-  }
- 
-  componentWillReceiveProps(nextProps){
 
-  }
- */
   render(){
 
     const {open,status,messages,confirmMessage} = this.props;
@@ -76,7 +65,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     ];
 
     const nurseConfirm = (<div> 
-                               <div>{confirmMessage}</div>
+                               <div>{confirmMessage.message.map(para => <p>{para}</p>)}</div>
                                <div style={flexParentRowStyle as any}>
                                  <RaisedButton style={flexRowItemStyle as any} primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>
                                  <RaisedButton style={flexRowItemStyle as any} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
@@ -90,13 +79,11 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
               actions={actions}
               onRequestClose={this.handleClose}
             >
-              {status === 4 && nurseConfirm}
-              {status === 5 && nurseConfirm}
-              {status === 6 && nurseConfirm}
+              {status === 0 && nurseConfirm}
               {status === 1 && <div> Contacting Nurse <CircularProgress /> </div>}
               {status === 2 && <div> Nurse Acknowledge <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
               {status === 3 && <div> Request Timeout <ErrorIcon /> </div>}
-              {status === 777 /*disbled */ && messages.map(msg => (<div key={msg.id}><MessageIcon /> {msg.message}</div>))}
+
           
               </Dialog>
             </div>);

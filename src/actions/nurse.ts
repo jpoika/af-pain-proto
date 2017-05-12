@@ -1,5 +1,5 @@
 import {PainLevelInterface, PainLevelsObject} from '../res/data/pain';
-
+import {messagePromptUser,messageCreate} from './messages'
 export const ALERT_NURSE = 'T2.ALERT_NURSE';
 export const ALERT_NURSE_START = 'T2.ALERT_NURSE_START';
 export const ALERT_NURSE_END = 'T2.ALERT_NURSE_END';
@@ -7,7 +7,6 @@ export const ALERT_NURSE_TIMEOUT= 'T2.ALERT_NURSE_TIMEOUT';
 export const ALERT_NURSE_CLEAR = 'T2.ALERT_NURSE_CLEAR';
 export const ALERT_NURSE_WITH_STATUS = 'T2.ALERT_NURSE_WITH_STATUS';
 export const ALERT_NURSE_DIALOGUE_OPEN = 'T2.ALERT_NURSE_DIALOGUE_OPEN';
-export const ALERT_NURSE_DIALOGUE_CLOSE = 'T2.ALERT_NURSE_DIALOGUE_CLOSE';
 
 export const RECIEVE_MESSAGE_FROM_NURSE = 'T2.RECIEVE_MESSAGE_FROM_NURSE';
 export const RECIEVE_NURSE_ACKNOWLEDGE = 'T2.RECIEVE_NURSE_ACKNOWLEDGE'; //nurse acknowleged
@@ -18,7 +17,10 @@ export const SET_USER_HIGH_PAIN_TRUE = 'T2.SET_USER_HIGH_PAIN_TRUE';
 export const SET_USER_HIGH_PAIN_FALSE = 'T2.SET_USER_HIGH_PAIN_FALSE';
 
 import {nextId} from './_helper';
-
+const messsageIntollerablePain = [
+        "You've indicated you are experiencing intollerable pain.", 
+        "Would you like to speak to a nurse"
+    ];
 const tmpSimulatedContact = () => {
   return new Promise<any>((res,rej) => {
       setTimeout(() => {
@@ -27,6 +29,8 @@ const tmpSimulatedContact = () => {
   });
 
 }
+
+
 
 const getLastAssessment = (state) => {
   if(state.assessmentIds.length){
@@ -51,7 +55,11 @@ const isPainInTolerable = (assessment: {bodySections: {[propName: string]: numbe
   return tooPainfulSections.length > 0;
 }
 
-
+export const clearNurseAlert = () => {
+  return {
+    type: ALERT_NURSE_CLEAR
+  }
+}
 export const promptUserHighPain = () => {
   return {
     type: USER_PROMPT_FOR_NURSE_HIGH_PAIN
@@ -110,8 +118,8 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface, assessmentId
       
       if(isPainInTolerable(lastAssessment,painLevel,currentState.painLevels)){
         if(!currentState.nurseSystem.userPromptedForPain){
-          dispatch(alertNurseHighPain());
-          dispatch(promptUserHighPain());
+          //dispatch(alertNurseHighPain());
+          dispatch(messagePromptUser(assessmentId + '_high_pain','nurse_prompt',1,messsageIntollerablePain));
         }
         dispatch(userHasHighPain());
       }else{
@@ -124,14 +132,10 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface, assessmentId
 }
 
 export const alertNurseDialogueOpen = () => {
-  return {
-    type: ALERT_NURSE_DIALOGUE_OPEN
-  }
-}
-
-export const alertNurseDialogueClose = () => {
-  return {
-    type: ALERT_NURSE_DIALOGUE_CLOSE
+  const prompt = messagePromptUser('global_nurse_allert','nurse_prompt',0,'Are you sure you would like to contact the nurse?');
+  return (dispatch,getState) => {
+    dispatch(clearNurseAlert());
+    dispatch(prompt);
   }
 }
 

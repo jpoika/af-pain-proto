@@ -1,6 +1,8 @@
 import AlertNurseDialog from '../appcomponents/AlertNurseDialog';
 import {connect} from 'react-redux';
-import {alertNurseDialogueClose,alertNurse} from '../actions/nurse'
+import {alertNurse} from '../actions/nurse'
+import {makeMessage} from '../res/data/messages';
+import {closePrompt} from '../actions/messages';
 
 const getLastMessage = (nurseSystem) => {
   return nurseSystem.messageIds.length ? 
@@ -16,30 +18,31 @@ const getMessages = (nurseSystem, limit = 0) => {
   }
 }
 
-const getConfirmMessage = (nurseSystem, limit = 0) => {
-  if(nurseSystem.status === 5){
-    return `You've indicated you are experiencing intollerable pain. 
-    Would you like to speak to a nurse`;
+const getConfirmMessage = (promptName,state) => {
+  const messageId = typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].messageId : null;
+  if(messageId && state.messages[messageId] !== 'undefined'){
+    return state.messages[messageId];
   }
+  return makeMessage(0,'Are you sure you would like to contact the nurse?')
+}
 
-  if(nurseSystem.status === 6){
-    return `You've indicated pain in a new location. 
-    Would you like to speak to a nurse`;
-  }
-  return 'Are you sure you would like to contact the nurse?'
+const isPromptOpen = (promptName,state) => {
+  return typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].open : false;
 }
 
 const stateToProps = (state, ownProps) => {
   return {
-    open: state.nurseSystem.dialogStatus > 0,
+    open: isPromptOpen('nurse_prompt',state),
+    messages: [],//getMessages(state.nurseSystem,3),
     status: state.nurseSystem.status,
-    messages: getMessages(state.nurseSystem,3),
-    confirmMessage: getConfirmMessage(state.nurseSystem)
+    confirmMessage: getConfirmMessage('nurse_prompt',state)
   }
 }
 const dispatchToProps = (dispatch) => {
   return {
-    closeNurseDialog: () => dispatch(alertNurseDialogueClose()),
+    closeNurseDialog: () => {  
+      dispatch(closePrompt('nurse_prompt'));
+    },
     alertNurse: () => {
       dispatch(alertNurse());
     },

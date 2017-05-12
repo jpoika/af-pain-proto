@@ -5,6 +5,7 @@ import {appReducer} from 'local-t2-sw-redux';
 import {navigationReducer} from 'local-t2-navigation-redux';
 import {viewReducer} from '../lib/local-t2-view';
 import {notifications, notificationIds} from './notifications';
+import {messageDialogs, messageDialogIds,messages, messageIds} from './messages';
 
 import {
   RESET_APP,
@@ -88,7 +89,11 @@ const appHub = combineReducers({
   nurseSystem,
   notifications,
   notificationIds,
-  newPainBodySections
+  newPainBodySections,
+  messageDialogs, 
+  messageDialogIds,
+  messages, 
+  messageIds
 });
 const rootReducer = (state, action) => {
   // if (action.type === 'RESET') return action.stateFromLocalStorage

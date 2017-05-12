@@ -1,6 +1,6 @@
 import OverallPainLevel from '../appcomponents/OverallPainLevel'
 import {connect} from 'react-redux';
-import { assessSetOverallPain} from '../actions/assessment';
+import {assessSetOverallPain} from '../actions/assessment';
 import {checkForUserHighPain} from '../actions/nurse';
 import {PainLevelInterface} from '../res/data/pain';
 

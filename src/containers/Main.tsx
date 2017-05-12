@@ -195,7 +195,6 @@ const dispatchToProps = (dispatch,ownProps) => {
       }
     },
     alertNurse: () => {
-      console.log("alerting nurse from Main.tsx");
       dispatch(alertNurseDialogueOpen())
     }
   }

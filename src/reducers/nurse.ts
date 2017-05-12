@@ -5,8 +5,6 @@ import {
   RECIEVE_MESSAGE_FROM_NURSE,
   ALERT_NURSE_TIMEOUT,
   ALERT_NURSE_CLEAR,
-  ALERT_NURSE_DIALOGUE_OPEN,
-  ALERT_NURSE_DIALOGUE_CLOSE,
   SET_USER_HIGH_PAIN_FALSE,
   SET_USER_HIGH_PAIN_TRUE,
   USER_PROMPT_FOR_NURSE_HIGH_PAIN,
@@ -17,8 +15,7 @@ import {REHYDRATE} from 'redux-persist/constants';
 import {arrayPushUnique, arrayRemove} from './_helpers';
 
 const defaultSystem = {
-  status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout, 4: user_confirm
-  dialogStatus: 0, // 0: closed 1: Open
+  status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout
   messages: {},
   messageIds: [],
   userPromptedForPain: 0, // 0: no active pain alert , 1: user has been prompted
@@ -28,17 +25,19 @@ const defaultSystem = {
 export const nurseSystem = (state = defaultSystem,action) => {
 
   switch (action.type) {
+    /*
     case ALERT_NURSE_DIALOGUE_OPEN:
-      state = {...state,dialogStatus: 1,status: 4};
+      state = {...state,status: 4};
       break;
     case ALERT_NURSE_DIALOGUE_CLOSE:
-      state = {...state,dialogStatus: 0, userPromptedForPain: 1};
+      state = {...state,userPromptedForPain: 1};
       break;
+      */
     case ALERT_NURSE:
-      state = {...state, status: 1, dialogStatus: 1};
+      state = {...state, status: 1};
       break;
     case ALERT_NURSE_START:
-      state = {...state, status: 1, dialogStatus: 1};
+      state = {...state, status: 1};
       break;
     case RECIEVE_NURSE_ACKNOWLEDGE:
     case RECIEVE_MESSAGE_FROM_NURSE:
