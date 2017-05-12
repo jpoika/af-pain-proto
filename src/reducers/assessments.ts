@@ -8,7 +8,8 @@ import {
   ASSESS_MARK_COMPLETE,
   ASSESS_MOVE_STEP,
   ASSESSMENT_EDIT,
-  ASSESS_REMOVE_BODY_SECTION_PAIN
+  ASSESS_REMOVE_BODY_SECTION_PAIN,
+  ASSESSMENT_SET_NEW_PAIN
 } from '../actions/assessment'
 
 import {arrayPushUnique} from './_helpers';
@@ -57,11 +58,7 @@ export const _lastCompleteAssessment = (state, action: any) => {
 export const assessmentSystem = (state = systemDefault,action: any) => {
   switch (action.type) {
     case ASSESS_MARK_COMPLETE:
-      // code...
       state = {...state,lastCompletedAssessment: _lastCompleteAssessment(state.lastCompletedAssessment,action)}
-      break;
-    default:
-      // code...
       break;
   }
   return state;
@@ -114,6 +111,19 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
     break;
   }
   return state;
+}
+
+const newPainDefault = {
+  assessmentId: 0,
+  sectionIds: []
+}
+export const newPainBodySections = (state = newPainDefault, action: any) => {
+    switch (action.type) {
+      case ASSESSMENT_SET_NEW_PAIN:
+        state = {...state, sectionIds: action.newPainSectionIds, assessmentId: action.assessmentId}
+        break;
+    }
+    return state;
 }
 
 export const assessmentIds = (state = normalizedAssessments.result,action: any) => {

@@ -3,6 +3,7 @@ import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
 import MainAssessmentWizardContainer from '../containers/MainAssessmentWizard';
 import {BodySectionInterface} from '../res/data/body';
+import {AssessmentInterface} from '../res/data/assessments';
 import {PainLevelInterface} from '../res/data/pain';
 import PainSelectorDialog from './PainSelectorDialog';
 import PainSelectorDialogContainer from '../containers/PainSelector';
@@ -18,12 +19,14 @@ export interface Props{
   bodyImage: string;
   assessmentId: number;
   side: string;
-  markPain(assessmentId: number, side: string, sectionId: number, painLevel: PainLevelInterface): any;
+  markPain(assessment: AssessmentInterface, side: string, sectionId: number, painLevel: PainLevelInterface): any;
   deleteSection(sectionId: number);
   dialogOpen?: boolean;
   bodySections: BodySectionInterface[];
   painMarkings: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
   gridSize: number;
+  assessment: AssessmentInterface;
+
 }
 
 export interface State{
@@ -205,9 +208,9 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   handleSelectPain = (painLevel:PainLevelInterface) => {
 
-    const {markPain,assessmentId,side} = this.props;
+    const {markPain,assessment,side} = this.props;
     if(this.state.activeSection){
-      markPain(assessmentId,side,this.state.activeSection.id,painLevel);
+      markPain(assessment,side,this.state.activeSection.id,painLevel);
     }
 
   }

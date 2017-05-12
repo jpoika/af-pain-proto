@@ -1,8 +1,9 @@
 import BodyMap from '../appcomponents/BodyPinMap';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import { assessMarkPain, assessmentRemoveBodyPain} from '../actions/assessment';
+import { assessMarkPain, assessmentRemoveBodyPain ,checkForNewPain} from '../actions/assessment';
 import {PainLevelInterface} from '../res/data/pain';
+import {AssessmentInterface} from '../res/data/assessments';
 import {frontBodySectionIds, backBodySectionIds} from '../res/data/body';
 
 const frontBodyImage = require('../res/images/body_map/Front_326.png');
@@ -51,23 +52,25 @@ const getSavedPainMarkings = (assessmentId,currentRegion,state) => {
 
 }
 
+
 const stateToProps = (state, ownProps) => {
   const initAssessmentId = 1;
   return {
     title: ownProps.side === 'back' ? 'Pain Map Back':'Pain Map Front',
     bodySections: ownProps.side === 'back' ? getBodySections(state.bodySections,backBodySectionIds) : getBodySections(state.bodySections,frontBodySectionIds),
     bodyImage: ownProps.side === 'back' ? backBodyImage : frontBodyImage,
-    painMarkings: getSavedPainMarkings(ownProps.assessmentId,ownProps.side,state)
+    painMarkings: getSavedPainMarkings(ownProps.assessment.id,ownProps.side,state)
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    markPain: (assessmentId: number, side: string, sectionId: number, painLevel: PainLevelInterface) => {
-      dispatch(assessMarkPain(assessmentId,side,sectionId,painLevel.id));
+    markPain: (assessment: AssessmentInterface, side: string, sectionId: number, painLevel: PainLevelInterface) => {
+      dispatch(assessMarkPain(assessment.id,side,sectionId,painLevel.id));
+      dispatch(checkForNewPain(assessment.id));
     },
     deleteSection: (sectionId: number) => {   
-      console.log(sectionId);
-      dispatch(assessmentRemoveBodyPain(ownProps.assessmentId,sectionId));
+      dispatch(assessmentRemoveBodyPain(ownProps.assessment.id,sectionId));
+      dispatch(checkForNewPain(ownProps.assessment.id));
     }
   }
 }

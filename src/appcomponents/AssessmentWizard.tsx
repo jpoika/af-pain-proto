@@ -5,6 +5,7 @@ import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
 import AllergiesManager  from '../containers/AllergiesManager';
+import {AssessmentInterface} from '../res/data/assessments';
 import {
   Step,
   Stepper,
@@ -18,7 +19,7 @@ export interface Props extends PageProps{
   stepIndex: number;
   nextStep(idx: number, assessmentId: number): any;
   maxSteps: number,
-  assessmentId: number
+  assessment: AssessmentInterface;
 }
 
 export interface State {
@@ -33,28 +34,27 @@ export default class AssessmentWizard extends React.Component<Props, State>{
   }
 
   startOver = () => {
-    const {nextStep,assessmentId} = this.props;
-    nextStep(0,assessmentId);
+    const {nextStep,assessment} = this.props;
+    nextStep(0,assessment.id);
     this.setState({
-    //  stepIndex: 0,
+
       finished: false
     });
   };
 
   handleNext = () => {
-    const {stepIndex,nextStep,maxSteps,assessmentId} = this.props;
+    const {stepIndex,nextStep,maxSteps,assessment} = this.props;
 
-    nextStep(stepIndex + 1, assessmentId)
+    nextStep(stepIndex + 1, assessment.id)
     this.setState({
-     // stepIndex: stepIndex + 1,
       finished: stepIndex >= (maxSteps - 1),
     });
   };
 
   handlePrev = () => {
-    const {stepIndex,nextStep,assessmentId} = this.props;
+    const {stepIndex,nextStep,assessment} = this.props;
     if (stepIndex > 0) {
-      nextStep(stepIndex - 1, assessmentId);
+      nextStep(stepIndex - 1, assessment.id);
     }
   };
 
@@ -100,7 +100,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
 
   render(){
 
-    const {appBarTitle,page,title, maxSteps, assessmentId} = this.props
+    const {appBarTitle,page,title, maxSteps, assessment} = this.props
 
     return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
@@ -115,7 +115,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Pain Map Front</StepLabel>
                 <StepContent>
-                 <BodyMap side='front' assessmentId={assessmentId} />
+                 <BodyMap side='front' assessment={assessment} />
                  {this.renderStepActions(1)}
                 </StepContent>
               </Step>
@@ -123,7 +123,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Pain Map Back</StepLabel>
                 <StepContent>
-                 <BodyMap side='back' assessmentId={assessmentId} />
+                 <BodyMap side='back' assessment={assessment} />
                  {this.renderStepActions(2)}
                 </StepContent>
               </Step>
@@ -131,7 +131,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={assessmentId} categoryId={1} />
+                 <OverallPainLevel actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={assessment.id} categoryId={1} />
                  
                 </StepContent>
               </Step>
@@ -139,7 +139,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Acceptable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(4)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={assessmentId} categoryId={2} />
+                 <OverallPainLevel actions={this.renderBackButton(4)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={assessment.id} categoryId={2} />
                  
                 </StepContent>
               </Step>
@@ -147,7 +147,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(5)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={assessmentId} categoryId={3} />
+                 <OverallPainLevel actions={this.renderBackButton(5)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={3} />
                  
                 </StepContent>
               </Step>

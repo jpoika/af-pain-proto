@@ -18,7 +18,7 @@ const stateToProps = (state, ownProps) => {
     page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
     stepIndex: assessment.step || 0,
     maxSteps: maxSteps,
-    assessmentId: assessment.id
+    assessment: assessment
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

@@ -13,6 +13,7 @@ export const RECIEVE_MESSAGE_FROM_NURSE = 'T2.RECIEVE_MESSAGE_FROM_NURSE';
 export const RECIEVE_NURSE_ACKNOWLEDGE = 'T2.RECIEVE_NURSE_ACKNOWLEDGE'; //nurse acknowleged
 export const SYSTEM_MESSAGE = 'T2.SYSTEM_MESSAGE';
 export const USER_PROMPT_FOR_NURSE_HIGH_PAIN = 'T2.USER_PROMPT_FOR_NURSE_HIGH_PAIN';
+export const USER_NURSE_PROMPT_RESET = 'T2.USER_NURSE_PROMPT_RESET';
 export const SET_USER_HIGH_PAIN_TRUE = 'T2.SET_USER_HIGH_PAIN_TRUE';
 export const SET_USER_HIGH_PAIN_FALSE = 'T2.SET_USER_HIGH_PAIN_FALSE';
 
@@ -57,6 +58,12 @@ export const promptUserHighPain = () => {
   }
 }
 
+export const resetNursePrompt = () => {
+  return {
+    type: USER_NURSE_PROMPT_RESET
+  }
+}
+
 export const alertNurseWithStatus = (status: number) => {
   return {
     type: ALERT_NURSE_WITH_STATUS,
@@ -66,6 +73,19 @@ export const alertNurseWithStatus = (status: number) => {
 
 export const alertNurseHighPain = () => {
   return alertNurseWithStatus(5);
+}
+
+export const alertNurseNewPain = () => {
+  return alertNurseWithStatus(6);
+}
+
+export const checkForNewPainNotification = () => {
+  return (dispatch,getState) => {
+    if(getState().newPainBodySections.sectionIds.length > 0){
+      dispatch(resetNursePrompt());
+      dispatch(alertNurseNewPain());
+    }
+  }
 }
 
 
@@ -87,7 +107,7 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface, assessmentId
     const lastAssessment = getLastAssessment(currentState);
  
     if(lastAssessment){
-      console.log(lastAssessment);
+      
       if(isPainInTolerable(lastAssessment,painLevel,currentState.painLevels)){
         if(!currentState.nurseSystem.userPromptedForPain){
           dispatch(alertNurseHighPain());

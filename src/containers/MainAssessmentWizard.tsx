@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
+import {checkForNewPainNotification} from '../actions/nurse'
 
 import {viewActions} from '../lib/local-t2-view';
 import {nextId} from '../actions/_helper';
@@ -26,13 +27,16 @@ const stateToProps = (state, ownProps) => {
     page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
     stepIndex: assessment && assessment.step ? assessment.step : 0,
     maxSteps: maxSteps,
-    assessmentId: assessment ? assessment.id : null
+    assessment: assessment ? assessment : null
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
     nextStep: (step: number,assessmentId: number) => {
       dispatch(assessMoveStep(step,assessmentId));
+      if(step > ownProps.stepIndex){
+        dispatch(checkForNewPainNotification());
+      }
       if(step >= maxSteps){
         dispatch(assessMarkComplete(assessmentId));
         dispatch(viewActions.sendMessage('Assessment Complete'));

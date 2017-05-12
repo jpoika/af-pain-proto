@@ -10,7 +10,8 @@ import {
   SET_USER_HIGH_PAIN_FALSE,
   SET_USER_HIGH_PAIN_TRUE,
   USER_PROMPT_FOR_NURSE_HIGH_PAIN,
-  ALERT_NURSE_WITH_STATUS
+  ALERT_NURSE_WITH_STATUS,
+  USER_NURSE_PROMPT_RESET
 } from '../actions/nurse';
 import {REHYDRATE} from 'redux-persist/constants';
 import {arrayPushUnique, arrayRemove} from './_helpers';
@@ -31,7 +32,7 @@ export const nurseSystem = (state = defaultSystem,action) => {
       state = {...state,dialogStatus: 1,status: 4};
       break;
     case ALERT_NURSE_DIALOGUE_CLOSE:
-      state = {...state,dialogStatus: 0};
+      state = {...state,dialogStatus: 0, userPromptedForPain: 1};
       break;
     case ALERT_NURSE:
       state = {...state, status: 1, dialogStatus: 1};
@@ -61,6 +62,9 @@ export const nurseSystem = (state = defaultSystem,action) => {
       break;
     case USER_PROMPT_FOR_NURSE_HIGH_PAIN:
       state = {...state, userPromptedForPain: 1, dialogStatus: 1};
+      break;
+    case USER_NURSE_PROMPT_RESET:
+      state = {...state, userPromptedForPain: 0, dialogStatus: 1};
       break;
     case ALERT_NURSE_WITH_STATUS:
       state = {...state,status: action.status}

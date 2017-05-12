@@ -92,6 +92,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
             >
               {status === 4 && nurseConfirm}
               {status === 5 && nurseConfirm}
+              {status === 6 && nurseConfirm}
               {status === 1 && <div> Contacting Nurse <CircularProgress /> </div>}
               {status === 2 && <div> Nurse Acknowledge <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
               {status === 3 && <div> Request Timeout <ErrorIcon /> </div>}

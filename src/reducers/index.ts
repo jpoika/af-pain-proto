@@ -19,7 +19,8 @@ import {
   bodySectionIds,
   painLevels, 
   painLevelIds, 
-  assessmentSystem
+  assessmentSystem,
+  newPainBodySections
 } from './assessments';
 import {medications, medicationIds} from './medication';
 import {nurseSystem} from './nurse';
@@ -86,7 +87,8 @@ const appHub = combineReducers({
   medicationIds,
   nurseSystem,
   notifications,
-  notificationIds
+  notificationIds,
+  newPainBodySections
 });
 const rootReducer = (state, action) => {
   // if (action.type === 'RESET') return action.stateFromLocalStorage

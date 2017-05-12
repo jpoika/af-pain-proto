@@ -21,6 +21,11 @@ const getConfirmMessage = (nurseSystem, limit = 0) => {
     return `You've indicated you are experiencing intollerable pain. 
     Would you like to speak to a nurse`;
   }
+
+  if(nurseSystem.status === 6){
+    return `You've indicated pain in a new location. 
+    Would you like to speak to a nurse`;
+  }
   return 'Are you sure you would like to contact the nurse?'
 }
 

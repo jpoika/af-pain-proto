@@ -6,14 +6,16 @@ export const ASSESS_MOVE_STEP_IF_NEXT = 'T2.ASSESS_MOVE_STEP_IF_NEXT';
 export const ASSESS_MARK_COMPLETE = 'T2.ASSESS_MARK_COMPLETE';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
+export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 
 
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
+import {BodySectionInterface} from '../res/data/body';
 import { push } from 'react-router-redux';
 import {nextId} from './_helper';
 
-const getLastNonInitialAssessment = (state,type) => {
+const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
   return state.assessmentIds
             .map(aid => state.assessments[aid])
             .filter(assess => assess.id !== 1)
@@ -22,11 +24,49 @@ const getLastNonInitialAssessment = (state,type) => {
             ;
 }
 
+const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
+  return state.assessmentIds
+            .map(aid => state.assessments[aid])
+            .filter(assess => !type || assess.type === type )
+            .filter(assess =>  assess.isComplete )
+            .pop()
+            ;
+}
+
+const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[propName: string]: any}) => {
+   const currentBodySectionIds = Object.keys(sections1).map(sectionId => sectionId);
+    console.log(currentBodySectionIds, sections2)
+   return currentBodySectionIds.filter(bsId => typeof sections2[bsId] === 'undefined');
+}
+
+
 export const assessMoveStep = (stepIndex: number,assessmentId: number) => {
   return {
     type: ASSESS_MOVE_STEP,
     stepIndex,
     assessmentId
+  }
+}
+
+export const checkForNewPain = (currentAssessmentId: number) => {
+  return (dispatch,getState) => {
+    const lastAssessment = getLastCompleteAssessment(getState());
+    let newPainSectionIds = [];
+
+    let currentAssessment = getState().assessments[currentAssessmentId];
+
+    if(currentAssessment && lastAssessment && lastAssessment.id !== currentAssessment.id){
+      newPainSectionIds = getDiffBodySections(currentAssessment.bodySections,lastAssessment.bodySections);
+      dispatch(setNewPain(currentAssessment,newPainSectionIds));
+    }
+  }
+}
+
+export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectionIds: string[]) => {
+  return {
+    type:  ASSESSMENT_SET_NEW_PAIN,
+    assessmentId: currentAssessment.id,
+    newPainSectionIds
   }
 }
 
