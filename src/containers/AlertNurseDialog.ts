@@ -4,21 +4,6 @@ import {alertNurse} from '../actions/nurse'
 import {makeMessage} from '../res/data/messages';
 import {closePrompt} from '../actions/messages';
 
-/*
-const getLastMessage = (nurseSystem) => {
-  return nurseSystem.messageIds.length ? 
-                nurseSystem.messageIds.map(mid => nurseSystem.messages[mid]).pop()
-                :
-                null
-                ;
-}
-const getMessages = (nurseSystem, limit = 0) => {
-  let messages = nurseSystem.messageIds.map(mid => nurseSystem.messages[mid]);
-  if(limit){
-    return messages.slice(0, limit)
-  }
-}
-*/
 
 const getConfirmMessage = (promptName,state) => {
   const messageId = typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].messageId : null;

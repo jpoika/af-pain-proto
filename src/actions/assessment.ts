@@ -1,3 +1,4 @@
+import {messagePromptUser} from './messages';
 export const ASSESS_MOVE_STEP = 'T2.ASSESS_MOVE_STEP';
 export const ASSESS_MARK_BODY_SECTION_PAIN = 'T2.ASSESS_MARK_BODY_SECTION_PAIN';
 export const ASSESS_REMOVE_BODY_SECTION_PAIN = 'T2.ASSESS_REMOVE_BODY_SECTION_PAIN';
@@ -14,7 +15,10 @@ import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
 import {BodySectionInterface} from '../res/data/body';
 import { push } from 'react-router-redux';
 import {nextId} from './_helper';
-
+const messsageNewPain = [
+        "You've indicated you are experiencing pain in a new location.", 
+        "Would you like to speak to a nurse?"
+    ];
 const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
   return state.assessmentIds
             .map(aid => state.assessments[aid])
@@ -35,7 +39,6 @@ const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
 
 const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[propName: string]: any}) => {
    const currentBodySectionIds = Object.keys(sections1).map(sectionId => sectionId);
-    console.log(currentBodySectionIds, sections2)
    return currentBodySectionIds.filter(bsId => typeof sections2[bsId] === 'undefined');
 }
 
@@ -48,7 +51,7 @@ export const assessMoveStep = (stepIndex: number,assessmentId: number) => {
   }
 }
 
-export const checkForNewPain = (currentAssessmentId: number) => {
+export const checkForNewPain = (currentAssessmentId: number,region: string) => {
   return (dispatch,getState) => {
     const lastAssessment = getLastCompleteAssessment(getState());
     let newPainSectionIds = [];
@@ -57,6 +60,13 @@ export const checkForNewPain = (currentAssessmentId: number) => {
 
     if(currentAssessment && lastAssessment && lastAssessment.id !== currentAssessment.id){
       newPainSectionIds = getDiffBodySections(currentAssessment.bodySections,lastAssessment.bodySections);
+      
+
+      if(newPainSectionIds.length){
+        dispatch(messagePromptUser('new_pain_' + region + '_' + currentAssessmentId,'nurse_prompt',1,messsageNewPain));
+      }
+
+
       dispatch(setNewPain(currentAssessment,newPainSectionIds));
     }
   }

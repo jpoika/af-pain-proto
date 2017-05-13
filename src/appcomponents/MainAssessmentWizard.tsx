@@ -4,7 +4,6 @@ import AccountContainer  from '../containers/AccountEdit';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
-import AllergiesManager  from '../containers/AllergiesManager';
 import {AssessmentInterface} from '../res/data/assessments';
 import {
   Step,

@@ -19,7 +19,7 @@ export const SET_USER_HIGH_PAIN_FALSE = 'T2.SET_USER_HIGH_PAIN_FALSE';
 import {nextId} from './_helper';
 const messsageIntollerablePain = [
         "You've indicated you are experiencing intollerable pain.", 
-        "Would you like to speak to a nurse"
+        "Would you like to speak to a nurse?"
     ];
 const tmpSimulatedContact = () => {
   return new Promise<any>((res,rej) => {
@@ -86,16 +86,6 @@ export const alertNurseHighPain = () => {
 export const alertNurseNewPain = () => {
   return alertNurseWithStatus(6);
 }
-
-export const checkForNewPainNotification = () => {
-  return (dispatch,getState) => {
-    if(getState().newPainBodySections.sectionIds.length > 0){
-      dispatch(resetNursePrompt());
-      dispatch(alertNurseNewPain());
-    }
-  }
-}
-
 
 export const userHasHighPain = () => {
   return {

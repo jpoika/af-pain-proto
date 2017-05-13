@@ -66,11 +66,11 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
     markPain: (assessment: AssessmentInterface, side: string, sectionId: number, painLevel: PainLevelInterface) => {
       dispatch(assessMarkPain(assessment.id,side,sectionId,painLevel.id));
-      dispatch(checkForNewPain(assessment.id));
+      dispatch(checkForNewPain(assessment.id,ownProps.side));
     },
     deleteSection: (sectionId: number) => {   
       dispatch(assessmentRemoveBodyPain(ownProps.assessment.id,sectionId));
-      dispatch(checkForNewPain(ownProps.assessment.id));
+      dispatch(checkForNewPain(ownProps.assessment.id,ownProps.side));
     }
   }
 }

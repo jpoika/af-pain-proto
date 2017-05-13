@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
-import {checkForNewPainNotification} from '../actions/nurse'
 
 import {viewActions} from '../lib/local-t2-view';
 import {nextId} from '../actions/_helper';
@@ -35,7 +34,7 @@ const dispatchToProps = (dispatch,ownProps) => {
     nextStep: (step: number,assessmentId: number) => {
       dispatch(assessMoveStep(step,assessmentId));
       if(step > ownProps.stepIndex){
-        dispatch(checkForNewPainNotification());
+    
       }
       if(step >= maxSteps){
         dispatch(assessMarkComplete(assessmentId));
