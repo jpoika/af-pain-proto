@@ -25,14 +25,6 @@ const defaultSystem = {
 export const nurseSystem = (state = defaultSystem,action) => {
 
   switch (action.type) {
-    /*
-    case ALERT_NURSE_DIALOGUE_OPEN:
-      state = {...state,status: 4};
-      break;
-    case ALERT_NURSE_DIALOGUE_CLOSE:
-      state = {...state,userPromptedForPain: 1};
-      break;
-      */
     case ALERT_NURSE:
       state = {...state, status: 1};
       break;

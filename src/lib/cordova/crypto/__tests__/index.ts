@@ -1,19 +1,28 @@
-/*
+
 
 
 describe('Testing data flow for promise-based persistor', () => {
+
+
+  it('pointless test',(done) => {
+
+       expect(true).toBe(true);
+     done();
+   });
+  /*
   const cryptoPromise = new BrowserCryptoPromise();
   const plainFields = ['migrations','navigation','routing','view','onLogout','user'];
   const encryptFields = ['workbooks','workbookIds','goals','notes','noteIds'];
   const lockableFields = ['workbooks','workbookIds','goals','notes','noteIds'];  
   const key = 'asdfasddoesn';
+
   const transformer = new PromisePeristerTransform(
                             cryptoPromise,
                             plainFields,
                             encryptFields,
                             lockableFields
                           );
-
+  
    it('locking feature UNLOCKED for lockableFields',(done) => {
      transformer.unLock(key);
      lockableFields.forEach((field) => {
@@ -30,9 +39,8 @@ describe('Testing data flow for promise-based persistor', () => {
      });
      done();
    });
+    */
 
 
 
 });
-
-*/

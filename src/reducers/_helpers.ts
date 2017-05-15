@@ -22,14 +22,5 @@ export const arrayRemove = (item,arr) => {
     return copyArray(uniqueArray);
 };
 
-export const obAddProp = (item,arr) => { //????//TODO
-    let uniqueArray = arrayUnique(arr);
-    let pos = uniqueArray.indexOf(item)
-    if(pos > -1){
-      uniqueArray.splice(pos,1);
-    }
-    return copyArray(uniqueArray);
-};
-
 
 

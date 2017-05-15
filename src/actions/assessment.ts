@@ -85,11 +85,16 @@ export const assessMarkComplete = (assessmentId: number) => {
   let date = new Date();
   return (dispatch, getState) => {
       dispatch(sheduleReassessment())
-      dispatch({
-                type: ASSESS_MARK_COMPLETE,
-                assessmentId,
-                dateTs: date.getTime()
-              });
+      dispatch(markComplete(assessmentId));
+  }
+}
+
+export const markComplete = (assessmentId: number) => {
+  let date = new Date();
+  return {
+        type: ASSESS_MARK_COMPLETE,
+        assessmentId,
+        dateTs: date.getTime()
   }
 }
 
