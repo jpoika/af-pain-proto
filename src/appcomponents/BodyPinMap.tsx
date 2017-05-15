@@ -26,7 +26,8 @@ export interface Props{
   painMarkings: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
   gridSize: number;
   assessment: AssessmentInterface;
-
+  replaceContent(content: any): void;
+  restoreContent(): void;
 }
 
 export interface State{
@@ -216,15 +217,15 @@ export default class BodyPinMap extends React.Component<Props, State>{
   }
 
   render(){
-    const {title,bodyImage,painMarkings,deleteSection} = this.props;
- 
+    const {title,bodyImage,painMarkings,deleteSection,replaceContent,restoreContent} = this.props;
+
     return (
             <div style={{overflow: 'auto'}}>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>
         
-              <PainSelectorDialog section={this.state.activeSection} deleteSection={this.handleDeletePain} painLevel={this.state.currentPainLevel} handleClose={this.handleDialogClose} selectPain={this.handleSelectPain} open={this.state.dialogOpen} />
+              <PainSelectorDialog restoreContent={restoreContent} replaceContent={replaceContent} section={this.state.activeSection} deleteSection={this.handleDeletePain} painLevel={this.state.currentPainLevel} handleClose={this.handleDialogClose} selectPain={this.handleSelectPain} open={this.state.dialogOpen} />
             </div>
            );
   }

@@ -101,20 +101,21 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
 
   render(){
 
-    const {appBarTitle,page,title, maxSteps, assessment} = this.props;
+    const {appBarTitle,replaceContent, restoreContent, page,title, maxSteps, assessment} = this.props;
+
     /*
     if(!assessment){
       return <div>
             
       </div>
     } */
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return (<div>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
 
               <Step>
                 <StepLabel>Pain Map Front</StepLabel>
                 <StepContent>
-                 <BodyMap side='front' assessment={assessment} />
+                 <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side='front' assessment={assessment} />
                  {this.renderStepActions(0)}
                 </StepContent>
               </Step>
@@ -122,7 +123,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Pain Map Back</StepLabel>
                 <StepContent>
-                 <BodyMap side='back' assessment={assessment} />
+                 <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side='back' assessment={assessment} />
                  {this.renderStepActions(1)}
                 </StepContent>
               </Step>
@@ -130,7 +131,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={assessment.id} categoryId={2} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={assessment.id} categoryId={2} />
                  
                 </StepContent>
               </Step>
@@ -138,7 +139,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Acceptable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(3)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={assessment.id} categoryId={3} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={assessment.id} categoryId={3} />
                  
                 </StepContent>
               </Step>
@@ -146,7 +147,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={4} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={4} />
                  
                 </StepContent>
               </Step>
@@ -169,6 +170,6 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
                 onTouchTap={this.startOver}
               />
         )}
-          </BasicPage>;
+          </div>);
   }
 }

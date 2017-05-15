@@ -86,7 +86,7 @@ export default {
     routes: [new RegExp('/main/account-home')],
     level: 2,
     pathname: '/main/account-home',
-    childrenIds: ['8','12','9','7','5']
+    childrenIds: ['8','12','9','7','5','6']
   },
   '14': {
     id: '14',

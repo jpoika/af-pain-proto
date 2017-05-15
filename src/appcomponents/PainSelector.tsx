@@ -4,10 +4,16 @@ import {PainLevelInterface} from '../res/data/pain';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import InfoIcon from 'material-ui/svg-icons/action/info';
+import PainExplanation from './PainExplanation';
 export interface Props {
   selectPain(painLevel: PainLevelInterface);
   painLevels: any[];
   painLevel: PainLevelInterface
+  replaceContent(content: any): void;
+  restoreContent(): void;
 }
 export interface State {
 }
@@ -33,6 +39,11 @@ export default class PainSelector extends React.Component<Props, State>{
       value && selectPain(value);
   }
 
+  showExplanation = () => {
+      const {replaceContent, painLevels,restoreContent} = this.props;
+      replaceContent(<PainExplanation restoreContent={restoreContent} painLevels={painLevels} />)
+  }
+
   renderSelectItemText = (lvl) => {
     return <div>
               <span style={{fontWeight: 'bolder',color: lvl.color}}>{lvl.title}</span> 
@@ -54,7 +65,9 @@ export default class PainSelector extends React.Component<Props, State>{
                 {painLevels.map(lvl => <MenuItem value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
               </SelectField>
             
-            <PainExplanationDialog painLevels={painLevels} />
+
+            <IconButton style={{position: 'relative',top: -9}} onTouchTap={this.showExplanation} ><InfoIcon /></IconButton>
+            
             
       </div>
 

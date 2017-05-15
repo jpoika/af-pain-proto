@@ -12,6 +12,8 @@ export interface Props {
   painLevel:PainLevelInterface;
   section?: BodySectionInterface;
   deleteSection?: (sectionId: number) => void;
+  replaceContent(content: any): void;
+  restoreContent(): void;
 }
 export default class PainSelectorDialog extends React.Component<Props, any> {
 
@@ -63,7 +65,8 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
   }
 
   render() {
-    
+    const {replaceContent,restoreContent} = this.props;
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -92,7 +95,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-         <PainSelector painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
+         <PainSelector restoreContent={restoreContent} replaceContent={replaceContent} painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
         </Dialog>
       </div>
     );

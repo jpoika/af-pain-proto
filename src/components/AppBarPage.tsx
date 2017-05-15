@@ -70,8 +70,10 @@ interface MyProps {
 }
 
 interface MyState {
-  title?: any,
-  open?: boolean
+  title?: any;
+  open?: boolean;
+  showAltContent: boolean;
+  altContent: any;
 }
 
 
@@ -89,22 +91,20 @@ const rightNurseIcon = (props) => {
 
 
 export default class AppBarPage extends React.Component<MyProps, MyState>{
-
+  private altContentTimeoutId = null;
   constructor (props: any) {
     super(props);
-
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
     this.state = {
       open: false,
-      title: ''
+      title: '',
+      showAltContent: false,
+      altContent: null
     };
   }
 
-  componentWillMount () {
-    //this.props.dispatch(windowResize(window.innerWidth, window.innerHeight));
-  }
   handleRequestClose () {
     this.setState({
       open: false
@@ -123,8 +123,33 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
     });
   }
 
+  replaceContent = (altContent: any) => {
+    if(altContent){
+      this.setState({
+        showAltContent: true,
+        altContent
+      });
+    }
+
+    this.altContentTimeoutId = setTimeout(() => {
+                                  this.restoreContent();
+                                }, 20000);
+  }
+
+  restoreContent = () => {
+      this.altContentTimeoutId && clearTimeout(this.altContentTimeoutId);
+      this.setState({
+        showAltContent: false,
+        altContent: null
+      });
+  }
+
+
+
   render () {
     const {categories,pathOnTouchTap,appConfig,leftIcon,flashMessage,appNameShort,appNameLong, alertNurse} = this.props;
+
+    const MainContent = !this.state.showAltContent ? React.cloneElement((this.props as any).children, { restoreContent: this.restoreContent, replaceContent: this.replaceContent, appBarTitle: this.handleTitle, categories, pathOnTouchTap, alertNurse, appConfig: appConfig }) : this.state.altContent;
     return (
        
         <div>
@@ -136,15 +161,15 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
                       { name: 'description', content: appNameLong },
                     ]}
             />
-            <AppBar
-                title={this.state.title}
-                titleStyle={{textAlign: 'center'}}
-                iconElementLeft={leftIcon}
-                iconElementRight={rightNurseIcon(this.props)}
-                 />
+            {!this.state.showAltContent && <AppBar
+                        title={this.state.title}
+                        titleStyle={{textAlign: 'center'}}
+                        iconElementLeft={leftIcon}
+                        iconElementRight={rightNurseIcon(this.props)}
+                         />}
                 <div style={{'padding': '5px'} as any}>
                   <div>
-                    {React.cloneElement((this.props as any).children, { appBarTitle: this.handleTitle, categories, pathOnTouchTap, alertNurse, appConfig: appConfig })}
+                    {MainContent}
                   </div>
                 </div>
                 <AppSnackBar {...flashMessage} />

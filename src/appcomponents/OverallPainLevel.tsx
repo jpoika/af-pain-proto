@@ -15,6 +15,8 @@ export interface Props {
   actions?: JSX.Element;
   onComplete?(): any;
   checkPain?: boolean;
+  replaceContent(content: any): void;
+  restoreContent(): void;
 }
 
 export interface State {
@@ -54,7 +56,7 @@ export default class OverallPain extends React.Component<Props, State>{
   }
 
   render(){
-    const {title,step,actions} = this.props;
+    const {title,step,actions,restoreContent,replaceContent} = this.props;
     const {painLevel,isSaved} = this.state;
     let additionalActions = null
     if(actions){
@@ -65,7 +67,7 @@ export default class OverallPain extends React.Component<Props, State>{
               {isSaved && <h3 style={{color: painLevel.color}}>{painLevel.description}</h3>}
               {!isSaved && <h3>Select a Pain Level Below</h3>}
               {/*<img src={require("../res/images/scale_top.jpg")} width="400" />*/}
-              <PainSelector selectPain={this.handleSelectPain} painLevel={painLevel} />
+              <PainSelector restoreContent={restoreContent} replaceContent={replaceContent}  selectPain={this.handleSelectPain} painLevel={painLevel} />
               <div style={{margin: '12px 0'}}>
                      <RaisedButton 
                               label={additionalActions ? 'Next' : 'Save'}
