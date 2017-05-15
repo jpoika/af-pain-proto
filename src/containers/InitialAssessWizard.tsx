@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
+
 const maxSteps = 7;
 
 const get_assessment = (id,state) => {
@@ -18,7 +19,9 @@ const stateToProps = (state, ownProps) => {
     page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
     stepIndex: assessment.step || 0,
     maxSteps: maxSteps,
-    assessment: assessment
+    assessment: assessment,
+    restoreContent: ownProps.restoreContent,
+    replaceContent: ownProps.replaceContent
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

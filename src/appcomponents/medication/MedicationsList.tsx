@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {MedicationInterface} from '../res/data/medication';
-import MedicationItemEdit from '../containers/MedicationItemEdit';
-import MedicationItemView from '../appcomponents/MedicationItemView';
+import {MedicationInterface} from '../../res/data/medication';
+import MedicationItemEdit from '../../containers/MedicationItemEdit';
+import MedicationQuestions from '../../appcomponents/medication/MedicationQuestions';
+import MedicationItemView from './MedicationItemView';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import {topRightButtonStyle} from '../components/commonStyles';
+import {topRightButtonStyle} from '../../components/commonStyles';
 const styles = {
 
   wrapper: {
@@ -15,10 +16,12 @@ const styles = {
 export interface Props{
   medications: MedicationInterface[];
   addMedication(): any;
+  setMedicationStatus(status: number): void;
   step: number;
   deleteMedication(medicationId: number): any;
   onComplete?(): any;
   actions?: JSX.Element;
+  medication_status: number;
 }
 
 export interface State{
@@ -85,12 +88,16 @@ export default class MedicationsList extends React.Component<Props, State>{
   }
 
   render(){
-    const {medications, actions, deleteMedication} = this.props;
+    const {onComplete, medications, actions, deleteMedication,setMedicationStatus,medication_status} = this.props;
     let additionalActions = null
     if(actions){
       additionalActions = actions;
     }
     const addButtonText = medications.length > 0  ? 'Add More': 'Add Medication';
+
+    if(medication_status === 0){
+      return <MedicationQuestions skipEditor={onComplete} setMedicationStatus={setMedicationStatus} />;
+    }
     return <div>
               <h1>Medications</h1>
               <h3>Please list any medication you are taking.</h3>
@@ -104,7 +111,7 @@ export default class MedicationsList extends React.Component<Props, State>{
                 <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle as any} secondary={true} type="button" onTouchTap={this.handleAddMedication}>{addButtonText}</FlatButton>
               </div>
 
-              <div style={{clear: 'both'}}>
+              {additionalActions && <div style={{clear: 'both'}}>
                 <RaisedButton 
                           disableTouchRipple={true}
                           disableFocusRipple={true}
@@ -113,7 +120,7 @@ export default class MedicationsList extends React.Component<Props, State>{
                         >{additionalActions ? 'Next' : 'Save'}</RaisedButton>
 
                 {additionalActions}
-              </div>
+              </div>}
 
            </div>;
   }

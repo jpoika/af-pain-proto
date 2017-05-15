@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {MedicationInterface} from '../res/data/medication';
+import {MedicationInterface} from '../../res/data/medication';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';

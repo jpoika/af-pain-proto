@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {MedicationInterface} from '../res/data/medication';
+import {MedicationInterface} from '../../res/data/medication';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
-import {flexParentRowStyle, flexRowItemStyle} from '../components/commonStyles';
+import {flexParentRowStyle, flexRowItemStyle} from '../../components/commonStyles';
 export interface Props{
   medication: MedicationInterface;
   update(medication: MedicationInterface): any;

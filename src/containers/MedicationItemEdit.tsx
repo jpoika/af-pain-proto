@@ -1,4 +1,4 @@
-import MedicationItem from '../appcomponents/MedicationItemEdit';
+import MedicationItem from '../appcomponents/medication/MedicationItemEdit';
 import {MedicationInterface, frequencyUnits, amountUnits, routes} from '../res/data/medication';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';

@@ -27,7 +27,7 @@ export const messagePromptUser = (id: string, name: string, maxRepeat: number, m
                     type: MESSAGE_UPDATE_PROMPT,
                     prompt: messagePrompt
                   });
-         if(!isPromptMaxed(id,getState())) {
+         if(maxRepeat === 0 || !isPromptMaxed(id,getState())) {
              dispatch({
                         type: MESSAGE_PROMPT_USER,
                         prompt: messagePrompt

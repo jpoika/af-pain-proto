@@ -188,13 +188,15 @@ const dispatchToProps = (dispatch,ownProps) => {
           dispatch(addAssessmentIfNecessary('reassessment'));
         }
         if(path == '/main/newpain'){
-          console.log(path);
+      
           dispatch(addAssessmentIfNecessary('newpain'));
         }
         dispatch(push(path));
       }
     },
     alertNurse: () => {
+
+
       dispatch(alertNurseDialogueOpen())
     }
   }

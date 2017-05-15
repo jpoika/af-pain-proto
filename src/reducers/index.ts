@@ -10,6 +10,7 @@ import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,m
 import {
   RESET_APP,
   FLAG_AS_AUTHENTICATED,
+  USER_SET_MEDICATION_STATUS,
   FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
 import { normalize, schema } from 'normalizr';
 
@@ -33,7 +34,8 @@ const defaultUser = {
   middlename: '',
   lastname: '',
   dob: null,
-  gender: null
+  gender: null,
+  understands_meds: 0//0: has not specified, 1: not taking meds, 2: Is taking meds and understands, 3: Taking meds and does not understand them.
 }
 
 const user = (state: any = defaultUser, action: any) => {
@@ -56,6 +58,9 @@ const user = (state: any = defaultUser, action: any) => {
                         dob: action.account.dob,
                         gender: action.account.gender
                       };
+      break;
+    case USER_SET_MEDICATION_STATUS:
+      state = {...state,understands_meds: action.status};
       break;
   }
   return state;

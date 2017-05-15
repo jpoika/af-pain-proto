@@ -171,6 +171,19 @@ export const alertNurse = () => {
   }
 }
 
+export const alertNurseBackground = () => {
+  return function(dispatch,getState,xtraTest){
+    dispatch(alertNurseStart())
+    return tmpSimulatedContact().then((action) => {
+        dispatch(action)
+        dispatch(alertNurseEnd())
+        return true;
+    }).catch((e) => {
+
+    })
+  }
+}
+
 const createMessage = (type: string, id: number,  messageString: string) => {
   let ts = new Date();
   let tsMs = ts.getTime();

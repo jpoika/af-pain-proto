@@ -15,6 +15,12 @@ export interface Props {
   replaceContent(content: any): void;
   restoreContent(): void;
 }
+
+const customContentStyle = {
+  width: '100%',
+  maxWidth: 'none'
+};
+
 export default class PainSelectorDialog extends React.Component<Props, any> {
 
   public static defaultProps: Partial<Props> = {
@@ -94,6 +100,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          contentStyle={customContentStyle}
         >
          <PainSelector restoreContent={restoreContent} replaceContent={replaceContent} painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
         </Dialog>
