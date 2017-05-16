@@ -1,3 +1,7 @@
+/**
+ * This class is for testing only. Secrety key is not secret!
+ */
+import * as CryptoJS from "crypto-js";
 import {
   CryptoPromiseInterface,
   CryptoInterface,
@@ -7,6 +11,7 @@ import {
   ChangePinWithPinInterface,
   CheckPinInterface
 } from './interface';
+const secretKey = 'asdfaieqklallsdlfas';
 
 export default class BrowserCryptoPromise implements CryptoPromiseInterface {
   crypto: CryptoInterface = null;
@@ -23,13 +28,13 @@ export default class BrowserCryptoPromise implements CryptoPromiseInterface {
 
   encryptRaw = (data:DataInInterface) => {
       return new Promise((resEncrypt,rejEncrypt) => {
-         return resEncrypt(data.KEY_INPUT);
+         return resEncrypt(CryptoJS.AES.encrypt(data.KEY_INPUT,secretKey));
       });
   }
 
   decryptRaw = (data:DataInInterface) => {
       return new Promise((resolveDecrypt,rejectDecrypt) => {
-                    resolveDecrypt(data.KEY_INPUT);
+                    resolveDecrypt(CryptoJS.AES.decrypt(data.KEY_INPUT,secretKey));
       });
   }
 
