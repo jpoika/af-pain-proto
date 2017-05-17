@@ -6,7 +6,7 @@ import ArrowNext from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowPrevious from 'material-ui/svg-icons/navigation/arrow-back';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import IconButton from 'material-ui/IconButton';
-import {flexParentRowStyle, flexRowItemStyle} from './commonStyles';
+import {floatAbsButtonTopLeft, floatAbsButtonTopRight, floatAbsButtonCenter,floatParentRowStyle} from './commonStyles';
 import Helmet from 'react-helmet';
 export interface Props { 
   page: {title: string,content: string};
@@ -22,10 +22,10 @@ export interface State {
 }
 
 const getNavigation = (previusButton,closeButton,nextButton) => {
-  return (<div style={flexParentRowStyle as any}>
-                     <div style={flexRowItemStyle as any}>{previusButton}</div>
-                     <div style={flexRowItemStyle as any}>{closeButton}</div>
-                     <div style={flexRowItemStyle as any}>{nextButton}</div>
+  return (<div style={floatParentRowStyle as any}>
+                     <div style={floatAbsButtonTopLeft as any}>{previusButton}</div>
+                     <div style={floatAbsButtonCenter as any}>{closeButton}</div>
+                     <div style={floatAbsButtonTopRight as any}>{nextButton}</div>
           </div>);
 }
 // 'HelloProps' describes the shape of props.

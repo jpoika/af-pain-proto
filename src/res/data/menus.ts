@@ -1,6 +1,6 @@
 
 const categories = [
-  {id: 8, title: 'Intro', path: '/', featured: true, img: ''},
+  {id: 8, title: 'About', path: '/', featured: true, img: ''},
   {id: 7, title: 'Home', path: '/main', featured: true, img: ''},
   {id: 11, title: 'Account Home', path: '/main/account-home', featured: true, img: ''},
   {id: 1, title: 'Initial Assessment',  path: '/main/assessment-start', featured: true, img: ''},
@@ -36,6 +36,7 @@ export const mainMenu = [
     {id: 5, type: 'link' , item: categoriesMap[2], children: []},
     {id: 7, type: 'link' , item: categoriesMap[6], children: []},
     {id: 8, type: 'link' , item: categoriesMap[9], children: []},
+    {id: 16, type: 'link' , item: categoriesMap[8], children: []},
     {id: 10, type: 'divider' , item: {}},
     //{id: 14, type: 'link' , item: categoriesMap[12], children: []},
 ];

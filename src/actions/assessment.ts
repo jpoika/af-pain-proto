@@ -81,20 +81,21 @@ export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectio
 }
 
 
-export const assessMarkComplete = (assessmentId: number) => {
+export const assessMarkComplete = (assessmentId: number,status: number = null) => {
   let date = new Date();
   return (dispatch, getState) => {
       dispatch(sheduleReassessment())
-      dispatch(markComplete(assessmentId));
+      dispatch(markComplete(assessmentId,status));
   }
 }
 
-export const markComplete = (assessmentId: number) => {
+export const markComplete = (assessmentId: number,status: number = null) => {
   let date = new Date();
   return {
         type: ASSESS_MARK_COMPLETE,
         assessmentId,
-        dateTs: date.getTime()
+        dateTs: date.getTime(),
+        status
   }
 }
 

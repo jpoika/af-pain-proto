@@ -19,11 +19,13 @@ export interface AssessmentInterface {
   painLevels: any;
   step: number;
   isComplete: boolean;
+  completedOn: number;
   title: string;
   type: string;
+  status: number; //0: incomplete, 1: complete and filled, 2: complete/no-change, 3: complete/skipped
 }
 
-export const makeAssessment = (id:number, title:string, type: string, bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
+export const makeAssessment = (id:number, title:string, type: string, status: number = 0, bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
   return {
     id,
     bodySections,
@@ -31,7 +33,9 @@ export const makeAssessment = (id:number, title:string, type: string, bodySectio
     step: 0,
     isComplete: false,
     type,
-    title
+    title,
+    status,
+    completedOn: null
   }
 }
 

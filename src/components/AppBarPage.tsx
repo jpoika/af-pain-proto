@@ -7,7 +7,6 @@ import * as ReactDOM from 'react-dom';
 import MenuDrawer from './MenuDrawer';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
-import Toggle from 'material-ui/Toggle';
 import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
 import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';

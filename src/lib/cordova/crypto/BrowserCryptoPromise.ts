@@ -28,13 +28,13 @@ export default class BrowserCryptoPromise implements CryptoPromiseInterface {
 
   encryptRaw = (data:DataInInterface) => {
       return new Promise((resEncrypt,rejEncrypt) => {
-         return resEncrypt(CryptoJS.AES.encrypt(data.KEY_INPUT,secretKey));
+         return resEncrypt(CryptoJS.AES.encrypt(data.KEY_INPUT,secretKey).toString());
       });
   }
 
   decryptRaw = (data:DataInInterface) => {
       return new Promise((resolveDecrypt,rejectDecrypt) => {
-                    resolveDecrypt(CryptoJS.AES.decrypt(data.KEY_INPUT,secretKey));
+                    resolveDecrypt(CryptoJS.AES.decrypt(data.KEY_INPUT,secretKey).toString(CryptoJS.enc.Utf8));
       });
   }
 

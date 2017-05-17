@@ -9,7 +9,7 @@ const completedAssessments = (state): any[] => {
 
 const stateToProps = (state, ownProps) => {
   return {
-    title: 'Home',
+    title: 'About Pain Proto',
     page: {title: homePage.title, subtitle: 'Pain Proto', content: homePage.content},
     image: homePage.image && !(state.device.width > 600 || state.device.width > state.device.height)? homePage.image : '',
     

@@ -1,6 +1,7 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
 import AccountEdit from './containers/AccountEdit';
+import ExtrasPage from './containers/ExtrasPage';
 import InitialAssessWizard from './containers/InitialAssessWizard';
 import ReAssessmentPage from './containers/ReAssessmentPage';
 import NewPainPage from './containers/NewPainPage';
@@ -141,7 +142,9 @@ const mainSubRoutes = [
   syncRoute('reassess',ReAssessmentPage),
   syncRoute('newpain',NewPainPage),
   syncRoute('resources', EducationResourcesPage),
-  syncRoute('resources/:open', EducationResourcesPage)
+  syncRoute('resources/:open', EducationResourcesPage),
+  syncRoute('extras', ExtrasPage)
+
 ];
 
 const siteRoutes = [
@@ -180,7 +183,7 @@ export default class AppProvider extends React.Component<MyProps,  MyState>{
     }
   }
   componentWillMount () { // only called on first load or hard browser refresh
-    actionArgs.isReady = true;
+    actionArgs.isReady = __IS_CORDOVA_BUILD__;
 
     
 

@@ -18,6 +18,30 @@ export const flexParentRowStyle = {
   flexFlow: 'row nowrap',
   justifyContent: 'space-between'
 }
+
+export const floatParentRowStyle = {
+  position: "relative",
+  height: 40
+}
+
+export const floatAbsButtonTopLeft = {
+  position: "absolute",
+  top: 0,
+  left: 10
+}
+
+export const floatAbsButtonTopRight = {
+  position: "absolute",
+  top: 0,
+  right: 10
+}
+
+export const floatAbsButtonCenter = {
+  width: 50,
+  margin: '10px auto 10px auto',
+  float: 'both'
+}
+
 export const flexRowItemStyle = {
   marginTop: '10px',
   flex: '0 0'

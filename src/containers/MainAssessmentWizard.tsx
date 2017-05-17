@@ -33,11 +33,8 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
     nextStep: (step: number,assessmentId: number) => {
       dispatch(assessMoveStep(step,assessmentId));
-      if(step > ownProps.stepIndex){
-    
-      }
       if(step >= maxSteps){
-        dispatch(assessMarkComplete(assessmentId));
+        dispatch(assessMarkComplete(assessmentId,1));
         dispatch(viewActions.sendMessage('Assessment Complete'));
       }
     }

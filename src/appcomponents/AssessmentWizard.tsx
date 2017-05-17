@@ -138,17 +138,9 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               </Step>
 
               <Step>
-                <StepLabel>Acceptable Pain</StepLabel>
-                <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} onComplete={this.handleNext} step={3} title={'Acceptable Pain Level'} assessmentId={assessment.id} categoryId={2} />
-                 
-                </StepContent>
-              </Step>
-
-              <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(5)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={3} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={3} />
                  
                 </StepContent>
               </Step>
@@ -156,7 +148,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
-                  <MedicationsList actions={this.renderBackButton(6)} onComplete={this.handleNext} />
+                  <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
                 </StepContent>
               </Step>
 

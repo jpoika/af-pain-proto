@@ -1,9 +1,9 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
 import NewPainButton from '../containers/NewPainButton';
+import DoNotDisturbControll from '../containers/DoNotDisturbControll';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
 import Dialog from 'material-ui/Dialog';
 export interface Props extends PageProps{
  deleteAccount: any;
@@ -79,7 +79,8 @@ export default class AccountHome extends React.Component<Props, State> {
               </Dialog>
 
                   <RaisedButton label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
-
+                    <DoNotDisturbControll />
+              
                  
                     <NewPainButton style={styles.appActionContainer as any} />
          

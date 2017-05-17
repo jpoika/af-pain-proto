@@ -30,6 +30,8 @@ const defaultUser = {
   status: 0,
   username: '',
   authenticated: false,
+  doNotDisturb: false,
+  lastActivityTime: 0,
   firstname: '',
   middlename: '',
   lastname: '',

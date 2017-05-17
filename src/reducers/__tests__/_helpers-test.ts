@@ -1,4 +1,4 @@
-import {arrayUnique,arrayRemove,arrayPushUnique,obAddProp,copyArray} from '../_helpers';
+import {arrayUnique,arrayRemove,arrayPushUnique, copyArray} from '../_helpers';
 import * as util from 'util';
 
 describe('arrayPushUnique', () => {

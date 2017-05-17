@@ -21,7 +21,7 @@ export const scheduleNotification = (title,text,deadline, data = {}) => {
         sound: 'file://' + require('../res/audio/alert_chime.mp3')
     }
     console.log('scheduling with cordova plugin');
-    plugins.notification.schedule(scheduleArg);
+    isReady && plugins.notification.schedule(scheduleArg);
     dispatch(editNotification(scheduleArg,deadline.getTime()));
   }
 }
@@ -37,13 +37,16 @@ export const editNotification = (schedule,timestamp) => {
 
 export const clearAllNotifications = () => {
   return (dispatch,getState, {isReady, plugins}) => {
-    plugins.notification.clearAll().then(() => {
-      dispatch({
-          type: NOTIFICATION_CLEAR_ALL
-        });
-    }).catch((e) => {
-       console.log(e);
-    });
+    if(isReady){
+      plugins.notification.clearAll().then(() => {
+        dispatch({
+            type: NOTIFICATION_CLEAR_ALL
+          });
+      }).catch((e) => {
+         console.log(e);
+      });
+    }
+
 
   }
 }
@@ -58,6 +61,9 @@ export const notificationWasDeleted = (scheduleId) => {
 export const deleteNotification = (scheduleId: number) => {
 
   return (dispatch,getState, {isReady, plugins}) => {
+    if(!isReady){
+      return;
+    }
     plugins.notification.clear(scheduleId).then((result) => {
       dispatch(notificationWasDeleted(scheduleId));
     }).catch((err)=> {

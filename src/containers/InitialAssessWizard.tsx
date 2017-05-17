@@ -6,7 +6,7 @@ import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 
-const maxSteps = 7;
+const maxSteps = 6;
 
 const get_assessment = (id,state) => {
   return state.assessments[id]
@@ -29,7 +29,7 @@ const dispatchToProps = (dispatch,ownProps) => {
     nextStep: (step: number,assessmentId: number) => {
       dispatch(assessMoveStep(step,assessmentId));
       if(step >= maxSteps){
-        dispatch(assessMarkComplete(assessmentId));
+        dispatch(assessMarkComplete(assessmentId,1));
         dispatch(viewActions.sendMessage('Assessment Complete'));
       }
     }
