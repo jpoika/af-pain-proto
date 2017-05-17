@@ -11,11 +11,15 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch) => {
   return {
-    newPainClick: () => {
+    newPainClick: (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         dispatch(addAssessmentIfNecessary('newpain'));
         dispatch(push('/main/newpain'));
     },
     initAssessClick: () => {
+        event.preventDefault();
+        event.stopPropagation();
         dispatch(push('/main/assessment-start'));
     }
   }

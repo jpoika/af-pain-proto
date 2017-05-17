@@ -14,7 +14,7 @@ import {
 
 import {arrayPushUnique} from './_helpers';
 const assessmentRawData = [
-    makeAssessment(1,'','intial'),
+    makeAssessment(1,'','initial'),
 ];
 
 //const assessmentPainCategoriesSchema = new schema.Entity('assessment_pain_categories');

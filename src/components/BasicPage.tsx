@@ -6,8 +6,8 @@ import Helmet from 'react-helmet';
 
 export interface Props { 
   appBarTitle(msg: string): any;
-  replaceContent?(content: any): void;
-  restoreContent?(): void;
+  replaceContent(content: JSX.Element): void;
+  restoreContent(): void;
   title: string;
   page: {title: string, content: string, subtitle: string}
 }

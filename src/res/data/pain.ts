@@ -41,7 +41,10 @@ export const makePainLevel = (id: number, level: number, title: string, image:st
   }
 }
 
-
+export const painCategoryHash = {
+  '1': 'Current Pain',
+  '3': 'Tolerable Pain'
+}
 
 export const painLevels:PainLevelInterface[] = [
   makePainLevel(1,0,'0',require('../images/scale_0.jpg'),"No pain"),

@@ -25,6 +25,19 @@ export interface AssessmentInterface {
   status: number; //0: incomplete, 1: complete and filled, 2: complete/no-change, 3: complete/skipped
 }
 
+export const statusHash = {
+  '0': 'Started',
+  '1': 'Completed',
+  '2': 'No Change from Last Assessment',
+  '3': 'Skipped'
+}
+
+export const typeHash = {
+  'initial': 'Initial Assessment',
+  'newpain': 'New Pain',
+  'reassessment': 'Re-Assessment'
+}
+
 export const makeAssessment = (id:number, title:string, type: string, status: number = 0, bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
   return {
     id,
@@ -44,4 +57,13 @@ export const assessmentPainCategories = [
   makePainCategory(1,'Current Pain'),
   makePainCategory(1,'Acceptable Pain'),
   makePainCategory(1,'Tolerable Pain')
-]
+];
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@ export interface State {
 export default class AssessmentWizardPage extends React.Component<Props, State>{
   render(){
     const {appBarTitle,page,title,type,replaceContent,restoreContent} = this.props
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
               <MainAssessmentWizardContainer restoreContent={restoreContent} replaceContent={replaceContent} type={type} />
            </BasicPage>
   }

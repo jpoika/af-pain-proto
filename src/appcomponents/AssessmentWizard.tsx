@@ -19,8 +19,6 @@ export interface Props extends PageProps{
   nextStep(idx: number, assessmentId: number): any;
   maxSteps: number,
   assessment: AssessmentInterface;
-  replaceContent(content: any): void;
-  restoreContent(): void;
 }
 
 export interface State {
@@ -103,7 +101,7 @@ export default class AssessmentWizard extends React.Component<Props, State>{
 
     const {appBarTitle,page,title, maxSteps, assessment,replaceContent,restoreContent} = this.props
 
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Account Setup</StepLabel>

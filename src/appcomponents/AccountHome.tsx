@@ -2,6 +2,7 @@ import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
 import NewPainButton from '../containers/NewPainButton';
 import DoNotDisturbControll from '../containers/DoNotDisturbControll';
+import AssessmentList from '../containers/AssessmentList';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -49,7 +50,7 @@ export default class AccountHome extends React.Component<Props, State> {
     });
   }
   render(){
-    const {appBarTitle,page,title} = this.props;
+    const {appBarTitle,page,title,restoreContent,replaceContent} = this.props;
    const actions = [
       <FlatButton
         label="Yes"
@@ -65,7 +66,7 @@ export default class AccountHome extends React.Component<Props, State> {
     ];
 
 
-    return (<BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return (<BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
              <div style={{position: 'relative'}}>
               <Dialog
                 title="Delete Account"
@@ -80,7 +81,8 @@ export default class AccountHome extends React.Component<Props, State> {
 
                   <RaisedButton label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
                     <DoNotDisturbControll />
-              
+                    
+                    <AssessmentList />
                  
                     <NewPainButton style={styles.appActionContainer as any} />
          

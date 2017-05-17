@@ -86,7 +86,7 @@ export default {
     routes: [new RegExp('/main/account-home')],
     level: 2,
     pathname: '/main/account-home',
-    childrenIds: ['8','12','9','7','5','6']
+    childrenIds: ['8','12','9','7','5','6','15']
   },
   '14': {
     id: '14',
@@ -95,5 +95,13 @@ export default {
     level: 2,
     pathname: '/main/test-stub',
     childrenIds: []
-  }
+  },
+  '15': {
+    id: '15',
+    name: 'Assessment Overview',
+    routes: [new RegExp('/main/assess-overview/[0-9]+')],
+    level: 2,
+    pathname: '/main/assess-overview',
+    childrenIds: [],
+  },
 };

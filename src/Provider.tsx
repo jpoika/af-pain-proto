@@ -6,6 +6,7 @@ import InitialAssessWizard from './containers/InitialAssessWizard';
 import ReAssessmentPage from './containers/ReAssessmentPage';
 import NewPainPage from './containers/NewPainPage';
 import AccountHome from './containers/AccountHome';
+import AssessmentOverview from './containers/AssessmentOverview';
 import MedTrackerPage from './containers/MedTrackerPage';
 import NotificationsDashbord from './containers/NotificationsDashbord';
 import EducationResourcesPage from './containers/EducationResourcesPage';
@@ -143,7 +144,8 @@ const mainSubRoutes = [
   syncRoute('newpain',NewPainPage),
   syncRoute('resources', EducationResourcesPage),
   syncRoute('resources/:open', EducationResourcesPage),
-  syncRoute('extras', ExtrasPage)
+  syncRoute('extras', ExtrasPage),
+  syncRoute('assess-overview/:id', AssessmentOverview)
 
 ];
 

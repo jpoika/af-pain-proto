@@ -7,9 +7,9 @@ export interface Props extends PageProps, FormProps{
 export default class AccountPage extends React.Component<Props, any>{
   render(){
 
-    const {appBarTitle,page,title,validate,genders,savedAccount} = this.props
+    const {appBarTitle,page,title,validate,genders,savedAccount,restoreContent,replaceContent} = this.props
 
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
 
              <Form validate={validate} savedAccount={savedAccount} genders={genders}  />
                     

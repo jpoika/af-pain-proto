@@ -17,9 +17,9 @@ export default class NotificationsDashboard extends React.Component<Props, State
   }
   render(){
 
-    const {appBarTitle,page,title,notifications,deleteNotification} = this.props
+    const {appBarTitle,page,title,notifications,deleteNotification,replaceContent,restoreContent} = this.props
 
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent}  appBarTitle={appBarTitle} page={page} title={title}>
               <List>
                 {notifications.map(noti => {
                   return <ListItem key={noti.schedule.id} onTouchTap={() => deleteNotification(noti.schedule.id)} primaryText={noti.schedule.id + ': ' + noti.schedule.title + ', ' + this.handleDateFormat(noti.timestamp)}  />

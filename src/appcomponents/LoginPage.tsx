@@ -11,9 +11,9 @@ export interface State{
 export default class LoginPage extends React.Component<Props, State>{
   render(){
 
-    const {appBarTitle,page,title} = this.props
+    const {appBarTitle,page,title,replaceContent,restoreContent} = this.props
 
-    return <BasicPage appBarTitle={appBarTitle} page={page} title={title}>
+    return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
 
                   <h3>TODO</h3>
                     
