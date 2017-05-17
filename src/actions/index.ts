@@ -5,6 +5,8 @@ export const FLAG_AS_DEAUTHENTICATED = 'T2.FLAG_USER_AS_DEAUTHENTICATED';
 export const UPDATE_ACCOUNT_INFO = 'T2.UPDATE_ACCOUNT_INFO';
 export const SET_USERNAME = 'T2.SET_USERNAME';
 export const RESET_APP = 'T2.RESET_APP';
+export const USER_ENABLE_DO_NOT_DISTURB = 'T2.USER_ENABLE_DO_NOT_DISTURB';
+export const USER_DISABLE_DO_NOT_DISTURB = 'T2.USER_DISABLE_DO_NOT_DISTURB';
 
 export const USER_SET_MEDICATION_STATUS = 'T2.USER_SET_MEDICATION_STATUS';
 
@@ -14,6 +16,19 @@ export const flagUserAuthenticated = () => {
     type: FLAG_AS_AUTHENTICATED
   }
 }
+
+export const userEnableDoNotDisturb = () => {
+  return {
+    type: USER_ENABLE_DO_NOT_DISTURB
+  }
+}
+
+export const userDisableDoNotDisturb = () => {
+  return {
+    type: USER_DISABLE_DO_NOT_DISTURB
+  }
+}
+
 
 export const userSetMedicationStatus = (status) => {
   return {

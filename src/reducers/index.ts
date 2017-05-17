@@ -11,7 +11,12 @@ import {
   RESET_APP,
   FLAG_AS_AUTHENTICATED,
   USER_SET_MEDICATION_STATUS,
-  FLAG_AS_DEAUTHENTICATED,SET_USERNAME,UPDATE_ACCOUNT_INFO} from '../actions';
+  FLAG_AS_DEAUTHENTICATED,
+  SET_USERNAME,UPDATE_ACCOUNT_INFO,
+  USER_ENABLE_DO_NOT_DISTURB,
+  USER_DISABLE_DO_NOT_DISTURB
+} from '../actions';
+
 import { normalize, schema } from 'normalizr';
 
 import {
@@ -43,6 +48,12 @@ const defaultUser = {
 const user = (state: any = defaultUser, action: any) => {
 
   switch(action.type){
+    case USER_ENABLE_DO_NOT_DISTURB:
+      state = {...state,doNotDisturb: true};
+      break;
+    case USER_DISABLE_DO_NOT_DISTURB:
+      state = {...state,doNotDisturb: false};
+      break;
     case FLAG_AS_AUTHENTICATED:
       state = {...state,authenticated: true};
       break;
