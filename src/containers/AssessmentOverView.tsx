@@ -20,7 +20,8 @@ const stateToProps = (state, ownProps) => {
   const assessment = state.assessments[assessId];
   return {
     assessment: assessment,
-    overalPainRatings: getOveralPainRatings(assessment,state)
+    overalPainRatings: getOveralPainRatings(assessment,state),
+    viewPortSmall: state.device.width < 450
   }
 }
 const dispatchToProps = (dispatch) => {

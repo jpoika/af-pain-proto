@@ -10,6 +10,7 @@ export interface Props{
   overalPainRatings: {category: string, painLevel:PainLevelInterface}[];
   replaceContent(content: JSX.Element): void;
   restoreContent(): void;
+  viewPortSmall: boolean;
 }
 
 export interface State{
@@ -20,15 +21,24 @@ export default class AssessmentOverview extends React.Component<Props, State>{
   handleDateFormat = (epochMs) => {
     return Formats.msToDateTimeString(epochMs);
   }
+
+  truncate = (text: string) => {
+     const maxLen = 40;
+     const {viewPortSmall} = this.props;
+     if(viewPortSmall && text.length > maxLen){
+         return text.substr(0,maxLen) + '...';
+     }
+     return text;
+  }
   renderPainRatings = () => {
     const {overalPainRatings,restoreContent,replaceContent} = this.props;
     return overalPainRatings.map(rating => {
       const {painLevel} = rating;
       return <div>
                 <h3>{rating.category}</h3>
-                <span style={{fontSize: '3em',fontWeight: 'bolder',color: painLevel.color}}>{painLevel.title}</span> 
-                &nbsp;&nbsp;<span style={{fontSize: '1.5em'}}>{painLevel.description}</span>
-                <PainExplanationButton top={0} restoreContent={restoreContent} replaceContent={replaceContent} />
+                <span style={{fontSize: '2em',fontWeight: 'bolder',color: painLevel.color}}>{painLevel.title}</span> 
+                &nbsp;&nbsp;<span style={{fontSize: '1.2em'}}>{this.truncate(painLevel.description)}</span>
+                <PainExplanationButton top={6} restoreContent={restoreContent} replaceContent={replaceContent} />
               </div>;
     });
   }
