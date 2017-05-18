@@ -4,6 +4,7 @@ import {AssessmentInterface, statusHash, typeHash} from '../../res/data/assessme
 import {Formats,Validators} from '../../lib/helpers';
 import {PainLevelInterface} from '../../res/data/pain';
 import PainExplanationButton from '../../containers/PainExplanationButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export interface Props{
   assessment: AssessmentInterface;
@@ -11,6 +12,7 @@ export interface Props{
   replaceContent(content: JSX.Element): void;
   restoreContent(): void;
   viewPortSmall: boolean;
+  deleteAssessment(assessment: AssessmentInterface): void;
 }
 
 export interface State{
@@ -43,7 +45,7 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     });
   }
   render(){
-    const {assessment} = this.props;
+    const {assessment,deleteAssessment} = this.props;
     const statusDetails =  statusHash[assessment.status] || "Unknown";
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";
@@ -55,7 +57,10 @@ export default class AssessmentOverview extends React.Component<Props, State>{
 
     let noChangeSummary = (<div><h2>No Change in Pain Levels</h2></div>);
 
-    let startedSummary = (<div><h2>This Assessment is incomplete</h2></div>);
+    let startedSummary = (<div>
+                              <h2>This Assessment is incomplete</h2>
+                              {assessment.type === 'newpain' && <RaisedButton label="Delete" onTouchTap={() => deleteAssessment(assessment)} />}
+                          </div>);
 
 
     return <div>

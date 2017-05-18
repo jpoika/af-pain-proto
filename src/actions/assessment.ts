@@ -8,7 +8,7 @@ export const ASSESS_MARK_COMPLETE = 'T2.ASSESS_MARK_COMPLETE';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
-
+export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
@@ -47,6 +47,13 @@ export const assessMoveStep = (stepIndex: number,assessmentId: number) => {
   return {
     type: ASSESS_MOVE_STEP,
     stepIndex,
+    assessmentId
+  }
+}
+
+export const assessDelete = (assessmentId: number) => {
+  return {
+    type: ASSESSMENT_DELETE,
     assessmentId
   }
 }

@@ -9,10 +9,11 @@ import {
   ASSESS_MOVE_STEP,
   ASSESSMENT_EDIT,
   ASSESS_REMOVE_BODY_SECTION_PAIN,
-  ASSESSMENT_SET_NEW_PAIN
+  ASSESSMENT_SET_NEW_PAIN,
+  ASSESSMENT_DELETE
 } from '../actions/assessment'
 
-import {arrayPushUnique} from './_helpers';
+import {arrayPushUnique, arrayRemove} from './_helpers';
 const assessmentRawData = [
     makeAssessment(1,'','initial'),
 ];
@@ -58,7 +59,7 @@ export const _lastCompleteAssessment = (state, action: any) => {
 export const assessmentSystem = (state = systemDefault,action: any) => {
   switch (action.type) {
     case ASSESS_MARK_COMPLETE:
-      state = {...state,lastCompletedAssessment: _lastCompleteAssessment(state.lastCompletedAssessment,action)}
+      //state = {...state,lastCompletedAssessment: _lastCompleteAssessment(state.lastCompletedAssessment,action)}
       break;
   }
   return state;
@@ -110,6 +111,9 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       break;
     case ASSESSMENT_EDIT:
       state = {...state,[action.assessment.id]: action.assessment};
+    case ASSESSMENT_DELETE:
+      delete state[action.assessmentId];
+      state = {...state};
     break;
   }
   return state;
@@ -132,6 +136,9 @@ export const assessmentIds = (state = normalizedAssessments.result,action: any) 
   switch(action.type){
     case ASSESSMENT_EDIT:
       state = arrayPushUnique(action.assessment.id,state);
+      break;
+    case ASSESSMENT_DELETE:
+      state = arrayRemove(action.assessmentId,state);
       break;
   }
   return state;
