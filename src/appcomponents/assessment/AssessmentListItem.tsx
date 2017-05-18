@@ -17,7 +17,7 @@ export interface State{
 
 }
 
-export default class AssessmentOverview extends React.Component<Props, State>{
+export default class AssessmentListItem extends React.Component<Props, State>{
   
   
   handleDateFormat = (epochMs) => {

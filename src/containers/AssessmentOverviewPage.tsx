@@ -1,4 +1,4 @@
-import Overview from '../appcomponents/assessment/AssessmentOverview';
+import OverviewPage from '../appcomponents/assessment/AssessmentOverviewPage';
 import {homePage} from '../res/data/page';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
@@ -18,10 +18,14 @@ const getOveralPainRatings = (assessment,state) => {
     });
 }
 const stateToProps = (state, ownProps) => {
+  const assessId = ownProps.params['id'] || '1';
+  const assessment = state.assessments[assessId];
   return {
-    assessment: ownProps.assessment,
-    overalPainRatings: getOveralPainRatings(ownProps.assessment,state),
-    viewPortSmall: state.device.width < 1060
+    title: "Assessment",
+    page: {title: "Assessment Overview", subtitle: 'Pain Proto', content: ''},
+    assessment: assessment,
+    overalPainRatings: getOveralPainRatings(assessment,state),
+    viewPortSmall: state.device.width < 1200
   }
 }
 const dispatchToProps = (dispatch) => {
@@ -34,4 +38,4 @@ const dispatchToProps = (dispatch) => {
 }
 export default connect(stateToProps,dispatchToProps)
 
-(Overview);
+(OverviewPage);

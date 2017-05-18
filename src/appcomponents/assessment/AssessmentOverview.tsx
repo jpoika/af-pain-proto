@@ -1,4 +1,5 @@
 import * as React from "react"; 
+import BodyPinMapShow  from '../../containers/BodyPinMapShow';
 import {List, ListItem} from 'material-ui/List';
 import {AssessmentInterface, statusHash, typeHash} from '../../res/data/assessments';
 import {Formats,Validators} from '../../lib/helpers';
@@ -45,14 +46,33 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     });
   }
   render(){
-    const {assessment,deleteAssessment} = this.props;
+    const {assessment,deleteAssessment,viewPortSmall} = this.props;
+    console.log(viewPortSmall);
     const statusDetails =  statusHash[assessment.status] || "Unknown";
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";
+    let regionStyles = {};
+
+    if(!viewPortSmall){
+      regionStyles['float'] = 'left';
+    }
+    let painMapFront = (<div style={regionStyles}>
+                          <h3>Pain Map Front</h3>
+                          <BodyPinMapShow gridSize={25} side='front' assessment={assessment}  />
+                        </div>);
+
+    let painMapBack = (<div style={regionStyles}>
+                        <h3>Pain Map Back</h3>
+                        <BodyPinMapShow gridSize={25} side='back' assessment={assessment}  />
+                      </div>);
+
+
+
     let normalSummary =  (<div>
                             <h2>Pain Ratings</h2>
                             {this.renderPainRatings()}
                           </div>);
+
     let skippedSummary = (<div><h2>This Assessment was Skipped</h2></div>);
 
     let noChangeSummary = (<div><h2>No Change in Pain Levels</h2></div>);
@@ -64,13 +84,17 @@ export default class AssessmentOverview extends React.Component<Props, State>{
 
 
     return <div>
-              <h1>{assessmentType}</h1>
-              <h3>Completed On: {completedOn}</h3>
-              <h1>Summary</h1>
-              {assessment.status == 0 && startedSummary}
-              {assessment.status == 1 && normalSummary}
-              {assessment.status == 2 && noChangeSummary}
-              {assessment.status == 3 && skippedSummary}
+              <div style={regionStyles}>
+                <h1>{assessmentType}</h1>
+                <h3>Completed On: {completedOn}</h3>
+                <h1>Summary</h1>
+                {assessment.status == 0 && startedSummary}
+                {assessment.status == 1 && normalSummary}
+                {assessment.status == 2 && noChangeSummary}
+                {assessment.status == 3 && skippedSummary}
+              </div>
+              {painMapFront}
+              {painMapBack}
             </div>;
   }
 }
