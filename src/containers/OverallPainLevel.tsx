@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {assessSetOverallPain} from '../actions/assessment';
 import {checkForUserHighPain} from '../actions/nurse';
 import {PainLevelInterface} from '../res/data/pain';
-
+import {AssessmentInterface} from '../res/data/assessments';
 
 const isSaved = (assessmentId, painCategoryId, state) => {
   const {assessments, bodySectionIds,painLevels} = state;
@@ -30,7 +30,7 @@ const getSavedPain= (assessmentId, painCategoryId, state) => {
 }
 
 const stateToProps = (state, ownProps) => {
-  const assessmentId = ownProps.assessmentId;
+  const assessmentId = ownProps.assessment.id;
   const painCategoryId = ownProps.categoryId;
   return {
     painLevel: getSavedPain(assessmentId,painCategoryId,state),
@@ -39,12 +39,12 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-   selectPain: (assessmentId:number, painCategoryId:number, painLevel:PainLevelInterface) => {
+   selectPain: (assessment:AssessmentInterface, painCategoryId:number, painLevel:PainLevelInterface) => {
      ownProps.checkPain
      if(ownProps.checkPain){
-       dispatch(checkForUserHighPain(painLevel, assessmentId));
+       dispatch(checkForUserHighPain(painLevel, assessment));
      }
-     dispatch(assessSetOverallPain(assessmentId,painCategoryId,painLevel.id))
+     dispatch(assessSetOverallPain(assessment.id, painCategoryId, painLevel.id))
    }
   }
 }

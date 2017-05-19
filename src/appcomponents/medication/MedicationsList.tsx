@@ -5,12 +5,18 @@ import MedicationQuestions from '../../appcomponents/medication/MedicationQuesti
 import MedicationItemView from './MedicationItemView';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import FontIcon from 'material-ui/FontIcon';
+import ChipSvgIcon from 'material-ui/svg-icons/content/add-circle';
 import {topRightButtonStyle} from '../../components/commonStyles';
+import {makeMedication} from '../../res/data/medication';
 const styles = {
 
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
+    paddingBottom: '20px'
   },
 };
 export interface Props{
@@ -22,6 +28,7 @@ export interface Props{
   onComplete?(): any;
   actions?: JSX.Element;
   medication_status: number;
+  activeEdit:MedicationInterface;
 }
 
 export interface State{
@@ -37,31 +44,14 @@ export default class MedicationsList extends React.Component<Props, State>{
   constructor (props) {
     super(props);
     this.state = {
-      activeEdit: null
-    }
-    this.setLastMedToEditIfEmpty(this.props.medications);
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(nextProps.medications.length > this.props.medications.length){
-      this.setLastMedToEditIfEmpty(nextProps.medications);
-    }
-  }
-
-  setLastMedToEditIfEmpty = (medications) => {
-    if(medications.length){
-       const lastAdded = medications.map(i => i).pop();
-       if(lastAdded && !lastAdded.name){ //if it's a new medication with no name assume user wants to edit it
-          this.state = {
-            activeEdit: lastAdded
-          }
-       }
+      activeEdit: props.activeEdit
     }
   }
 
   handleAddMedication = (event) => {
-    const {addMedication} = this.props;
-    addMedication()
+    this.setState({
+      activeEdit: makeMedication(0,'')
+    });
   }
 
   handleMedicationSelect = (medication: MedicationInterface) => {
@@ -76,6 +66,13 @@ export default class MedicationsList extends React.Component<Props, State>{
       activeEdit: null
     });
   }
+
+  handleCancelItem = () => {
+    this.setState({
+      activeEdit: null
+    });
+  }
+
   handleItemSave = (medication: MedicationInterface) => {
     this.setState({
       activeEdit: null
@@ -93,7 +90,7 @@ export default class MedicationsList extends React.Component<Props, State>{
     if(actions){
       additionalActions = actions;
     }
-    const addButtonText = medications.length > 0  ? 'Add More': 'Add Medication';
+    const addButtonText = medications.length > 0  ? 'Add Another': 'Add Medication';
 
     if(medication_status === 0){
       return  <div>
@@ -105,22 +102,32 @@ export default class MedicationsList extends React.Component<Props, State>{
               <h1>Medications</h1>
               <h3>Please list any medication you are taking.</h3>
               <div style={styles.wrapper as any}>
+               
                 {medications.map((med) => {
                   return <MedicationItemView key={med.id} onDelete={this.handleDeleteItem}  onSelect={this.handleMedicationSelect} medication={med} />
                 })}
+              
+                
+                {!this.state.activeEdit && <Chip
+                    onTouchTap={this.handleAddMedication}
+                    style={{backgroundColor: '#3A7BAD',margin: 4}}
+                  >
+                  <Avatar icon={<ChipSvgIcon />} />
+                  {addButtonText}
+                </Chip>}
+              
               </div>
-              {this.state.activeEdit && <MedicationItemEdit onSave={this.handleItemSave} deleteItem={this.handleDeleteItem} medication={this.state.activeEdit} />}
-              <div>
-                <FlatButton disabled={!!this.state.activeEdit} style={topRightButtonStyle as any} secondary={true} type="button" onTouchTap={this.handleAddMedication}>{addButtonText}</FlatButton>
-              </div>
+              {this.state.activeEdit && <MedicationItemEdit onSave={this.handleItemSave} cancelItem={this.handleCancelItem} deleteItem={this.handleDeleteItem} medication={this.state.activeEdit} />}
 
-              {additionalActions && <div style={{clear: 'both'}}>
+
+              {!this.state.activeEdit && additionalActions && <div style={{clear: 'both'}}>
                 <RaisedButton 
                           disableTouchRipple={true}
                           disableFocusRipple={true}
                           primary={true} type="button" onTouchTap={this.handleSave}
                           style={{marginRight: 12}}
-                        >{additionalActions ? 'Next' : 'Save'}</RaisedButton>
+                        >{additionalActions ? 'Next' : 'Save'}
+                </RaisedButton>
 
                 {additionalActions}
               </div>}

@@ -2,11 +2,12 @@ import PainSelector from '../containers/PainSelector';
 import {PainLevelInterface} from '../res/data/pain';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import {AssessmentInterface} from '../res/data/assessments';
 import * as React from "react";
 
 export interface Props {
-  selectPain(assessmentId: number, categoryId: number, painLevel:PainLevelInterface);
-  assessmentId: number;
+  selectPain(assessment: AssessmentInterface, categoryId: number, painLevel:PainLevelInterface);
+  assessment: AssessmentInterface;
   categoryId: number;
   title: string;
   painLevel: PainLevelInterface;
@@ -50,8 +51,8 @@ export default class OverallPain extends React.Component<Props, State>{
   }
 
   handleSave = (event) => {
-    const {selectPain,assessmentId,categoryId,onComplete} = this.props;
-    selectPain(assessmentId,categoryId,this.state.painLevel);
+    const {selectPain,assessment,categoryId,onComplete} = this.props;
+    selectPain(assessment,categoryId,this.state.painLevel);
     onComplete();
   }
 

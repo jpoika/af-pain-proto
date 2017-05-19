@@ -1,8 +1,7 @@
-import {MEDICATION_ADD, MEDICATION_REMOVE, MEDICATION_EDIT} from '../actions/medication'
+import {MEDICATION_REMOVE, MEDICATION_EDIT} from '../actions/medication'
 import {arrayPushUnique, arrayRemove} from './_helpers';
 export const medications = (state={},action) => {
   switch (action.type) {
-    case MEDICATION_ADD:
     case MEDICATION_EDIT:
       state = {...state,[action.medication.id]: {...action.medication}}
       break;
@@ -16,7 +15,7 @@ export const medications = (state={},action) => {
 
 export const medicationIds = (state=[],action) => {
   switch (action.type) {
-    case MEDICATION_ADD:
+    case MEDICATION_EDIT:
       state = arrayPushUnique(action.medication.id,state);
       break;
     

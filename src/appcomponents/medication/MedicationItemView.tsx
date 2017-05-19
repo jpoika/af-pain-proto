@@ -35,7 +35,7 @@ export default class MedicationItemView extends React.Component<Props, State>{
   render(){
     const {medication} = this.props;
     if(!medication.name){
-      return <div />
+      return null;
     }
     return <Chip
                 onRequestDelete={this.handleOnDelete}

@@ -14,6 +14,7 @@ export interface Props{
   restoreContent(): void;
   viewPortSmall: boolean;
   deleteAssessment(assessment: AssessmentInterface): void;
+  showStartSummary?: boolean;
 }
 
 export interface State{
@@ -21,6 +22,9 @@ export interface State{
 }
 
 export default class AssessmentOverview extends React.Component<Props, State>{
+  public static defaultProps: Partial<Props> = {
+    showStartSummary: true
+  }
   handleDateFormat = (epochMs) => {
     return Formats.msToDateTimeString(epochMs);
   }
@@ -46,7 +50,7 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     });
   }
   render(){
-    const {assessment,deleteAssessment,viewPortSmall} = this.props;
+    const {assessment,deleteAssessment,viewPortSmall,showStartSummary} = this.props;
     const statusDetails =  statusHash[assessment.status] || "Unknown";
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";
@@ -67,7 +71,7 @@ export default class AssessmentOverview extends React.Component<Props, State>{
 
 
 
-    let normalSummary =  (<div>
+    let painRatings =  (<div>
                             <h2>Pain Ratings</h2>
                             {this.renderPainRatings()}
                           </div>);
@@ -81,17 +85,23 @@ export default class AssessmentOverview extends React.Component<Props, State>{
                               {assessment.type === 'newpain' && <RaisedButton label="Delete" onTouchTap={() => deleteAssessment(assessment)} />}
                           </div>);
 
+    const displaySummary = assessment.status > 0 || showStartSummary;
+
+    const summary = <div>
+                      <h3>Completed On: {completedOn}</h3>
+                      <h1>Summary</h1>
+                      {assessment.status == 0 && startedSummary}
+                      {assessment.status == 2 && noChangeSummary}
+                      {assessment.status == 3 && skippedSummary}
+                    </div>;
 
     return <div>
               <div style={regionStyles}>
                 <h1>{assessmentType}</h1>
-                <h3>Completed On: {completedOn}</h3>
-                <h1>Summary</h1>
-                {assessment.status == 0 && startedSummary}
-                {assessment.status == 1 && normalSummary}
-                {assessment.status == 2 && noChangeSummary}
-                {assessment.status == 3 && skippedSummary}
+                {displaySummary && summary}
+                {assessment.status < 2 && painRatings}
               </div>
+
               {painMapFront}
               {painMapBack}
             </div>;

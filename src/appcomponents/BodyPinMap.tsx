@@ -220,7 +220,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     const {title,bodyImage,painMarkings,deleteSection,replaceContent,restoreContent} = this.props;
 
     return (
-            <div style={{overflow: 'auto'}}>
+            <div style={{overflowX: 'auto'}}>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>

@@ -1,7 +1,7 @@
 import MedicationsList from '../appcomponents/medication/MedicationsList';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import { medicationAddBlank ,medicationRemove} from '../actions/medication';
+import {medicationRemove} from '../actions/medication';
 import {userSetMedicationStatus} from '../actions/'
 import {alertNurseBackground} from '../actions/nurse'
 
@@ -14,7 +14,6 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch) => {
   return {
-    addMedication: () => dispatch(medicationAddBlank()),
     deleteMedication: (id: number) => dispatch(medicationRemove(id)),
     setMedicationStatus: (status: number) => {
       if(status === 3){

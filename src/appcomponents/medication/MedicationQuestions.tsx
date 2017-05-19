@@ -10,14 +10,13 @@ export interface State {
   step: number;
 }
 export default class MedicationQuestions extends React.Component<Props, State>{
+
   constructor(props){
     super(props);
     this.state = {
       step: 0
     }
   }
-
-
 
   nextStep = () => {
     this.moveToStep(this.state.step + 1);
@@ -52,19 +51,19 @@ export default class MedicationQuestions extends React.Component<Props, State>{
                           <RaisedButton label="Yes" onTouchTap={() => this.moveToStep(1)}/>
                           &nbsp;&nbsp;
                           <RaisedButton label="No" onTouchTap={this.handleMedicationStatus(1)} />
-                       </div>;
+                      </div>;
 
     const question2 = <div>
                           <h3>Do you understand what your medications are for?</h3>
                           <RaisedButton label="Yes" onTouchTap={this.handleMedicationStatus(2)} />
                           &nbsp;&nbsp;
                           <RaisedButton label="No" onTouchTap={this.handleMedicationStatus(3)} />
-                       </div>;
+                      </div>;
 
     return <div style={{padding: '5px'}}>
               <h2>Please answer a couple questions about your medications</h2>
               {question1}
               {step === 1 && question2}
-           </div>
+           </div>;
   }
 }

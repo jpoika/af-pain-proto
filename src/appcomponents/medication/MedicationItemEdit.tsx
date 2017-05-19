@@ -10,6 +10,7 @@ export interface Props{
   medication: MedicationInterface;
   update(medication: MedicationInterface): any;
   deleteItem(medicationId: number): any;
+  cancelItem(): void;
   validate(data: MedicationInterface): any;
   onSave?(medication: MedicationInterface): any
   routes: {id: number, name: string, description: string}[],
@@ -60,6 +61,11 @@ export default class MedicationItem extends React.Component<Props, State>{
     deleteItem(medication.id);
   }
 
+  handleCancel = (event) => {
+    const {cancelItem} = this.props;
+    cancelItem();
+  }
+
   handleUpdate = (data) => {
     //const {deleteItem,medication} = this.props;
     //deleteItem(medication.id);
@@ -76,9 +82,8 @@ export default class MedicationItem extends React.Component<Props, State>{
   }
 
   handleSubmit = (event) => {
-
-     const {validate,update,onSave} = this.props;
-     console.log(this.state.values);
+    const {validate,update,onSave} = this.props;
+    console.log(this.state.values);
  
     const result = validate(this.state.values);
    
@@ -138,8 +143,11 @@ export default class MedicationItem extends React.Component<Props, State>{
                 <RaisedButton primary={true} type="submit">Save</RaisedButton>
               </div>
               <div style={flexRowItemStyle as any}>
-                <RaisedButton onTouchTap={this.handleDelete}>Delete</RaisedButton>
+                <RaisedButton onTouchTap={this.handleCancel}>Cancel</RaisedButton>
               </div>
+              {!!medication.id && <div style={flexRowItemStyle as any}>
+                <RaisedButton onTouchTap={this.handleDelete}>Delete</RaisedButton>
+              </div>}
             </div>
             </form>
           </Paper>

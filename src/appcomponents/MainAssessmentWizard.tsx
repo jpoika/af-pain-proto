@@ -156,7 +156,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
                   <h2>Is the information below accurate?</h2>
                   {this.renderStepActions(6)}
                   <br /><br />
-                  <AssessmentOverview assessment={assessment} />
+                  <AssessmentOverview showStartSummary={false} assessment={assessment} />
                   
                   </StepContent>
               </Step>

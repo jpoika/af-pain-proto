@@ -108,7 +108,6 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                 <StepLabel>Account Setup</StepLabel>
                 <StepContent>
                    <AccountContainer />
-          
                 </StepContent>
               </Step>
 
@@ -131,16 +130,14 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'} assessmentId={assessment.id} categoryId={1} />
-                 
+                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'}  categoryId={1} />
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} assessmentId={assessment.id} categoryId={3} />
-                 
+                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} categoryId={3} />
                 </StepContent>
               </Step>
 
@@ -148,20 +145,18 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
                   <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
-
                 </StepContent>
               </Step>
               <Step>
-                  <StepLabel>Overview</StepLabel>
-                  <StepContent>
+                <StepLabel>Overview</StepLabel>
+                <StepContent>
                   <h2>Is the information below accurate?</h2>
                   {this.renderStepActions(6)}
                   <br /><br />
-                  <AssessmentOverview assessment={assessment} />
-                  
-                  </StepContent>
+                  <AssessmentOverview showStartSummary={false} assessment={assessment} />
+                </StepContent>
               </Step>
-
+              
              </Stepper>
         {this.props.stepIndex >= maxSteps && (
           
