@@ -12,13 +12,13 @@ import ChipSvgIcon from 'material-ui/svg-icons/content/add-circle';
 import {topRightButtonStyle} from '../../components/commonStyles';
 import {makeMedication} from '../../res/data/medication';
 const styles = {
-
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
     paddingBottom: '20px'
   },
 };
+
 export interface Props{
   medications: MedicationInterface[];
   addMedication(): any;

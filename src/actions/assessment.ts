@@ -12,7 +12,7 @@ export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
 
 import {scheduleNotification} from './notifications';
-import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
+import {makeAssessment,AssessmentInterface,typeHash} from '../res/data/assessments';
 import {BodySectionInterface} from '../res/data/body';
 import { push } from 'react-router-redux';
 import {nextId} from './_helper';

@@ -44,6 +44,6 @@ export default class MedicationItemView extends React.Component<Props, State>{
               >
               <Avatar icon={<ChipSvgIcon />} />
               {medication.name || "New"}
-            </Chip>
+            </Chip>;
   }
 }

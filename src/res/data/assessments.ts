@@ -39,6 +39,9 @@ export const typeHash = {
 }
 
 export const makeAssessment = (id:number, title:string, type: string, status: number = 0, bodySections:any = {},painLevels:any = {}):AssessmentInterface  => {
+  if(typeHash[type] === 'undefined'){
+    throw Error("Invalid Assessment Type");
+  }
   return {
     id,
     bodySections,
