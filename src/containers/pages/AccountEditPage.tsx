@@ -1,12 +1,12 @@
-import AccountPage from '../appcomponents/AccountPage';
+import AccountPage from '../../appcomponents/pages/AccountPage';
 
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import {Validators} from '../lib/helpers'
-import {flagUserAuthenticated,updateAccountInfo} from '../actions';
-import {GenderList,AccountInterface} from '../res/data/account'
-import {assessMoveStep} from '../actions/assessment';
-import {viewActions} from '../lib/local-t2-view';
+import {Validators} from '../../lib/helpers'
+import {flagUserAuthenticated,updateAccountInfo} from '../../actions';
+import {GenderList,AccountInterface} from '../../res/data/account'
+import {assessMoveStep} from '../../actions/assessment';
+import {viewActions} from '../../lib/local-t2-view';
 
 const validateData = (data) => {
    let isValid = true;

@@ -4,30 +4,17 @@
  */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import MenuDrawer from './MenuDrawer';
-import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
 import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
 import AlertNurseDialog from '../containers/AlertNurseDialog';
-//import SnackBarNotice from './SnackBarNoticeComponent';
-//import AppBarMenuIcon from './AppBarMenuIconDrawer';
-import HomeIcon from 'material-ui/svg-icons/action/home';
 import IconButton from 'material-ui/IconButton';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import {push, replace} from 'react-router-redux';
 import AppSnackBar from './AppSnackBar';
 import IconMenu from 'material-ui/IconMenu';
 import FlatButton from 'material-ui/FlatButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import PersionIcon from 'material-ui/svg-icons/social/person';
-//import {FlashMessageInterface} from './data/workbook';
+import PersonIcon from 'material-ui/svg-icons/social/person';
 
-
-//import {userLogin,userLogout} from './actions';
-//import Eula from './Eula';
 const styles = {
   bgDiv: {
     position: 'absolute',
@@ -83,7 +70,7 @@ const rightNurseIcon = (props) => {
     event.stopPropagation();
     alertNurse();
   }
-  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersionIcon />} >
+  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersonIcon />} >
            Alert Nurse
           </FlatButton>);
 };
@@ -174,10 +161,6 @@ export default class AppBarPage extends React.Component<MyProps, MyState>{
                 <AppSnackBar {...flashMessage} />
                 <AppSnackBarContainer />
                 <AlertNurseDialog />
-                {/*
-                <Eula />
-                <SnackBarNotice flash={flash} />
-                */}
         </div>
     );
   }

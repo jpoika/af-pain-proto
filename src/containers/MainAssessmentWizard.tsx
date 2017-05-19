@@ -7,7 +7,7 @@ import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 
 import {viewActions} from '../lib/local-t2-view';
 import {nextId} from '../actions/_helper';
-const maxSteps = 6;
+const maxSteps = 7;
 
 const get_or_create_current_assessment = (state,type) => {
   let lastAssessment = state.assessmentIds
@@ -22,11 +22,12 @@ const stateToProps = (state, ownProps) => {
   let assessment = get_or_create_current_assessment(state,ownProps.type);
 
   return {
-    title: 'Initial Assessment',
-    page: {title: 'Initial Assessment', subtitle: 'Pain Proto', content: ''},
+    title: 'Reassessment',
+    page: {title: 'Reassessment', subtitle: 'Pain Proto', content: ''},
     stepIndex: assessment && assessment.step ? assessment.step : 0,
     maxSteps: maxSteps,
-    assessment: assessment ? assessment : null
+    assessment: assessment ? assessment : null,
+    canStart: true
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
@@ -36,6 +37,7 @@ const dispatchToProps = (dispatch,ownProps) => {
       if(step >= maxSteps){
         dispatch(assessMarkComplete(assessmentId,1));
         dispatch(viewActions.sendMessage('Assessment Complete'));
+        dispatch(push('/main/account-home'));
       }
     }
   }

@@ -21,7 +21,7 @@ const stateToProps = (state, ownProps) => {
   return {
     assessment: ownProps.assessment,
     overalPainRatings: getOveralPainRatings(ownProps.assessment,state),
-    viewPortSmall: state.device.width < 1060
+    viewPortSmall: state.device.width < 1200
   }
 }
 const dispatchToProps = (dispatch) => {

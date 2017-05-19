@@ -1,4 +1,4 @@
-import ExtrasPage from '../appcomponents/ExtrasPage';
+import ExtrasPage from '../../appcomponents/pages/ExtrasPage';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 

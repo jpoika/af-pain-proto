@@ -1,6 +1,6 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import MainAssessmentWizardContainer from '../containers/MainAssessmentWizard';
+import BasicPage, {Props as PageProps} from '../../components/BasicPage';
+import MainAssessmentWizardContainer from '../../containers/MainAssessmentWizard';
 
 export interface Props extends PageProps{
   type: string;

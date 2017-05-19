@@ -1,11 +1,11 @@
-import AssessmentWizardPage from '../appcomponents/AssessmentWizardPage';
+import AssessmentWizardPage from '../../appcomponents/pages/MainAssessmentWizardPage';
 import {connect} from 'react-redux';
 
 const stateToProps = (state, ownProps) => {
   return {
-    title: 'New Pain',
-    page: {title: "New Pain Assessment", subtitle: 'Pain Proto', content: ''},
-    type: 'newpain'
+    title: 'Reassessment',
+    page: {title: "Reassess Your Pain", subtitle: 'Pain Proto', content: ''},
+    type: 'reassessment'
   }
 }
 const dispatchToProps = (dispatch) => {

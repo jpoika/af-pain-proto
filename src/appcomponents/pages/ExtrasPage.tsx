@@ -1,5 +1,5 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
+import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 export interface Props extends PageProps{
 
 }

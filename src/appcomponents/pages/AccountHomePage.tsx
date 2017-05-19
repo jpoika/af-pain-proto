@@ -1,8 +1,8 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import NewPainButton from '../containers/NewPainButton';
-import DoNotDisturbControll from '../containers/DoNotDisturbControll';
-import AssessmentList from '../containers/AssessmentList';
+import BasicPage, {Props as PageProps} from '../../components/BasicPage';
+import NewPainButton from '../../containers/NewPainButton';
+import DoNotDisturbControll from '../../containers/DoNotDisturbControll';
+import AssessmentList from '../../containers/AssessmentList';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';

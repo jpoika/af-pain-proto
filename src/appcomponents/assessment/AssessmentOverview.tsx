@@ -47,7 +47,6 @@ export default class AssessmentOverview extends React.Component<Props, State>{
   }
   render(){
     const {assessment,deleteAssessment,viewPortSmall} = this.props;
-    console.log(viewPortSmall);
     const statusDetails =  statusHash[assessment.status] || "Unknown";
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";

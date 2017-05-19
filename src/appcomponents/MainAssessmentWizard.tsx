@@ -1,6 +1,6 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import AccountContainer  from '../containers/AccountEdit';
+import AccountContainer  from '../containers/pages/AccountEditPage';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
@@ -14,6 +14,7 @@ import {
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import AssessmentOverview  from '../containers/AssessmentOverview';
 
 export interface Props extends PageProps{
   stepIndex: number;
@@ -149,7 +150,16 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
                   <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
                 </StepContent>
               </Step>
-
+              <Step>
+                  <StepLabel>Overview</StepLabel>
+                  <StepContent>
+                  <h2>Is the information below accurate?</h2>
+                  {this.renderStepActions(6)}
+                  <br /><br />
+                  <AssessmentOverview assessment={assessment} />
+                  
+                  </StepContent>
+              </Step>
              </Stepper>
         {this.props.stepIndex >= maxSteps && (
           

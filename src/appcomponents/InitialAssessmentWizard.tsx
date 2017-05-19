@@ -1,9 +1,10 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import AccountContainer  from '../containers/AccountEdit';
+import AccountContainer  from '../containers/pages/AccountEditPage';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
+import AssessmentOverview  from '../containers/AssessmentOverview';
 import {AssessmentInterface} from '../res/data/assessments';
 import {
   Step,
@@ -24,7 +25,7 @@ export interface Props extends PageProps{
 export interface State {
   finished: boolean;
 }
-export default class AssessmentWizard extends React.Component<Props, State>{
+export default class InitialAssessmentWizard extends React.Component<Props, State>{
   constructor(props){
     super(props)
     this.state = {
@@ -147,7 +148,18 @@ export default class AssessmentWizard extends React.Component<Props, State>{
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
                   <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
+
                 </StepContent>
+              </Step>
+              <Step>
+                  <StepLabel>Overview</StepLabel>
+                  <StepContent>
+                  <h2>Is the information below accurate?</h2>
+                  {this.renderStepActions(6)}
+                  <br /><br />
+                  <AssessmentOverview assessment={assessment} />
+                  
+                  </StepContent>
               </Step>
 
              </Stepper>

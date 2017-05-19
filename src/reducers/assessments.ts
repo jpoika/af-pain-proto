@@ -10,7 +10,8 @@ import {
   ASSESSMENT_EDIT,
   ASSESS_REMOVE_BODY_SECTION_PAIN,
   ASSESSMENT_SET_NEW_PAIN,
-  ASSESSMENT_DELETE
+  ASSESSMENT_DELETE,
+  ASSESSMENT_NEXT_REASSESS_DEADLINE
 } from '../actions/assessment'
 
 import {arrayPushUnique, arrayRemove} from './_helpers';
@@ -41,10 +42,7 @@ const normalizedPainLevels = normalize(painLevelsRaw,painLevelsListSchema);
 
 
 const systemDefault = {
-  lastCompletedAssessment: {
-    id: 0,
-    completedOn: null
-  }
+  nextDeadline: null
 }
 export const _lastCompleteAssessment = (state, action: any) => {
   switch (action.type) {
@@ -58,8 +56,8 @@ export const _lastCompleteAssessment = (state, action: any) => {
 
 export const assessmentSystem = (state = systemDefault,action: any) => {
   switch (action.type) {
-    case ASSESS_MARK_COMPLETE:
-      //state = {...state,lastCompletedAssessment: _lastCompleteAssessment(state.lastCompletedAssessment,action)}
+    case ASSESSMENT_NEXT_REASSESS_DEADLINE:
+      state = {...state,nextDeadline: action.deadline}
       break;
   }
   return state;

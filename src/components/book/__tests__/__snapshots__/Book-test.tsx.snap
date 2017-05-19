@@ -5,17 +5,17 @@ exports[`Test NotFound Snapshot 1`] = `
   <div
     style={
       Object {
-        "display": "flex",
-        "flexFlow": "row nowrap",
-        "justifyContent": "space-between",
+        "height": 40,
+        "position": "relative",
       }
     }
   >
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "left": 10,
+          "position": "absolute",
+          "top": 0,
         }
       }
     >
@@ -87,8 +87,9 @@ exports[`Test NotFound Snapshot 1`] = `
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "float": "both",
+          "margin": "10px auto 10px auto",
+          "width": 50,
         }
       }
     >
@@ -167,8 +168,9 @@ exports[`Test NotFound Snapshot 1`] = `
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "position": "absolute",
+          "right": 10,
+          "top": 0,
         }
       }
     >
@@ -258,17 +260,17 @@ exports[`Test NotFound Snapshot 1`] = `
   <div
     style={
       Object {
-        "display": "flex",
-        "flexFlow": "row nowrap",
-        "justifyContent": "space-between",
+        "height": 40,
+        "position": "relative",
       }
     }
   >
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "left": 10,
+          "position": "absolute",
+          "top": 0,
         }
       }
     >
@@ -340,8 +342,9 @@ exports[`Test NotFound Snapshot 1`] = `
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "float": "both",
+          "margin": "10px auto 10px auto",
+          "width": 50,
         }
       }
     >
@@ -420,8 +423,9 @@ exports[`Test NotFound Snapshot 1`] = `
     <div
       style={
         Object {
-          "flex": "0 0",
-          "marginTop": "10px",
+          "position": "absolute",
+          "right": 10,
+          "top": 0,
         }
       }
     >

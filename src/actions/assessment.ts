@@ -9,6 +9,7 @@ export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
+export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
 
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
@@ -197,12 +198,21 @@ export const sheduleInitialAssessment = () => {
       ));
   }
 }
+export const scheduleReassessmentDeadline = (deadline: Date = null) => {
+  let now = new Date();//
+  let finalDeadline = deadline || new Date(now.getTime() + 60*60*1000);
+  return {
+    type: ASSESSMENT_NEXT_REASSESS_DEADLINE,
+    deadline: finalDeadline.getTime()
+  }
+}
 
 export const sheduleReassessment = () => {
   let now = new Date();//
   let minutes_from_now = new Date(now.getTime() + 60*60*1000);
   return (dispatch,getState) => {
     console.log('dispatching assessmentSchedule');
+       dispatch(scheduleReassessmentDeadline(minutes_from_now));
        dispatch(scheduleNotification(
           "Pain Reassessment",
           "Hi! Let's take a quick moment to reassess your pain levels.",

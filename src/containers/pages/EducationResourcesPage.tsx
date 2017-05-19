@@ -1,6 +1,6 @@
-import EducationResourcesPage from '../components/Book';
+import EducationResourcesPage from '../../components/book/Book'; //TODO rename BookPage
 import {connect} from 'react-redux';
-import book from '../res/data/book';
+import book from '../../res/data/book';
 
 const stateToProps = (state,ownProps) => {
   const isOpen = typeof ownProps.params.open !== 'undefined' ? true : false

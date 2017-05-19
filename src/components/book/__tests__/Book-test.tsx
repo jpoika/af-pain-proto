@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Theme from '../Theme';
+import Theme from '../../Theme';
 import Book from '../Book';
 import BookPage from '../Page';
 import { shallow } from 'enzyme';

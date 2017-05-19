@@ -7,7 +7,7 @@ describe('Assessment Reducer Tests', () => {
        let assessmentsState = assessments(undefined,{});
        let assessmentIdsState = assessmentIds(undefined,{});
        expect(assessmentIdsState.length).toBe(1);
-       expect(assessmentsState['1']).toEqual(makeAssessment(1,'','intial'));
+       expect(assessmentsState['1']).toEqual(makeAssessment(1,'','initial'));
   });
 
   it('Should mark an assessment as complete', () => {

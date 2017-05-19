@@ -96,7 +96,10 @@ export default class MedicationsList extends React.Component<Props, State>{
     const addButtonText = medications.length > 0  ? 'Add More': 'Add Medication';
 
     if(medication_status === 0){
-      return <MedicationQuestions skipEditor={onComplete} setMedicationStatus={setMedicationStatus} />;
+      return  <div>
+                <MedicationQuestions skipEditor={onComplete} setMedicationStatus={setMedicationStatus} />
+                {additionalActions}
+              </div>;
     }
     return <div>
               <h1>Medications</h1>

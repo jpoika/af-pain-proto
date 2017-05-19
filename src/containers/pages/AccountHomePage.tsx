@@ -1,8 +1,8 @@
-import AccountHome from '../appcomponents/AccountHome';
-import {homePage} from '../res/data/page';
+import AccountHome from '../../appcomponents/pages/AccountHomePage';
+import {homePage} from '../../res/data/page';
 import {connect} from 'react-redux';
 
-import {deleteAccount} from '../actions'
+import {deleteAccount} from '../../actions'
 
 const stateToProps = (state, ownProps) => {
   return {

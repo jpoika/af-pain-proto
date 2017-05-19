@@ -6,7 +6,7 @@ import ArrowNext from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowPrevious from 'material-ui/svg-icons/navigation/arrow-back';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import IconButton from 'material-ui/IconButton';
-import {floatAbsButtonTopLeft, floatAbsButtonTopRight, floatAbsButtonCenter,floatParentRowStyle} from './commonStyles';
+import {floatAbsButtonTopLeft, floatAbsButtonTopRight, floatAbsButtonCenter,floatParentRowStyle} from '../commonStyles';
 import Helmet from 'react-helmet';
 export interface Props { 
   page: {title: string,content: string};

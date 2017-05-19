@@ -1,11 +1,11 @@
-import OverviewPage from '../appcomponents/assessment/AssessmentOverviewPage';
-import {homePage} from '../res/data/page';
+import OverviewPage from '../../appcomponents/assessment/AssessmentOverviewPage';
+import {homePage} from '../../res/data/page';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-import {painCategoryHash} from '../res/data/pain';
+import {painCategoryHash} from '../../res/data/pain';
 
-import {deleteAccount} from '../actions'
-import {assessDelete} from '../actions/assessment';
+import {deleteAccount} from '../../actions'
+import {assessDelete} from '../../actions/assessment';
 const getOveralPainRatings = (assessment,state) => {
     return Object.keys(assessment.painLevels).map((painCategoryId) => {
 

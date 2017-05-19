@@ -1,21 +1,20 @@
 import Theme from './components/Theme';
 import Home from './containers/Home';
-import AccountEdit from './containers/AccountEdit';
-import ExtrasPage from './containers/ExtrasPage';
+import AccountEdit from './containers/pages/AccountEditPage';
+import ExtrasPage from './containers/pages/ExtrasPage';
 import InitialAssessWizard from './containers/InitialAssessWizard';
-import ReAssessmentPage from './containers/ReAssessmentPage';
-import NewPainPage from './containers/NewPainPage';
-import AccountHome from './containers/AccountHome';
-import AssessmentOverviewPage from './containers/AssessmentOverviewPage';
-import MedTrackerPage from './containers/MedTrackerPage';
+import ReAssessmentPage from './containers/pages/ReAssessmentPage';
+import NewPainPage from './containers/pages/NewPainPage';
+import AccountHome from './containers/pages/AccountHomePage';
+import AssessmentOverviewPage from './containers/pages/AssessmentOverviewPage';
+import MedTrackerPage from './containers/pages/MedTrackerPage';
 import NotificationsDashbord from './containers/NotificationsDashbord';
-import EducationResourcesPage from './containers/EducationResourcesPage';
+import EducationResourcesPage from './containers/pages/EducationResourcesPage';
 import {viewActions} from './lib/local-t2-view';
 import {sheduleInitialAssessment} from './actions/assessment';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import SplashPage from './components/SplashPage';
-import Debug from './containers/Debug';
 import PageContainer from './containers/Main';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -157,7 +156,6 @@ const siteRoutes = [
     childRoutes: [
       syncRoute('/',PageContainer, quickRoutes, Home),
       syncRoute('/main',PageContainer, mainSubRoutes,Home),
-      syncRoute('/debug',PageContainer, [],Debug),
       syncRoute('*',PageContainer,[],NotFound)
     ]
   }
