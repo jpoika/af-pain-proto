@@ -209,9 +209,8 @@ export const scheduleReassessmentDeadline = (deadline: Date = null) => {
 
 export const sheduleReassessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 60*60*1000);
+  let minutes_from_now = new Date(now.getTime() + 1*60*1000);
   return (dispatch,getState) => {
-    console.log('dispatching assessmentSchedule');
        dispatch(scheduleReassessmentDeadline(minutes_from_now));
        dispatch(scheduleNotification(
           "Pain Reassessment",
