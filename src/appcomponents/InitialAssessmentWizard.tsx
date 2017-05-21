@@ -130,7 +130,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Curren Pain Level'}  categoryId={1} />
+                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={2} title={'Current Pain Level'}  categoryId={1} />
                 </StepContent>
               </Step>
 

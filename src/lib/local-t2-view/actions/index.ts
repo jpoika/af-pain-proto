@@ -20,7 +20,7 @@ var timeOutId = null
 export const sendMessage = (message) => {
   
   return (dispatch,getState) => {
-
+    console.log('thunk message');
     dispatch(messageStart(message));
 
     if(timeOutId){

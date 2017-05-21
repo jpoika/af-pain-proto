@@ -39,7 +39,7 @@ export default class CountDown extends React.Component<Props, State>{
       this.handleTimeout();
     }
 
-    return [secondsHour > 9 ? secondsHour : '0' + secondsHour, minutesHour > 9 ? minutesHour : '0' + minutesHour];
+    return [secondsHour, minutesHour];
   }
 
   handleTick = () => {

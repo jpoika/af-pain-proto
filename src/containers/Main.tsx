@@ -160,6 +160,17 @@ class AppContainer extends React.Component<Props, State>{
   }
 }
 
+const getParentRouteSafe = (state) => {
+  //sometimes the when the current and parent pathname are the same (not sure why yest)
+  // The left icon stays locked in the back position whic prevents navigation.
+  const currentPathName = state.navigation.paths.current.pathname;
+  const parent = state.navigation.paths.parent;
+  if(parent && parent.pathname !== currentPathName){
+    return state.navigation.paths.parent;
+  }
+  return null;
+}
+
 const stateToProps = (state) => {
   return {
     menuItems: mainMenu,
@@ -167,7 +178,7 @@ const stateToProps = (state) => {
     appConfig: {
       parentSite: 'http://afterdeployment.dcoe.mil'
     },
-    parentRoute: state.navigation.paths.parent,
+    parentRoute: getParentRouteSafe(state),
     flashMessage: state.view.flash,
     appNameShort: 'Pain Proto',
     appNameLong: 'Air Force Pain Proto',
@@ -184,7 +195,6 @@ const dispatchToProps = (dispatch,ownProps) => {
           event.stopPropagation();
         }
         if(path == '/main/reassess'){
-          console.log(path);
           dispatch(addAssessmentIfNecessary('reassessment'));
         }
         if(path == '/main/newpain'){
@@ -195,8 +205,6 @@ const dispatchToProps = (dispatch,ownProps) => {
       }
     },
     alertNurse: () => {
-
-
       dispatch(alertNurseDialogueOpen())
     }
   }

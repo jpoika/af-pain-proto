@@ -14,6 +14,7 @@ export interface Props {
   painLevel: PainLevelInterface
   replaceContent(content: any): void;
   restoreContent(): void;
+  skipNoPain?: boolean;
 }
 export interface State {
 }
@@ -22,7 +23,8 @@ export interface State {
 
 export default class PainSelector extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
-      painLevel: null
+      painLevel: null,
+      skipNoPain: false
   };
 
   constructor(props){
@@ -47,8 +49,13 @@ export default class PainSelector extends React.Component<Props, State>{
   }
 
   render(){
-    const {painLevels,restoreContent,replaceContent} = this.props;
-
+    const {painLevels,restoreContent,replaceContent,skipNoPain} = this.props;
+    const pLevels = painLevels.filter((v,i) => {
+                                      if(skipNoPain && !i){
+                                        return false;
+                                      }
+                                      return true;
+                                    });
     return <div>
 
               <SelectField
@@ -58,7 +65,7 @@ export default class PainSelector extends React.Component<Props, State>{
                 
                 autoWidth={true}
               >
-                {painLevels.map(lvl => <MenuItem value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
+                {pLevels.map(lvl => <MenuItem value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
               </SelectField>
             
             <PainExplanationButton restoreContent={restoreContent} replaceContent={replaceContent} />

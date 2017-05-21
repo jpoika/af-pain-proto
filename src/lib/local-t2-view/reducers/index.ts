@@ -8,18 +8,18 @@ const defaultView = {
 };
 
 
-
 const view = (state = defaultView, action) => {
 
   switch (action.type) {
     case T2_APP_MESSAGE_START:
-      state.flash = {...state.flash, message: action.message, open: true}
-      state = {...state};
+      //state.flash = {...state.flash, message: action.message, open: true}
+      //state = {...state};
+      state = {...state,flash: {message: action.message, open: true}};
       break;
     case T2_APP_MESSAGE_CLEAR:
     case REHYDRATE:
-      state.flash = {...state.flash, message: '', open: false}
-      state = {...state};
+
+      state = {...state,flash: {message: '',open: false}};
       break;
     default:
       // code...

@@ -1,4 +1,4 @@
-export default {
+export default { //TODO prevent child with multiple parents
   '1': {
     id: '1',
     name: 'Home',

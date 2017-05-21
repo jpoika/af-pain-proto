@@ -16,11 +16,13 @@ const dispatchToProps = (dispatch, ownProps) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
       dispatch(assessMarkComplete(assessment.id,3));
       dispatch(viewActions.sendMessage("Thank You"));
+      dispatch(push('/main/account-home'));
     },
     noChangeAssessment: (assessment) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
       dispatch(assessMarkComplete(assessment.id,2)); 
       dispatch(viewActions.sendMessage("We're done!")); 
+      dispatch(push('/main/account-home'));
     },
     deleteAssessment: (assessment,returnPath) => {
       dispatch(push(returnPath));

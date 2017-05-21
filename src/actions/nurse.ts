@@ -53,7 +53,7 @@ const isPainInTolerable = (assessment: {bodySections: {[propName: string]: numbe
       if(currentPain && currentPain.level > overallPainLevel.level){
         return true; //user has indicated Current Overrall Pain Levels Greater than Tolerable Pain Levels 
       }
-      if(bodySectionPainLevel && bodySectionPainLevel.level >= overallPainLevel.level){
+      if(bodySectionPainLevel && bodySectionPainLevel.level > overallPainLevel.level){
         return true; //user has indicated unbearable pain on the bodySection map
       }
       return false;
