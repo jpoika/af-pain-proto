@@ -19,6 +19,7 @@ export interface Props{
   viewPort?: {[propName: string]:{[propName: string]: string|number}}[];
   viewPortSize: string;
   assessmentClicked(assessment: AssessmentInterface): void;
+  isReassessmentDue: boolean;
 }
 
 export interface State{
@@ -59,7 +60,7 @@ export default class AssessmentList extends React.Component<Props, State>{
 
 
   render(){
-    const {assessments,viewPortSize} = this.props;
+    const {assessments,viewPortSize,isReassessmentDue} = this.props;
 
     return <div style={this.handleWidth()}>
               <h2>Assessments</h2>
@@ -72,7 +73,7 @@ export default class AssessmentList extends React.Component<Props, State>{
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  {assessments.map(assess => <AssessmentListItem assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSize === 'small'} assessment={assess}/>)}
+                  {assessments.map(assess => <AssessmentListItem isReassessmentDue={isReassessmentDue} assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSize === 'small'} assessment={assess}/>)}
                 </TableBody>
               </Table> 
             </div>;

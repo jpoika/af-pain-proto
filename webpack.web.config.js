@@ -77,33 +77,11 @@ module.exports = {
         // This plugin prevents Webpack from creating chunks
         // that would be too small to be worth loading separately
         //
+        
         /*
         new webpack.optimize.MinChunkSizePlugin({
           minChunkSize: 51200 // ~50kb
         }), */
-
-
-
-      
-        new SWPrecacheWebpackPlugin(
-          {
-            cacheId: 'ad-drug-pwa',
-            filename: 'sw.js',
-            maximumFileSizeToCacheInBytes: 104857600, // 100Mb
-            staticFileGlobs: [
-              'dist/manifest.json',
-              'dist/**/*.{html,css,js}',
-              'dist/**/*.{png,jpg,jpeg,svg,gif}'
-            ],
-            runtimeCaching: [
-              {
-                handler: 'cacheFirst',
-                urlPattern: /dynamic\/[\w_-]+\.(gif|jpg|jpeg|png|svg)$/i
-              }
-            ],
-            'stripPrefix': 'dist/'
-          }
-        ),
 
         new webpack.NamedModulesPlugin(),
         new webpack.optimize.UglifyJsPlugin(),

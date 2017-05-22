@@ -17,7 +17,7 @@ const dispatchToProps = (dispatch) => {
         dispatch(addAssessmentIfNecessary('newpain'));
         dispatch(push('/main/newpain'));
     },
-    initAssessClick: () => {
+    initAssessClick: (event) => {
         event.preventDefault();
         event.stopPropagation();
         dispatch(push('/main/assessment-start'));

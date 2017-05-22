@@ -1,15 +1,20 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 import NewPainButton from '../../containers/NewPainButton';
-import DoNotDisturbControll from '../../containers/DoNotDisturbControll';
+
 import AssessmentList from '../../containers/AssessmentList';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import UserOverview from '../../containers/user/UserOverview';
 import MedicationList from '../../containers/medication-view/MedicationList';
+import UserTasks from '../../containers/user/UserTasks';
+
 export interface Props extends PageProps{
- deleteAccount: any;
+ 
+ initAssessComplete: boolean;
+ haveUserInfo: boolean;
+ viewPortSize: string;
 }
 
 export interface State{
@@ -28,70 +33,30 @@ const styles = {
 
 export default class AccountHome extends React.Component<Props, State> {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      confirmOpen: false
-    }
-  }
 
-  handleDeleteAccountConfirmed = (event) => {
-    const {deleteAccount} = this.props;
-    deleteAccount();
-    this.handleClose();
-  }
-
-  handleDeleteAccount = (event) => {
-    this.setState({
-      confirmOpen: true
-    });
-  }
-  handleClose = () => {
-    this.setState({
-      confirmOpen: false
-    });
-  }
   render(){
-    const {appBarTitle,page,title,restoreContent,replaceContent} = this.props;
-   const actions = [
-      <FlatButton
-        label="Yes"
-        secondary={true}
-        onTouchTap={this.handleDeleteAccountConfirmed}
-      />,
+    const {appBarTitle,page,title,restoreContent,replaceContent,initAssessComplete,viewPortSize,haveUserInfo} = this.props;
 
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />
-    ];
-
-    const childViewPort = [{small: {width: '100%'}},{large: {width: '50%'}}];
+    const leftStyles = viewPortSize === 'large' ? {width: '50%',float: 'left',paddingRight:'20px'} : {width: '100%'};
+    const rightStyles = viewPortSize === 'large' ? {width: '50%',float: 'left',paddingLeft:'20px'} : {width: '100%'};
+    const childViewPort = [{small: {width: '100%'}},{large: {width: '100%'}}];
 
     return (<BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
              <div style={{position: 'relative'}}>
-              <Dialog
-                title="Delete Account"
-                modal={false}
-                open={this.state.confirmOpen}
-                actions={actions}
-                onRequestClose={this.handleClose}
-              >
-              <h3>Are you sure you want to delete this account and erase all of its data?</h3>
-          
-              </Dialog>
+                   <div style={leftStyles}>
+                     {haveUserInfo && <UserOverview viewPort={childViewPort} />}
+                     <AssessmentList viewPort={childViewPort} />
+                 
+                  
+                   </div>
+                   <div style={rightStyles}>
+                      <UserTasks viewPort={childViewPort} />
+                      <MedicationList viewPort={childViewPort} />
 
-                  <RaisedButton label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
-                    
-                    <DoNotDisturbControll />
-                    
-                    <AssessmentList viewPort={childViewPort} />
-                    <MedicationList viewPort={childViewPort} />
-                    <UserOverview viewPort={childViewPort} />
-                    
+                      
+                   </div>
                     <NewPainButton style={styles.appActionContainer as any} />
-         
+                 
               </div>
             </BasicPage>);
   }

@@ -15,9 +15,12 @@ const getViewPortSize = (state) => {
 }
 
 const stateToProps = (state, ownProps) => {
+  const now = new Date();
+  const nowTimestamp = now.getTime();
   return {
     assessments: state.assessmentIds.map(aid => state.assessments[aid]),
-    viewPortSize: getViewPortSize(state)
+    viewPortSize: getViewPortSize(state),
+    isReassessmentDue: state.assessmentSystem.nextDeadline < nowTimestamp
   }
 }
 const dispatchToProps = (dispatch) => {

@@ -2,6 +2,8 @@ import * as React from "react";
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import InfoIcon from 'material-ui/svg-icons/action/info';
+import DoNotDisturbControll from '../../containers/DoNotDisturbControll';
+import UserDeleteAccountControl from '../../containers/user/UserDeleteAccountControl';
 import {Formats} from '../../lib/helpers';
 export interface Props {
   user: {  
@@ -38,15 +40,24 @@ export default class UserOverview extends React.Component<Props, State>{
 
   render(){ 
     const {user, editClick} = this.props;
-    return <div style={this.handleWidth()}>
+    return <div style={{...this.handleWidth(),position: 'relative'}}>
          <h2>User Overview</h2>
-         <div style={{fontSize: '2em',marginBottom: '5px'}}>
-            {user.lastname}, {user.firstname} {user.middlename}
+         <div style={{margin: '0px 10px 10px 10px', padding: '10px',backgroundColor: '#d3d3d3', borderRadius: '5px'}}>
+           <div style={{fontSize: '1.7em',marginBottom: '5px'}}>
+              Name: {user.lastname}, {user.firstname} {user.middlename}
+           </div>
+           <div style={{fontSize: '1.7em',marginBottom: '5px'}}>
+              Born: {Formats.msToDateString(user.dob)}
+           </div>
+           <div style={{margin: '5px 0 10px 0'}}>
+           <DoNotDisturbControll />
+           </div>
+           <span style={{position: 'absolute',right: 20, bottom: 10}}>
+             <UserDeleteAccountControl  />
+           </span>
+           <RaisedButton primary={true} onTouchTap={() =>  editClick()} label="Edit Info" />
          </div>
-         <div style={{fontSize: '2em',marginBottom: '5px'}}>
-            Born: {Formats.msToDateString(user.dob)}
-         </div>
-         <RaisedButton primary={true} onTouchTap={() =>  editClick()} label="Edit Account Details" />
+         
     </div>;
   }
 }

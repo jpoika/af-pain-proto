@@ -139,7 +139,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessment={assessment} categoryId={4} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessment={assessment} categoryId={3} />
                  
                 </StepContent>
               </Step>
