@@ -44,7 +44,7 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
                                 <RaisedButton label="Cancel" onTouchTap={() => deleteAssessment(assessment,returnPath)} />
                              </div>; 
 
-    const assessmentContent = assessment.type === 'newpain' ? newPainAssessment : normalAssessment;              
+    const assessmentContent = assessment && assessment.type === 'newpain' ? newPainAssessment : normalAssessment;              
 
     return <div style={{padding: '5px'}}>
               <h1>How's it going?</h1>

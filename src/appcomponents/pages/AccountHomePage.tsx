@@ -6,6 +6,8 @@ import AssessmentList from '../../containers/AssessmentList';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import UserOverview from '../../containers/user/UserOverview';
+import MedicationList from '../../containers/medication-view/MedicationList';
 export interface Props extends PageProps{
  deleteAccount: any;
 }
@@ -65,6 +67,7 @@ export default class AccountHome extends React.Component<Props, State> {
       />
     ];
 
+    const childViewPort = [{small: {width: '100%'}},{large: {width: '50%'}}];
 
     return (<BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
              <div style={{position: 'relative'}}>
@@ -80,10 +83,13 @@ export default class AccountHome extends React.Component<Props, State> {
               </Dialog>
 
                   <RaisedButton label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
+                    
                     <DoNotDisturbControll />
                     
-                    <AssessmentList />
-                 
+                    <AssessmentList viewPort={childViewPort} />
+                    <MedicationList viewPort={childViewPort} />
+                    <UserOverview viewPort={childViewPort} />
+                    
                     <NewPainButton style={styles.appActionContainer as any} />
          
               </div>

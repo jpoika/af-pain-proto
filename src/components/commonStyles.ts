@@ -70,6 +70,10 @@ export const labelStyle = {
 export const fieldErrorStyle = {
   color: 'red'
 }
+export const buttonBasic = {
+  margin: '5px 5px 5px 5px',
+  float: 'left'
+}
 
 export const fieldRowStyle = {
   marginBottom: '5px'

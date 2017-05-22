@@ -3,11 +3,21 @@ import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import {AssessmentInterface} from '../res/data/assessments';
 
+const getViewPortSize = (state) => {
+  const width = state.device.width;
+  if(width < 450){
+    return 'small';
+  }  
+  if(width >= 450 && width <= 1000){
+    return 'medium';
+  }
+  return 'large';
+}
 
 const stateToProps = (state, ownProps) => {
   return {
     assessments: state.assessmentIds.map(aid => state.assessments[aid]),
-    viewPortSmall: state.device.width < 450
+    viewPortSize: getViewPortSize(state)
   }
 }
 const dispatchToProps = (dispatch) => {

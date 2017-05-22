@@ -110,6 +110,7 @@ window.onresize = () => {
    if(_timeOutResizeId){
      clearTimeout(_timeOutResizeId);
    }
+
    _timeOutResizeId = setTimeout(
           function(){
               store.dispatch(windowResize(window.innerWidth,window.innerHeight));

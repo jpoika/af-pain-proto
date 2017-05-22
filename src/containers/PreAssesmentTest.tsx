@@ -5,9 +5,10 @@ import { push, go } from 'react-router-redux';
 import {assessMarkComplete,assessMoveStep,assessDelete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 const stateToProps = (state, ownProps) => {
+  const lastPath = state.navigation.paths.last ? state.navigation.paths.last.pathname : null;
   return {
     assessment: ownProps.assessment,
-    returnPath: state.navigation.paths.last.pathname || '/main/account-home'
+    returnPath: lastPath || '/main/account-home'
   }
 }
 const dispatchToProps = (dispatch, ownProps) => {

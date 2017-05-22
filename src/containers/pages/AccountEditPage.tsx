@@ -1,4 +1,4 @@
-import AccountPage from '../../appcomponents/pages/AccountPage';
+import AccountPage from '../../appcomponents/pages/UserSettingsPage';
 
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
@@ -60,7 +60,6 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
 
     validate: (data) => {
-      console.log(data);
       const result = validateData(data);
       if(result.isValid){
         dispatch(updateAccountInfo(data));

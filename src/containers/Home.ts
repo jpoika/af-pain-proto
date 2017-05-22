@@ -11,7 +11,7 @@ const stateToProps = (state, ownProps) => {
   return {
     title: 'About Pain Proto',
     page: {title: homePage.title, subtitle: 'Pain Proto', content: homePage.content},
-    image: homePage.image && !(state.device.width > 600 || state.device.width > state.device.height)? homePage.image : '',
+    image: homePage.image && !(state.device.width > 1000 || state.device.width > state.device.height)? homePage.image : '',
     
     actions: [
       {label: 'Get Started', action: completedAssessments(state).length > 0 ? ownProps.pathOnTouchTap('/main/account-home') : ownProps.pathOnTouchTap('/main/assessment-start')}

@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
-import {flexParentRowStyle, flexRowItemStyle} from '../../components/commonStyles';
+import {floatParentRowStyle, buttonBasic} from '../../components/commonStyles';
 export interface Props{
   medication: MedicationInterface;
   update(medication: MedicationInterface): any;
@@ -138,14 +138,14 @@ export default class MedicationItem extends React.Component<Props, State>{
                   //ref={(input) => { (this as any).textInput = input; }}
                   errorText={errors.name} />
             </div>
-            <div style={flexParentRowStyle as any}>
-              <div style={flexRowItemStyle as any}>
+            <div style={floatParentRowStyle as any}>
+              <div style={buttonBasic}>
                 <RaisedButton primary={true} type="submit">Save</RaisedButton>
               </div>
-              <div style={flexRowItemStyle as any}>
+              <div style={buttonBasic}>
                 <RaisedButton onTouchTap={this.handleCancel}>Cancel</RaisedButton>
               </div>
-              {!!medication.id && <div style={flexRowItemStyle as any}>
+              {!!medication.id && <div style={buttonBasic}>
                 <RaisedButton onTouchTap={this.handleDelete}>Delete</RaisedButton>
               </div>}
             </div>

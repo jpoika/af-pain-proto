@@ -9,7 +9,7 @@ const stateToProps = (state, ownProps) => {
     page: {title: "Reassess Your Pain", subtitle: 'Pain Proto', content: ''},
     type: 'reassessment',
     deadline: state.assessmentSystem.nextDeadline,
-    isReady: state.assessmentSystem.nextDeadline < (nowTimestamp - 1000 * 60 * 0) //user can start 5 minutes early
+    isReady: state.assessmentSystem.nextDeadline < (nowTimestamp - 1000 * 60 * 5) //user can start 5 minutes early
   }
 }
 const dispatchToProps = (dispatch) => {

@@ -10,7 +10,7 @@ export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
-
+import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface,typeHash} from '../res/data/assessments';
 import {BodySectionInterface} from '../res/data/body';
@@ -71,6 +71,7 @@ export const checkForNewPain = (currentAssessmentId: number,region: string) => {
       
 
       if(newPainSectionIds.length){
+        dispatch(clearNurseAlert());
         dispatch(messagePromptUser('new_pain_' + region + '_' + currentAssessmentId,'nurse_prompt',1,messsageNewPain));
       }
 
@@ -209,7 +210,7 @@ export const scheduleReassessmentDeadline = (deadline: Date = null) => {
 
 export const sheduleReassessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 1*60*1000);
+  let minutes_from_now = new Date(now.getTime() + 60*60*1000);
   return (dispatch,getState) => {
        dispatch(scheduleReassessmentDeadline(minutes_from_now));
        dispatch(scheduleNotification(

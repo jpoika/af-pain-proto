@@ -26,15 +26,12 @@ const render = (Component: any) => {
 }
 
 if(__IS_CORDOVA_BUILD__){
-  console.log('__IS_CORDOVA_BUILD__ == true');
   document.addEventListener("deviceready", function(){
-    
-    console.log('deviceready');
     render(Provider); //don't load app until device ready
   }, false);
 
 } else { //web build
-  console.log('__IS_CORDOVA_BUILD__ == false');
+
   render(Provider);
   // Hot Module Replacement API. Only used when running the dev server.
 

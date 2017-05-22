@@ -15,18 +15,28 @@ import {
 
 export interface Props{
   assessments: AssessmentInterface[];
-  viewPortSmall: boolean;
+  css?: {[propName: string]: string|number};
+  viewPort?: {[propName: string]:{[propName: string]: string|number}}[];
+  viewPortSize: string;
   assessmentClicked(assessment: AssessmentInterface): void;
 }
 
 export interface State{
-
+  css: {[propName: string]: string|number};
 }
 
 export default class AssessmentList extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
-      viewPortSmall: false
+      css: {width: '100%'},
+      viewPort: []
   };
+
+  constructor(props){
+    super(props);
+    this.state = {
+      css: props.css
+    };
+  }
 
   handleDateFormat = (epochMs) => {
     return Formats.msToDateTimeString(epochMs);
@@ -36,20 +46,33 @@ export default class AssessmentList extends React.Component<Props, State>{
     const {assessmentClicked} = this.props;
     assessmentClicked(assessment);
   }
+
+  handleWidth = () => {
+    const {viewPort,viewPortSize,css} = this.props;
+
+    let cssStyles = viewPort.filter((vConf) => {
+        return typeof vConf[viewPortSize] !== 'undefined';
+    }).map(vConf => vConf[viewPortSize]);
+
+    return cssStyles.length > 0 ? cssStyles[0] : css;
+  }
+
+
   render(){
-    const {assessments,viewPortSmall} = this.props;
-    return <div>
+    const {assessments,viewPortSize} = this.props;
+
+    return <div style={this.handleWidth()}>
               <h2>Assessments</h2>
               <Table selectable={false}>
                 <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                   <TableRow>
-                    {!viewPortSmall && <TableHeaderColumn>Type</TableHeaderColumn>}
+                    {!(viewPortSize === 'small') && <TableHeaderColumn>Type</TableHeaderColumn>}
                     <TableHeaderColumn>Completed On</TableHeaderColumn>
                     <TableHeaderColumn>Status</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  {assessments.map(assess => <AssessmentListItem assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSmall} assessment={assess}/>)}
+                  {assessments.map(assess => <AssessmentListItem assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSize === 'small'} assessment={assess}/>)}
                 </TableBody>
               </Table> 
             </div>;

@@ -110,8 +110,8 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface, assessment: 
     const currentState = getState();
   
       if(isPainInTolerable(assessment,painLevel,currentState.painLevels)){
+        dispatch(clearNurseAlert());
         if(!currentState.nurseSystem.userPromptedForPain){
-          dispatch(clearNurseAlert());
           dispatch(messagePromptUser(assessment.id + '_high_pain','nurse_prompt',1,messsageIntollerablePain));
         }
         dispatch(userHasHighPain());
