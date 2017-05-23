@@ -13,8 +13,7 @@ module.exports = {
 
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/' //for gh-pages
+        path: path.resolve(__dirname, 'dist')
     },
 
     // Enable sourcemaps for debugging webpack's output.
