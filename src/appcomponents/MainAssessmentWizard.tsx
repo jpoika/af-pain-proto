@@ -44,10 +44,8 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     });
   };
 
-  handleNext = (event) => {
+  handleNext = () => {
   
-    event.preventDefault();
-    event.stopPropagation();
     const {stepIndex,nextStep,maxSteps,assessment} = this.props;
     
     nextStep(stepIndex + 1, assessment.id)
@@ -56,10 +54,8 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     });
   };
 
-  handlePrev = (event) => {
+  handlePrev = () => {
     
-    event.preventDefault();
-    event.stopPropagation();
     const {stepIndex,nextStep,assessment} = this.props;
     if (stepIndex > 0) {
       nextStep(stepIndex - 1, assessment.id);
