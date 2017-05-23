@@ -16,6 +16,8 @@ export interface State{
 }
 export default class PreAssessmentTest extends React.Component<Props, State>{
   handleOnComplete = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     const {onComplete} = this.props;
     onComplete();
   }
@@ -23,6 +25,8 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
   handleAssessmentChoice = (cb: (assessment: AssessmentInterface) => any) => {
     const {onComplete,assessment,lastStepIndex} = this.props;
     return (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       cb(assessment);
     }
   }
@@ -35,7 +39,7 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
                                 &nbsp;&nbsp;
                                 <RaisedButton label="No Changes." onTouchTap={this.handleAssessmentChoice(noChangeAssessment)} />
                                 &nbsp;&nbsp;
-                                <RaisedButton label="Skip this Assessment" onTouchTap={this.handleAssessmentChoice(skipAssessment)} />
+                                <RaisedButton label="Skip" onTouchTap={this.handleAssessmentChoice(skipAssessment)} />
                              </div>;
     const newPainAssessment = <div>
                                 <h3>Do you have any changes in your pain levels/locations to report?</h3>

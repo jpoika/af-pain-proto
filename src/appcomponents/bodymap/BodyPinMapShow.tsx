@@ -60,7 +60,18 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
     delete this.gridMap[this.getCellId(section)];
     let element = document.getElementById(this.getCellId(section));
     if(element){
-      element.remove();
+        //older ie doesn't suppor remove
+        if(typeof element.remove=='function'){
+           //If support  is found 
+           console.log("remove supported")
+            element.remove();
+        }
+        else{
+          //If not
+          console.log("IE remove")
+           element.parentElement.removeChild(element);
+       }
+      
     }
   }
 
