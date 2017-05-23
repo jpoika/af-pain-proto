@@ -139,7 +139,17 @@ export default class BodyPinMap extends React.Component<Props, State>{
     delete this.gridMap[this.getCellId(section)];
     let element = document.getElementById(this.getCellId(section));
     if(element){
-      element.remove();
+        //older ie doesn't suppor remove
+        if(typeof element.remove=='function'){
+           //If support  is found 
+          
+            element.remove();
+        }
+        else{
+          //If not
+        
+           element.parentElement.removeChild(element);
+       }
     }
   }
 
@@ -186,7 +196,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   componentDidMount(){
     const {painMarkings} = this.props;
- 
+
     painMarkings.map(({section, painLevel}) => {
      this.handleAddBodySelection(section,painLevel)
     });
