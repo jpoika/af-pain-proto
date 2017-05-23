@@ -31,10 +31,11 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch) => {
   return {
     reAssessmentClick: () => {
-      addAssessmentIfNecessary('reassessment');
+      dispatch(addAssessmentIfNecessary('reassessment'));
       dispatch(push('/main/reassess'));
     },
     initialAssessmentClick:(isComplete) => {
+      console.log(isComplete);
       if(!isComplete){
         dispatch(push('/main/assessment-start'));
       }else {

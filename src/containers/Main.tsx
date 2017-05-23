@@ -122,7 +122,7 @@ const createMenuItems = (user, menuItems,pathOnTouchTap,initAssessComplete) => {
              
              <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={pathOnTouchTap('/main/newpain')} />
              <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker')}  />
-             <MenuItem key={'menu_top_test'} primaryText="Test" onTouchTap={pathOnTouchTap('/main/assess-overview')} />
+             {/*<MenuItem key={'menu_top_test'} primaryText="Test" onTouchTap={pathOnTouchTap('/main/assess-overview')} />*/}
           {userMenuFilter(menuItems,user).map(menuItem => {
             
             switch(menuItem.type){
