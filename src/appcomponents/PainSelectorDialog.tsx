@@ -1,7 +1,6 @@
 import * as React from "react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import PainSelector from '../containers/PainSelector';
 import {PainLevelInterface} from '../res/data/pain';
 import {BodySectionInterface} from '../res/data/body';
@@ -50,7 +49,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
   };
 
   handleDelete = (event) => {
-    const {deleteSection, section,handleClose} = this.props;
+    const {deleteSection, section} = this.props;
     console.log(section);
     section && deleteSection(section.id);
     this.handleClose();

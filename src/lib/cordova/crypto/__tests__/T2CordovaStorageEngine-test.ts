@@ -1,6 +1,6 @@
 import T2CordovaStorageEngine from '../T2CordovaStorageEngine';
 import BrowserCryptoPromise from '../BrowserCryptoPromise';
-import CordovaCryptoPromise from '../CordovaCryptoPromise';
+//import CordovaCryptoPromise from '../CordovaCryptoPromise';
 
 export const createMockStorageEngine = () => {
   return {
@@ -16,7 +16,6 @@ export const createMockStorageEngine = () => {
 describe('Testing data flow for storage engine', () => {
 
 
-  const cryptoPromise = new BrowserCryptoPromise();
   const plainFields = ['migrations','navigation','routing','view','onLogout','user'];
   const encryptFields = ['workbooks','workbookIds','goals','notes','noteIds'];
   const lockableFields = ['workbooks','workbookIds','goals','notes','noteIds'];  

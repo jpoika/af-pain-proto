@@ -1,14 +1,7 @@
 import * as React from "react";
-import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import InfoIcon from 'material-ui/svg-icons/action/info';
-import MenuItem from 'material-ui/MenuItem';
-import Menu from 'material-ui/Menu';
-import AlarmSet from 'material-ui/svg-icons/action/alarm';
-import TrackChangesIcon from 'material-ui/svg-icons/action/track-changes';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
-import {Formats} from '../../lib/helpers';
+
 import {
   Table,
   TableBody,

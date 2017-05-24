@@ -1,5 +1,4 @@
 import * as React from "react"; 
-import {List, ListItem} from 'material-ui/List';
 import {AssessmentInterface, statusHash, typeHash} from '../../res/data/assessments';
 import {Formats,Validators} from '../../lib/helpers';
 import {

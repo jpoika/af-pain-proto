@@ -1,8 +1,5 @@
-
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
-import {connect} from 'react-redux';
 import {flexParentRowCenterStyle, flexRowItemStyle} from './commonStyles'
 
 interface MyProps {

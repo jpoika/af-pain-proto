@@ -2,10 +2,6 @@ import { normalize, schema } from 'normalizr';
 
 import videosRaw from './videos';
 
-var videosRaw2 = videosRaw.map(item => { //run images through webpack
-  item.img = require('../images/videos/' + item.img);
-  return item;
-});
 
 const videoSchema = new schema.Entity('video');
 const videoListSchema = new schema.Array(videoSchema);

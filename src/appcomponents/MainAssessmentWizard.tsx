@@ -1,6 +1,5 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import AccountContainer  from '../containers/pages/AccountEditPage';
+import {Props as PageProps} from '../components/BasicPage';
 import BodyMap  from '../containers/BodyMap';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
@@ -63,7 +62,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
   };
 
   renderBackButton = (step) => {
-    const {stepIndex,maxSteps} = this.props;
+    const {stepIndex} = this.props;
      return <FlatButton
               label="Back"
               disabled={stepIndex === 0}
@@ -75,7 +74,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
 
   renderStepActions = (step, backOnly=false) => {
     const {stepIndex,maxSteps} = this.props;
-    const backButton = this.renderBackButton(step);
+
     return (
       <div style={{margin: '12px 0'}}>
 
@@ -104,7 +103,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
 
   render(){
 
-    const {appBarTitle,replaceContent, restoreContent, page,title, maxSteps, assessment} = this.props;
+    const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
 
     return (<div>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">

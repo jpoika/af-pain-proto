@@ -1,15 +1,13 @@
 import * as React from "react"; 
-import {List, ListItem} from 'material-ui/List';
 import {Formats} from '../../lib/helpers';
-import {AssessmentInterface, statusHash,typeHash} from '../../res/data/assessments';
+import {AssessmentInterface} from '../../res/data/assessments';
 import AssessmentListItem from './AssessmentListItem';
 import {
   Table,
   TableBody,
   TableHeader,
   TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
+  TableRow
 } from 'material-ui/Table';
 
 

@@ -1,4 +1,3 @@
-import * as util from 'util';
 import BrowserCryptoPromise from '../BrowserCryptoPromise';
 
 const testDataInput = {
@@ -30,7 +29,7 @@ describe('Testing Browser Crypto which is a for TESTING ONLY', () => {
 
 
    it('locking feature LOCKED for lockableFields',(done) => {
-      const cryptoPromise = new BrowserCryptoPromise();
+     // const cryptoPromise = new BrowserCryptoPromise();
      done();
    });
 

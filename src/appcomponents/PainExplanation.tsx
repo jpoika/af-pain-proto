@@ -1,10 +1,5 @@
 import * as React from "react";
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import {PainLevelInterface} from '../res/data/pain';
-import IconButton from 'material-ui/IconButton';
-import InfoIcon from 'material-ui/svg-icons/action/info';
 export interface Props {
   //selectPain(painLevel: PainLevelInterface);
   painLevels: any[];
@@ -14,10 +9,6 @@ export interface State {
   //open: boolean;
 }
 
-const customContentStyle = {
-  width: '100%',
-  maxWidth: 'none'
-};
 
 const getPainColumn = (level,width) => {
   return <td key={level.id}><img src={level.image} width={width} height="16" /></td>;

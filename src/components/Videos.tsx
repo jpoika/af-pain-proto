@@ -1,15 +1,7 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import Helmet from 'react-helmet';
 import {GridList, GridTile} from 'material-ui/GridList';
-import { Link, browserHistory } from 'react-router';
-
-import Subheader from 'material-ui/Subheader';
-
-import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
-import IconButton from 'material-ui/IconButton';
-import CheckBox from 'material-ui/svg-icons/toggle/check-box';
-
+import { Link } from 'react-router';
 
 interface MyProps {
   appBarTitle(title: string): any;
@@ -32,7 +24,7 @@ export default class Videos extends React.Component<MyProps, MyState> {
 
   render(){
 
-  var {videos, appBarTitle, cols} = this.props;
+  var {videos, cols} = this.props;
 
     return (
     <div>

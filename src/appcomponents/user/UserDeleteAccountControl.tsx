@@ -1,8 +1,8 @@
 import * as React from "react";
-
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+
 export interface Props{
   deleteAccount: any;
 }
@@ -40,7 +40,7 @@ export default class UserOverview extends React.Component<Props, State>{
   }
   render(){ 
     const {} = this.props;
-   const actions = [
+    const actions = [
       <FlatButton
         label="Yes"
         secondary={true}

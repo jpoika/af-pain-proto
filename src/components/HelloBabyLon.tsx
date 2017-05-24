@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as BABYLON from 'babylonjs/babylon.max';
-import { Link } from 'react-router';
+
 class Game {
   private _canvas: HTMLCanvasElement;
   private _engine: BABYLON.Engine;
@@ -38,8 +38,7 @@ class Game {
       sphere.position.y = 1;
 
       // create a built-in "ground" shape
-      let ground = BABYLON.MeshBuilder.CreateGround('ground1',
-                            {width: 6, height: 6, subdivisions: 2}, this._scene);
+
   }
 
   animate() : void {

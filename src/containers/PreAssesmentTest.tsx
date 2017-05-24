@@ -1,7 +1,6 @@
 import PreAssesmentTest from '../appcomponents/PreAssesmentTest';
-import {homePage} from '../res/data/page';
 import {connect} from 'react-redux';
-import { push, go } from 'react-router-redux';
+import { push,} from 'react-router-redux';
 import {assessMarkComplete,assessMoveStep,assessDelete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 const stateToProps = (state, ownProps) => {

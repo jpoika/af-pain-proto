@@ -11,7 +11,6 @@ import {nextId} from './_helper';
 export const scheduleNotification = (title,text,deadline, data = {}) => {
 
   return (dispatch,getState, {isReady, plugins}) => {
-    const newId = nextId(getState().notificationIds);
     const scheduleArg = {
         id: nextId(getState().notificationIds),
         title,

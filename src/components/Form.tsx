@@ -1,7 +1,4 @@
 import * as React from "react";
-
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import Select from './Select';
 import RaisedButton from 'material-ui/RaisedButton';
 import {flexParentRowStyle,flexRowItemStyle} from './commonStyles'

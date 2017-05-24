@@ -109,7 +109,7 @@ export default class MedicationItem extends React.Component<Props, State>{
   }
 
   render(){
-    const {medication,amountUnits,frequencyUnits,routes} = this.props;
+    const {medication,routes} = this.props;
     const {values,errors} = this.state;
     return <Paper style={{padding: '5px', width: '97%',marginBottom: '15px',marginLeft: '10px'}}>
             <form onSubmit={this.handleSubmit}>

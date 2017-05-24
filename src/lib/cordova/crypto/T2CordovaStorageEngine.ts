@@ -108,7 +108,8 @@ export default class T2CordovaStorageEngine implements StorageInterface {
        return dataPromise as Promise<Result>;
   }
 
-  removeItem  = <Result>(key:string, onComplete?: OnComplete<any>) => {
+  //removeItem  = <Result>(key:string, onComplete?: OnComplete<any>) => {
+  removeItem  = (key:string, onComplete?: OnComplete<any>) => {
     return new Promise<any>((resolve,reject) => {
       //TODO
     });

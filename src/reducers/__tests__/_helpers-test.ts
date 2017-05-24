@@ -1,5 +1,5 @@
-import {arrayUnique,arrayRemove,arrayPushUnique, copyArray} from '../_helpers';
-import * as util from 'util';
+import {arrayRemove,arrayPushUnique} from '../_helpers';
+
 
 describe('arrayPushUnique', () => {
   it('should only add items if they are not already in the array', () => {

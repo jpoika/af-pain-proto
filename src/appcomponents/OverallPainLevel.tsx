@@ -1,7 +1,6 @@
 import PainSelector from '../containers/PainSelector';
 import {PainLevelInterface} from '../res/data/pain';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import {AssessmentInterface} from '../res/data/assessments';
 import * as React from "react";
 
@@ -57,7 +56,7 @@ export default class OverallPain extends React.Component<Props, State>{
   }
 
   render(){
-    const {title,step,actions,restoreContent,replaceContent,categoryId} = this.props;
+    const {title,actions,restoreContent,replaceContent,categoryId} = this.props;
     const {painLevel,isSaved} = this.state;
     let additionalActions = null
     if(actions){

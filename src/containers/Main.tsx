@@ -5,7 +5,6 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import AlarmSet from 'material-ui/svg-icons/action/alarm';
 import { Link } from 'react-router';
-import MenuDrawer from '../components/MenuDrawer';
 import MenuItem from 'material-ui/MenuItem';
 import TrackChangesIcon from 'material-ui/svg-icons/action/track-changes';
 import DoneIcon from 'material-ui/svg-icons/action/done';
@@ -16,7 +15,6 @@ import { push } from 'react-router-redux';
 
 import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import {alertNurseDialogueOpen} from '../actions/nurse';
 import {addAssessmentIfNecessary} from '../actions/assessment';
@@ -102,12 +100,6 @@ const createMenuItems = (user, menuItems,pathOnTouchTap,initAssessComplete) => {
     }
   }
 
-  const conditionalClickAction = (menuItem) => {
-    if(menuItem.children.length){
-      return null
-    }
-    return pathOnTouchTap(menuItem.item.path);
-  }
 
   return (
     <IconMenu

@@ -1,5 +1,4 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
 import RaisedButton from 'material-ui/RaisedButton';
 import {AssessmentInterface} from '../res/data/assessments'
 export interface Props{
@@ -23,7 +22,7 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
   }
 
   handleAssessmentChoice = (cb: (assessment: AssessmentInterface) => any) => {
-    const {onComplete,assessment,lastStepIndex} = this.props;
+    const {assessment} = this.props;
     return (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -32,7 +31,7 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
   }
   
   render(){
-    const {skipAssessment,noChangeAssessment,onComplete,assessment,deleteAssessment,returnPath} = this.props;
+    const {skipAssessment,noChangeAssessment,assessment,deleteAssessment,returnPath} = this.props;
     const normalAssessment = <div>
                                 <h3>Do you have any changes in your pain levels/locations to report?</h3>
                                 <RaisedButton label="Yes" onTouchTap={this.handleOnComplete} />

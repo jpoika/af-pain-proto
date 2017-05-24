@@ -1,6 +1,5 @@
 import BodyMap from '../appcomponents/BodyPinMap';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 import { assessMarkPain, assessmentRemoveBodyPain ,checkForNewPain} from '../actions/assessment';
 import {PainLevelInterface} from '../res/data/pain';
 import {AssessmentInterface} from '../res/data/assessments';
@@ -15,7 +14,7 @@ const getBodySections = (allBodySections,sectionIds) => {
 };
 
 const getSavedPainMarkings = (assessmentId,currentRegion,state) => {
-  const {assessments, bodySectionIds} = state;
+  const {assessments} = state;
   let defaultMarkings = {};
   if(!assessmentId){
     return defaultMarkings;

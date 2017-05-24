@@ -1,6 +1,5 @@
 import MedicationsList from '../appcomponents/medication/MedicationsList';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 import {medicationRemove} from '../actions/medication';
 import {userSetMedicationStatus} from '../actions/'
 import {alertNurseBackground} from '../actions/nurse'

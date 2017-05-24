@@ -1,8 +1,6 @@
 import * as React from "react";
-import { Link } from 'react-router';
 import BookCover from  './BookCover';
 import Page from './Page';
-import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
@@ -13,7 +11,6 @@ export interface Props {
   isOpen: boolean;
   pageOpen(any): void;
   title: string;
-  //currentPage: number;
 }
 
 export interface State {
@@ -48,7 +45,7 @@ export default class Book extends React.Component<Props, State> {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {book,isOpen,title} = nextProps;
+      const {isOpen,title} = nextProps;
 
       this.props.appBarTitle(title);
       this.setState({isOpen});

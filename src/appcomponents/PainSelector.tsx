@@ -3,11 +3,7 @@ import PainExplanationButton from '../containers/PainExplanationButton';
 import {PainLevelInterface} from '../res/data/pain';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider';
-import Dialog from 'material-ui/Dialog';
-import IconButton from 'material-ui/IconButton';
-import InfoIcon from 'material-ui/svg-icons/action/info';
-import PainExplanation from './PainExplanation';
+
 export interface Props {
   selectPain(painLevel: PainLevelInterface);
   painLevels: any[];

@@ -1,7 +1,6 @@
 import * as React from "react";
 import {List, ListItem} from 'material-ui/List';
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import LoginForm, {Props as LoginProps}  from './LoginForm';
 import {Formats} from '../lib/helpers'
 export interface Props extends PageProps{
   notifications: {schedule: {id: number, title: string}, timestamp: number}[];

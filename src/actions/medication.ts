@@ -1,4 +1,4 @@
-import {MedicationInterface,makeMedication} from '../res/data/medication'
+import {MedicationInterface} from '../res/data/medication'
 export const MEDICATION_REMOVE = 'T2.MEDICATION_REMOVE';
 export const MEDICATION_EDIT = 'T2.MEDICATION_EDIT';
 

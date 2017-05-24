@@ -11,8 +11,8 @@ import {
   ALERT_NURSE_WITH_STATUS,
   USER_NURSE_PROMPT_RESET
 } from '../actions/nurse';
-import {REHYDRATE} from 'redux-persist/constants';
-import {arrayPushUnique, arrayRemove} from './_helpers';
+
+import {arrayPushUnique} from './_helpers';
 
 const defaultSystem = {
   status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout

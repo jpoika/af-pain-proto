@@ -12,8 +12,7 @@ export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
 import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
-import {makeAssessment,AssessmentInterface,typeHash} from '../res/data/assessments';
-import {BodySectionInterface} from '../res/data/body';
+import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
 import { push } from 'react-router-redux';
 import {nextId} from './_helper';
 const messsageNewPain = [
@@ -91,7 +90,7 @@ export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectio
 
 
 export const assessMarkComplete = (assessmentId: number,status: number = null) => {
-  let date = new Date();
+
   return (dispatch, getState) => {
       dispatch(sheduleReassessment())
       dispatch(markComplete(assessmentId,status));

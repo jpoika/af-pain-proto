@@ -1,5 +1,4 @@
 import NewPainButton from '../appcomponents/NewPainButton';
-import {homePage} from '../res/data/page';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
 import {addAssessmentIfNecessary} from '../actions/assessment';

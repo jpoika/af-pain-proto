@@ -1,9 +1,6 @@
 import * as React from "react";
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
-import Helmet from 'react-helmet';
-import BasicPage from './BasicPage';
 
 export interface Props { 
   content: {title: string, content: string, subtitle: string}

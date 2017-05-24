@@ -1,7 +1,5 @@
 import Page from '../../appcomponents/medication/MedTrackerPage';
-import {homePage} from '../../res/data/page';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 
 const stateToProps = (state, ownProps) => {
   return {

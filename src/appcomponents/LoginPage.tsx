@@ -1,6 +1,5 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import LoginForm, {Props as LoginProps}  from './LoginForm';
 export interface Props extends PageProps{
 
 }

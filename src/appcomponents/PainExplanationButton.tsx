@@ -27,7 +27,7 @@ export default class PainSelector extends React.Component<Props, State>{
   }
 
   render(){
-    const {painLevels,top} = this.props;
+    const {top} = this.props;
     return <IconButton style={{position: 'relative',top: top}} onTouchTap={this.showExplanation} ><InfoIcon /></IconButton>;
   }
 }

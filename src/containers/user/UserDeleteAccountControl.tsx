@@ -1,5 +1,4 @@
 import UserDeleteAccountControl from '../../appcomponents/user/UserDeleteAccountControl';
-import {homePage} from '../../res/data/page';
 import {connect} from 'react-redux';
 
 import {deleteAccount} from '../../actions'
