@@ -1,5 +1,4 @@
 import * as React from "react";
-import MainAssessmentWizardContainer from '../../containers/MainAssessmentWizard';
 import {BodySectionInterface} from '../../res/data/body';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {PainLevelInterface} from '../../res/data/pain';
@@ -132,7 +131,7 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
   } 
 
   render(){
-    const {title,bodyImage,painMarkings} = this.props;
+    const {bodyImage} = this.props;
 
     return (
             <div style={{overflow: 'auto'}}>

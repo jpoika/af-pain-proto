@@ -1,4 +1,4 @@
-import {windowResize,WINDOW_RESIZE} from '../../actions/device';
+import {windowResize} from '../../actions/device';
 import {device} from '../device';
 
 describe('reducer', () => {

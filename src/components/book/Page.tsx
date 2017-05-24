@@ -1,7 +1,4 @@
 import * as React from "react";
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import { Link } from 'react-router';
 import ArrowNext from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowPrevious from 'material-ui/svg-icons/navigation/arrow-back';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
@@ -31,9 +28,7 @@ const getNavigation = (previusButton,closeButton,nextButton) => {
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
 export default class Page extends React.Component<Props, State> {
-    componentWillMount () {
-      const {page} = this.props;
-    }
+
 
     render() {
       const {page,pageIndex,numPages,next,previous,close} = this.props;

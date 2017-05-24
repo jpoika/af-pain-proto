@@ -1,6 +1,6 @@
 import {assessMarkComplete,markComplete,addAssessment} from '../../actions/assessment';
 import {assessments,assessmentIds} from '../assessments';;
-import {assessmentPainCategories,makeAssessment} from '../../res/data/assessments';
+import {makeAssessment} from '../../res/data/assessments';
 
 describe('Assessment Reducer Tests', () => {
   it('Should automatically have an initial assessment record with id == 1', () => {

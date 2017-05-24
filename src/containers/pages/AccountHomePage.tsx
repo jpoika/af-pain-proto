@@ -2,7 +2,6 @@ import AccountHome from '../../appcomponents/pages/AccountHomePage';
 import {homePage} from '../../res/data/page';
 import {connect} from 'react-redux';
 
-import {deleteAccount} from '../../actions'
 const getViewPortSize = (state) => {
   const width = state.device.width;
   if(width < 450){

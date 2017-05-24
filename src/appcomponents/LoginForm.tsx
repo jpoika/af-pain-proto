@@ -1,11 +1,7 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {connect} from 'react-redux';
-import DatePicker from 'material-ui/DatePicker';
-import Checkbox from 'material-ui/Checkbox';
-//import {Transforms,Validators} from '../lib/helpers';
+
 import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
 
 

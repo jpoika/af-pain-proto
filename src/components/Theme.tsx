@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import SplashPage from './SplashPage';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

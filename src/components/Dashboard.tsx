@@ -1,13 +1,7 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
 import {GridList, GridTile} from 'material-ui/GridList';
-
-import Subheader from 'material-ui/Subheader';
 import { Link } from 'react-router';
 
-const styles = {
-};
 
 interface MyProps {
   appBarTitle(msg: string): any;
@@ -28,7 +22,7 @@ export default class HomePage extends React.Component<MyProps, MyState> {
   }
 
   render () {
-    var {appBarTitle,categories} = this.props;
+    var {categories} = this.props;
 
     var cols = 2;
 

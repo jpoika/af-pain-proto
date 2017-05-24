@@ -6,7 +6,7 @@ export const MESSAGE_PROMPT_CLEAR_ALL = 'T2.MESSAGE_PROMPT_CLEAR_ALL';
 
 export const MESSAGE_CREATE = 'T2.MESSAGE_CREATE';
 export const MESSAGE_DELETE = 'T2.MESSAGE_DELETE';
-import {MessageInterface, makeMessagePrompt,makeMessage,MessagePromptInterface} from '../res/data/messages';
+import {makeMessagePrompt,makeMessage} from '../res/data/messages';
 import {nextId} from './_helper';
 
 const isPromptMaxed = (promptId: string, state: any) => {

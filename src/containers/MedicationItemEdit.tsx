@@ -1,8 +1,7 @@
 import MedicationItem from '../appcomponents/medication/MedicationItemEdit';
 import {MedicationInterface, frequencyUnits, amountUnits, routes} from '../res/data/medication';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
-import { medicationRemove,medicationEdit} from '../actions/medication';
+import {medicationEdit} from '../actions/medication';
 import {Validators} from '../lib/helpers'
 import {viewActions} from '../lib/local-t2-view';
 

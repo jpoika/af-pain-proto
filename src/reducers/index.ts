@@ -17,7 +17,6 @@ import {
   USER_DISABLE_DO_NOT_DISTURB
 } from '../actions';
 
-import { normalize, schema } from 'normalizr';
 
 import {
   assessments,
@@ -79,9 +78,6 @@ const user = (state: any = defaultUser, action: any) => {
   return state;
 }
 
-const defaultInitAssess = {
-  step: 0
-}
 
 
 export const migrations = (state = {}, action) => {

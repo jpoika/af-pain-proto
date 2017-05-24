@@ -1,7 +1,5 @@
 import * as React from "react";
-import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import InfoIcon from 'material-ui/svg-icons/action/info';
 import DoNotDisturbControll from '../../containers/DoNotDisturbControll';
 import UserDeleteAccountControl from '../../containers/user/UserDeleteAccountControl';
 import {Formats} from '../../lib/helpers';

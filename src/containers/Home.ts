@@ -1,7 +1,6 @@
 import CardPage from '../components/CardPage';
 import {homePage} from '../res/data/page';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 
 const completedAssessments = (state): any[] => {
   return state.assessmentIds.map(aid => state.assessments[aid]).filter(assess => assess.isComplete);

@@ -7,7 +7,6 @@ import {
   CryptoInterface,
   DataInInterface,
   ChangeAnswersWithPinInterface,
-  ChangePinWithAnswersInterface,
   ChangePinWithPinInterface,
   CheckPinInterface
 } from './interface';

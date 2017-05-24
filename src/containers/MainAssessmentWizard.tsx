@@ -2,11 +2,10 @@ import AssessWizard from '../appcomponents/MainAssessmentWizard';
 
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import {Validators} from '../lib/helpers';
+
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 
 import {viewActions} from '../lib/local-t2-view';
-import {nextId} from '../actions/_helper';
 const maxSteps = 7;
 
 const get_or_create_current_assessment = (state,type) => {

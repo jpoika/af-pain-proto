@@ -59,7 +59,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
   };
 
   renderBackButton = (step) => {
-    const {stepIndex,maxSteps} = this.props;
+    const {stepIndex} = this.props;
      return <FlatButton
               label="Back"
               disabled={stepIndex === 0}
@@ -71,7 +71,6 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
 
   renderStepActions = (step, backOnly=false) => {
     const {stepIndex,maxSteps} = this.props;
-    const backButton = this.renderBackButton(step);
     return (
       <div style={{margin: '12px 0'}}>
 

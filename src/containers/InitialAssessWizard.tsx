@@ -1,8 +1,6 @@
 import AssessWizard from '../appcomponents/InitialAssessmentWizard';
-
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import {Validators} from '../lib/helpers';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 

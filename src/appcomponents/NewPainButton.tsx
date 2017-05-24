@@ -1,5 +1,4 @@
 import FlatButton from 'material-ui/FlatButton'
-
 import * as React from "react";
 
 export interface Props { 

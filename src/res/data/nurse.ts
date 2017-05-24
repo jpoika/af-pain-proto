@@ -1,4 +1,3 @@
-import {makeMessage} from './messages';
 export interface NurseSystemStatus {
   id: number;
   title: string;

@@ -1,6 +1,6 @@
 import {PainLevelInterface, PainLevelsObject} from '../res/data/pain';
 import {AssessmentInterface} from '../res/data/assessments';
-import {messagePromptUser,messageCreate} from './messages'
+import {messagePromptUser} from './messages'
 export const ALERT_NURSE = 'T2.ALERT_NURSE';
 export const ALERT_NURSE_START = 'T2.ALERT_NURSE_START';
 export const ALERT_NURSE_END = 'T2.ALERT_NURSE_END';
@@ -32,16 +32,6 @@ const tmpSimulatedContact = () => {
 }
 
 
-
-const getLastAssessment = (state) => {
-  if(state.assessmentIds.length){
-    return state.assessmentIds
-              .map(aid => state.assessments[aid])
-              .filter(assess => Object.keys(assess.bodySections).length > 0)
-              .pop();
-  }
-  return null;
-}
 
 const isPainInTolerable = (assessment: {bodySections: {[propName: string]: number}, painLevels:{[propName: string]: number}}, overallPainLevel:PainLevelInterface, painLevels:PainLevelsObject) => {
   const tooPainfulSections = Object.keys(assessment.bodySections).filter(propName => {

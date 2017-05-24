@@ -1,11 +1,7 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 import NewPainButton from '../../containers/NewPainButton';
-
 import AssessmentList from '../../containers/AssessmentList';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 import UserOverview from '../../containers/user/UserOverview';
 import MedicationList from '../../containers/medication-view/MedicationList';
 import UserTasks from '../../containers/user/UserTasks';
@@ -35,7 +31,7 @@ export default class AccountHome extends React.Component<Props, State> {
 
 
   render(){
-    const {appBarTitle,page,title,restoreContent,replaceContent,initAssessComplete,viewPortSize,haveUserInfo} = this.props;
+    const {appBarTitle,page,title,restoreContent,replaceContent,viewPortSize,haveUserInfo} = this.props;
 
     const leftStyles = viewPortSize === 'large' ? {width: '50%',float: 'left',paddingRight:'20px'} : {width: '100%'};
     const rightStyles = viewPortSize === 'large' ? {width: '50%',float: 'left',paddingLeft:'20px'} : {width: '100%'};

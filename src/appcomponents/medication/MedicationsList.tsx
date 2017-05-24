@@ -4,12 +4,9 @@ import MedicationItemEdit from '../../containers/MedicationItemEdit';
 import MedicationQuestions from '../../appcomponents/medication/MedicationQuestions';
 import MedicationItemView from './MedicationItemView';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import FontIcon from 'material-ui/FontIcon';
 import ChipSvgIcon from 'material-ui/svg-icons/content/add-circle';
-import {topRightButtonStyle} from '../../components/commonStyles';
 import {makeMedication} from '../../res/data/medication';
 const styles = {
   wrapper: {
@@ -85,7 +82,7 @@ export default class MedicationsList extends React.Component<Props, State>{
   }
 
   render(){
-    const {onComplete, medications, actions, deleteMedication,setMedicationStatus,medication_status} = this.props;
+    const {onComplete, medications, actions, setMedicationStatus,medication_status} = this.props;
     let additionalActions = null
     if(actions){
       additionalActions = actions;

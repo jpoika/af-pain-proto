@@ -3,15 +3,12 @@
  * which incorporates components provided by Material-UI.
  */
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+//import * as ReactDOM from 'react-dom';
 import AppBar from 'material-ui/AppBar';
-import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
 import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
 import AlertNurseDialog from '../containers/AlertNurseDialog';
-import IconButton from 'material-ui/IconButton';
 import AppSnackBar from './AppSnackBar';
-import IconMenu from 'material-ui/IconMenu';
 import FlatButton from 'material-ui/FlatButton';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 

@@ -6,7 +6,7 @@ import {PainLevelInterface} from '../res/data/pain';
 import {AssessmentInterface} from '../res/data/assessments';
 
 const isSaved = (assessmentId, painCategoryId, state) => {
-  const {assessments, bodySectionIds,painLevels} = state;
+  const {assessments} = state;
   if(!assessmentId){
     return false;
   }
@@ -20,7 +20,7 @@ const isSaved = (assessmentId, painCategoryId, state) => {
 }
 
 const getSavedPain= (assessmentId, painCategoryId, state) => {
-  const {assessments, bodySectionIds,painLevels} = state;
+  const {assessments,painLevels} = state;
   const defaultPainLevelId = 1;
   if(!isSaved(assessmentId, painCategoryId, state)){
     return painLevels[defaultPainLevelId];

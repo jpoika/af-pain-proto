@@ -1,13 +1,10 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import Form, {Props as FormProps}  from './AccountForm';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
-import MessageIcon from 'material-ui/svg-icons/communication/message';
 import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
 import {MessageInterface} from '../res/data/messages';
 export interface Props{
@@ -55,7 +52,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
 
   render(){
 
-    const {open,status,messages,confirmMessage} = this.props;
+    const {open,status,confirmMessage} = this.props;
     const actions = [
       <FlatButton
         label="Close"

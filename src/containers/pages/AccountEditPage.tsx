@@ -1,9 +1,7 @@
 import AccountPage from '../../appcomponents/pages/UserSettingsPage';
-
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 import {Validators} from '../../lib/helpers'
-import {flagUserAuthenticated,updateAccountInfo} from '../../actions';
+import {updateAccountInfo} from '../../actions';
 import {GenderList,AccountInterface} from '../../res/data/account'
 import {assessMoveStep} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';

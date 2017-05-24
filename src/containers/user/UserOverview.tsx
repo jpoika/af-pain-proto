@@ -1,7 +1,6 @@
 import UserOverview from '../../appcomponents/user/UserOverview';
 import {connect} from 'react-redux';
 import { push } from 'react-router-redux';
-import {AssessmentInterface} from '../../res/data/assessments';
 
 const getViewPortSize = (state) => {
   const width = state.device.width;

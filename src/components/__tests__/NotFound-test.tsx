@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import NotFound from '../NotFound';
 import * as renderer from 'react-test-renderer';
 

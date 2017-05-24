@@ -1,12 +1,8 @@
-//ref={(input) => { (this as any).textInput = input; }}
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../components/BasicPage';
-import MainAssessmentWizardContainer from '../containers/MainAssessmentWizard';
 import {BodySectionInterface} from '../res/data/body';
 import {AssessmentInterface} from '../res/data/assessments';
 import {PainLevelInterface} from '../res/data/pain';
 import PainSelectorDialog from './PainSelectorDialog';
-import PainSelectorDialogContainer from '../containers/PainSelector';
 
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
@@ -227,7 +223,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
   }
 
   render(){
-    const {title,bodyImage,painMarkings,deleteSection,replaceContent,restoreContent} = this.props;
+    const {bodyImage,replaceContent,restoreContent} = this.props;
 
     return (
             <div style={{overflowX: 'auto'}}>

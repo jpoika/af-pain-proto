@@ -1,6 +1,4 @@
 import {
-  orangeA200, orangeA100, orangeA400,
-  grey900,
   fullWhite
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';

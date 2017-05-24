@@ -1,14 +1,8 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
 import {GridList, GridTile} from 'material-ui/GridList';
-import { Link, browserHistory } from 'react-router';
-
-import Subheader from 'material-ui/Subheader';
+import { Link } from 'react-router';
 import {flexParentRowStyle, flexRowItemStyle} from './commonStyles';
-import PlayIcon from 'material-ui/svg-icons/av/play-circle-outline';
 import IconButton from 'material-ui/IconButton';
-import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 import ArrowNext from 'material-ui/svg-icons/navigation/arrow-forward';
 import ArrowPrevious from 'material-ui/svg-icons/navigation/arrow-back';
 
@@ -44,7 +38,6 @@ export default class VideosPager extends React.Component<MyProps, MyState> {
   };
   constructor(props){
     super(props)
-    let offset = props.page * props.resultsPerPage;
     this.state = this.calculateState(props);
   }
 

@@ -12,30 +12,28 @@ import NotificationsDashbord from './containers/NotificationsDashbord';
 import EducationResourcesPage from './containers/pages/EducationResourcesPage';
 import {viewActions} from './lib/local-t2-view';
 import {sheduleInitialAssessment} from './actions/assessment';
-import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import SplashPage from './components/SplashPage';
 import PageContainer from './containers/Main';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import {Router, hashHistory} from 'react-router';
 import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
-import {registerPromise,appMiddleware} from 'local-t2-sw-redux';
 import { createStore, applyMiddleware, compose} from 'redux'
 import reducer from './reducers';
-import {asynRouteMaker,syncRoute} from './lib/helpers';
+import {syncRoute} from './lib/helpers';
 import {windowResize} from './actions/device';
 import {assessmentNotificationClick} from './actions/assessment';
-import {T2CordovaStorageEngine, BrowserCryptoPromise} from './lib/cordova/crypto/';
+//import {T2CordovaStorageEngine, BrowserCryptoPromise} from './lib/cordova/crypto/';
 import navigationConfig from './navigationConfig';
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
 import LocalNotification from './lib/cordova/local-notifications';
 import {initCordova,CordovaConfiguratorInterface} from './lib/cordova/cordova-helper';
-import {persistStore, autoRehydrate, purgeStoredState, getStoredState} from 'redux-persist';
+import {persistStore, autoRehydrate} from 'redux-persist';
 let reducerKey = 'migrations'; // name of the migration reducer
 
 const manifest = {
@@ -53,14 +51,14 @@ const storageConfig = {
   storage: localForage
 };
 
-
+/*
 const storageEngine = new T2CordovaStorageEngine({
   crypto: new BrowserCryptoPromise(),
   storage: localForage,
   plainFields: ['routing','device','app','navigation','painLevels','painLevelIds'],
   encryptFields: ['assessmentIds','assessments','medications','user','notifications','notificationIds'],
   lockableFields: ['assessmentIds','assessments']
-});
+}); */
 
  
 const migration = createMigration(manifest, reducerKey);
@@ -98,8 +96,7 @@ let store = createStore(reducer,
     applyMiddleware(
         routerMiddleware(hashHistory),
         thunkMiddleware.withExtraArgument(actionArgs),
-        navigationCreateMiddleware(navigationConfig),
-        appMiddleware({url: '',interval: 30000})
+        navigationCreateMiddleware(navigationConfig)
       ),
     persistEnhancer as any
   );
@@ -126,7 +123,6 @@ if (__DEVTOOLS__) {
 }
 
 
-const asyncRoute = asynRouteMaker({});
 
 
 const quickRoutes = [

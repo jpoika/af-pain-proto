@@ -1,9 +1,8 @@
 import * as React from "react";
-import BasicPage, {Props as PageProps} from '../../components/BasicPage';
+import {Props as PageProps} from '../../components/BasicPage';
 import {MedicationInterface} from '../../res/data/medication';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import FontIcon from 'material-ui/FontIcon';
 import ChipSvgIcon from 'material-ui/svg-icons/image/edit';
 
 const styles = {
