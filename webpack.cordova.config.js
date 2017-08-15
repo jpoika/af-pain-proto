@@ -1,10 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin'),
     PathRewriterPlugin = require('webpack-path-rewriter')
-
-var CleanWebpackPlugin = require('clean-webpack-plugin');  
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+//var OfflinePlugin = require('offline-plugin');  
 const buildPath = path.resolve(__dirname, 'cordova/www'); 
 module.exports = {
     entry: [
@@ -31,7 +30,7 @@ module.exports = {
             {test: /\.tsx?$/, use: ['awesome-typescript-loader'] },
 
             {
-                test: /\.(png|gif|jpe?g|svg|mp3)$/i,
+                test: /\.(png|gif|jpe?g|svg)$/i,
                 use: ['url-loader?limit=2']
             },
             {
@@ -49,14 +48,12 @@ module.exports = {
     },
 
     plugins: [
-
         new webpack.DefinePlugin({
           'process.env': {
             'NODE_ENV': JSON.stringify('production')
           },
-          '__DEVTOOLS__': true,
-          '__IS_CORDOVA_BUILD__': true,
-          '__CORDOVA_TEST_ONLY__': false
+          '__DEVTOOLS__': false,
+          '__IS_CORDOVA_BUILD__': true
         }),
 
         new CleanWebpackPlugin(['dist'], {
@@ -71,31 +68,12 @@ module.exports = {
           minChunks: 2 // How many times a dependency must come up before being extracted
         }),
 
-        // This plugins optimizes chunks and modules by
-        // how much they are used in your app
-        //new webpack.optimize.OccurenceOrderPlugin(),
 
-        // This plugin prevents Webpack from creating chunks
-        // that would be too small to be worth loading separately
-        //
-        /*
-        new webpack.optimize.MinChunkSizePlugin({
-          minChunkSize: 51200 // ~50kb
-        }), */
+
 
         new webpack.NamedModulesPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
         new PathRewriterPlugin()
-    ],
-
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    /*
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM",
-        //"babylonjs": "BABYLON"
-    }, */
+        //new OfflinePlugin()
+    ]
 };

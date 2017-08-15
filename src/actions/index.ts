@@ -7,10 +7,62 @@ export const SET_USERNAME = 'T2.SET_USERNAME';
 export const RESET_APP = 'T2.RESET_APP';
 export const USER_ENABLE_DO_NOT_DISTURB = 'T2.USER_ENABLE_DO_NOT_DISTURB';
 export const USER_DISABLE_DO_NOT_DISTURB = 'T2.USER_DISABLE_DO_NOT_DISTURB';
+export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
+export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
+export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
+export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
 
 export const USER_SET_MEDICATION_STATUS = 'T2.USER_SET_MEDICATION_STATUS';
 
 import {AccountInterface} from '../res/data/account'
+
+export const setPageTitle = (title:string) => {
+  return {
+    type: SET_PAGE_TITLE,
+    title: title
+  }
+}
+
+export const windowResize = (width:number,height: number) => {
+  return {
+    type: WINDOW_RESIZE,
+    width,
+    height
+  }
+}
+
+export const messageStart = (message) => {
+  return {
+    type: T2_APP_MESSAGE_START,
+    message
+  };
+}
+
+export const messageClear = () => {
+  return {
+    type: T2_APP_MESSAGE_CLEAR
+  };
+}
+
+
+var timeOutId = null
+export const sendMessage = (message) => {
+  
+  return (dispatch,getState,extraArgs) => {
+    console.log(extraArgs);
+    dispatch(messageStart(message));
+
+    if(timeOutId){
+        clearTimeout(timeOutId)
+    }
+    
+    timeOutId = setTimeout(
+                    () => {dispatch(messageClear())}
+                    ,3000
+                )
+  }
+};
+
 export const flagUserAuthenticated = () => {
   return {
     type: FLAG_AS_AUTHENTICATED

@@ -71,7 +71,7 @@ export default class AssessmentList extends React.Component<Props, State>{
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  {assessments.map(assess => <AssessmentListItem isReassessmentDue={isReassessmentDue} assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSize === 'small'} assessment={assess}/>)}
+                  {assessments.map(assess => <AssessmentListItem key={assess.id} isReassessmentDue={isReassessmentDue} assessmentClick={this.handleAssessmentClick} viewPortSmall={viewPortSize === 'small'} assessment={assess}/>)}
                 </TableBody>
               </Table> 
             </div>;

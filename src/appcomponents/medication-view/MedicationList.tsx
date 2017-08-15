@@ -52,6 +52,7 @@ export default class MedicationList extends React.Component<Props, State>{
               <div style={styles.wrapper as any}>
               {medications.map(medication => {
                 return <Chip
+                          key={medication.id}
                           style={styles.chip}
                         >
                     

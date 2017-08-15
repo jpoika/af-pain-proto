@@ -95,3 +95,14 @@ export const listItemSubTitle = { //intended for h3
 export const selectTagStyle = {
   maxWidth: '200px'
 }
+
+export let appBarTitleStyle = {
+  position: 'relative' as 'relative',
+  left: -40,
+  top: 1
+}
+
+export let appBarIconeStyle = {
+  position: 'relative' as 'relative',
+  left: -20
+}

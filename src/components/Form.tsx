@@ -59,10 +59,11 @@ export default class Form extends React.Component<Props, State>{
       };
     }
 
-    componentWillMount = () => {
+    componentWillMount(){
       var {handleChange} = this.props;
       handleChange(this.state.values);
     }
+    
 
     handleSubmit = (event) => {
       const {submitData,validateData} = this.props;

@@ -2,7 +2,7 @@ import AccountPage from '../../appcomponents/pages/UserSettingsPage';
 import {connect} from 'react-redux';
 import {Validators} from '../../lib/helpers'
 import {updateAccountInfo} from '../../actions';
-import {GenderList,AccountInterface} from '../../res/data/account'
+import {GenderList /*,AccountInterface */} from '../../res/data/account'
 import {assessMoveStep} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';
 
@@ -36,22 +36,22 @@ const validateData = (data) => {
    return {isValid,errors}
 };
 
-const gatherAccountInfo = (userInfo):AccountInterface => {
-  return {
-    firstname: userInfo.firstname,
-    middlename: userInfo.middlename,
-    lastname: userInfo.lastname,
-    gender: userInfo.gender,
-    dob: userInfo.dob
-  }
-}
+// const gatherAccountInfo = (userInfo):AccountInterface => {
+//   console.log(userInfo);
+//   return {
+//     firstname: userInfo.firstname,
+//     middlename: userInfo.middlename,
+//     lastname: userInfo.lastname,
+//     gender: userInfo.gender,
+//     dob: userInfo.dob
+//   }
+// }
 const stateToProps = (state, ownProps) => {
-
+  console.log(state.user);
   return {
-    title: 'Account Settings',
     page: {title: 'Account', subtitle: '', content: ''},
     genders: GenderList,
-    savedAccount: gatherAccountInfo(state.user)
+    savedAccount: state.user
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

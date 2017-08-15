@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin'),
     PathRewriterPlugin = require('webpack-path-rewriter');
+    
 module.exports = {
     entry: [
         'babel-polyfill',
@@ -61,12 +62,11 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({
-          'process.env': {
-            'NODE_ENV': JSON.stringify('production')
+         'process.env': {
+            'NODE_ENV': JSON.stringify('dev')
           },
           '__DEVTOOLS__': true,
-          '__IS_CORDOVA_BUILD__': false,
-          '__CORDOVA_TEST_ONLY__': false
+          '__IS_CORDOVA_BUILD__': false
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),

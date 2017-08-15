@@ -52,10 +52,10 @@ export const nurseSystem = (state = defaultSystem,action) => {
       state = {...state, userHasHighPain: 1};
       break;
     case USER_PROMPT_FOR_NURSE_HIGH_PAIN:
-      state = {...state, userPromptedForPain: 1, dialogStatus: 1};
+      state = {...state, userPromptedForPain: 1};
       break;
     case USER_NURSE_PROMPT_RESET:
-      state = {...state, userPromptedForPain: 0, dialogStatus: 1};
+      state = {...state, userPromptedForPain: 0};
       break;
     case ALERT_NURSE_WITH_STATUS:
       state = {...state,status: action.status}

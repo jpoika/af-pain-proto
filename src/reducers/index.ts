@@ -2,8 +2,8 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import {device} from './device';
 import {appReducer} from 'local-t2-sw-redux';
-import {navigationReducer} from 'local-t2-navigation-redux';
-import {viewReducer} from '../lib/local-t2-view';
+// import {navigationReducer} from 'local-t2-navigation-redux';
+// import {viewReducer} from '../lib/local-t2-view';
 import {notifications, notificationIds} from './notifications';
 import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,messagePrompts} from './messages';
 
@@ -14,7 +14,11 @@ import {
   FLAG_AS_DEAUTHENTICATED,
   SET_USERNAME,UPDATE_ACCOUNT_INFO,
   USER_ENABLE_DO_NOT_DISTURB,
-  USER_DISABLE_DO_NOT_DISTURB
+  USER_DISABLE_DO_NOT_DISTURB,
+  WINDOW_RESIZE,
+  SET_PAGE_TITLE,
+  T2_APP_MESSAGE_CLEAR,
+  T2_APP_MESSAGE_START
 } from '../actions';
 
 
@@ -42,6 +46,21 @@ const defaultUser = {
   dob: null,
   gender: null,
   understands_meds: 0//0: has not specified, 1: not taking meds, 2: Is taking meds and understands, 3: Taking meds and does not understand them.
+}
+
+
+const defaultView = {
+  screen: {
+    width: 500,
+    height: 500
+  },
+  page: {
+    title: 'Welcome'
+  },
+  flash: {
+    message: '',
+    open: false
+  }
 }
 
 const user = (state: any = defaultUser, action: any) => {
@@ -78,7 +97,23 @@ const user = (state: any = defaultUser, action: any) => {
   return state;
 }
 
-
+const view = (state = defaultView, action) => {
+  switch (action.type) {
+    case WINDOW_RESIZE:
+      state = {...state,screen: {...state.screen, width: action.width, height: action.height}};
+      break;
+    case SET_PAGE_TITLE:
+      state = {...state,page: {...state.page, title: action.title}};
+      break;
+    case T2_APP_MESSAGE_START:
+      state = {...state,flash: {message: action.message, open: true}};
+      break;
+    case T2_APP_MESSAGE_CLEAR:
+      state = {...state,flash: {message: '', open: false}};
+      break;
+  }
+  return state;
+}
 
 export const migrations = (state = {}, action) => {
   return state;
@@ -88,15 +123,14 @@ const appHub = combineReducers({
   user,
   device,
   app: appReducer,
-  navigation: navigationReducer,
-  view: viewReducer,
-  bodySections, //TODO remove? (static data)
-  bodySectionIds, //TODO remove? (static data)
+  view,
+  bodySections, //don't persist
+  bodySectionIds, //don't persist
   assessments,
   assessmentIds,
   assessmentSystem,
-  painLevels, //TODO remove? (static data)
-  painLevelIds, //TODO remove? (static data)
+  painLevels, //don't persist
+  painLevelIds, //don't persist
   migrations,
   medications,
   medicationIds,

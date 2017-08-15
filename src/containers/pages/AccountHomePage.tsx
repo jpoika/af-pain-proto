@@ -15,7 +15,6 @@ const getViewPortSize = (state) => {
 
 const stateToProps = (state, ownProps) => {
   return {
-    title: 'Dashboard',
     page: {title: homePage.title, subtitle: 'Pain Proto', content: homePage.content},
     initAssessComplete: typeof state.assessments['1'] !== 'undefined' && state.assessments['1'].isComplete ? true : false,
     viewPortSize: getViewPortSize(state),

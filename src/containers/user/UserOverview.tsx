@@ -1,6 +1,6 @@
 import UserOverview from '../../appcomponents/user/UserOverview';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 
 const getViewPortSize = (state) => {
   const width = state.device.width;
@@ -19,11 +19,14 @@ const stateToProps = (state, ownProps) => {
     viewPortSize: getViewPortSize(state)
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
-    editClick: () => dispatch(push('/main/settings'))
+    editClick: () => {
+      //dispatch(push('/main/settings'))
+      ownProps.history.push('/main/settings');
+    }
   }
 }
-export default connect(stateToProps,dispatchToProps)
+export default withRouter(connect(stateToProps,dispatchToProps)
 
-(UserOverview);
+(UserOverview));

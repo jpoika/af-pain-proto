@@ -31,7 +31,7 @@ export interface State {
 export default class LoginForm extends React.Component<Props, State>{
   constructor (props) {
     super(props);
-    console.log(props.savedAccount);
+  
     this.state = {
       values: {...props.savedAccount},
       errors: {
@@ -58,7 +58,7 @@ export default class LoginForm extends React.Component<Props, State>{
   handleSubmit = (event) => {
     const {validate} = this.props;
     const result = validate(this.state.values);
-    console.log(result);
+
     if(!result.isValid){
       this.setState({
         errors: result.errors
@@ -82,6 +82,12 @@ export default class LoginForm extends React.Component<Props, State>{
         errors: {...this.state.errors,[name]: ''}
       } as any);
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      values: {...nextProps.savedAccount},
+    });
   }
 
   excuseKeyboard = (event) => {

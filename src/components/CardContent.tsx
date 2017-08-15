@@ -6,16 +6,24 @@ export interface Props {
   content: {title: string, content: string, subtitle: string}
   image: string;
   actions: any[];
+  actionClick: (path: string) => void;
 }
 
 export interface State { 
 
 }
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
 export default class CardContent extends React.Component<Props, State> {
     //<CardTitle title={subtitle} />
+    handleActionClick = (path) => {
+      const {actionClick} = this.props;
+      return (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        actionClick(path);
+      }
+    }
+
     render() {
       const {content,image,actions} = this.props;
       let cardHeader = null;
@@ -41,7 +49,7 @@ export default class CardContent extends React.Component<Props, State> {
                       {this.props.children}
                     </CardText>
                     <CardActions>
-                      {actions.map(act => <FlatButton key={act.label} onTouchTap={act.action} label={act.label} />)}
+                      {actions.map(act => <FlatButton key={act.label} onTouchTap={this.handleActionClick(act.action)} label={act.label} />)}
                     </CardActions>
                 </Card>
               );

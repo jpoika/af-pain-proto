@@ -34,7 +34,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
     }
   }
 
-  componentWillReceiveProps = (nextProps)=> {
+  componentWillReceiveProps(nextProps){
 
       this.setState(
         {

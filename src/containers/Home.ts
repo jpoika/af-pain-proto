@@ -13,12 +13,15 @@ const stateToProps = (state, ownProps) => {
     image: homePage.image && !(state.device.width > 1000 || state.device.width > state.device.height)? homePage.image : '',
     
     actions: [
-      {label: 'Get Started', action: completedAssessments(state).length > 0 ? ownProps.pathOnTouchTap('/main/account-home') : ownProps.pathOnTouchTap('/main/assessment-start')}
+      {label: 'Get Started', action: completedAssessments(state).length > 0 ? '/main/account-home' : '/main/assessment-start'}
     ]
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
+     actionClick: (path) => {
+       ownProps.history.push(path);
+     }
   }
 }
 export default connect(stateToProps,dispatchToProps)

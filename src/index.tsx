@@ -1,47 +1,99 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import {compose, createStore,applyMiddleware} from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist'
+import * as localForage from "localforage";
+//import {getPermissions} from './containers/selectors'
+
+import thunk from 'redux-thunk';
+import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Provider from './Provider';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
-require('./res/images/Icon_Drugs_128.png');
-require('./res/images/Icon_Drugs_144.png');
-require('./res/images/Icon_Drugs_152.png');
-require('./res/images/Icon_Drugs_192.png');
-require('./res/images/Icon_Drugs_256.png');
-require('./index.html');
-require('./style.css');
-require('./manifest.json');
-require('./version.json');
-require("file-loader?name=[name].[ext]!./favicon.ico");
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
+import { HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './containers/AppTheme';
+
+import reducer from './reducers';
+//import {watchCurrentLocation,unWatchCurrentLocation,setUserPlatform} from './actions';
+
 injectTapEventPlugin();
+require('./index.html'); //load and emit index.html
+
 
 
 const render = (Component: any) => {
+
+
+  //cordova plugins will be loaded by this point
+  let db = null;
+
+  const thunkArgs = {
+    isCordova: __IS_CORDOVA_BUILD__,
+    platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform.toLowerCase() : 'browser',
+    nativeSettings: __IS_CORDOVA_BUILD__  ? (window as any).cordova.plugins.settings : null,
+    db: db
+  }
+  const store = createStore(
+      reducer,
+      undefined,
+      compose(
+        applyMiddleware(thunk.withExtraArgument(thunkArgs)),
+        autoRehydrate()
+      ) as any
+    );
+
+
+  persistStore(store,{
+    blacklist: ['view','painLevels','painLevelIds','bodySections','bodySectionIds'],
+    storage: localForage,
+    keyPrefix: 'afPainApp:'
+  })
+
+  store.subscribe(() => {
+      console.log(store.getState()); // list entire state of app
+  });
+
+
+  const cordovaPause = () => {
+   
+  }
+
+  const cordovaResume = () => {
+
+
+  }
+
+  if(__IS_CORDOVA_BUILD__){
+    document.addEventListener("pause", cordovaPause, false);
+    document.addEventListener("resume", cordovaResume, false);
+  }
+
+
+
+
     ReactDOM.render(
-        <AppContainer><Component/></AppContainer>,
+        <AppContainer>
+          <Provider store={store}>
+            <HashRouter>
+              <Component />
+            </HashRouter>
+          </Provider>
+        </AppContainer>,
         document.getElementById("spaApp")
     );
 }
-
 if(__IS_CORDOVA_BUILD__){
   document.addEventListener("deviceready", function(){
-    render(Provider); //don't load app until device ready
-  }, false);
 
-} else { //web build
+    // document.addEventListener("menubutton", onMenuKeyDown, false);
 
-  render(Provider);
+       render(App);
+  })
+} else {
+  render(App);
   // Hot Module Replacement API. Only used when running the dev server.
-
   if ((module as any).hot) {
-    (module as any).hot.accept('./Provider', () => {
-      render(Provider)
+    (module as any).hot.accept('./containers/AppTheme', () => {
+      render(App);
     });
   }
 }
-
-
-
-
