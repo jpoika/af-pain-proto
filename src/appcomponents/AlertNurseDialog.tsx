@@ -62,7 +62,7 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     ];
 
     const nurseConfirm = (<div> 
-                               <div>{confirmMessage.message.map(para => <p>{para}</p>)}</div>
+                               <div>{confirmMessage.message.map((para,index) => <p key={index}>{para}</p>)}</div>
                                <div style={flexParentRowStyle as any}>
                                  <RaisedButton style={flexRowItemStyle as any} primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>
                                  <RaisedButton style={flexRowItemStyle as any} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>

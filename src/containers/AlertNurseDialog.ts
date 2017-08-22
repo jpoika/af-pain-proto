@@ -25,6 +25,7 @@ const stateToProps = (state, ownProps) => {
     confirmMessage: getConfirmMessage('nurse_prompt',state)
   }
 }
+
 const dispatchToProps = (dispatch) => {
   return {
     closeNurseDialog: () => {  

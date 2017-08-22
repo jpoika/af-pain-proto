@@ -1,6 +1,7 @@
 import NewPainButton from '../appcomponents/NewPainButton';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
+import {withRouter} from 'react-router-dom';
+
 import {addAssessmentIfNecessary} from '../actions/assessment';
 
 const stateToProps = (state, ownProps) => {
@@ -8,21 +9,22 @@ const stateToProps = (state, ownProps) => {
     initAssessmentComplete: typeof state.assessments['1'] !== 'undefined' && state.assessments['1'].isComplete ? true : false
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
+  console.log(ownProps);
   return {
     newPainClick: (event) => {
         event.preventDefault();
         event.stopPropagation();
         dispatch(addAssessmentIfNecessary('newpain'));
-        dispatch(push('/main/newpain'));
+        ownProps.history.push('/main/newpain');
     },
     initAssessClick: (event) => {
         event.preventDefault();
         event.stopPropagation();
-        dispatch(push('/main/assessment-start'));
+        ownProps.history.push('/main/assessment-start');
     }
   }
 }
-export default connect(stateToProps,dispatchToProps)
+export default withRouter(connect(stateToProps,dispatchToProps)
 
-(NewPainButton);
+(NewPainButton));

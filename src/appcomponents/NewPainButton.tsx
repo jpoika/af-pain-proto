@@ -14,7 +14,7 @@ export interface State {
 
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
-export default class NewPainButton extends React.Component<Props, State> {
+class NewPainButton extends React.Component<Props, State> {
 
     render() {
         const {initAssessmentComplete, newPainClick, initAssessClick, style} = this.props;
@@ -27,3 +27,5 @@ export default class NewPainButton extends React.Component<Props, State> {
         return (<FlatButton style={combinedStyles} onTouchTap={newPainClick} label="New Pain" />);
     }
 }
+
+export default NewPainButton;

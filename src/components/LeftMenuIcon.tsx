@@ -9,7 +9,7 @@ const LeftMenu = () => {
   return (
     <IconMenu
 
-      iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}
+      iconButtonElement={<IconButton><MoreVertIcon color="#ffffff" /></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >

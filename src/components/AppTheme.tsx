@@ -2,10 +2,15 @@
 import * as React from 'react';
 import AppBar from '../containers/AppBar';
 //import BackButton from './BackButton';
+import PersonIcon from 'material-ui/svg-icons/social/person';
 import HomePage from '../containers/Home';
 import InitialAssessWizard from '../containers/InitialAssessWizard';
+import NewPainPage from '../containers/pages/NewPainPage';
 import AccountHome from '../containers/pages/AccountHomePage';
 import AccountEdit from '../containers/pages/AccountEditPage';
+import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
+import AlertNurseDialog from '../containers/AlertNurseDialog';
+import AppSnackBar from './AppSnackBar';
 //import HomeFooter from './HomeFooter';
 // import EulaDialog from '../containers/Eula';
 
@@ -15,6 +20,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
+import FlatButton from 'material-ui/FlatButton';
 // import SnackbarGlobal from '../containers/SnackbarGlobal';
 // import LinearProgress from 'material-ui/LinearProgress';
 //import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
@@ -31,6 +37,20 @@ const muiTheme = getMuiTheme({
   },
 });
 
+
+const rightNurseIcon = (props) => {
+  const {alertNurse} = props;
+  const handleAlertNurse = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    alertNurse();
+  }
+  return (<FlatButton style={{width: '120px',color: '#ffffff',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersonIcon />} >
+           Alert Nurse
+          </FlatButton>);
+};
+
+
 export interface AppPageInterface {
   screen:{width: number, height: number, orientation: string};
   setMainIcon(icon: JSX.Element): void;
@@ -41,11 +61,14 @@ export interface AppPageInterface {
   hideProgress: () => void;
   navigateProgress: (path: string,to_ms?: number) => void;
   progressVisible: boolean;
+
 }
 
 export interface Props {
   setPageTitle(title:string): void;
+  alertNurse: () => void;
   history: any;
+  flashMessage: {message: string, open: boolean};
 }
 
 export interface State {
@@ -191,15 +214,19 @@ class App extends React.Component<Props, State>{
 
 
   render(){
-    
+    const {flashMessage} = this.props;
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>
-                <AppBar leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} />
+                <AppBar leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} rightIcon={rightNurseIcon(this.props)} />
                 <Route exact path="/" render={this.renderRouteComponent(HomePage,{title: 'About Pain Proto'})} />
                 <Route exact path="/main/assessment-start" render={this.renderRouteComponent(InitialAssessWizard,{title: 'Account'})} />
                 <Route exact path="/main/account-home" render={this.renderRouteComponent(AccountHome,{title: 'Dashboard'})} />
                 <Route exact path="/main/settings" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info'})} />
-
+                <Route exact path="/main/newpain" render={this.renderRouteComponent(NewPainPage,{title: 'New Pain'})} />
+                
+                <AppSnackBar {...flashMessage} />
+                <AppSnackBarContainer />
+                <AlertNurseDialog />
             </div>
           </MuiThemeProvider>;
  

@@ -5,7 +5,8 @@ import {appBarTitleStyle, appBarIconeStyle} from './commonStyles';
 const appIcon = require("../res/images/Icon_Drugs_128.png")
 
 export interface Props {
-  leftIcon: JSX.Element,
+  leftIcon: JSX.Element;
+  rightIcon:JSX.Element;
   title: string;
   onTitleClick: (event: any) => void;
 }
@@ -26,12 +27,14 @@ export default class AppTheme extends React.Component<Props, State>{
 
 
   render(){
-    const {title,leftIcon,onTitleClick} = this.props;
+    const {title,leftIcon,onTitleClick,rightIcon} = this.props;
     return <AppBar 
               titleStyle={appBarTitleStyle} 
               iconStyleLeft={appBarIconeStyle}
               title={getTitleIcon(title)} 
               onTitleTouchTap={onTitleClick}
-              iconElementLeft={leftIcon} />;
+              iconElementLeft={leftIcon} 
+              iconElementRight={rightIcon}
+              />;
   }
 }

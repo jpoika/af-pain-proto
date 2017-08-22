@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router-dom';
 
 const BackButton = ({path}) => {
-  return <Link to={path}><IconButton><ArrowBack color="white" /></IconButton></Link>
+  return <Link to={path}><IconButton><ArrowBack color="#ffffff" /></IconButton></Link>
 }
 
 export default BackButton;
