@@ -65,7 +65,7 @@ export default class UserOverview extends React.Component<Props, State>{
               <h3>Are you sure you want to delete this account and erase all of its data?</h3>
           
               </Dialog>
-              <RaisedButton backgroundColor="red" labelColor="white" label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
+              <RaisedButton backgroundColor="red" labelColor="#FFFFFF" label={'Delete Account'} onTouchTap={this.handleDeleteAccount} />
             </span>;
   }
 }

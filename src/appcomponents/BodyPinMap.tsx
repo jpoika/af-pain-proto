@@ -170,7 +170,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     let top = section.row * this.props.gridSize;
     element.setAttribute('id',this.getCellId(section));
     element.setAttribute('class','body-section-cell');
-    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: white; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
+    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: #FFFFFF; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
     this.mapBox.appendChild(element);
 
     element.addEventListener('click', (event) => {

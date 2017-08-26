@@ -7,9 +7,30 @@ import { shallow } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 
 
-const appBarTitleCb = () => {
+const appPageOb = {
+  setPageTitle:() => {
 
+  },
+  screen:{width: 500, height: 600, orientation: 'portrait'},
+  setMainIcon: () => {
+
+  },
+  setTitlePath: () => {
+
+  },
+  history: {},
+  showProgress: () => {
+
+  },
+  hideProgress: () => {
+
+  },
+  navigateProgress: () => {
+
+  },
+  progressVisible: false
 }
+
 const pageOpenCb= () => {
 
 }
@@ -40,7 +61,7 @@ test('Test NotFound Snapshot', () => {
 
   const component = renderer.create(
     <Theme>
-        <Book appBarTitle={appBarTitleCb} pageOpen={pageOpenCb} book={BookItem} isOpen={true} title={"Page Title"} />
+        <Book appPage={appPageOb} pageOpen={pageOpenCb} book={BookItem} isOpen={true} title={"Page Title"} />
     </Theme>
   );
   let tree = component.toJSON();
@@ -51,7 +72,7 @@ test('Test NotFound Snapshot', () => {
 test('Test Enzyme Open Book Has Page', () => {
 
   const wrapper = shallow(
-        <Book appBarTitle={appBarTitleCb} pageOpen={pageOpenCb} book={BookItem} isOpen={true} title={"Page Title"} />
+        <Book appPage={appPageOb} pageOpen={pageOpenCb} book={BookItem} isOpen={true} title={"Page Title"} />
   );
   expect(wrapper.find(BookPage).length).toBe(1);
 
@@ -60,7 +81,7 @@ test('Test Enzyme Open Book Has Page', () => {
 test('Test Enzyme Closed Book Has No Page', () => {
 
   const wrapper = shallow(
-        <Book appBarTitle={appBarTitleCb} pageOpen={pageOpenCb} book={BookItem} isOpen={false} title={"Page Title"} />
+        <Book appPage={appPageOb} pageOpen={pageOpenCb} book={BookItem} isOpen={false} title={"Page Title"} />
   );
   expect(wrapper.find(BookPage).length).toBe(0);
 

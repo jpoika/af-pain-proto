@@ -4,6 +4,7 @@ import {MedicationInterface} from '../../res/data/medication';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import ChipSvgIcon from 'material-ui/svg-icons/image/edit';
+// import {withRouter} from 'react-router-dom';
 
 const styles = {
   chip: {
@@ -26,7 +27,7 @@ export interface Props extends PageProps {
 export interface State {
 
 }
-export default class MedicationList extends React.Component<Props, State>{
+class MedicationList extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
       css: {width: '100%'},
       viewPort: []
@@ -77,3 +78,4 @@ export default class MedicationList extends React.Component<Props, State>{
            </div>;
   }
 }
+export default MedicationList;

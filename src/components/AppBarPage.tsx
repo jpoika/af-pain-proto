@@ -67,7 +67,7 @@ const rightNurseIcon = (props) => {
     event.stopPropagation();
     alertNurse();
   }
-  return (<FlatButton style={{width: '120px',color: 'white',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersonIcon />} >
+  return (<FlatButton style={{width: '120px',color: '#FFFFFF',backgroundColor: 'red'}} onTouchTap={handleAlertNurse} secondary={true} icon={<PersonIcon />} >
            Alert Nurse
           </FlatButton>);
 };

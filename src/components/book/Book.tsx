@@ -4,12 +4,12 @@ import Page from './Page';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Helmet from 'react-helmet';
-
+import {AppPageInterface} from '../AppTheme'
 export interface Props { 
-  appBarTitle(msg: string): any;
+  appPage: AppPageInterface;
   book: any;
   isOpen: boolean;
-  pageOpen(any): void;
+  pageOpen(): void;
   title: string;
 }
 
@@ -41,21 +41,22 @@ export default class Book extends React.Component<Props, State> {
     }
     componentWillMount () {
       const {title} = this.props;
-      this.props.appBarTitle(title);
+      this.props.appPage.setPageTitle(title);
     }
 
     componentWillReceiveProps(nextProps) {
       const {isOpen,title} = nextProps;
 
-      this.props.appBarTitle(title);
+      this.props.appPage.setPageTitle(title);
       this.setState({isOpen});
     }
 
     handlePageClick = (pageIdx) => {
       const {pageOpen} = this.props;
       return (event) => {
+
         this.setState({currentPage: pageIdx, isOpen: true});
-        pageOpen(event);
+        pageOpen();
       }
     }
 

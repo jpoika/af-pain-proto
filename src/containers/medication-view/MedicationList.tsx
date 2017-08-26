@@ -1,6 +1,6 @@
 import MedicationList from '../../appcomponents/medication-view/MedicationList';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
+import {withRouter} from 'react-router-dom';
 
 const getViewPortSize = (state) => {
   const width = state.device.width;
@@ -19,11 +19,13 @@ const stateToProps = (state, ownProps) => {
     viewPortSize: getViewPortSize(state)
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
-    editClick: () => dispatch(push('/main/mtracker'))
+    editClick: () => {
+      ownProps.history.push('/main/mtracker')
+    }
   }
 }
-export default connect(stateToProps,dispatchToProps)
+export default withRouter(connect(stateToProps,dispatchToProps)
 
-(MedicationList);
+(MedicationList));

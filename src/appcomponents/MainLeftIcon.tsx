@@ -87,7 +87,7 @@ const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessC
 
   return (
     <IconMenu
-      iconButtonElement={<IconButton><MenuIcon color={'white'}/></IconButton>}
+      iconButtonElement={<IconButton><MenuIcon color={'#FFFFFF'}/></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
