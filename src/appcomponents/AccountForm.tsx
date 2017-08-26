@@ -9,6 +9,7 @@ import {Transforms} from '../lib/helpers';
 import {flexParentRowStyle,flexRowItemStyle} from '../components/commonStyles';
 import {AccountInterface} from '../res/data/account'
 
+
 export interface Props {
   validate(data: any): {isValid: boolean,errors: any};
   genders: {id: any, name: any}[];
@@ -155,6 +156,7 @@ export default class LoginForm extends React.Component<Props, State>{
             <DatePicker 
                 value={Transforms.msToDate(this.state.values.dob)}
                 floatingLabelText={'Date of Birth'}
+                openToYearSelection={true}
                 locale={'en-US'}
                 firstDayOfWeek={0}
                 maxDate={new Date()}

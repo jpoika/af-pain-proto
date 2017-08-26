@@ -13,7 +13,7 @@ export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DE
 import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
 import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
-import { push } from 'react-router-redux';
+
 import {nextId} from './_helper';
 const messsageNewPain = [
         "You've indicated you are experiencing pain in a new location.", 
@@ -175,11 +175,15 @@ export const assessmentNotificationClick = (data) => {
   return (dispatch, getState) => {
     switch (data.name) {
       case "initial":
-        dispatch(push('/main/assessment-start'));
+        console.log('/main/assessment-start');
+        //TODO replace missing
+        // dispatch(push('/main/assessment-start'));
         break;
       case "reassessment":
         dispatch(addAssessmentIfNecessary('reassessment'));
-        dispatch(push('/main/reassess'));
+        console.log('/main/reassess');
+        //TODO replace missing
+        // dispatch(push('/main/reassess'));
         break;
     }
   }

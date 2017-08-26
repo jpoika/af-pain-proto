@@ -1,6 +1,6 @@
 import Overview from '../appcomponents/assessment/AssessmentOverview';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
+
 import {painCategoryHash} from '../res/data/pain';
 import {assessDelete} from '../actions/assessment';
 const getOveralPainRatings = (assessment,state) => {
@@ -24,7 +24,8 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch) => {
   return {
     deleteAssessment: (assessment) => {
-        dispatch(push('/main/account-home'));
+        console.log('/main/account-home');
+        //dispatch(push('/main/account-home'));
         dispatch(assessDelete(assessment.id));
     }
   }

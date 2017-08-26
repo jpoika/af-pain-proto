@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@types/jest": "^20.0.4",
-    "@types/material-ui": "^0.17.11",
     "@types/node": "^7.0.31",
     "@types/react-test-renderer": "^15.5.2",
     "babel-polyfill": "^6.23.0",
@@ -22,10 +21,9 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.28.0",
-    "local-t2-navigation-redux": "^0.0.32",
     "local-t2-sw-redux": "^0.0.26",
     "localforage": "^1.5.0",
-    "material-ui": "^0.18.3",
+    "material-ui": "^0.19.0",
     "normalizr": "^3.2.3",
     "offline-plugin": "^4.8.1",
     "react": "^15.6.1",
@@ -50,7 +48,7 @@
     "enzyme": "^2.8.2",
     "jest": "^20.0.4",
     "ts-jest": "^20.0.7",
-    "typescript": "^2.3.4",
+    "typescript": "2.3",
     "url-loader": "^0.5.9",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.4.5"

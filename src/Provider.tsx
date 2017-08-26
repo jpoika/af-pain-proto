@@ -1,34 +1,32 @@
-import Theme from './components/Theme';
-import Home from './containers/Home';
-import AccountEdit from './containers/pages/AccountEditPage';
-import ExtrasPage from './containers/pages/ExtrasPage';
-import InitialAssessWizard from './containers/InitialAssessWizard';
-import ReAssessmentPage from './containers/pages/ReAssessmentPage';
-import NewPainPage from './containers/pages/NewPainPage';
-import AccountHome from './containers/pages/AccountHomePage';
-import AssessmentOverviewPage from './containers/pages/AssessmentOverviewPage';
-import MedTrackerPage from './containers/pages/MedTrackerPage';
-import NotificationsDashbord from './containers/NotificationsDashbord';
-import EducationResourcesPage from './containers/pages/EducationResourcesPage';
+// import Theme from './components/Theme';
+// import Home from './containers/Home';
+// import AccountEdit from './containers/pages/AccountEditPage';
+// import ExtrasPage from './containers/pages/ExtrasPage';
+// import InitialAssessWizard from './containers/InitialAssessWizard';
+// import ReAssessmentPage from './containers/pages/ReAssessmentPage';
+// import NewPainPage from './containers/pages/NewPainPage';
+// import AccountHome from './containers/pages/AccountHomePage';
+// import AssessmentOverviewPage from './containers/pages/AssessmentOverviewPage';
+// import MedTrackerPage from './containers/pages/MedTrackerPage';
+// import NotificationsDashbord from './containers/NotificationsDashbord';
+// import EducationResourcesPage from './containers/pages/EducationResourcesPage';
 import {viewActions} from './lib/local-t2-view';
 import {sheduleInitialAssessment} from './actions/assessment';
-import NotFound from './components/NotFound';
-import SplashPage from './components/SplashPage';
-import PageContainer from './containers/Main';
+// import NotFound from './components/NotFound';
+// import SplashPage from './components/SplashPage';
+// import PageContainer from './containers/Main';
 import * as React from 'react';
 
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import {Router, hashHistory} from 'react-router';
-import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
-import {navigationCreateMiddleware} from 'local-t2-navigation-redux';
+// import {Router, hashHistory} from 'react-router';
 import { createStore, applyMiddleware, compose} from 'redux'
 import reducer from './reducers';
-import {syncRoute} from './lib/helpers';
+// import {syncRoute} from './lib/helpers';
 import {windowResize} from './actions/device';
 import {assessmentNotificationClick} from './actions/assessment';
 //import {T2CordovaStorageEngine, BrowserCryptoPromise} from './lib/cordova/crypto/';
-import navigationConfig from './navigationConfig';
+
 import * as localForage from 'localforage'
 import createMigration from 'redux-persist-migrate';
 import LocalNotification from './lib/cordova/local-notifications';
@@ -94,9 +92,7 @@ const actionArgs:CordovaConfiguratorInterface = {
 
 let store = createStore(reducer,
     applyMiddleware(
-        routerMiddleware(hashHistory),
-        thunkMiddleware.withExtraArgument(actionArgs),
-        navigationCreateMiddleware(navigationConfig)
+        thunkMiddleware.withExtraArgument(actionArgs)
       ),
     persistEnhancer as any
   );
@@ -125,41 +121,41 @@ if (__DEVTOOLS__) {
 
 
 
-const quickRoutes = [
+// const quickRoutes = [
 
-];
-
-
-const mainSubRoutes = [
-  syncRoute('settings',AccountEdit),
-  syncRoute('assessment-start',InitialAssessWizard),
-  syncRoute('account-home',AccountHome),
-  syncRoute('mtracker',MedTrackerPage),
-  syncRoute('test-stub',NotificationsDashbord),
-  syncRoute('reassess',ReAssessmentPage),
-  syncRoute('newpain',NewPainPage),
-  syncRoute('resources', EducationResourcesPage),
-  syncRoute('resources/:open', EducationResourcesPage),
-  syncRoute('extras', ExtrasPage),
-  syncRoute('assess-overview/:id', AssessmentOverviewPage)
-
-];
-
-const siteRoutes = [
-
-  {
-    component: Theme,
-    indexRoute: Home,
-    childRoutes: [
-      syncRoute('/',PageContainer, quickRoutes, Home),
-      syncRoute('/main',PageContainer, mainSubRoutes,Home),
-      syncRoute('*',PageContainer,[],NotFound)
-    ]
-  }
-];
+// ];
 
 
-const history = syncHistoryWithStore(hashHistory, store);
+// const mainSubRoutes = [
+//   syncRoute('settings',AccountEdit),
+//   syncRoute('assessment-start',InitialAssessWizard),
+//   syncRoute('account-home',AccountHome),
+//   syncRoute('mtracker',MedTrackerPage),
+//   syncRoute('test-stub',NotificationsDashbord),
+//   syncRoute('reassess',ReAssessmentPage),
+//   syncRoute('newpain',NewPainPage),
+//   syncRoute('resources', EducationResourcesPage),
+//   syncRoute('resources/:open', EducationResourcesPage),
+//   syncRoute('extras', ExtrasPage),
+//   syncRoute('assess-overview/:id', AssessmentOverviewPage)
+
+// ];
+
+// const siteRoutes = [
+
+//   {
+//     component: Theme,
+//     indexRoute: Home,
+//     childRoutes: [
+//       syncRoute('/',PageContainer, quickRoutes, Home),
+//       syncRoute('/main',PageContainer, mainSubRoutes,Home),
+//       syncRoute('*',PageContainer,[],NotFound)
+//     ]
+//   }
+// ];
+
+
+//const history = syncHistoryWithStore(hashHistory, store);
 
 interface MyProps {
   [propName: string]: any;
@@ -202,13 +198,14 @@ export default class AppProvider extends React.Component<MyProps,  MyState>{
   }
 
   render(){
-   if(!this.state.rehydrated){
-     return <Theme><SplashPage /></Theme>
-   }
-   return (
-            <Provider store={store}>
-              <Router history={history} routes={siteRoutes} />
-            </Provider>
-           );
+    return <div>Old provider</div>;
+   // if(!this.state.rehydrated){
+   //   return <Theme><SplashPage /></Theme>
+   // }
+   // return (
+   //          <Provider store={store}>
+   //            <Router history={history} routes={siteRoutes} />
+   //          </Provider>
+   //         );
   }
 }

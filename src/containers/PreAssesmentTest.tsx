@@ -1,6 +1,6 @@
 import PreAssesmentTest from '../appcomponents/PreAssesmentTest';
 import {connect} from 'react-redux';
-import { push,} from 'react-router-redux';
+
 import {assessMarkComplete,assessMoveStep,assessDelete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 const stateToProps = (state, ownProps) => {
@@ -16,16 +16,19 @@ const dispatchToProps = (dispatch, ownProps) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
       dispatch(assessMarkComplete(assessment.id,3));
       dispatch(viewActions.sendMessage("Thank You"));
-      dispatch(push('/main/account-home'));
+      console.log('/main/account-home');
+      //dispatch(push('/main/account-home'));
     },
     noChangeAssessment: (assessment) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
       dispatch(assessMarkComplete(assessment.id,2)); 
       dispatch(viewActions.sendMessage("We're done!")); 
-      dispatch(push('/main/account-home'));
+      console.log('/main/account-home');
+      //dispatch(push('/main/account-home'));
     },
     deleteAssessment: (assessment,returnPath) => {
-      dispatch(push(returnPath));
+      console.log(returnPath);
+      //dispatch(push(returnPath));
       dispatch(assessDelete(assessment.id));  
     }
   }

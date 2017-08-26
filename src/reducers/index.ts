@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux';
 import {device} from './device';
 import {appReducer} from 'local-t2-sw-redux';
 // import {navigationReducer} from 'local-t2-navigation-redux';
@@ -119,7 +118,6 @@ export const migrations = (state = {}, action) => {
   return state;
 };
 const appHub = combineReducers({
-  routing: routerReducer,
   user,
   device,
   app: appReducer,

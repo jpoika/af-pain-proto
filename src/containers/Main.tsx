@@ -11,7 +11,6 @@ import DoneIcon from 'material-ui/svg-icons/action/done';
 
 import categoriesData,{mainMenu} from '../res/data/menus';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 
 import Divider from 'material-ui/Divider';
 import IconMenu from 'material-ui/IconMenu';
@@ -194,7 +193,8 @@ const dispatchToProps = (dispatch,ownProps) => {
       
           dispatch(addAssessmentIfNecessary('newpain'));
         }
-        dispatch(push(path));
+        console.log(path);
+        //dispatch(push(path));
       }
     },
     alertNurse: () => {

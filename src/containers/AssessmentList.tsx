@@ -1,6 +1,6 @@
 import AssessmentList from '../appcomponents/assessment/AssessmentList';
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
+
 import {AssessmentInterface} from '../res/data/assessments';
 
 const getViewPortSize = (state) => {
@@ -26,7 +26,8 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch) => {
   return {
     assessmentClicked: (assessment: AssessmentInterface) => {
-        dispatch(push('/main/assess-overview/' + assessment.id));
+        console.log('/main/assess-overview/' );
+        //dispatch(push('/main/assess-overview/' + assessment.id));
     }
   }
 }

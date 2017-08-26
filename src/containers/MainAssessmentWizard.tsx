@@ -1,7 +1,6 @@
 import AssessWizard from '../appcomponents/MainAssessmentWizard';
 
 import {connect} from 'react-redux';
-import { push } from 'react-router-redux';
 
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 
@@ -36,7 +35,8 @@ const dispatchToProps = (dispatch,ownProps) => {
       if(step >= maxSteps){
         dispatch(assessMarkComplete(assessmentId,1));
         dispatch(viewActions.sendMessage('Assessment Complete'));
-        dispatch(push('/main/account-home'));
+        console.log('/main/account-home');
+        //dispatch(push('/main/account-home'));
       }
     }
   }
