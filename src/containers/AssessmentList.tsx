@@ -1,6 +1,6 @@
 import AssessmentList from '../appcomponents/assessment/AssessmentList';
 import {connect} from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 import {AssessmentInterface} from '../res/data/assessments';
 
 const getViewPortSize = (state) => {
@@ -23,14 +23,13 @@ const stateToProps = (state, ownProps) => {
     isReassessmentDue: state.assessmentSystem.nextDeadline < nowTimestamp
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
+  console.log(ownProps);
   return {
     assessmentClicked: (assessment: AssessmentInterface) => {
-        console.log('/main/assess-overview/' );
-        //dispatch(push('/main/assess-overview/' + assessment.id));
+        ownProps.history.push('/main/assess-overview/' + assessment.id);
     }
   }
 }
-export default connect(stateToProps,dispatchToProps)
-
-(AssessmentList);
+export default withRouter(connect(stateToProps,dispatchToProps)
+(AssessmentList));

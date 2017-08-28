@@ -18,39 +18,42 @@ import reducer from './reducers';
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
 
-
-
-const render = (Component: any) => {
-
-
-  //cordova plugins will be loaded by this point
+function configPromise() {
+  // use desired middlewares
   let db = null;
-
   const thunkArgs = {
     isCordova: __IS_CORDOVA_BUILD__,
     platform: __IS_CORDOVA_BUILD__ ? (window as any).device.platform.toLowerCase() : 'browser',
     nativeSettings: __IS_CORDOVA_BUILD__  ? (window as any).cordova.plugins.settings : null,
     db: db
   }
-  const store = createStore(
-      reducer,
-      undefined,
-      compose(
-        applyMiddleware(thunk.withExtraArgument(thunkArgs)),
-        autoRehydrate()
-      ) as any
-    );
+  return new Promise<any>((resolve, reject) => {
+    try {
+      const store = createStore(
+          reducer,
+          undefined,
+          compose(
+            applyMiddleware(thunk.withExtraArgument(thunkArgs)),
+            autoRehydrate()
+          ) as any
+        );
 
-
-  persistStore(store,{
-    blacklist: ['view','painLevels','painLevelIds','bodySections','bodySectionIds'],
-    storage: localForage,
-    keyPrefix: 'afPainApp:'
-  })
-
-  store.subscribe(() => {
-      console.log(store.getState()); // list entire state of app
+        persistStore(store,{
+            blacklist: ['view','painLevels','painLevelIds','bodySections','bodySectionIds'],
+            storage: localForage,
+            keyPrefix: 'afPainApp:'
+          },
+          () => resolve(store as any)
+        );
+    } catch (e) {
+      reject(e);
+    }
   });
+}
+
+const render = (Component: any) => {
+
+
 
 
   const cordovaPause = () => {
@@ -67,8 +70,11 @@ const render = (Component: any) => {
     document.addEventListener("resume", cordovaResume, false);
   }
 
+  configPromise().then((store) => {
 
-
+    store.subscribe(() => {
+        console.log(store.getState()); // list entire state of app
+    });
 
     ReactDOM.render(
         <AppContainer>
@@ -80,6 +86,7 @@ const render = (Component: any) => {
         </AppContainer>,
         document.getElementById("spaApp")
     );
+  })
 }
 if(__IS_CORDOVA_BUILD__){
   document.addEventListener("deviceready", function(){

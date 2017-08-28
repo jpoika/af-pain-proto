@@ -10,6 +10,7 @@ import AccountHome from '../containers/pages/AccountHomePage';
 import AccountEdit from '../containers/pages/AccountEditPage';
 import MedTrackerPage from '../containers/pages/MedTrackerPage';
 import ReAssessmentPage from '../containers/pages/ReAssessmentPage';
+import AssessmentOverviewPage from '../containers/pages/AssessmentOverviewPage'
 import ExtrasPage from '../containers/pages/ExtrasPage';
 import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
 import EducationResourcesPage from '../containers/pages/EducationResourcesPage';
@@ -246,6 +247,7 @@ class App extends React.Component<Props, State>{
                 <Route exact path="/" render={this.renderRouteComponent(HomePage,{title: 'About Pain Proto'})} />
                 <Route exact path="/main/assessment-start" render={this.renderRouteComponent(InitialAssessWizard,{title: 'Assessment'})} />
                 <Route exact path="/main/account-home" render={this.renderRouteComponent(AccountHome,{title: 'Dashboard'})} />
+                <Route exact path="/main/assess-overview/:id" render={this.renderRouteComponent(AssessmentOverviewPage,{title: 'Overview',leftIcon: iconBackHome, titlePath: homePath})} />
                 <Route exact path="/main/settings" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info',leftIcon: iconBackHome, titlePath: homePath})} />
                 <Route exact path="/main/settings2" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info'})} />
                 <Route exact path="/main/newpain" render={this.renderRouteComponent(NewPainPage,{title: 'New Pain'})} />

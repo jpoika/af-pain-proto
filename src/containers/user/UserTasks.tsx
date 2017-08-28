@@ -2,10 +2,10 @@
 //initAssessComplete: typeof state.assessments['1'] !== 'undefined' && state.assessments['1'].isComplete ? true : false
 //import UserOverview from '../../appcomponents/user/UserOverview';
 import {connect} from 'react-redux';
-
 import UserTasks from '../../appcomponents/user/UserTasks';
 import {addAssessmentIfNecessary} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';
+import {withRouter} from 'react-router-dom';
 
 const getViewPortSize = (state) => {
   const width = state.device.width;
@@ -28,18 +28,16 @@ const stateToProps = (state, ownProps) => {
     reassessmentReady: state.assessmentSystem.nextDeadline < (nowTimestamp - 1000 * 60 * 5) //user can start 5 minutes early
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
     reAssessmentClick: () => {
       dispatch(addAssessmentIfNecessary('reassessment'));
-      console.log('/main/reassess');
-      //dispatch(push('/main/reassess'));
+      ownProps.history.push('/main/reassess');
     },
     initialAssessmentClick:(isComplete) => {
       console.log(isComplete);
       if(!isComplete){
-        console.log('/main/assessment-start');
-        //dispatch(push('/main/assessment-start'));
+        ownProps.history.push('/main/assessment-start');
       }else {
         dispatch(viewActions.sendMessage('Already Complete!'));
       }
@@ -47,6 +45,4 @@ const dispatchToProps = (dispatch) => {
     }
   }
 }
-export default connect(stateToProps,dispatchToProps)
-
-(UserTasks);
+export default withRouter(connect(stateToProps,dispatchToProps)(UserTasks));
