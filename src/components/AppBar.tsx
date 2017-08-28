@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 //import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {appBarTitleStyle, appBarIconeStyle} from './commonStyles';
-const appIcon = require("../res/images/Icon_Drugs_128.png")
+const appIcon = require("../res/images/ui/app-icon-128.png");
 
 export interface Props {
   leftIcon: JSX.Element;
@@ -17,7 +17,7 @@ export interface State {
 const getTitleIcon = (title) => {
   return <div>
            <div style={{position: 'relative',top: 4}} >
-             <img style={{width: 40, display: 'block', float: 'left'}} src={appIcon} />
+             <img style={{position: 'relative', top: 7, width: 40, display: 'block', float: 'left'}} src={appIcon} />
              <div style={{position: 'relative', top: -5, left: 5}}>{title}</div>
            </div>
          </div>;

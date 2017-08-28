@@ -16,6 +16,7 @@ import EducationResourcesPage from '../containers/pages/EducationResourcesPage';
 import AlertNurseDialog from '../containers/AlertNurseDialog';
 import AppSnackBar from './AppSnackBar';
 import BackButton from './BackButton';
+import siteTheme from './customTheme';
 //import HomeFooter from './HomeFooter';
 // import EulaDialog from '../containers/Eula';
 
@@ -29,19 +30,33 @@ import FlatButton from 'material-ui/FlatButton';
 // import SnackbarGlobal from '../containers/SnackbarGlobal';
 // import LinearProgress from 'material-ui/LinearProgress';
 //import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
+const muiTheme = getMuiTheme(siteTheme);
 
-const muiTheme = getMuiTheme({
-  palette: {
-    textColor: '#000000',
-    primary1Color: '#000000',
-    primary2Color: '#1b4583',
-    primary3Color: '#1b4583'
+const styles = {
+  bgDiv: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: 'url(' + require('../res/images/usaf_logo.png') + ') center center',
+    opacity: 0.1,
+    width: '100%',
+    height: '100%',
+    zIndex: -2,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '400px'
   },
-  appBar: {
-    height: 50,
+  wrapper: {
+    overflowY: 'auto'
   },
-});
-
+  content: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexFlow: 'row',
+    height: '100%'
+  },
+};
 
 const rightNurseIcon = (props) => {
   const {alertNurse} = props;
@@ -226,6 +241,7 @@ class App extends React.Component<Props, State>{
 
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>
+                <div style={styles.bgDiv as any} />
                 <AppBar leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} rightIcon={rightNurseIcon(this.props)} />
                 <Route exact path="/" render={this.renderRouteComponent(HomePage,{title: 'About Pain Proto'})} />
                 <Route exact path="/main/assessment-start" render={this.renderRouteComponent(InitialAssessWizard,{title: 'Assessment'})} />
