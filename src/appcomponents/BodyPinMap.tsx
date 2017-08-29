@@ -156,16 +156,11 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
     this.handleRemoveBodySelection(section);
+    if(painLevel.level === 0){
+      this.handleDeletePain(section.id);
+      return;
+    }
     let element = document.createElement('div');
-    // let contentElement = document.createElement('div');
-    // const levelLeftOffset = painLevel.level > 9 ? '0' : '9';
-    // contentElement.setAttribute('style',`color: ${painLevel.color}; font-size: 2.4em; margin: 7px 0px 0px ${levelLeftOffset}px;`);
-    // var painLevelContent = document.createTextNode(painLevel.level + '');
-    // contentElement.appendChild(painLevelContent);
-
-    
-    
-    // element.appendChild(contentElement);
     let left = section.col * this.props.gridSize;
     let top = section.row * this.props.gridSize;
     element.setAttribute('id',this.getCellId(section));
@@ -226,7 +221,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     const {bodyImage,replaceContent,restoreContent} = this.props;
 
     return (
-            <div style={{overflowX: 'auto'}}>
+            <div>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>

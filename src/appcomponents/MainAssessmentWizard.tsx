@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Props as PageProps} from '../components/BasicPage';
-import BodyMap  from '../containers/BodyMap';
+import BodyMapsCombined  from './BodyMapsCombined';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
 import PreAssesmentTest  from '../containers/PreAssesmentTest';
@@ -116,23 +116,15 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Pain Map Front</StepLabel>
                 <StepContent>
-                 <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side='front' assessment={assessment} />
+                 <BodyMapsCombined  replaceContent={replaceContent} restoreContent={restoreContent}  assessment={assessment} />
                  {this.renderStepActions(1)}
-                </StepContent>
-              </Step>
-
-              <Step>
-                <StepLabel>Pain Map Back</StepLabel>
-                <StepContent>
-                 <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side='back' assessment={assessment} />
-                 {this.renderStepActions(2)}
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} onComplete={this.handleNext} step={3} title={'Current Pain Level'} assessment={assessment} categoryId={2} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Current Pain Level'} assessment={assessment} categoryId={2} />
                  
                 </StepContent>
               </Step>
@@ -140,7 +132,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(4)} checkPain={true} onComplete={this.handleNext} step={4} title={'Tolerable Pain Level'} assessment={assessment} categoryId={3} />
+                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} assessment={assessment} categoryId={3} />
                  
                 </StepContent>
               </Step>
@@ -148,14 +140,14 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
-                  <MedicationsList actions={this.renderBackButton(5)} onComplete={this.handleNext} />
+                  <MedicationsList actions={this.renderBackButton(4)} onComplete={this.handleNext} />
                 </StepContent>
               </Step>
               <Step>
                   <StepLabel>Overview</StepLabel>
                   <StepContent>
                   <h2>Is the information below accurate?</h2>
-                  {this.renderStepActions(6)}
+                  {this.renderStepActions(5)}
                   <br /><br />
                   <AssessmentOverview showStartSummary={false} assessment={assessment} />
                   

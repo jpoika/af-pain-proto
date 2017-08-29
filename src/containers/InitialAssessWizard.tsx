@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {assessMoveStep,assessMarkComplete} from '../actions/assessment';
 import {viewActions} from '../lib/local-t2-view';
 
-const maxSteps = 7;
+const maxSteps = 6;
 
 const get_assessment = (id,state) => {
   return state.assessments[id]
