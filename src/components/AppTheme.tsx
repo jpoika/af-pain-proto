@@ -82,7 +82,8 @@ export interface AppPageInterface {
   hideProgress: () => void;
   navigateProgress: (path: string,to_ms?: number) => void;
   progressVisible: boolean;
-
+  // replaceContent: (altContent: JSX.Element) => void;
+  // restoreContent: () => void;
 }
 
 export interface Props {
@@ -98,8 +99,13 @@ export interface State {
   leftIcon: JSX.Element;
   titlePath: string;
   showProgressIndicator: boolean;
+  showAltContent: boolean;
+  altContent: JSX.Element;
 }
 class App extends React.Component<Props, State>{
+
+  public altContentTimeoutId: any;
+
   constructor(props){
     super(props);
     this.state = {
@@ -107,10 +113,32 @@ class App extends React.Component<Props, State>{
       title: props.title,
       leftIcon: <LeftMenuIcon />,
       titlePath: '/',
-      showProgressIndicator: false
+      showProgressIndicator: false,
+      showAltContent: false,
+      altContent: null
     }
   }
 
+  handleReplaceContent = (altContent: any) => {
+    if(altContent){
+      this.setState({
+        showAltContent: true,
+        altContent
+      });
+    }
+
+    this.altContentTimeoutId = setTimeout(() => {
+                                  this.handleRestoreContent();
+                                  clearTimeout(this.altContentTimeoutId)
+                                }, 20000);
+  }
+  handleRestoreContent = () => {
+      clearTimeout(this.altContentTimeoutId)
+      this.setState({
+        showAltContent: false,
+        altContent: null
+      });
+  }
   handleSetMainIcon = (leftIcon: JSX.Element) => {
     this.setState({leftIcon})
   }
@@ -165,6 +193,8 @@ class App extends React.Component<Props, State>{
       hideProgress: this.handleHideProgress,
       navigateProgress: this.handleNavigationProgress,
       progressVisible: this.state.showProgressIndicator
+      // replaceContent: this.handleReplaceContent,
+      // restoreContent: this.handleRestoreContent
     }
   }
 
@@ -225,7 +255,9 @@ class App extends React.Component<Props, State>{
         leftIcon: <LeftMenuIcon />,
         appPage: this.getAppPageObject(),
         titlePath: "/",
-        title: ''
+        title: '',
+        replaceContent: this.handleReplaceContent,
+        restoreContent: this.handleRestoreContent
       };
       extraProps = {...defaultExtra,...extraProps};
       return <Page title={extraProps.title} titlePath={extraProps.titlePath} leftIcon={extraProps.leftIcon} appPage={extraProps.appPage}><Component {...routeProps} {...extraProps} /></Page>;
@@ -239,6 +271,9 @@ class App extends React.Component<Props, State>{
     const homePath = '/main/account-home'
     const iconBackHome = <BackButton path={homePath} />;
     
+    if(this.state.showAltContent){
+      return <MuiThemeProvider muiTheme={muiTheme}>{this.state.altContent}</MuiThemeProvider>
+    }
 
     return <MuiThemeProvider muiTheme={muiTheme}>
             <div>

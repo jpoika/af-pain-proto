@@ -18,6 +18,14 @@ import reducer from './reducers';
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
 
+
+/**
+ * this configuration function returns a promise that won't be resolved until
+ * the persisted data is loaded.
+ *
+ * It is currently being used to prevent the rendering of react components until the data is loaded.
+ */
+
 function configPromise() {
   // use desired middlewares
   let db = null;

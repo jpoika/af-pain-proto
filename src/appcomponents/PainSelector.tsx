@@ -61,7 +61,7 @@ export default class PainSelector extends React.Component<Props, State>{
                 
                 autoWidth={true}
               >
-                {pLevels.map(lvl => <MenuItem value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
+                {pLevels.map((lvl,index) => <MenuItem key={index} value={lvl} primaryText={this.renderSelectItemText(lvl)} />)}
               </SelectField>
             
             <PainExplanationButton restoreContent={restoreContent} replaceContent={replaceContent} />
