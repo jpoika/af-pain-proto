@@ -1,8 +1,7 @@
 import * as React from "react";
-
+// import PainExplanationButton from '../containers/PainExplanationButton';
 import {PainLevelInterface} from '../res/data/pain';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 export interface Props {
   selectPain(painLevel: PainLevelInterface);
@@ -17,7 +16,7 @@ export interface State {
 
 
 
-export default class PainSelector extends React.Component<Props, State>{
+export default class PainRadioSelector extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
       painLevel: null,
       skipNoPain: false
@@ -32,7 +31,7 @@ export default class PainSelector extends React.Component<Props, State>{
 
 
 
-  handleChange = (event, index, value) => {
+  handleChange = (event, value) => {
       const {selectPain} = this.props;
       value && selectPain(value);
   }
@@ -45,7 +44,7 @@ export default class PainSelector extends React.Component<Props, State>{
   }
 
   render(){
-    const {painLevels, /*restoreContent,replaceContent, */skipNoPain} = this.props;
+    const {painLevels, /*restoreContent,replaceContent,*/skipNoPain} = this.props;
     const pLevels = painLevels.filter((v,i) => {
                                       if(skipNoPain && !i){
                                         return false;
@@ -54,17 +53,12 @@ export default class PainSelector extends React.Component<Props, State>{
                                     });
     return <div>
 
-              <SelectField
-                floatingLabelText="Pain Level"
-                value={this.props.painLevel}
-                onChange={this.handleChange}
-                autoWidth={true}
-              >
-                {pLevels.map((lvl,index) => <MenuItem key={index} value={lvl} primaryText={this.renderSelectItemText(lvl,this.props.painLevel)} />)}
-              </SelectField>
+    <RadioButtonGroup name="painSelect" onChange={this.handleChange} valueSelected={this.props.painLevel} >
+      {pLevels.map((lvl,index) => <RadioButton style={{minHeight: 30}} key={index} value={lvl} label={this.renderSelectItemText(lvl,this.props.painLevel)} />)}
+    </RadioButtonGroup>
             
             
-           
+            
       </div>
 
    }

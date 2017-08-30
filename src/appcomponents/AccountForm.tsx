@@ -97,7 +97,7 @@ export default class LoginForm extends React.Component<Props, State>{
 
   render(){
     const {genders} = this.props;
-
+    console.log(this.state.values.dob);
     return (
       <div>
       <form onSubmit={this.handleSubmit}>

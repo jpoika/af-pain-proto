@@ -67,7 +67,7 @@ export namespace Transforms {
 
   export const msToDate = (input, ifInvalid = null) => {
 
-    if(Validators.isNumeric(input) && input >= 0){
+    if(Validators.isNumeric(input)){
       let tmpdate = new Date();
       tmpdate.setTime(input);
       return tmpdate;
