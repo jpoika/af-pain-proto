@@ -59,7 +59,7 @@ export const makeMedication = (
                   name: string, 
                   amount: number = 0,
                   amountUnitId: number = 0, 
-                  routeId: number = 0,
+                  routeId: number = null,
                   frequency: number = 0,
                   frequencyUnit: string = '',
                   medicationId: number = null

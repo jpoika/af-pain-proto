@@ -116,10 +116,11 @@ export default class MedicationItem extends React.Component<Props, State>{
             <form onSubmit={this.handleSubmit}>
             <div>
               <SelectField
-                floatingLabelText="Method of intake"
+                floatingLabelText="Intake Method"
                 errorText={this.state.errors.routeId} 
-                value={this.state.values.routeId}
+                value={values.routeId}
                 onChange={this.handleSelectChange('routeId')}
+                floatingLabelStyle={{color: '#3A7BAD'}}
               >
                 {routes.map((ru) => {
                   return <MenuItem key={ru.id} value={ru.id} primaryText={ru.name} />
@@ -132,6 +133,7 @@ export default class MedicationItem extends React.Component<Props, State>{
                 floatingLabelText="Medication name"
                 errorText={errors.medicationId} 
                 value={values.medicationId}
+                floatingLabelStyle={{color: '#3A7BAD'}}
                 onChange={this.handleSelectChange('medicationId')}
                 fullWidth={true}
               >

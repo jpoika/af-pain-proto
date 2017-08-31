@@ -31,9 +31,9 @@ export default {
 
     alternateTextColor: '#FFFFFF',
     canvasColor: fullWhite,
-    borderColor: fade('#BDBDBD', 0.3),
-    disabledColor: fade('#BDBDBD', 0.3),
-    pickerHeaderColor: fade('#BDBDBD', 0.12),
-    clockCircleColor: fade('#BDBDBD', 0.12)
+    borderColor: fade('#121212', 0.3),
+    disabledColor: fade('#121212', 0.3),
+    pickerHeaderColor: fade('#121212', 0.12),
+    clockCircleColor: fade('#121212', 0.12)
   }
 };

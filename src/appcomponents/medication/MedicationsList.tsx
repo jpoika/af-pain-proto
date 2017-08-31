@@ -73,7 +73,9 @@ export default class MedicationsList extends React.Component<Props, State>{
                             <RaisedButton label="Yes" onTouchTap={this.handleMedicationStatus(2)} />
                             &nbsp;&nbsp;
                             <RaisedButton label="No" onTouchTap={this.handleMedicationStatus(3)} />
-                        </div>;
+                            &nbsp;&nbsp;
+                            <RaisedButton label="Back" onTouchTap={() => this.moveToStep(1)} />
+                          </div>;
 
       if(this.state.step === 0){
         return  <div>
