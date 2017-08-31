@@ -13,9 +13,13 @@ const validateData = (data) => {
        case 'id':
          acc[propName] = '';
          break;
+       case 'medicationId':
+      // case 'frequencyUnit':
+         acc[propName] = !Validators.isNumeric(data[propName]) || ! data[propName]  ? 'Required.' : '';
+
        case 'name':
       // case 'frequencyUnit':
-         acc[propName] = !Validators.isString(data[propName]) || !data[propName].length ? 'Required.' : '';
+         //acc[propName] = !Validators.isString(data[propName]) || !data[propName].length ? 'Required.' : '';
          break;
          /*
        case 'amount':
@@ -46,7 +50,8 @@ const stateToProps = (state, ownProps) => {
   return {
     frequencyUnits,
     routes,
-    amountUnits
+    amountUnits,
+    medicationchoices: state.medicationchoiceIds.map(mid => state.medicationchoices[mid])
   }
 }
 const dispatchToProps = (dispatch) => {

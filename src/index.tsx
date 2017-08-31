@@ -15,6 +15,12 @@ import App from './containers/AppTheme';
 import reducer from './reducers';
 //import {watchCurrentLocation,unWatchCurrentLocation,setUserPlatform} from './actions';
 
+//TODO migrations
+/**
+ * medications
+ * medicationIds
+ */
+
 injectTapEventPlugin();
 require('./index.html'); //load and emit index.html
 
@@ -47,7 +53,7 @@ function configPromise() {
         );
 
         persistStore(store,{
-            blacklist: ['view','painLevels','painLevelIds','bodySections','bodySectionIds'],
+            blacklist: ['medicationchoiceIds','medicationchoices','view','painLevels','painLevelIds','bodySections','bodySectionIds'],
             storage: localForage,
             keyPrefix: 'afPainApp:'
           },

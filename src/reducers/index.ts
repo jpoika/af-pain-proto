@@ -20,7 +20,6 @@ import {
   T2_APP_MESSAGE_START
 } from '../actions';
 
-
 import {
   assessments,
   assessmentIds,
@@ -31,7 +30,8 @@ import {
   assessmentSystem,
   newPainBodySections
 } from './assessments';
-import {medications, medicationIds} from './medication';
+
+import {medications, medicationIds, medicationchoices, medicationchoiceIds} from './medication';
 import {nurseSystem} from './nurse';
 const defaultUser = {
   status: 0,
@@ -141,7 +141,9 @@ const appHub = combineReducers({
   messages, 
   messageIds,
   messagePromptIds,
-  messagePrompts
+  messagePrompts,
+  medicationchoices,
+  medicationchoiceIds
 });
 const rootReducer = (state, action) => {
   // if (action.type === 'RESET') return action.stateFromLocalStorage

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {MedicationInterface} from '../../res/data/medication';
-import TextField from 'material-ui/TextField';
+//import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -16,6 +16,7 @@ export interface Props{
   routes: {id: number, name: string, description: string}[],
   amountUnits: {id: number, name: string, description: string}[],
   frequencyUnits: string[]
+  medicationchoices: MedicationInterface[]
 }
 
 export interface State{
@@ -109,11 +110,10 @@ export default class MedicationItem extends React.Component<Props, State>{
   }
 
   render(){
-    const {medication,routes} = this.props;
+    const {medication,routes,medicationchoices} = this.props;
     const {values,errors} = this.state;
     return <Paper style={{padding: '5px', width: '97%',marginBottom: '15px',marginLeft: '10px'}}>
             <form onSubmit={this.handleSubmit}>
-            <div>
             <div>
               <SelectField
                 floatingLabelText="Method of intake"
@@ -127,16 +127,19 @@ export default class MedicationItem extends React.Component<Props, State>{
                 
               </SelectField>
             </div>
-            <TextField 
-                  floatingLabelText={'Perscription name'} 
-                  hintText={''} 
-                  multiLine={false}
-                  name='name'
-                  value={values.name}
-           
-                  onChange={this.handleChange}
-                  //ref={(input) => { (this as any).textInput = input; }}
-                  errorText={errors.name} />
+            <div>
+              <SelectField
+                floatingLabelText="Medication name"
+                errorText={errors.medicationId} 
+                value={values.medicationId}
+                onChange={this.handleSelectChange('medicationId')}
+                fullWidth={true}
+              >
+                {medicationchoices.map((med) => {
+                  return <MenuItem key={med.id} value={med.id} primaryText={med.name} />
+                })}
+                
+              </SelectField>
             </div>
             <div style={floatParentRowStyle as any}>
               <div style={buttonBasic}>

@@ -36,12 +36,18 @@ export default class BodyMapsCombined extends React.Component<Props, State>{
       }
   }
 
+  handleViewToggle =  (event) => {
+    this.setState({
+      view: this.state.view === 'front' ? 'back' : 'front'
+    });
+  }
+
   render(){
     const {replaceContent,restoreContent,assessment} = this.props;
     const {view} = this.state;
+    const buttonLabel = view === 'front' ? "View Back" : "View Front";
     return <div style={{position: 'relative'}}>
-           <RaisedButton style={{position: 'absolute', left: 0}} onTouchTap={this.handleViewSelect('front')} label="Front" />
-           <RaisedButton style={{position: 'absolute', right: 0}} onTouchTap={this.handleViewSelect('back')} label="Back" />
+           <RaisedButton style={{position: 'absolute', left: 0}} onTouchTap={this.handleViewToggle} label={buttonLabel} />
            {view === 'front' && <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side={'front'} assessment={assessment} />}
            {view === 'back' && <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side={'back'} assessment={assessment} />}
     </div>;
