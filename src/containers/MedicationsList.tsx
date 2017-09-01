@@ -1,7 +1,7 @@
 import MedicationsList from '../appcomponents/medication/MedicationsList';
 import {connect} from 'react-redux';
 import {userSetMedicationStatus} from '../actions/'
-import {alertNurseBackground} from '../actions/nurse'
+import {alertNurseBackground, alertNurseMedQuestion} from '../actions/nurse'
 
 
 const stateToProps = (state, ownProps) => {
@@ -14,6 +14,9 @@ const dispatchToProps = (dispatch) => {
     setMedicationStatus: (status: number) => {
       if(status === 3){
         dispatch(alertNurseBackground());
+      }
+      if(status === 2){
+         dispatch(alertNurseMedQuestion());
       }
       dispatch(userSetMedicationStatus(status));
     }

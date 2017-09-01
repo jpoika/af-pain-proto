@@ -1,6 +1,7 @@
 import {PainLevelInterface, PainLevelsObject} from '../res/data/pain';
 import {AssessmentInterface} from '../res/data/assessments';
 import {messagePromptUser} from './messages'
+import {sendMessage} from './';
 export const ALERT_NURSE = 'T2.ALERT_NURSE';
 export const ALERT_NURSE_START = 'T2.ALERT_NURSE_START';
 export const ALERT_NURSE_END = 'T2.ALERT_NURSE_END';
@@ -81,6 +82,15 @@ export const alertNurseHighPain = () => {
 
 export const alertNurseNewPain = () => {
   return alertNurseWithStatus(6);
+}
+
+export const alertNurseMedQuestion = () => {
+
+
+  return (dispatch, getState) => {
+    dispatch(sendMessage('Contacting Nurse'));
+    dispatch(alertNurseWithStatus(7));
+  }
 }
 
 export const userHasHighPain = () => {
