@@ -82,20 +82,12 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
   handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
     this.handleRemoveBodySelection(section);
     let element = document.createElement('div');
-    let contentElement = document.createElement('div');
-    const levelLeftOffset = painLevel.level > 9 ? '0' : '6';
-    contentElement.setAttribute('style',`color: ${painLevel.color}; font-size: 1.3em; margin: 1px 0px 0px ${levelLeftOffset}px;`);
-    var painLevelContent = document.createTextNode(painLevel.level + '');
-    contentElement.appendChild(painLevelContent);
 
-    
-    
-    element.appendChild(contentElement);
     let left = section.col * this.props.gridSize;
     let top = section.row * this.props.gridSize;
     element.setAttribute('id',this.getCellId(section));
     element.setAttribute('class','body-section-cell');
-    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: #FFFFFF; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
+    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: ${painLevel.color}; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
     this.mapBox.appendChild(element);
 
     element.addEventListener('click', (event) => {
@@ -134,7 +126,7 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
     const {bodyImage} = this.props;
 
     return (
-            <div style={{overflow: 'auto'}}>
+            <div>
               <div style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>

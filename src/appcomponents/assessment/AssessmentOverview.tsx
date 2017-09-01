@@ -60,12 +60,12 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     }
     let painMapFront = (<div style={regionStyles}>
                           <h3>Pain Map Front</h3>
-                          <BodyPinMapShow gridSize={25} side='front' assessment={assessment}  />
+                          <BodyPinMapShow gridSize={15} side='front' assessment={assessment}  />
                         </div>);
 
     let painMapBack = (<div style={regionStyles}>
                         <h3>Pain Map Back</h3>
-                        <BodyPinMapShow gridSize={25} side='back' assessment={assessment}  />
+                        <BodyPinMapShow gridSize={15} side='back' assessment={assessment}  />
                       </div>);
 
 
