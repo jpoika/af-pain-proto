@@ -17,7 +17,9 @@ import {
   WINDOW_RESIZE,
   SET_PAGE_TITLE,
   T2_APP_MESSAGE_CLEAR,
-  T2_APP_MESSAGE_START
+  T2_APP_MESSAGE_START,
+  REDIRECT_TO,
+  REDIRECT_CLEAR
 } from '../actions';
 
 import {
@@ -59,6 +61,10 @@ const defaultView = {
   flash: {
     message: '',
     open: false
+  },
+  redirect: {
+    path: '',
+    method: 'push'
   }
 }
 
@@ -97,6 +103,7 @@ const user = (state: any = defaultUser, action: any) => {
 }
 
 const view = (state = defaultView, action) => {
+  let redirect: any = {};
   switch (action.type) {
     case WINDOW_RESIZE:
       state = {...state,screen: {...state.screen, width: action.width, height: action.height}};
@@ -109,6 +116,14 @@ const view = (state = defaultView, action) => {
       break;
     case T2_APP_MESSAGE_CLEAR:
       state = {...state,flash: {message: '', open: false}};
+      break;
+    case REDIRECT_TO:
+      redirect = {...state.redirect, path: action.path};
+      state = {...state,redirect: redirect};
+      break;
+    case REDIRECT_CLEAR:
+      redirect = {...state.redirect, path: ''};
+      state = {...state,redirect: redirect}
       break;
   }
   return state;

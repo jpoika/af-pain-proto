@@ -1,6 +1,6 @@
 import Overview from '../appcomponents/assessment/AssessmentOverview';
 import {connect} from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 import {painCategoryHash} from '../res/data/pain';
 import {assessDelete} from '../actions/assessment';
 const getOveralPainRatings = (assessment,state) => {
@@ -21,15 +21,21 @@ const stateToProps = (state, ownProps) => {
     viewPortSmall: state.device.width < 1200
   }
 }
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch, ownProps) => {
   return {
     deleteAssessment: (assessment) => {
-        console.log('/main/account-home');
-        //dispatch(push('/main/account-home'));
+        
+        ownProps.history.push('/main/account-home');
         dispatch(assessDelete(assessment.id));
+    },
+
+    editAssessment: (assessment) => {
+        if(assessment.type === 'newpain'){
+          ownProps.history.push('/main/newpain');
+        } else {
+          ownProps.history.push('/main/assessment-start');
+        }
     }
   }
 }
-export default connect(stateToProps,dispatchToProps)
-
-(Overview);
+export default withRouter(connect(stateToProps,dispatchToProps)(Overview));

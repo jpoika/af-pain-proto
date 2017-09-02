@@ -18,6 +18,7 @@ import AlertNurseDialog from '../containers/AlertNurseDialog';
 import AppSnackBar from './AppSnackBar';
 import BackButton from './BackButton';
 import siteTheme from './customTheme';
+import Redirector from '../containers/Redirector';
 //import HomeFooter from './HomeFooter';
 // import EulaDialog from '../containers/Eula';
 
@@ -84,6 +85,7 @@ export interface AppPageInterface {
   progressVisible: boolean;
   // replaceContent: (altContent: JSX.Element) => void;
   // restoreContent: () => void;
+  sendMessage: (message: string) => void;
 }
 
 export interface Props {
@@ -91,6 +93,7 @@ export interface Props {
   alertNurse: () => void;
   history: any;
   flashMessage: {message: string, open: boolean};
+  sendMessage: (message: string) => void;
 }
 
 export interface State {
@@ -163,6 +166,10 @@ class App extends React.Component<Props, State>{
     
   }
 
+  handleSendMessage = (message: string) => {
+    this.props.sendMessage(message);
+  }
+
   handleShowProgress = (to_ms = 2000) => {
     this.setState({
       showProgressIndicator: true,
@@ -192,7 +199,8 @@ class App extends React.Component<Props, State>{
       showProgress: this.handleShowProgress,
       hideProgress: this.handleHideProgress,
       navigateProgress: this.handleNavigationProgress,
-      progressVisible: this.state.showProgressIndicator
+      progressVisible: this.state.showProgressIndicator,
+      sendMessage: this.handleSendMessage
       // replaceContent: this.handleReplaceContent,
       // restoreContent: this.handleRestoreContent
     }
@@ -276,23 +284,29 @@ class App extends React.Component<Props, State>{
     }
 
     return <MuiThemeProvider muiTheme={muiTheme}>
+
             <div>
+                <Redirector />
                 <div style={styles.bgDiv as any} />
                 <AppBar leftIcon={this.state.leftIcon} onTitleClick={this.handleTitleClick} rightIcon={rightNurseIcon(this.props)} />
-                <Route exact path="/" render={this.renderRouteComponent(HomePage,{title: 'About Pain Proto'})} />
-                <Route exact path="/main/assessment-start" render={this.renderRouteComponent(InitialAssessWizard,{title: 'Assessment'})} />
-                <Route exact path="/main/account-home" render={this.renderRouteComponent(AccountHome,{title: 'Dashboard'})} />
-                <Route exact path="/main/assess-overview/:id" render={this.renderRouteComponent(AssessmentOverviewPage,{title: 'Overview',leftIcon: iconBackHome, titlePath: homePath})} />
-                <Route exact path="/main/settings" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info',leftIcon: iconBackHome, titlePath: homePath})} />
-                <Route exact path="/main/settings2" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info'})} />
-                <Route exact path="/main/newpain" render={this.renderRouteComponent(NewPainPage,{title: 'New Pain'})} />
-                <Route exact path="/main/mtracker" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker',leftIcon: iconBackHome, titlePath: homePath})} />
-                <Route exact path="/main/reassess" render={this.renderRouteComponent(ReAssessmentPage,{title: 'Reassessment',leftIcon: iconBackHome, titlePath: homePath})} />
-                <Route exact path="/main/resources" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
-                <Route exact path="/main/resources/:open" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
-                
-                <Route exact path="/main/extras" render={this.renderRouteComponent(ExtrasPage,{title: 'Extras'})} />
 
+                <Route exact path="/main/assessment-start" render={this.renderRouteComponent(InitialAssessWizard,{title: 'Assessment'})} />
+                <Route exact path="/main/newpain" render={this.renderRouteComponent(NewPainPage,{title: 'New Pain'})} />
+                <div  style={{padding: 10}}>
+                  <Route exact path="/" render={this.renderRouteComponent(HomePage,{title: 'About Pain Proto'})} />
+
+                  <Route exact path="/main/account-home" render={this.renderRouteComponent(AccountHome,{title: 'Dashboard'})} />
+                  <Route exact path="/main/assess-overview/:id" render={this.renderRouteComponent(AssessmentOverviewPage,{title: 'Overview',leftIcon: iconBackHome, titlePath: homePath})} />
+                  <Route exact path="/main/settings" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info',leftIcon: iconBackHome, titlePath: homePath})} />
+                  <Route exact path="/main/settings2" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info'})} />
+                  
+                  <Route exact path="/main/mtracker" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker',leftIcon: iconBackHome, titlePath: homePath})} />
+                  <Route exact path="/main/reassess" render={this.renderRouteComponent(ReAssessmentPage,{title: 'Reassessment',leftIcon: iconBackHome, titlePath: homePath})} />
+                  <Route exact path="/main/resources" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
+                  <Route exact path="/main/resources/:open" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
+                  
+                  <Route exact path="/main/extras" render={this.renderRouteComponent(ExtrasPage,{title: 'Extras'})} />
+                </div>
                 <AppSnackBar {...flashMessage} />
                 <AppSnackBarContainer />
                 <AlertNurseDialog />

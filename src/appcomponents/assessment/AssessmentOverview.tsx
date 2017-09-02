@@ -14,6 +14,7 @@ export interface Props{
   viewPortSmall: boolean;
   deleteAssessment(assessment: AssessmentInterface): void;
   showStartSummary?: boolean;
+  editAssessment: (assessment: AssessmentInterface) => boolean;
 }
 
 export interface State{
@@ -49,11 +50,14 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     });
   }
   render(){
-    const {assessment,deleteAssessment,viewPortSmall,showStartSummary} = this.props;
+    const {assessment,deleteAssessment,editAssessment,viewPortSmall,showStartSummary} = this.props;
     
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";
     let regionStyles = {};
+
+
+    let editAssessmentButton = <RaisedButton primary={true} label="Edit" onTouchTap={() => editAssessment(assessment)} />;
 
     if(!viewPortSmall){
       regionStyles['float'] = 'left';
@@ -80,8 +84,8 @@ export default class AssessmentOverview extends React.Component<Props, State>{
     let noChangeSummary = (<div><h2>No Change in Pain Levels</h2></div>);
 
     let startedSummary = (<div>
-                              <h2>This Assessment is incomplete</h2>
-                              {assessment.type === 'newpain' && <RaisedButton label="Delete" onTouchTap={() => deleteAssessment(assessment)} />}
+                              <h2>This Assessment is incomplete </h2>
+                              {editAssessmentButton} &nbsp; &nbsp; {assessment.type === 'newpain' && <RaisedButton label="Delete" onTouchTap={() => deleteAssessment(assessment)} />} 
                           </div>);
 
     const displaySummary = assessment.status > 0 || showStartSummary;

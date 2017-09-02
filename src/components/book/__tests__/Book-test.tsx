@@ -28,7 +28,10 @@ const appPageOb = {
   navigateProgress: () => {
 
   },
-  progressVisible: false
+  progressVisible: false,
+  sendMessage: (message: string) => {
+
+  }
 }
 
 const pageOpenCb= () => {

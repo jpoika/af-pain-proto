@@ -11,6 +11,7 @@ export interface Props{
   onComplete?(): any;
   actions?: JSX.Element;
   understands_meds: number; //understands_meds
+  pageView: boolean;
 }
 
 export interface State{
@@ -19,15 +20,16 @@ export interface State{
 
 export default class MedicationsList extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
-      step: -1,
+      step: 0,
       actions: null,
-      onComplete: () => {}
+      onComplete: () => {},
+      pageView: false
   };
 
   constructor (props) {
     super(props);
     this.state = {
-      step: 0
+      step: this.props.step
     }
   }
 
@@ -74,7 +76,7 @@ export default class MedicationsList extends React.Component<Props, State>{
                             &nbsp;&nbsp;
                             <RaisedButton label="No" onTouchTap={this.handleMedicationStatus(3)} />
                             &nbsp;&nbsp;
-                            <RaisedButton label="Back" onTouchTap={() => this.moveToStep(1)} />
+                            {!this.props.pageView && <RaisedButton label="Back" onTouchTap={() => this.moveToStep(1)} />}
                           </div>;
 
       if(this.state.step === 0){
@@ -95,7 +97,7 @@ export default class MedicationsList extends React.Component<Props, State>{
       if(this.state.step === 2){
         return  <div>
                 {questionMedsUnderstand}
-               {!additionalActions && <div style={{clear: 'both'}}>
+               {/* !additionalActions && <div style={{clear: 'both'}}>
                 <RaisedButton 
                           disableTouchRipple={true}
                           disableFocusRipple={true}
@@ -105,7 +107,7 @@ export default class MedicationsList extends React.Component<Props, State>{
                 </RaisedButton>
 
                 {additionalActions}
-              </div>}
+              </div> */}
              </div>;
       }
   }

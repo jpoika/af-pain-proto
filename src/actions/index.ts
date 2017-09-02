@@ -11,6 +11,8 @@ export const T2_APP_MESSAGE_START = 'T2.APP_MESSAGE_START';
 export const T2_APP_MESSAGE_CLEAR = 'T2.APP_MESSAGE_CLEAR';
 export const WINDOW_RESIZE = 'T2.WINDOW_RESIZE';
 export const SET_PAGE_TITLE = 'T2.SET_PAGE_TITLE';
+export const REDIRECT_TO = 'T2.REDIRECT_TO';
+export const REDIRECT_CLEAR = 'T2.REDIRECT_CLEAR';
 
 export const USER_SET_MEDICATION_STATUS = 'T2.USER_SET_MEDICATION_STATUS';
 
@@ -78,6 +80,19 @@ export const userEnableDoNotDisturb = () => {
 export const userDisableDoNotDisturb = () => {
   return {
     type: USER_DISABLE_DO_NOT_DISTURB
+  }
+}
+
+export const redirectTo = (path, method: string = 'push') => {
+  return {
+    type: REDIRECT_TO,
+    path,
+    method
+  }
+}
+export const clearRedirect = () => {
+  return {
+    type: REDIRECT_CLEAR
   }
 }
 
