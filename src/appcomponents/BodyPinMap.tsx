@@ -102,23 +102,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     const section = this.handleResolveBodySection(row, col);
     return !section || section.isBlank;
   }
-/*
-  addToGridMap = (row, col) => {
-   
-    this.gridMap[this.getCellId(row, col)] = [row, col];
- 
-    
-    let element = document.createElement('div');
-    var newContent = document.createTextNode(Object.keys(this.gridMap).reduce((acc, propName) =>{
-     let cell = this.gridMap[propName];
-      acc += "'" + this.getCellId(cell[0],cell[1]) + "', ";
-      return acc;
-    } ,''));
-    this.tempEl.innerHTML = "";
-    element.appendChild(newContent);
-    this.tempEl.appendChild(newContent); 
-  }
-*/
+
   getCellId = (section: BodySectionInterface) => {
     return 'cell_body_' + section.id;
   }
@@ -187,7 +171,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   componentDidMount(){
     const {painMarkings} = this.props;
-
+    console.log('bpm componentDidMount');
+    console.log(painMarkings);
     painMarkings.map(({section, painLevel}) => {
      this.handleAddBodySelection(section,painLevel)
     });
@@ -195,6 +180,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   componentDidUpdate(prevProps, prevState){
     const {painMarkings} = this.props;
+    console.log('bpm componentDidUpdate');
+    console.log(painMarkings);
     painMarkings.map(({section, painLevel}) => {
        this.handleAddBodySelection(section,painLevel)
     });

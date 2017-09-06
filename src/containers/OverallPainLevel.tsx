@@ -35,6 +35,7 @@ const stateToProps = (state, ownProps) => {
   return {
     painLevel: getSavedPain(assessmentId,painCategoryId,state),
     isSaved: isSaved(assessmentId,painCategoryId,state),
+    selectorType: ownProps.selectorType
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

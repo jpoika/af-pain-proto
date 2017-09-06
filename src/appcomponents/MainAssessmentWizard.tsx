@@ -4,6 +4,9 @@ import BodyMapsCombined  from './BodyMapsCombined';
 import OverallPainLevel  from '../containers/OverallPainLevel';
 import MedicationsList  from '../containers/MedicationsList';
 import PreAssesmentTest  from '../containers/PreAssesmentTest';
+import BodyPinMapShow  from '../containers/BodyPinMapShow';
+
+
 import {AssessmentInterface} from '../res/data/assessments';
 import {
   Step,
@@ -114,7 +117,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
                 </StepContent>
               </Step>
               <Step>
-                <StepLabel>Pain Map Front</StepLabel>
+                <StepLabel>Pain Map</StepLabel>
                 <StepContent>
                  <BodyMapsCombined  replaceContent={replaceContent} restoreContent={restoreContent}  assessment={assessment} />
                  {this.renderStepActions(1)}
@@ -124,15 +127,22 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Current Pain Level'} assessment={assessment} categoryId={2} />
-                 
+                 <OverallPainLevel selectorType={'dropdown'} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={2} title={'Current Pain Level'} assessment={assessment} categoryId={2}>
+                     <div>(Current Pain Locations)</div>
+                     <div style={{float: 'left',width: 150}}>
+                       <BodyPinMapShow gridSize={10} side='front' assessment={assessment}  />
+                     </div>
+                     <div style={{float: 'left',width: 150}}>
+                       <BodyPinMapShow gridSize={10} side='back' assessment={assessment}  />
+                     </div>
+                 </OverallPainLevel>
                 </StepContent>
               </Step>
 
               <Step>
                 <StepLabel>Tolerable Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} assessment={assessment} categoryId={3} />
+                 <OverallPainLevel selectorType={'dropdown'} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(3)} checkPain={true} onComplete={this.handleNext} step={3} title={'Tolerable Pain Level'} assessment={assessment} categoryId={3} />
                  
                 </StepContent>
               </Step>

@@ -7,6 +7,8 @@ const getOveralPainRatings = (assessment,state) => {
     return Object.keys(assessment.painLevels).map((painCategoryId) => {
 
           let painLevelId = assessment.painLevels[painCategoryId];
+          console.log(painCategoryId);
+          console.log(painCategoryHash);
           let category = painCategoryHash[painCategoryId];
           return {
             category: category,
@@ -15,6 +17,7 @@ const getOveralPainRatings = (assessment,state) => {
     });
 }
 const stateToProps = (state, ownProps) => {
+  console.log(ownProps.assessment.type);
   return {
     assessment: ownProps.assessment,
     overalPainRatings: getOveralPainRatings(ownProps.assessment,state),
@@ -32,7 +35,9 @@ const dispatchToProps = (dispatch, ownProps) => {
     editAssessment: (assessment) => {
         if(assessment.type === 'newpain'){
           ownProps.history.push('/main/newpain');
-        } else {
+        } else if (assessment.type === 'reassessment'){
+          ownProps.history.push('/main/reassess');
+        } else if(assessment.type === 'initial'){
           ownProps.history.push('/main/assessment-start');
         }
     }

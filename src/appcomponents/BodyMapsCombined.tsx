@@ -1,5 +1,5 @@
 import * as React from "react";
-import BodyMap  from '../containers/BodyMap';
+import BodyPinMap  from '../containers/BodyPinMap';
 import {AssessmentInterface} from '../res/data/assessments'
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -48,8 +48,8 @@ export default class BodyMapsCombined extends React.Component<Props, State>{
     const buttonLabel = view === 'front' ? "View Back" : "View Front";
     return <div style={{position: 'relative'}}>
            <RaisedButton style={{position: 'absolute', left: 0}} onTouchTap={this.handleViewToggle} label={buttonLabel} />
-           {view === 'front' && <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side={'front'} assessment={assessment} />}
-           {view === 'back' && <BodyMap replaceContent={replaceContent} restoreContent={restoreContent} side={'back'} assessment={assessment} />}
+           {view === 'front' && <BodyPinMap replaceContent={replaceContent} restoreContent={restoreContent} side={'front'} assessment={assessment} />}
+           {view === 'back' && <BodyPinMap replaceContent={replaceContent} restoreContent={restoreContent} side={'back'} assessment={assessment} />}
     </div>;
   }
 }

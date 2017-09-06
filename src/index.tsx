@@ -116,10 +116,10 @@ const render = (Component: any) => {
       });
   });
 
-  setTimeout(() => {
+  // setTimeout(() => {
 
-    store.dispatch(redirectTo('/main/reassess/ruddy'));
-  }, 5000);
+  //   store.dispatch(redirectTo('/main/reassess/ruddy'));
+  // }, 5000);
     
     store.subscribe(() => {
         console.log(store.getState()); // list entire state of app

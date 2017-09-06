@@ -42,7 +42,7 @@ export const makePainLevel = (id: number, level: number, title: string, image:st
 }
 
 export const painCategoryHash = {
-  '1': 'Current Pain',
+  '2': 'Current Pain',
   '3': 'Tolerable Pain'
 }
 

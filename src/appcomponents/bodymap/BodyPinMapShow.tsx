@@ -52,7 +52,7 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
   }
 
   getCellId = (section: BodySectionInterface) => {
-    return 'cell_body_' + section.id;
+    return 'cell_body_show' + section.id;
   }
 
   handleRemoveBodySelection = (section:BodySectionInterface) => {
@@ -61,13 +61,9 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
     if(element){
         //older ie doesn't suppor remove
         if(typeof element.remove=='function'){
-           //If support  is found 
-           console.log("remove supported")
-            element.remove();
+           element.remove();
         }
         else{
-          //If not
-          console.log("IE remove")
            element.parentElement.removeChild(element);
        }
       

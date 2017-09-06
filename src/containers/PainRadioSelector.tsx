@@ -1,4 +1,4 @@
-import PainSelector from '../appcomponents/PainSelector';
+import PainSelector from '../appcomponents/PainRadioSelector';
 import {connect} from 'react-redux';
 
 

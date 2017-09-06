@@ -193,7 +193,6 @@ export const sheduleInitialAssessment = () => {
   let now = new Date();//
   let minutes_from_now = new Date(now.getTime() + 1*60*1000);
   return (dispatch,getState) => {
-    console.log('dispatching assessmentSchedule');
        dispatch(scheduleNotification(
           "Initial Pain Assessment",
           "Welcome! When you're ready please begin your initial assessment.",
@@ -204,7 +203,7 @@ export const sheduleInitialAssessment = () => {
 }
 export const scheduleReassessmentDeadline = (deadline: Date = null) => {
   let now = new Date();//
-  let finalDeadline = deadline || new Date(now.getTime() + 60*60*1000);
+  let finalDeadline = deadline || new Date(now.getTime() + 2*60*1000);
   return {
     type: ASSESSMENT_NEXT_REASSESS_DEADLINE,
     deadline: finalDeadline.getTime()
@@ -213,7 +212,7 @@ export const scheduleReassessmentDeadline = (deadline: Date = null) => {
 
 export const sheduleReassessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 60*60*1000);
+  let minutes_from_now = new Date(now.getTime() + 2*60*1000);
   return (dispatch,getState) => {
        dispatch(scheduleReassessmentDeadline(minutes_from_now));
        dispatch(scheduleNotification(

@@ -1,4 +1,5 @@
 import PainSelector from '../containers/PainSelector';
+import PainRadioSelector from '../containers/PainRadioSelector';
 import {PainLevelInterface} from '../res/data/pain';
 import RaisedButton from 'material-ui/RaisedButton';
 import {AssessmentInterface} from '../res/data/assessments';
@@ -17,6 +18,7 @@ export interface Props {
   checkPain?: boolean;
   replaceContent(content: any): void;
   restoreContent(): void;
+  selectorType?: string;
 }
 
 export interface State {
@@ -31,7 +33,8 @@ export default class OverallPain extends React.Component<Props, State>{
       step: -1,
       actions: null,
       onComplete: () => {},
-      checkPain: false
+      checkPain: false,
+      selectorType: 'dropdown'
   };
 
   constructor(props){
@@ -62,14 +65,19 @@ export default class OverallPain extends React.Component<Props, State>{
     if(actions){
       additionalActions = actions;
     }
-    console.log(categoryId);
+    
+    let painSelector = <PainSelector skipNoPain={categoryId === 3} restoreContent={restoreContent} replaceContent={replaceContent}  selectPain={this.handleSelectPain} painLevel={painLevel} />;
+    if(this.props.selectorType !== 'dropdown'){
+      painSelector = <PainRadioSelector skipNoPain={categoryId === 3} restoreContent={restoreContent} replaceContent={replaceContent}  selectPain={this.handleSelectPain} painLevel={painLevel} />;
+    }
     return <div>
               <h1 style={{color: isSaved ? painLevel.color : 'black'}}>{title}: {isSaved && painLevel.level}</h1>
               {isSaved && <h3 style={{color: painLevel.color}}>{painLevel.description}</h3>}
               {!isSaved && <h3>Select a Pain Level Below</h3>}
               {/*<img src={require("../res/images/scale_top.jpg")} width="400" />*/}
-              <PainSelector skipNoPain={categoryId === 3} restoreContent={restoreContent} replaceContent={replaceContent}  selectPain={this.handleSelectPain} painLevel={painLevel} />
-              <div style={{margin: '12px 0'}}>
+              {painSelector}
+              {this.props.children}
+              <div style={{margin: '12px 0',clear: 'both'}}>
                      <RaisedButton 
                               label={additionalActions ? 'Next' : 'Save'}
                               disableTouchRipple={true}

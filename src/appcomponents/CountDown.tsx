@@ -44,7 +44,6 @@ export default class CountDown extends React.Component<Props, State>{
 
   handleTick = () => {
     const data = this.calculateCountdown();
-    console.log(data);
     this.setState({ 
       minutesDisplay: data[1],
       secondsDisplay: data[0]
@@ -53,7 +52,7 @@ export default class CountDown extends React.Component<Props, State>{
   handleTimeout = () => {
     const {onComplete} = this.props;
     clearInterval(this.interval);
-    console.log('handle Timeout called');
+
     onComplete();
   }
 

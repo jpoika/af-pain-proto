@@ -44,13 +44,13 @@ export default class AssessmentOverview extends React.Component<Props, State>{
       return <div key={index}>
                 <h3>{rating.category}</h3>
                 <span style={{fontSize: '2em',fontWeight: 'bolder',color: painLevel.color}}>{painLevel.title}</span> 
-                &nbsp;&nbsp;<span style={{fontSize: '1.2em'}}>{this.truncate(painLevel.description)}</span>
+                &nbsp;&nbsp;<span style={{fontSize: '1.2em',color: painLevel.color}}>{this.truncate(painLevel.description)}</span>
                 <PainExplanationButton top={6} restoreContent={restoreContent} replaceContent={replaceContent} />
               </div>;
     });
   }
   render(){
-    const {assessment,deleteAssessment,editAssessment,viewPortSmall,showStartSummary} = this.props;
+    const {assessment,deleteAssessment,editAssessment/*,viewPortSmall*/,showStartSummary} = this.props;
     
     const completedOn = assessment.isComplete && Validators.isNumeric(assessment.completedOn) ? this.handleDateFormat(assessment.completedOn) : 'In Progress';
     const assessmentType = typeHash[assessment.type] || "Unknown";
@@ -59,23 +59,13 @@ export default class AssessmentOverview extends React.Component<Props, State>{
 
     let editAssessmentButton = <RaisedButton primary={true} label="Edit" onTouchTap={() => editAssessment(assessment)} />;
 
-    if(!viewPortSmall){
+    //if(!viewPortSmall){
       regionStyles['float'] = 'left';
-    }
-    let painMapFront = (<div style={regionStyles}>
-                          <h3>Pain Map Front</h3>
-                          <BodyPinMapShow gridSize={15} side='front' assessment={assessment}  />
-                        </div>);
-
-    let painMapBack = (<div style={regionStyles}>
-                        <h3>Pain Map Back</h3>
-                        <BodyPinMapShow gridSize={15} side='back' assessment={assessment}  />
-                      </div>);
+    //}
 
 
 
     let painRatings =  (<div>
-                            <h2>Pain Ratings</h2>
                             {this.renderPainRatings()}
                           </div>);
 
@@ -99,14 +89,20 @@ export default class AssessmentOverview extends React.Component<Props, State>{
                     </div>;
 
     return <div>
+              <h1>{assessmentType}</h1>
               <div style={regionStyles}>
-                <h1>{assessmentType}</h1>
                 {displaySummary && summary}
                 {assessment.status < 2 && painRatings}
               </div>
-
-              {painMapFront}
-              {painMapBack}
+              <div style={regionStyles}>
+                <h3>Pain Map</h3>
+                <div style={{float: 'left'}}>
+                  <BodyPinMapShow gridSize={10} side='front' assessment={assessment}  />
+                </div>
+                <div style={{float: 'left'}}>
+                  <BodyPinMapShow gridSize={10} side='back' assessment={assessment}  />
+                </div>
+              </div>
             </div>;
   }
 }

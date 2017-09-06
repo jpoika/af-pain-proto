@@ -1,7 +1,7 @@
 import * as React from "react";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import PainSelector from '../containers/PainSelector';
+import PainRadioSelector from '../containers/PainRadioSelector';
 import {PainLevelInterface} from '../res/data/pain';
 import {BodySectionInterface} from '../res/data/body';
 import PainExplanationButton from '../containers/PainExplanationButton';
@@ -103,7 +103,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
           contentStyle={customContentStyle}
           autoScrollBodyContent={true}
         >
-         <PainSelector restoreContent={restoreContent} replaceContent={replaceContent} painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
+         <PainRadioSelector restoreContent={restoreContent} replaceContent={replaceContent} painLevel={this.props.painLevel} selectPain={this.handleSelect} /> 
         </Dialog>
       </div>
     );
