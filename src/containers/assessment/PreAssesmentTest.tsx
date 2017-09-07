@@ -1,8 +1,8 @@
-import PreAssesmentTest from '../appcomponents/PreAssesmentTest';
+import PreAssesmentTest from '../../appcomponents/assessment/PreAssesmentTest';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {assessMarkComplete,assessMoveStep,assessDelete} from '../actions/assessment';
-import {viewActions} from '../lib/local-t2-view';
+import {assessMarkComplete,assessMoveStep,assessDelete} from '../../actions/assessment';
+import {viewActions} from '../../lib/local-t2-view';
 const stateToProps = (state, ownProps) => {
   //const lastPath = state.navigation.paths.last ? state.navigation.paths.last.pathname : null;
   return {

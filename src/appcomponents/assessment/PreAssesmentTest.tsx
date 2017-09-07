@@ -1,6 +1,6 @@
 import * as React from "react";
 import RaisedButton from 'material-ui/RaisedButton';
-import {AssessmentInterface} from '../res/data/assessments'
+import {AssessmentInterface} from '../../res/data/assessments'
 export interface Props{
   assessment: AssessmentInterface;
   skipAssessment(assessment: AssessmentInterface): void;

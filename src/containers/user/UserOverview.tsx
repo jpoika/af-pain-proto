@@ -22,7 +22,6 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch,ownProps) => {
   return {
     editClick: () => {
-      //dispatch(push('/main/settings'))
       ownProps.history.push('/main/settings');
     }
   }

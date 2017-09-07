@@ -171,24 +171,7 @@ const makeAssessmentData = (name) => {
     name
   }
 }
-export const assessmentNotificationClick = (data) => {
-  return (dispatch, getState) => {
-    switch (data.name) {
-      case "initial":
-        console.log('/main/assessment-start');
-        //TODO replace missing
-        // dispatch(push('/main/assessment-start'));
-        break;
-      case "reassessment":
-        dispatch(addAssessmentIfNecessary('reassessment'));
-        console.log('/main/reassess');
-        //TODO replace missing
-        // dispatch(push('/main/reassess'));
-        break;
-    }
-  }
 
-}
 export const sheduleInitialAssessment = () => {
   let now = new Date();//
   let minutes_from_now = new Date(now.getTime() + 1*60*1000);
@@ -201,6 +184,7 @@ export const sheduleInitialAssessment = () => {
       ));
   }
 }
+
 export const scheduleReassessmentDeadline = (deadline: Date = null) => {
   let now = new Date();//
   let finalDeadline = deadline || new Date(now.getTime() + 2*60*1000);
