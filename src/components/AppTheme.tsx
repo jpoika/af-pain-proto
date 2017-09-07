@@ -301,7 +301,10 @@ class App extends React.Component<Props, State>{
                   <Route exact path="/main/settings2" render={this.renderRouteComponent(AccountEdit,{title: 'Edit Info'})} />
                   
                   <Route exact path="/main/mtracker" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker',leftIcon: iconBackHome, titlePath: homePath})} />
-                  <Route exact path="/main/reassess" render={this.renderRouteComponent(ReAssessmentPage,{title: 'Reassessment',leftIcon: iconBackHome, titlePath: homePath})} />
+                  <Route exact path="/main/mtracker2" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker'})} />
+
+
+                  <Route exact path="/main/reassess" render={this.renderRouteComponent(ReAssessmentPage,{title: 'Reassessment'})} />
                   <Route exact path="/main/resources" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
                   <Route exact path="/main/resources/:open" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />
                   

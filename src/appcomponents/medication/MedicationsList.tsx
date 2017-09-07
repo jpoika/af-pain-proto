@@ -88,9 +88,9 @@ export default class MedicationsList extends React.Component<Props, State>{
         return <div>
                   <MedicationManager />
                   <div>
-                      <RaisedButton label="Next" onTouchTap={() => this.moveToStep(2)} />
+                      <RaisedButton label={!this.props.pageView ? 'Next' : 'Save'} onTouchTap={() => this.moveToStep(2)} />
                       &nbsp;&nbsp;
-                      <RaisedButton label="Back" onTouchTap={() => this.moveToStep(0)} />
+                      {!this.props.pageView && <RaisedButton label="Back" onTouchTap={() => this.moveToStep(0)} />}
                    </div>
                </div>;
       }
