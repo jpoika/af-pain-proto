@@ -1,7 +1,7 @@
-import MedicationsList from '../appcomponents/medication/MedicationsList';
+import MedicationsList from '../../appcomponents/medication/MedicationsList';
 import {connect} from 'react-redux';
-import {userSetMedicationStatus} from '../actions/'
-import {alertNurseBackground, alertNurseMedQuestion} from '../actions/nurse'
+import {userSetMedicationStatus} from '../../actions/'
+import {alertNurseBackground, alertNurseMedQuestion} from '../../actions/nurse'
 
 
 const stateToProps = (state, ownProps) => {

@@ -3,7 +3,7 @@ import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 import NewPainButton from '../../containers/NewPainButton';
 import AssessmentList from '../../containers/assessment/AssessmentList';
 import UserOverview from '../../containers/user/UserOverview';
-import MedicationList from '../../containers/medication-view/MedicationList';
+import MedicationList from '../../containers/medication/MedicationListShow';
 import UserTasks from '../../containers/user/UserTasks';
 
 export interface Props extends PageProps{

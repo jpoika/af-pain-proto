@@ -1,7 +1,7 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
-import MedicationsList from '../../containers/MedicationsList';
-import {AppPageInterface} from '../../components/AppTheme'
+import MedicationsList from '../../containers/medication/MedicationsList';
+import {AppPageInterface} from '../../components/AppTheme';
 export interface Props extends PageProps {
   appPage: AppPageInterface;
 }

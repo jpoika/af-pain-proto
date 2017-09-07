@@ -1,9 +1,9 @@
-import MedicationItem from '../appcomponents/medication/MedicationItemEdit';
-import {MedicationInterface, frequencyUnits, amountUnits, routes} from '../res/data/medication';
+import MedicationItem from '../../appcomponents/medication/MedicationItemEdit';
+import {MedicationInterface, frequencyUnits, amountUnits, routes} from '../../res/data/medication';
 import {connect} from 'react-redux';
-import {medicationEdit} from '../actions/medication';
-import {Validators} from '../lib/helpers'
-import {viewActions} from '../lib/local-t2-view';
+import {medicationEdit} from '../../actions/medication';
+import {Validators} from '../../lib/helpers'
+import {viewActions} from '../../lib/local-t2-view';
 
 const validateData = (data) => {
    let isValid = true;

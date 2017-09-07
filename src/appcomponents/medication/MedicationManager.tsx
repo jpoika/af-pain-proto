@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {MedicationInterface} from '../../res/data/medication';
-import MedicationItemEdit from '../../containers/MedicationItemEdit';
-//import MedicationQuestions from '../../appcomponents/medication/MedicationQuestions';
+import MedicationItemEdit from '../../containers/medication/MedicationItemEdit';
 import MedicationItemView from './MedicationItemView';
-//import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import ChipSvgIcon from 'material-ui/svg-icons/content/add-circle';

@@ -4,7 +4,7 @@ import AccountContainer  from '../../containers/pages/AccountEditPage';
 
 import BodyMapsCombined  from '../bodymap/BodyMapsCombined';
 import OverallPainLevel  from '../../containers/OverallPainLevel';
-import MedicationsList  from '../../containers/MedicationsList';
+import MedicationsList  from '../../containers/medication/MedicationsList';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {

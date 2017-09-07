@@ -2,7 +2,7 @@ import * as React from "react";
 import {Props as PageProps} from '../../components/BasicPage';
 import BodyMapsCombined  from '../bodymap/BodyMapsCombined';
 import OverallPainLevel  from '../../containers/OverallPainLevel';
-import MedicationsList  from '../../containers/MedicationsList';
+import MedicationsList  from '../../containers/medication/MedicationsList';
 import PreAssesmentTest  from '../../containers/PreAssesmentTest';
 import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';

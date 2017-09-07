@@ -1,4 +1,4 @@
-import MedicationList from '../../appcomponents/medication-view/MedicationList';
+import MedicationList from '../../appcomponents/medication/MedicationListShow';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
