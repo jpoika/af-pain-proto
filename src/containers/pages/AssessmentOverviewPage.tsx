@@ -31,8 +31,7 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch, ownProps) => {
   return {
     deleteAssessment: (assessment) => {
-        console.log('/main/account-home');
-        //dispatch(push('/main/account-home'));
+        ownProps.history.push('/main/account-home');
         dispatch(assessDelete(assessment.id));
     }
   }

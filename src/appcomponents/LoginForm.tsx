@@ -44,7 +44,7 @@ export default class LoginForm extends React.Component<Props, State>{
   handleSubmit = (event) => {
     const {validate} = this.props;
     const result = validate(this.state.values);
-    console.log(result);
+
     if(!result.isValid){
       this.setState({
         errors: result.errors

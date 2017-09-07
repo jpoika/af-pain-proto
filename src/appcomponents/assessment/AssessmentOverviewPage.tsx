@@ -1,6 +1,6 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
-import AssessmentOverview from '../../containers/AssessmentOverview';
+import AssessmentOverview from '../../containers/assessment/AssessmentOverview';
 import {AssessmentInterface} from '../../res/data/assessments';
 interface Props extends PageProps {
   assessment: AssessmentInterface;

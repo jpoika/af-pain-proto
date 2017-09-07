@@ -1,5 +1,5 @@
 import * as React from "react"; 
-import BodyPinMapShow  from '../../containers/BodyPinMapShow';
+import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import {AssessmentInterface, typeHash} from '../../res/data/assessments';
 import {Formats,Validators} from '../../lib/helpers';
 import {PainLevelInterface} from '../../res/data/pain';

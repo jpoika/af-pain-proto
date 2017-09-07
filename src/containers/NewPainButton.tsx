@@ -10,7 +10,6 @@ const stateToProps = (state, ownProps) => {
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
-  console.log(ownProps);
   return {
     newPainClick: (event) => {
         event.preventDefault();

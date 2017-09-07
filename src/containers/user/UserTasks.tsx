@@ -35,7 +35,6 @@ const dispatchToProps = (dispatch,ownProps) => {
       ownProps.history.push('/main/reassess');
     },
     initialAssessmentClick:(isComplete) => {
-      console.log(isComplete);
       if(!isComplete){
         ownProps.history.push('/main/assessment-start');
       }else {

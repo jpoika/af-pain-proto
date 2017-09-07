@@ -4,7 +4,7 @@ import AppBar from '../containers/AppBar';
 //import BackButton from './BackButton';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import HomePage from '../containers/Home';
-import InitialAssessWizard from '../containers/InitialAssessWizard';
+import InitialAssessWizard from '../containers/assessment/InitialAssessWizard';
 import NewPainPage from '../containers/pages/NewPainPage';
 import AccountHome from '../containers/pages/AccountHomePage';
 import AccountEdit from '../containers/pages/AccountEditPage';
