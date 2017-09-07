@@ -15,7 +15,7 @@ import {
 import {arrayPushUnique} from './_helpers';
 
 const defaultSystem = {
-  status: 0, // 0: no active alert, 1: waiting for response, 2: nurse acknowledge, 3: alert timeout
+  status: 0, // 0: no active alert, 1: waiting for response, 2: Nurse Alerted, 3: alert timeout
   messages: {},
   messageIds: [],
   userPromptedForPain: 0, // 0: no active pain alert , 1: user has been prompted

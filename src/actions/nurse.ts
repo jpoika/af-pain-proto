@@ -1,6 +1,6 @@
 import {PainLevelInterface, PainLevelsObject} from '../res/data/pain';
 import {AssessmentInterface} from '../res/data/assessments';
-import {messagePromptUser} from './messages'
+import {messagePromptUser, closePrompt} from './messages'
 import {sendMessage} from './';
 export const ALERT_NURSE = 'T2.ALERT_NURSE';
 export const ALERT_NURSE_START = 'T2.ALERT_NURSE_START';
@@ -19,6 +19,9 @@ export const SET_USER_HIGH_PAIN_TRUE = 'T2.SET_USER_HIGH_PAIN_TRUE';
 export const SET_USER_HIGH_PAIN_FALSE = 'T2.SET_USER_HIGH_PAIN_FALSE';
 
 import {nextId} from './_helper';
+
+let nurseAlertPromptTimeout;
+
 const messsageIntollerablePain = [
         "You've indicated you are experiencing intollerable pain.", 
         "Would you like to speak to a nurse?"
@@ -27,7 +30,7 @@ const tmpSimulatedContact = () => {
   return new Promise<any>((res,rej) => {
       setTimeout(() => {
         res(recieveNurseMessage("On my way"));
-      },4000)
+      },1000)
   });
 
 }
@@ -122,6 +125,7 @@ export const checkForUserHighPain = (painLevel: PainLevelInterface, assessment: 
 }
 
 export const alertNurseDialogueOpen = () => {
+  nurseAlertPromptTimeout && clearTimeout(nurseAlertPromptTimeout);
   const prompt = messagePromptUser('global_nurse_allert','nurse_prompt',0,'Are you sure you would like to contact the nurse?');
   return (dispatch,getState) => {
     dispatch(clearNurseAlert());
@@ -155,6 +159,7 @@ export const alertNurseTimeout = () => {
 }
 
 
+
 export const alertNurse = () => {
   return function(dispatch,getState,xtraTest){
     console.log(xtraTest);
@@ -162,6 +167,10 @@ export const alertNurse = () => {
     return tmpSimulatedContact().then((action) => {
         dispatch(action)
         dispatch(alertNurseEnd())
+        nurseAlertPromptTimeout && clearTimeout(nurseAlertPromptTimeout);
+        nurseAlertPromptTimeout = setTimeout(() => {
+          dispatch(closePrompt('nurse_prompt'));
+        },3000);
         return true;
     }).catch((e) => {
         dispatch(systemMessage('Could not contact nurse. Please try again.'));

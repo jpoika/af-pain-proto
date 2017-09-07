@@ -1,6 +1,5 @@
 import * as React from "react";
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done';
@@ -53,13 +52,6 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
   render(){
 
     const {open,status,confirmMessage} = this.props;
-    const actions = [
-      <FlatButton
-        label="Close"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />
-    ];
 
     const nurseConfirm = (<div> 
                                <div>{confirmMessage.message.map((para,index) => <p key={index}>{para}</p>)}</div>
@@ -73,12 +65,11 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
               title="Alert Nurse"
               modal={false}
               open={open}
-              actions={actions}
               onRequestClose={this.handleClose}
             >
               {status === 0 && nurseConfirm}
               {status === 1 && <div> Contacting Nurse <CircularProgress /> </div>}
-              {status === 2 && <div> Nurse Acknowledge <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
+              {status === 2 && <div> Nurse Alerted <DoneIcon style={styles.largeIcon} color={'green'} /> </div>}
               {status === 3 && <div> Request Timeout <ErrorIcon /> </div>}
 
           
