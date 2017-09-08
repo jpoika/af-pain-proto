@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {assessMoveStep,assessMarkComplete} from '../../actions/assessment';
 import {withRouter} from 'react-router-dom';
 import {viewActions} from '../../lib/local-t2-view';
+import {makeAssessment} from '../../res/data/assessments';
 const maxSteps = 6;
 
 const get_or_create_current_assessment = (state,type) => {
@@ -18,7 +19,9 @@ const get_or_create_current_assessment = (state,type) => {
 
 const stateToProps = (state, ownProps) => {
   let assessment = get_or_create_current_assessment(state,ownProps.type);
-
+  if(ownProps.type && ownProps.type !== 'initial'){
+    assessment = makeAssessment(0,'',ownProps.type);
+  }
   return {
     title: 'Reassessment',
     page: {title: 'Reassessment', subtitle: 'Pain Proto', content: ''},

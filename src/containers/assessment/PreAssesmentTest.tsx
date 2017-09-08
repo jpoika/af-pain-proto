@@ -14,14 +14,14 @@ const dispatchToProps = (dispatch, ownProps) => {
   return {
     skipAssessment: (assessment,lastStepIdx) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
-      dispatch(assessMarkComplete(assessment.id,3));
+      dispatch(assessMarkComplete(assessment.id,3)); //TODO shouldn't be able to call with null assessment
       dispatch(viewActions.sendMessage("Thank You"));
 
       ownProps.history.push('/main/account-home');
     },
     noChangeAssessment: (assessment) => {
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment.id))
-      dispatch(assessMarkComplete(assessment.id,2)); 
+      dispatch(assessMarkComplete(assessment.id,2)); //TODO shouldn't be able to call with null assessment
       dispatch(viewActions.sendMessage("We're done!")); 
 
       ownProps.history.push('/main/account-home');

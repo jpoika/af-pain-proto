@@ -3,7 +3,7 @@ import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import {AssessmentInterface, typeHash} from '../../res/data/assessments';
 import {Formats,Validators} from '../../lib/helpers';
 import {PainLevelInterface} from '../../res/data/pain';
-import PainExplanationButton from '../../containers/PainExplanationButton';
+import PainExplanationButton from '../../containers/pain/inputs/PainExplanationButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 export interface Props{

@@ -106,10 +106,11 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       break;
     case ASSESSMENT_EDIT:
       state = {...state,[action.assessment.id]: action.assessment};
+      break;
     case ASSESSMENT_DELETE:
       delete state[action.assessmentId];
       state = {...state};
-    break;
+      break;
   }
   return state;
 }

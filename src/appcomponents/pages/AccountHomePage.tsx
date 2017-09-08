@@ -1,6 +1,6 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
-import NewPainButton from '../../containers/NewPainButton';
+import NewPainButton from '../../containers/pain/inputs/NewPainButton';
 import AssessmentList from '../../containers/assessment/AssessmentList';
 import UserOverview from '../../containers/user/UserOverview';
 import MedicationList from '../../containers/medication/MedicationListShow';

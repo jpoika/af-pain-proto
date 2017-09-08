@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Props as PageProps} from '../../components/BasicPage';
 import BodyMapsCombined  from '../bodymap/BodyMapsCombined';
-import OverallPainLevel  from '../../containers/OverallPainLevel';
+import OverallPainLevel  from '../../containers/pain/OverallPainLevel';
 import MedicationsList  from '../../containers/medication/MedicationsList';
 import PreAssesmentTest  from '../../containers/assessment/PreAssesmentTest';
 import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';

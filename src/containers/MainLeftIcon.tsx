@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import MainLeftIcon from '../appcomponents/MainLeftIcon';
 import {withRouter} from 'react-router-dom';
 import {mainMenu} from '../res/data/menus';
-//import {setPageTitle} from '../actions';
 
 const stateToProps = (state,ownProps) => {
   return {
@@ -19,7 +18,13 @@ const dispatchToProps = (dispatch,ownProps) => {
         event.preventDefault();
         ownProps.history.push(path);
       }
-    }
+    },
+    newPainClick: (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        //dispatch(addAssessmentIfNecessary('newpain'));
+        ownProps.history.push('/main/newpain');
+    },
   }
 }
 

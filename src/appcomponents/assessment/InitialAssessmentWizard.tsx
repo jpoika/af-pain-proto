@@ -3,7 +3,7 @@ import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 import AccountContainer  from '../../containers/pages/AccountEditPage';
 
 import BodyMapsCombined  from '../bodymap/BodyMapsCombined';
-import OverallPainLevel  from '../../containers/OverallPainLevel';
+import OverallPainLevel  from '../../containers/pain/OverallPainLevel';
 import MedicationsList  from '../../containers/medication/MedicationsList';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
 import {AssessmentInterface} from '../../res/data/assessments';

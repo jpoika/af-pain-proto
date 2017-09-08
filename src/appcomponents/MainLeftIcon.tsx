@@ -16,6 +16,7 @@ export interface Props {
   menuItems: any;
   pathOnTouchTap: any;
   initAssessComplete : any;
+  newPainClick: (any) => void;
 }
 
 
@@ -69,7 +70,7 @@ const makeLink = (user,menuItem,pathOnTouchTap) => {
 }
 
 
-const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessComplete}) => {
+const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessComplete, newPainClick}) => {
 
   const secretTap = (path) => {
     const tapMax = 3;
@@ -84,7 +85,6 @@ const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessC
     }
   }
 
-
   return (
     <IconMenu
       iconButtonElement={<IconButton><MenuIcon color={'#FFFFFF'}/></IconButton>}
@@ -96,7 +96,7 @@ const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessC
              {!initAssessComplete && <MenuItem key={'menu_top_init_assess'} rightIcon={initAssessComplete ? <DoneIcon color={'green'} /> : null} primaryText="Initial Assessment" onTouchTap={pathOnTouchTap('/main/assessment-start')}  />}
              <MenuItem key={'menu_top_reassess'} rightIcon={initAssessComplete ? <AlarmSet /> : null} disabled={!initAssessComplete} primaryText="Pain Reassessment" onTouchTap={pathOnTouchTap('/main/reassess')}  />
              
-             <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={pathOnTouchTap('/main/newpain')} />
+             <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={newPainClick} />
              <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker2')}  />
              {/*<MenuItem key={'menu_top_test'} primaryText="Test" onTouchTap={pathOnTouchTap('/main/assess-overview')} />*/}
           {userMenuFilter(menuItems,user).map(menuItem => {

@@ -129,9 +129,19 @@ export const addAssessment = (type: string) => {
 }
 
 export const editAssessment = (assessment:AssessmentInterface) => {
-  return {
-    type: ASSESSMENT_EDIT,
-    assessment
+
+  return (dispatch,getState) => {
+    if(assessment.id){
+      return dispatch(
+              {
+                type: ASSESSMENT_EDIT,
+                assessment
+               }
+            );
+    } else {
+      console.log("Assessment submitted for edit without a set id");
+    }
+
   }
 }
 
