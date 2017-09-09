@@ -3,6 +3,7 @@ import {BodySectionInterface} from '../../res/data/body';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {PainLevelInterface} from '../../res/data/pain';
 import PainSelectorDialog from '../pain/PainSelectorDialog';
+import BodyPainMark from './BodyPainMark';
 
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
@@ -138,50 +139,50 @@ export default class BodyPinMap extends React.Component<Props, State>{
     return offset + col + 1;
   }
 
-  handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
-    this.handleRemoveBodySelection(section);
-    if(painLevel.level === 0){
-      this.handleDeletePain(section.id);
-      return;
-    }
-    let element = document.createElement('div');
-    let left = section.col * this.props.gridSize;
-    let top = section.row * this.props.gridSize;
-    element.setAttribute('id',this.getCellId(section));
-    element.setAttribute('class','body-section-cell');
-    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: ${painLevel.color}; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
-    this.mapBox.appendChild(element);
+  // handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
+  //   this.handleRemoveBodySelection(section);
+  //   if(painLevel.level === 0){
+  //     this.handleDeletePain(section.id);
+  //     return;
+  //   }
+  //   let element = document.createElement('div');
+  //   let left = section.col * this.props.gridSize;
+  //   let top = section.row * this.props.gridSize;
+  //   element.setAttribute('id',this.getCellId(section));
+  //   element.setAttribute('class','body-section-cell');
+  //   element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: ${painLevel.color}; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
+  //   this.mapBox.appendChild(element);
 
-    element.addEventListener('click', (event) => {
-       this.handleDialogOpen(section,painLevel);
-    });
-  }
+  //   element.addEventListener('click', (event) => {
+  //      this.handleDialogOpen(section,painLevel);
+  //   });
+  // }
 
-  handleClearCells(){
-     let cells = document.getElementsByClassName("body-section-cell");
-     for(let i = 0; i < cells.length; i++){
-       let item = cells.item(i);
-       item && item.remove();
-     }
-  }
+  // handleClearCells(){
+  //    let cells = document.getElementsByClassName("body-section-cell");
+  //    for(let i = 0; i < cells.length; i++){
+  //      let item = cells.item(i);
+  //      item && item.remove();
+  //    }
+  // }
 
   handleUpdateBoundingClientRect = () => {
     this.boundingRect = this.mapBox.getBoundingClientRect();
   }
 
-  componentDidMount(){
-    const {painMarkings} = this.props;
-    painMarkings.map(({section, painLevel}) => {
-     this.handleAddBodySelection(section,painLevel)
-    });
-  }  
+  // componentDidMount(){
+  //   const {painMarkings} = this.props;
+  //   painMarkings.map(({section, painLevel}) => {
+  //    this.handleAddBodySelection(section,painLevel)
+  //   });
+  // }  
 
-  componentDidUpdate(prevProps, prevState){
-    const {painMarkings} = this.props;
-    painMarkings.map(({section, painLevel}) => {
-       this.handleAddBodySelection(section,painLevel)
-    });
-  } 
+  // componentDidUpdate(prevProps, prevState){
+  //   const {painMarkings} = this.props;
+  //   painMarkings.map(({section, painLevel}) => {
+  //      this.handleAddBodySelection(section,painLevel)
+  //   });
+  // } 
 
   handleDialogClose = () => {
     this.setState({
@@ -200,12 +201,28 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   }
 
+  gatherPainLocations = () => {
+    const {painMarkings,gridSize} = this.props;
+    if(painMarkings.length === 0){
+      return null;
+    }
+    return painMarkings.map(({section, painLevel}) => {
+        if(painLevel.level === 0){
+          return null;
+        }
+        return <BodyPainMark key={this.getCellId(section)} itemClick={this.handleDialogOpen} section={section} painLevel={painLevel} gridSize={gridSize} />
+    });
+  }
+
   render(){
     const {bodyImage,replaceContent,restoreContent} = this.props;
-
+    const painMarkings = this.gatherPainLocations();
+    console.log(painMarkings);
+    //{painMarkings}
     return (
             <div>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
+                    {painMarkings}
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>
         
