@@ -5,8 +5,8 @@ import { normalize, schema } from 'normalizr';
 import {
   ASSESS_MARK_BODY_SECTION_PAIN, 
   ASSESS_SET_OVERALL_PAIN,
-  ASSESS_MARK_COMPLETE,
-  ASSESS_MOVE_STEP,
+  //ASSESS_MARK_COMPLETE,
+ // ASSESS_MOVE_STEP,
   ASSESSMENT_EDIT,
   ASSESS_REMOVE_BODY_SECTION_PAIN,
   ASSESSMENT_SET_NEW_PAIN,
@@ -41,14 +41,6 @@ const normalizedPainLevels = normalize(painLevelsRaw,painLevelsListSchema);
 const systemDefault = {
   nextDeadline: null
 }
-export const _lastCompleteAssessment = (state, action: any) => {
-  switch (action.type) {
-    case ASSESS_MARK_COMPLETE:
-      state = {...state, id: action.assessmentId, completedOn: action.dateTs};
-      break;
-  }
-  return state;
-}
 
 
 export const assessmentSystem = (state = systemDefault,action: any) => {
@@ -71,16 +63,16 @@ export const painLevelIds = (state = normalizedPainLevels.result,action: any) =>
 
 export const assessments = (state = normalizedAssessments.entities.assessments, action) => {
   switch (action.type) {
-    case ASSESS_MARK_COMPLETE:
-      state[action.assessmentId] = {...state[action.assessmentId],isComplete: true, completedOn: action.dateTs};
-      let currentStatus = action.status ? action.status : state[action.assessmentId].status;
-      state[action.assessmentId] = {...state[action.assessmentId],status: currentStatus};
-      state = {...state};
-      break;
-    case ASSESS_MOVE_STEP:
-      state[action.assessmentId] = {...state[action.assessmentId],step: action.stepIndex};
-      state = {...state};
-      break;
+    // case ASSESS_MARK_COMPLETE:
+    //   state[action.assessmentId] = {...state[action.assessmentId],isComplete: true, completedOn: action.dateTs};
+    //   let currentStatus = action.status ? action.status : state[action.assessmentId].status;
+    //   state[action.assessmentId] = {...state[action.assessmentId],status: currentStatus};
+    //   state = {...state};
+    //   break;
+    // case ASSESS_MOVE_STEP:
+    //   state[action.assessmentId] = {...state[action.assessmentId],step: action.stepIndex};
+    //   state = {...state};
+    //   break;
     case ASSESS_MARK_BODY_SECTION_PAIN:
     
       let assessId = action.assessmentId;

@@ -5,6 +5,7 @@ import {updateAccountInfo} from '../../actions';
 import {GenderList /*,AccountInterface */} from '../../res/data/account'
 import {assessMoveStep} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';
+import {AssessmentInterface} from '../../res/data/assessments';
 
 const validateData = (data) => {
    let isValid = true;
@@ -51,18 +52,19 @@ const stateToProps = (state, ownProps) => {
   return {
     page: {title: 'Account', subtitle: '', content: ''},
     genders: GenderList,
-    savedAccount: state.user
+    savedAccount: state.user,
+    initialAssessment: state.assessments['1']
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
 
-    validate: (data) => {
+    validate: (data,assessment: AssessmentInterface) => {
       const result = validateData(data);
       if(result.isValid){
         dispatch(updateAccountInfo(data));
         dispatch(viewActions.sendMessage('Account Info Saved'));
-        dispatch(assessMoveStep(1,1));
+        dispatch(assessMoveStep(1,assessment));
       } else {
         dispatch(viewActions.sendMessage('Please correct any errors above'));
       }

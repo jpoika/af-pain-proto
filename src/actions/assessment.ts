@@ -1,10 +1,8 @@
 import {messagePromptUser} from './messages';
-export const ASSESS_MOVE_STEP = 'T2.ASSESS_MOVE_STEP';
 export const ASSESS_MARK_BODY_SECTION_PAIN = 'T2.ASSESS_MARK_BODY_SECTION_PAIN';
 export const ASSESS_REMOVE_BODY_SECTION_PAIN = 'T2.ASSESS_REMOVE_BODY_SECTION_PAIN';
 export const ASSESS_SET_OVERALL_PAIN = 'T2.ASSESS_SET_OVERALL_PAIN';
 export const ASSESS_MOVE_STEP_IF_NEXT = 'T2.ASSESS_MOVE_STEP_IF_NEXT';
-export const ASSESS_MARK_COMPLETE = 'T2.ASSESS_MARK_COMPLETE';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
@@ -43,12 +41,8 @@ const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[p
 }
 
 
-export const assessMoveStep = (stepIndex: number,assessmentId: number) => {
-  return {
-    type: ASSESS_MOVE_STEP,
-    stepIndex,
-    assessmentId
-  }
+export const assessMoveStep = (stepIndex: number,assessment: AssessmentInterface) => {
+  return editAssessmentSafe(assessment, {step: stepIndex});
 }
 
 export const assessDelete = (assessmentId: number) => {
@@ -89,22 +83,22 @@ export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectio
 }
 
 
-export const assessMarkComplete = (assessmentId: number,status: number = null) => {
+export const assessMarkComplete = (assessment: AssessmentInterface,status: number = null) => {
 
   return (dispatch, getState) => {
       dispatch(sheduleReassessment())
-      dispatch(markComplete(assessmentId,status));
+      dispatch(markComplete(assessment,status));
   }
 }
 
-export const markComplete = (assessmentId: number,status: number = null) => {
+export const markComplete = (assessment: AssessmentInterface, status: number = null) => {
   let date = new Date();
-  return {
-        type: ASSESS_MARK_COMPLETE,
-        assessmentId,
-        dateTs: date.getTime(),
-        status
-  }
+  return editAssessmentSafe(assessment,
+                        {
+                          status: status,
+                          isComplete: true,
+                          completedOn: date.getTime()
+                        });
 }
 
 export const addAssessmentIfNecessary = (type: string) => {
@@ -131,21 +125,37 @@ export const addAssessment = (type: string) => {
 export const editAssessment = (assessment:AssessmentInterface) => {
 
   return (dispatch,getState) => {
-    if(assessment.id){
-      return dispatch(
-              {
-                type: ASSESSMENT_EDIT,
-                assessment
-               }
-            );
-    } else {
-      console.log("Assessment submitted for edit without a set id");
+    if(!assessment.id){
+      assessment.id = nextId(getState().assessmentIds);
     }
+    return dispatch(
+            {
+              type: ASSESSMENT_EDIT,
+              assessment
+             }
+          );
 
   }
 }
 
+export const editAssessmentSafe = (assessment:AssessmentInterface,newProps) => {
 
+  return (dispatch,getState) => {
+    if(!assessment.id){
+      assessment.id = nextId(getState().assessmentIds);
+    }
+    Object.assign(assessment,newProps);
+    return dispatch(
+            {
+              type: ASSESSMENT_EDIT,
+              assessment
+             }
+          );
+
+  }
+}
+
+//TODO replace with editAssessment
 export const assessMarkPain = (assessmentId: number, side:string, bodySectionId: number, painLevelId: number) => {
   return {
     type: ASSESS_MARK_BODY_SECTION_PAIN,
@@ -155,7 +165,7 @@ export const assessMarkPain = (assessmentId: number, side:string, bodySectionId:
     side
   }
 }
-
+//TODO replace with editAssessment
 export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: number) => {
   
   return {
@@ -164,7 +174,7 @@ export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: num
     bodySectionId
   }
 }
-
+//TODO replace with editAssessment
 export const assessSetOverallPain = (assessmentId: number, painCategoryId: number, painLevelId: number) => {
   return {
     type: ASSESS_SET_OVERALL_PAIN,

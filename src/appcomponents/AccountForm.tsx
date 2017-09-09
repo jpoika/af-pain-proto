@@ -11,7 +11,7 @@ import {AccountInterface} from '../res/data/account'
 
 
 export interface Props {
-  validate(data: any): {isValid: boolean,errors: any};
+  validate(data: any, any?): {isValid: boolean,errors: any};
   genders: {id: any, name: any}[];
   savedAccount: AccountInterface;
 }
@@ -97,7 +97,6 @@ export default class LoginForm extends React.Component<Props, State>{
 
   render(){
     const {genders} = this.props;
-    console.log(this.state.values.dob);
     return (
       <div>
       <form onSubmit={this.handleSubmit}>

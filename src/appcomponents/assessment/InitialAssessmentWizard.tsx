@@ -18,7 +18,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 export interface Props extends PageProps{
   stepIndex: number;
-  nextStep(idx: number, assessmentId: number): any;
+  nextStep(idx: number, assessment: AssessmentInterface): any;
   maxSteps: number,
   assessment: AssessmentInterface;
 }
@@ -36,7 +36,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
 
   startOver = () => {
     const {nextStep,assessment} = this.props;
-    nextStep(0,assessment.id);
+    nextStep(0,assessment);
     this.setState({
 
       finished: false
@@ -46,7 +46,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
   handleNext = () => {
     const {stepIndex,nextStep,maxSteps,assessment} = this.props;
 
-    nextStep(stepIndex + 1, assessment.id)
+    nextStep(stepIndex + 1, assessment)
     this.setState({
       finished: stepIndex >= (maxSteps - 1),
     });
@@ -55,7 +55,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
   handlePrev = () => {
     const {stepIndex,nextStep,assessment} = this.props;
     if (stepIndex > 0) {
-      nextStep(stepIndex - 1, assessment.id);
+      nextStep(stepIndex - 1, assessment);
     }
   };
 

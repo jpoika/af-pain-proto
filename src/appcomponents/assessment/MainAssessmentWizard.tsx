@@ -21,9 +21,10 @@ import FlatButton from 'material-ui/FlatButton';
 
 export interface Props extends PageProps{
   stepIndex: number;
-  nextStep(idx: number, assessmentId: number): any;
+  nextStep(idx: number, assessment: AssessmentInterface): any;
   maxSteps: number;
   assessment: AssessmentInterface;
+  saveNewAssessment: (assessment: AssessmentInterface) => void;
   type: string; /* the type of assessment (newpain|reassessment) */
 }
 
@@ -38,9 +39,16 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     };
   }
 
+  componentDidMount(){
+    // const {saveNewAssessment, assessment} = this.props;
+    // if(assessment.id === 0){
+    //   saveNewAssessment(assessment);
+    // }
+  }
+
   startOver = () => {
     const {nextStep,assessment} = this.props;
-    nextStep(0,assessment.id);
+    nextStep(0,assessment);
     this.setState({
 
       finished: false
@@ -51,7 +59,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
   
     const {stepIndex,nextStep,maxSteps,assessment} = this.props;
     
-    nextStep(stepIndex + 1, assessment.id)
+    nextStep(stepIndex + 1, assessment)
     this.setState({
       finished: stepIndex >= (maxSteps - 1),
     });
@@ -61,7 +69,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     
     const {stepIndex,nextStep,assessment} = this.props;
     if (stepIndex > 0) {
-      nextStep(stepIndex - 1, assessment.id);
+      nextStep(stepIndex - 1, assessment);
     }
   };
 
@@ -108,7 +116,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
   render(){
 
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
-
+    console.log(assessment);
     return (<div>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>

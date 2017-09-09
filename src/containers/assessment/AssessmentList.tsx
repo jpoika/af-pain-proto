@@ -2,6 +2,7 @@ import AssessmentList from '../../appcomponents/assessment/AssessmentList';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {AssessmentInterface} from '../../res/data/assessments';
+import {getAssessements} from './selectors'
 
 const getViewPortSize = (state) => {
   const width = state.device.width;
@@ -18,7 +19,7 @@ const stateToProps = (state, ownProps) => {
   const now = new Date();
   const nowTimestamp = now.getTime();
   return {
-    assessments: state.assessmentIds.map(aid => state.assessments[aid]),
+    assessments: getAssessements(state,ownProps),
     viewPortSize: getViewPortSize(state),
     isReassessmentDue: state.assessmentSystem.nextDeadline < nowTimestamp
   }

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {assessMoveStep,assessMarkComplete} from '../../actions/assessment';
+import {AssessmentInterface} from '../../res/data/assessments';
 import {viewActions} from '../../lib/local-t2-view';
 
 const maxSteps = 6;
@@ -26,10 +27,10 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch,ownProps) => {
   return {
-    nextStep: (step: number,assessmentId: number) => {
-      dispatch(assessMoveStep(step,assessmentId));
+    nextStep: (step: number,assessment: AssessmentInterface) => {
+      dispatch(assessMoveStep(step,assessment));
       if(step >= maxSteps){
-        dispatch(assessMarkComplete(assessmentId,1));
+        dispatch(assessMarkComplete(assessment,1));
         dispatch(viewActions.sendMessage('Assessment Complete'));
         ownProps.history.push('/main/account-home');
       }

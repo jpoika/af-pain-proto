@@ -1,10 +1,12 @@
 import CardPage from '../components/CardPage';
 import {homePage} from '../res/data/page';
 import {connect} from 'react-redux';
+import {getCompleteAssessements} from './assessment/selectors';
 
-const completedAssessments = (state): any[] => {
-  return state.assessmentIds.map(aid => state.assessments[aid]).filter(assess => assess.isComplete);
-}
+// const completedAssessments = (state): any[] => {
+//   return state.assessmentIds.map(aid => state.assessments[aid])
+//         .filter(assess => assess.isComplete);
+// }
 
 const stateToProps = (state, ownProps) => {
   return {
@@ -13,7 +15,7 @@ const stateToProps = (state, ownProps) => {
     image: homePage.image && !(state.device.width > 1000 || state.device.width > state.device.height)? homePage.image : '',
     
     actions: [
-      {label: 'Get Started', action: completedAssessments(state).length > 0 ? '/main/account-home' : '/main/assessment-start'}
+      {label: 'Get Started', action: getCompleteAssessements(state,ownProps).length > 0 ? '/main/account-home' : '/main/assessment-start'}
     ]
   }
 }
