@@ -125,7 +125,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
                  <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={3} title={'Current Pain Level'}  categoryId={2}>
-                     <div>(Current Pain Locations)</div>
+                     <div>Current Pain Locations (For Reference)</div>
                      <div style={{float: 'left',width: 135}}>
                        <BodyPinMapShow gridSize={9} side='front' assessment={assessment}  />
                      </div>
