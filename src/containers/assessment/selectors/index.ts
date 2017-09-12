@@ -1,4 +1,4 @@
-//import {createSelector} from 'reselect';
+import {createSelector} from 'reselect';
 
 
 export const getAssessements = (state, ownProps) => state.assessmentIds.map(aid => state.assessments[aid])
@@ -10,6 +10,18 @@ export const getCompleteAssessements = (state, ownProps) => getAssessements(stat
 export const getInCompleteAssessements = (state, ownProps) => getAssessements(state, ownProps)
                                           .filter(assessm => !assessm.isComplete);
 
+export const getPreviousCompletedAssessmentsDateAscending = (state, ownProps) => {
+                return getCompleteAssessements(state, ownProps).sort((a,b) => {
+                    if(a.completedOn > b.completedOn){
+                      return 1;
+                    }
+                    if(a.completedOn < b.completedOn){
+                      return -1;
+                    }
+                    return 0;
+                })
+}
+
 export const getNonInitialAssessements = (state, ownProps) => getAssessements(state, ownProps)
                                           .filter(assessm => assessm.type !== 'initial');
 
@@ -20,13 +32,16 @@ export const getLastNonInitialAssessementsType = (state, ownProps:{type: string}
 export const getLastNonInitialIncompleteAssessementsByType = (state, ownProps:{type: string}) => getNonInitialAssessements(state, ownProps)
                                                              .filter(assessm => !assessm.isComplete).pop();
 
-
-// export const searchHospitals = createSelector( //just searching titles for now
-//   [getHospitals,getHospitalSearchText],
-//   (hospitals,searchText) => {
-//     return hospitals.filter((hospital) => {
-//         return hospital.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-//     });
-//   }
-// );
+export const getPreviousCompletedAssessment = (assessment:{id: number}) => {
+  return createSelector( 
+    [getPreviousCompletedAssessmentsDateAscending],
+    (prevAssessments) => {
+      console.log(prevAssessments);
+      return prevAssessments.filter((assessm) => {
+                return assessm.id !== assessment.id
+              })
+              .pop();
+    }
+  )
+}
 

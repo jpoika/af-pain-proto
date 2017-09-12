@@ -4,6 +4,7 @@ import {AssessmentInterface} from '../../res/data/assessments';
 import {PainLevelInterface} from '../../res/data/pain';
 import PainSelectorDialog from '../pain/PainSelectorDialog';
 import BodyPainMark from './BodyPainMark';
+import BodyPainMarkPrevious from './BodyPainMarkPrevious';
 
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
@@ -23,6 +24,7 @@ export interface Props{
   painMarkings: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
   gridSize: number;
   assessment: AssessmentInterface;
+  previousPainMarkings?: {section:BodySectionInterface, painLevel: PainLevelInterface}[];
   replaceContent(content: any): void;
   restoreContent(): void;
 }
@@ -36,7 +38,8 @@ export interface State{
 export default class BodyPinMap extends React.Component<Props, State>{
   public static defaultProps: Partial<Props> = {
     dialogOpen: false,
-    gridSize: 20
+    gridSize: 20,
+    previousPainMarkings: []
   };
 
   private mapBox;
@@ -201,7 +204,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   }
 
-  gatherPainLocations = () => {
+  gatherCurrentPainLocations = () => {
     const {painMarkings,gridSize} = this.props;
     if(painMarkings.length === 0){
       return null;
@@ -214,15 +217,28 @@ export default class BodyPinMap extends React.Component<Props, State>{
     });
   }
 
+  gatherPreviousPainLocations = () => {
+    const {previousPainMarkings,gridSize} = this.props;
+    if(previousPainMarkings.length === 0){
+      return null;
+    }
+    return previousPainMarkings.map(({section, painLevel}) => {
+        if(painLevel.level === 0){
+          return null;
+        }
+        return <BodyPainMarkPrevious key={this.getCellId(section)} itemClick={this.handleDialogOpen} section={section} painLevel={painLevel} gridSize={gridSize} />
+    });
+  }
+
   render(){
     const {bodyImage,replaceContent,restoreContent} = this.props;
-    const painMarkings = this.gatherPainLocations();
-    console.log(painMarkings);
-    //{painMarkings}
+    const painMarkings = this.gatherCurrentPainLocations();
+    const previousPainMarkings  = this.gatherPreviousPainLocations();
     return (
             <div>
               <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
-                    {painMarkings}
+                      {previousPainMarkings}
+                      {painMarkings}
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>
         

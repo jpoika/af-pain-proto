@@ -4,9 +4,12 @@ import { assessMarkPain, assessmentRemoveBodyPain ,checkForNewPain} from '../../
 import {PainLevelInterface} from '../../res/data/pain';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {frontBodySectionIds, backBodySectionIds} from '../../res/data/body';
+import {getPreviousCompletedAssessment} from '../assessment/selectors'
+
 
 const frontBodyImage = require('../../res/images/body_map/Front_326.png');
 const backBodyImage = require('../../res/images/body_map/Back_326.png');
+
 const getBodySections = (allBodySections,sectionIds) => {
     return sectionIds.map((sid) => {
       return allBodySections[sid]
@@ -53,11 +56,14 @@ const getSavedPainMarkings = (assessmentId,currentRegion,state) => {
 
 
 const stateToProps = (state, ownProps) => {
+  const prevAssessm = getPreviousCompletedAssessment(ownProps.assessment)(state, ownProps);
+  console.log(prevAssessm);
   return {
     title: ownProps.side === 'back' ? 'Pain Map Back':'Pain Map Front',
     bodySections: ownProps.side === 'back' ? getBodySections(state.bodySections,backBodySectionIds) : getBodySections(state.bodySections,frontBodySectionIds),
     bodyImage: ownProps.side === 'back' ? backBodyImage : frontBodyImage,
-    painMarkings: getSavedPainMarkings(ownProps.assessment.id,ownProps.side,state)
+    painMarkings: getSavedPainMarkings(ownProps.assessment.id,ownProps.side,state),
+    previousPainMarkings: prevAssessm ? getSavedPainMarkings(prevAssessm.id,ownProps.side,state) : []
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {

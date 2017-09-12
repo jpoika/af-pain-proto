@@ -1,18 +1,20 @@
 import * as React from "react";
 import BasicPage, {Props as PageProps} from '../../components/BasicPage';
 import AccountContainer  from '../../containers/pages/AccountEditPage';
-
+import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import BodyMapsCombined  from '../bodymap/BodyMapsCombined';
 import OverallPainLevel  from '../../containers/pain/OverallPainLevel';
 import MedicationsList  from '../../containers/medication/MedicationsList';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
 import {AssessmentInterface} from '../../res/data/assessments';
+
 import {
   Step,
   Stepper,
   StepLabel,
   StepContent,
 } from 'material-ui/Stepper';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -122,7 +124,15 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Current Pain</StepLabel>
                 <StepContent>
-                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={3} title={'Current Pain Level'}  categoryId={2} />
+                 <OverallPainLevel assessment={assessment} replaceContent={replaceContent} restoreContent={restoreContent} actions={this.renderBackButton(2)} onComplete={this.handleNext} step={3} title={'Current Pain Level'}  categoryId={2}>
+                     <div>(Current Pain Locations)</div>
+                     <div style={{float: 'left',width: 135}}>
+                       <BodyPinMapShow gridSize={9} side='front' assessment={assessment}  />
+                     </div>
+                     <div style={{float: 'left',width: 135}}>
+                       <BodyPinMapShow gridSize={9} side='back' assessment={assessment}  />
+                     </div>
+                 </OverallPainLevel>
                 </StepContent>
               </Step>
 
