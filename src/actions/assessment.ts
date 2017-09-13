@@ -1,7 +1,6 @@
 import {messagePromptUser} from './messages';
 export const ASSESS_MARK_BODY_SECTION_PAIN = 'T2.ASSESS_MARK_BODY_SECTION_PAIN';
 export const ASSESS_REMOVE_BODY_SECTION_PAIN = 'T2.ASSESS_REMOVE_BODY_SECTION_PAIN';
-export const ASSESS_SET_OVERALL_PAIN = 'T2.ASSESS_SET_OVERALL_PAIN';
 export const ASSESS_MOVE_STEP_IF_NEXT = 'T2.ASSESS_MOVE_STEP_IF_NEXT';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
@@ -174,15 +173,15 @@ export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: num
     bodySectionId
   }
 }
-//TODO replace with editAssessment
-export const assessSetOverallPain = (assessmentId: number, painCategoryId: number, painLevelId: number) => {
-  return {
-    type: ASSESS_SET_OVERALL_PAIN,
-    assessmentId,
-    painCategoryId,
-    painLevelId
-  }
+export const assessSetOverallPain = (assessment: AssessmentInterface, painCategoryId: number, painLevelId: number) => {
+      
+  let newPainLevels = {...assessment.painLevels,[painCategoryId]: painLevelId};
+  return editAssessmentSafe(assessment,{
+      painLevels: newPainLevels
+  });
+
 }
+
 
 const makeAssessmentData = (name) => {
   return {

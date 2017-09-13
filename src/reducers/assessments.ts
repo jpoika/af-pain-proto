@@ -4,7 +4,7 @@ import {makeAssessment} from '../res/data/assessments';
 import { normalize, schema } from 'normalizr';
 import {
   ASSESS_MARK_BODY_SECTION_PAIN, 
-  ASSESS_SET_OVERALL_PAIN,
+  //ASSESS_SET_OVERALL_PAIN,
   //ASSESS_MARK_COMPLETE,
  // ASSESS_MOVE_STEP,
   ASSESSMENT_EDIT,
@@ -86,14 +86,6 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       break;
     case ASSESS_REMOVE_BODY_SECTION_PAIN:
       delete state[action.assessmentId].bodySections[action.bodySectionId];
-      state = {...state};
-      break;
-    case ASSESS_SET_OVERALL_PAIN:
-      let op_assessId = action.assessmentId;
-      let op_painCategoryId = action.painCategoryId;
-   
-      let newPainLevels = {...state[op_assessId].painLevels,[op_painCategoryId]: action.painLevelId};
-      state[op_assessId] = {...state[op_assessId],painLevels: newPainLevels};
       state = {...state};
       break;
     case ASSESSMENT_EDIT:

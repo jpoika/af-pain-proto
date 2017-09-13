@@ -39,12 +39,6 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     };
   }
 
-  componentDidMount(){
-    // const {saveNewAssessment, assessment} = this.props;
-    // if(assessment.id === 0){
-    //   saveNewAssessment(assessment);
-    // }
-  }
 
   startOver = () => {
     const {nextStep,assessment} = this.props;

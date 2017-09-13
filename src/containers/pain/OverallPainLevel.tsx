@@ -41,11 +41,13 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch,ownProps) => {
   return {
    selectPain: (assessment:AssessmentInterface, painCategoryId:number, painLevel:PainLevelInterface) => {
+
      ownProps.checkPain
      if(ownProps.checkPain){
        dispatch(checkForUserHighPain(painLevel, assessment));
      }
-     dispatch(assessSetOverallPain(assessment.id, painCategoryId, painLevel.id))
+
+     dispatch(assessSetOverallPain(assessment, painCategoryId, painLevel.id))
    }
   }
 }
