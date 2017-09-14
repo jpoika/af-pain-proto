@@ -3,7 +3,6 @@
 //import UserOverview from '../../appcomponents/user/UserOverview';
 import {connect} from 'react-redux';
 import UserTasks from '../../appcomponents/user/UserTasks';
-import {addAssessmentIfNecessary} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';
 import {withRouter} from 'react-router-dom';
 
@@ -31,7 +30,6 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch,ownProps) => {
   return {
     reAssessmentClick: () => {
-      dispatch(addAssessmentIfNecessary('reassessment'));
       ownProps.history.push('/main/reassess');
     },
     initialAssessmentClick:(isComplete) => {

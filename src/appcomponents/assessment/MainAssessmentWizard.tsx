@@ -24,7 +24,6 @@ export interface Props extends PageProps{
   nextStep(idx: number, assessment: AssessmentInterface): any;
   maxSteps: number;
   assessment: AssessmentInterface;
-  saveNewAssessment: (assessment: AssessmentInterface) => void;
   type: string; /* the type of assessment (newpain|reassessment) */
 }
 

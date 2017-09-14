@@ -1,4 +1,4 @@
-import {assessMarkComplete/*,markComplete*/,addAssessment} from '../../actions/assessment';
+import {assessMarkComplete,editAssessment} from '../../actions/assessment';
 import {assessments,assessmentIds} from '../assessments';;
 import {makeAssessment} from '../../res/data/assessments';
 
@@ -44,10 +44,16 @@ describe('Assessment Reducer Tests', () => {
      //check initial assessment count. Should be == 1
      expect(assessmentIdsState.length).toBe(1);
 
+
+
+
      const dispatchMock = jest.fn();
      const getStateMock = () => ({assessments: assessmentsState, assessmentIds: assessmentIdsState});
      //get thunk and call it
-     addAssessment('newpain')(dispatchMock,getStateMock); 
+
+     const editAssessmentThunk = editAssessment(makeAssessment(0,'','newpain'),{})
+    
+     editAssessmentThunk(dispatchMock,getStateMock); 
      //extract the action object
      const editAssessmentAction = dispatchMock.mock.calls[0][0]; 
      //this is the newly created assessment (not added yet)
@@ -58,6 +64,7 @@ describe('Assessment Reducer Tests', () => {
      //there should now be an additional assessment
      expect(assessmentIdsState.length).toBe(2);
      expect(assessmentsState['2']).toEqual(newAssessment);
+     
   });
   /*
   it('Should only add a new assessment if there is not already an incomplete one', () => {
@@ -67,5 +74,4 @@ describe('Assessment Reducer Tests', () => {
 
   });
   */
-  //addAssessmentIfNecessary
 })

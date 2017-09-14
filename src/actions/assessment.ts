@@ -9,21 +9,21 @@ export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
 import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
-import {makeAssessment,AssessmentInterface} from '../res/data/assessments';
+import {AssessmentInterface} from '../res/data/assessments';
 
 import {nextId} from './_helper';
 const messsageNewPain = [
         "You've indicated you are experiencing pain in a new location.", 
         "Would you like to speak to a nurse?"
     ];
-const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
-  return state.assessmentIds
-            .map(aid => state.assessments[aid])
-            .filter(assess => assess.id !== 1)
-            .filter(assess => assess.type === type)
-            .pop()
-            ;
-}
+// const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
+//   return state.assessmentIds
+//             .map(aid => state.assessments[aid])
+//             .filter(assess => assess.id !== 1)
+//             .filter(assess => assess.type === type)
+//             .pop()
+//             ;
+// }
 
 const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
   return state.assessmentIds
@@ -41,7 +41,7 @@ const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[p
 
 
 export const assessMoveStep = (stepIndex: number,assessment: AssessmentInterface) => {
-  return editAssessmentSafe(assessment, {step: stepIndex});
+  return editAssessment(assessment, {step: stepIndex});
 }
 
 export const assessDelete = (assessmentId: number) => {
@@ -92,7 +92,7 @@ export const assessMarkComplete = (assessment: AssessmentInterface,status: numbe
 
 export const markComplete = (assessment: AssessmentInterface, status: number = null) => {
   let date = new Date();
-  return editAssessmentSafe(assessment,
+  return editAssessment(assessment,
                         {
                           status: status,
                           isComplete: true,
@@ -100,44 +100,7 @@ export const markComplete = (assessment: AssessmentInterface, status: number = n
                         });
 }
 
-export const addAssessmentIfNecessary = (type: string) => {
-  return (dispatch,getState) => {
-    let lastReAssessment = getLastNonInitialAssessment(getState(),type)
-    if(!lastReAssessment || lastReAssessment.isComplete){
-      dispatch(addAssessment(type));
-    } else {
-      console.log('do not need new assess');
-    }
-  }
-}
-
-export const addAssessment = (type: string) => {
-  return (dispatch,getState) => {
-    return dispatch(
-            editAssessment(
-              makeAssessment(nextId(getState().assessmentIds),'',type)
-            )
-          );
-  }
-}
-
-export const editAssessment = (assessment:AssessmentInterface) => {
-
-  return (dispatch,getState) => {
-    if(!assessment.id){
-      assessment.id = nextId(getState().assessmentIds);
-    }
-    return dispatch(
-            {
-              type: ASSESSMENT_EDIT,
-              assessment
-             }
-          );
-
-  }
-}
-
-export const editAssessmentSafe = (assessment:AssessmentInterface,newProps) => {
+export const editAssessment = (assessment:AssessmentInterface,newProps) => {
 
   return (dispatch,getState) => {
     if(!assessment.id){
@@ -154,7 +117,7 @@ export const editAssessmentSafe = (assessment:AssessmentInterface,newProps) => {
   }
 }
 
-//TODO replace with editAssessment
+//TODO replace with editAssessment?
 export const assessMarkPain = (assessmentId: number, side:string, bodySectionId: number, painLevelId: number) => {
   return {
     type: ASSESS_MARK_BODY_SECTION_PAIN,
@@ -164,7 +127,7 @@ export const assessMarkPain = (assessmentId: number, side:string, bodySectionId:
     side
   }
 }
-//TODO replace with editAssessment
+//TODO replace with editAssessment?
 export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: number) => {
   
   return {
@@ -176,7 +139,7 @@ export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: num
 export const assessSetOverallPain = (assessment: AssessmentInterface, painCategoryId: number, painLevelId: number) => {
       
   let newPainLevels = {...assessment.painLevels,[painCategoryId]: painLevelId};
-  return editAssessmentSafe(assessment,{
+  return editAssessment(assessment,{
       painLevels: newPainLevels
   });
 

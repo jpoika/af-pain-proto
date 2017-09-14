@@ -22,7 +22,6 @@ const dispatchToProps = (dispatch,ownProps) => {
     newPainClick: (event) => {
         event.preventDefault();
         event.stopPropagation();
-        //dispatch(addAssessmentIfNecessary('newpain'));
         ownProps.history.push('/main/newpain');
     },
   }

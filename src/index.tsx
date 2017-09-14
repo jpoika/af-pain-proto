@@ -17,7 +17,7 @@ import {viewActions} from './lib/local-t2-view';
 
 import reducer from './reducers';
 import {redirectTo} from './actions';
-import {addAssessmentIfNecessary} from './actions/assessment';
+
 //import {watchCurrentLocation,unWatchCurrentLocation,setUserPlatform} from './actions';
 
 //TODO migrations
@@ -105,7 +105,6 @@ const render = (Component: any) => {
                         store.dispatch(redirectTo('/main/assessment-start'));
                       break;
                     case "reassessment":
-                        store.dispatch(addAssessmentIfNecessary('reassessment'));
                         store.dispatch(redirectTo('/main/reassess'));
                       break;
                   }

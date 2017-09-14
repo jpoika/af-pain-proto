@@ -16,11 +16,11 @@ const get_or_create_current_assessment = (state,ownProps) => {
 
 const stateToProps = (state, ownProps:{type: string}) => {
   let assessment = get_or_create_current_assessment(state,ownProps);
-  console.log(assessment,ownProps.type);
+
   if(ownProps.type && ownProps.type !== assessment.type){
     assessment = makeAssessment(0,'',ownProps.type);
   }
-  console.log(assessment);
+
   return {
     title: 'Reassessment',
     page: {title: 'Reassessment', subtitle: 'Pain Proto', content: ''},
@@ -40,9 +40,6 @@ const dispatchToProps = (dispatch,ownProps) => {
 
         ownProps.history.push('/main/account-home');
       }
-    },
-    saveNewAssessment: (assessment: AssessmentInterface) => {//TODO remove
-      //dispatch(editAssessment(assessment));
     }
   }
 }
