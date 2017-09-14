@@ -250,7 +250,7 @@ class App extends React.Component<Props, State>{
                  }); 
                   
                 },
-              500);
+              100);
        }
 
       

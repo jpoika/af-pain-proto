@@ -16,6 +16,7 @@ describe('Assessment Reducer Tests', () => {
        expect(assessmentsState1['1'].isComplete).toBe(false);
 
        const dispatchMock = jest.fn();
+       //const dispatchMock2 = jest.fn();
        const getStateMock = () => ({assessments: assessmentsState1});
        const thunk = assessMarkComplete(assessmentsState1['1']);
 
@@ -23,13 +24,17 @@ describe('Assessment Reducer Tests', () => {
 
        expect(dispatchMock.mock.calls.length).toBe(2); //dispatch should be called twice
 
-       const markCompleteAction = dispatchMock.mock.calls[1][0]; //extract the action we want to test
-      
-       // expect(markCompleteAction.type).toEqual(markComplete(1).type);
-       // expect(markCompleteAction.assessmentId).toEqual(markComplete(1).assessmentId);
+       const markCompleteThunk = dispatchMock.mock.calls[1][0]; //extract the action we want to test
+
+
+       markCompleteThunk(dispatchMock,getStateMock);
+
+       expect(dispatchMock.mock.calls.length).toBe(3); //dispatch should be called for 3rd time
+
+       const editAssessmentAction = dispatchMock.mock.calls[2][0];
        
        //"Dispatch the extracted action against the state"
-       const assessmentsState2 = assessments(assessmentsState1,markCompleteAction);
+       const assessmentsState2 = assessments(assessmentsState1,editAssessmentAction);
        //finally check that isComplete === true
        expect(assessmentsState2['1'].isComplete).toBe(true); 
   });

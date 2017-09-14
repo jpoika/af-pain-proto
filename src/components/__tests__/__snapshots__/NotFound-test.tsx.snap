@@ -7,8 +7,8 @@ exports[`Test NotFound Snapshot 1`] = `
   </h1>
   <p>
     <a
+      href="/"
       onClick={[Function]}
-      style={Object {}}
     >
       Home
     </a>

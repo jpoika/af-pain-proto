@@ -4,8 +4,9 @@ import {withRouter} from 'react-router-dom';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {getAssessements} from './selectors'
 
-const getViewPortSize = (state) => {
-  const width = state.device.width;
+const getViewPortSize = (ownProps) => {
+  const width = ownProps.appPage.screen.width;
+
   if(width < 450){
     return 'small';
   }  
@@ -20,7 +21,7 @@ const stateToProps = (state, ownProps) => {
   const nowTimestamp = now.getTime();
   return {
     assessments: getAssessements(state,ownProps),
-    viewPortSize: getViewPortSize(state),
+    viewPortSize: getViewPortSize(ownProps),
     isReassessmentDue: state.assessmentSystem.nextDeadline < nowTimestamp
   }
 }

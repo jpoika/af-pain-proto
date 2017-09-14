@@ -65,10 +65,10 @@ exports[`Test NotFound Snapshot 1`] = `
           onMouseLeave={[Function]}
           style={
             Object {
-              "color": "rgba(189, 189, 189, 0.3)",
+              "color": "rgba(18, 18, 18, 0.3)",
               "cursor": "default",
               "display": "inline-block",
-              "fill": "rgba(189, 189, 189, 0.3)",
+              "fill": "rgba(18, 18, 18, 0.3)",
               "height": 24,
               "muiPrepared": true,
               "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
@@ -320,10 +320,10 @@ exports[`Test NotFound Snapshot 1`] = `
           onMouseLeave={[Function]}
           style={
             Object {
-              "color": "rgba(189, 189, 189, 0.3)",
+              "color": "rgba(18, 18, 18, 0.3)",
               "cursor": "default",
               "display": "inline-block",
-              "fill": "rgba(189, 189, 189, 0.3)",
+              "fill": "rgba(18, 18, 18, 0.3)",
               "height": 24,
               "muiPrepared": true,
               "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
