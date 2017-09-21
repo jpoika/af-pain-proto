@@ -63,16 +63,6 @@ export const painLevelIds = (state = normalizedPainLevels.result,action: any) =>
 
 export const assessments = (state = normalizedAssessments.entities.assessments, action) => {
   switch (action.type) {
-    // case ASSESS_MARK_COMPLETE:
-    //   state[action.assessmentId] = {...state[action.assessmentId],isComplete: true, completedOn: action.dateTs};
-    //   let currentStatus = action.status ? action.status : state[action.assessmentId].status;
-    //   state[action.assessmentId] = {...state[action.assessmentId],status: currentStatus};
-    //   state = {...state};
-    //   break;
-    // case ASSESS_MOVE_STEP:
-    //   state[action.assessmentId] = {...state[action.assessmentId],step: action.stepIndex};
-    //   state = {...state};
-    //   break;
     case ASSESS_MARK_BODY_SECTION_PAIN:
     
       let assessId = action.assessmentId;

@@ -1,6 +1,8 @@
-import {assessMarkComplete,editAssessment} from '../../actions/assessment';
-import {assessments,assessmentIds} from '../assessments';;
+import {assessMarkComplete,editAssessment,ASSESSMENT_EDIT, assessMoveStep} from '../../actions/assessment';
+import {assessments,assessmentIds} from '../assessments';
 import {makeAssessment} from '../../res/data/assessments';
+import reducer from '../../reducers';
+import {AssessmentInterface} from '../../res/data/assessments';
 
 describe('Assessment Reducer Tests', () => {
   it('Should automatically have an initial assessment record with id == 1', () => {
@@ -66,6 +68,27 @@ describe('Assessment Reducer Tests', () => {
      expect(assessmentsState['2']).toEqual(newAssessment);
      
   });
+  it('Advance the intial assessment from step 1 to step 2',() => {
+      const state1 = reducer(undefined,{}) as any;
+      const initAssessment:AssessmentInterface  = state1.assessments['1'];
+      expect(initAssessment.step).toBe(0);
+      const thunkStep = assessMoveStep(1,initAssessment);
+      const dispatchMock = jest.fn();
+
+      thunkStep(dispatchMock,state1);
+
+      expect(dispatchMock.mock.calls.length).toBe(1);
+
+      const editAction = dispatchMock.mock.calls[0][0];
+      expect(editAction.type).toEqual(ASSESSMENT_EDIT);
+
+      const state2 = reducer(undefined,editAction) as any;
+
+      expect(state2.assessments['1'].step).toBe(1);
+
+
+  })
+
   /*
   it('Should only add a new assessment if there is not already an incomplete one', () => {
      const assessmentsState = assessments(undefined,{});
