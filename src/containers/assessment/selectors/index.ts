@@ -36,7 +36,6 @@ export const getPreviousCompletedAssessment = (assessment:{id: number}) => {
   return createSelector( 
     [getPreviousCompletedAssessmentsDateAscending],
     (prevAssessments) => {
-      console.log(prevAssessments);
       return prevAssessments.filter((assessm) => {
                 return assessm.id !== assessment.id
               })

@@ -10,6 +10,7 @@ export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DE
 import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
 import {AssessmentInterface} from '../res/data/assessments';
+import {getPreviousCompletedAssessment} from '../containers/assessment/selectors';
 
 import {nextId} from './_helper';
 const messsageNewPain = [
@@ -116,7 +117,18 @@ export const editAssessment = (assessment:AssessmentInterface,newProps) => {
 
   }
 }
-
+export const assessmentCopyLastPain = (assessment: AssessmentInterface) => {
+  return (dispatch,getState) => {
+    const lastAssessment = getPreviousCompletedAssessment(assessment)(getState(),{});
+    if(assessment.id !== lastAssessment.id){
+      dispatch(editAssessment(assessment,
+                        {
+                          bodySections: lastAssessment.bodySections,
+                          painLevels: lastAssessment.painLevels
+                        }));
+    }
+  }
+}
 //TODO replace with editAssessment?
 export const assessMarkPain = (assessmentId: number, side:string, bodySectionId: number, painLevelId: number) => {
   return {

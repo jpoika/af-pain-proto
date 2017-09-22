@@ -1,6 +1,8 @@
 
 import * as React from "react";
 import Checkbox from 'material-ui/Checkbox';
+import DoNotDisturbOn from 'material-ui/svg-icons/notification/do-not-disturb-on';
+import DoNotDisturbOff from 'material-ui/svg-icons/notification/do-not-disturb-off';
 export interface Props{
   enabled: boolean;
   enable(): void;
@@ -21,8 +23,11 @@ export default class AccountPage extends React.Component<Props, State>{
   render(){
     const {enabled} = this.props
     return <div>
-
-                <Checkbox onCheck={this.handleCheckClick} checked={enabled} label="Do Not Disturb" />
+        
+                <Checkbox 
+                  checkedIcon={<DoNotDisturbOn />}
+                  uncheckedIcon={<DoNotDisturbOff />}
+                  onCheck={this.handleCheckClick} checked={enabled} label={enabled ? "Do Not Disturb On" : "Do Not Disturb Off"} />
                     
            </div>;
   }
