@@ -1,7 +1,7 @@
 import PreAssesmentTest from '../../appcomponents/assessment/PreAssesmentTest';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {assessMarkComplete,assessMoveStep,assessDelete} from '../../actions/assessment';
+import {assessMarkComplete,assessMoveStep,assessDelete,assessmentCopyLastPain} from '../../actions/assessment';
 import {viewActions} from '../../lib/local-t2-view';
 import {AssessmentInterface} from '../../res/data/assessments';
 const stateToProps = (state, ownProps) => {
@@ -24,6 +24,7 @@ const dispatchToProps = (dispatch, ownProps) => {
       console.log(assessment);
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment))
       dispatch(assessMarkComplete(assessment,2)); //TODO shouldn't be able to call with null assessment
+      dispatch(assessmentCopyLastPain(assessment));
       dispatch(viewActions.sendMessage("We're done!")); 
 
       ownProps.history.push('/main/account-home');

@@ -92,7 +92,7 @@ export default class AssessmentOverview extends React.Component<Props, State>{
               <h1>{assessmentType}</h1>
               <div style={regionStyles}>
                 {displaySummary && summary}
-                {assessment.status < 2 && painRatings}
+                {assessment.status < 3 && painRatings}
               </div>
               <div style={regionStyles}>
                 <h3>Pain Map</h3>
