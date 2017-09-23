@@ -17,6 +17,11 @@ const messsageNewPain = [
         "You've indicated you are experiencing pain in a new location.", 
         "Would you like to speak to a nurse?"
     ];
+
+const severePain = [
+        "Are you experiencing severe pain?"
+];
+
 // const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
 //   return state.assessmentIds
 //             .map(aid => state.assessments[aid])
@@ -200,5 +205,9 @@ export const sheduleReassessment = () => {
           makeAssessmentData('reassessment')
       ));
   }
+}
+
+export const assessmentReportSeverePain = (assessment: AssessmentInterface) => {
+  return messagePromptUser('severe_pain_' + assessment.id,'severe_pain_assess_prompt',1,severePain)
 }
 

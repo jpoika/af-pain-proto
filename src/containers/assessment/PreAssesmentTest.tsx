@@ -21,7 +21,7 @@ const dispatchToProps = (dispatch, ownProps) => {
       ownProps.history.push('/main/account-home');
     },
     noChangeAssessment: (assessment: AssessmentInterface) => {
-      console.log(assessment);
+
       dispatch(assessMoveStep(ownProps.lastStepIndex,assessment))
       dispatch(assessMarkComplete(assessment,2)); //TODO shouldn't be able to call with null assessment
       dispatch(assessmentCopyLastPain(assessment));

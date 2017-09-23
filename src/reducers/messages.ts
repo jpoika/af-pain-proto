@@ -61,7 +61,7 @@ export const messagePrompts = (state={},action) => {
   }
   return state;
 }
-
+//TODO why do I need this when I have messagePrompts and messagePromptIds
 export const messageDialogs = (state={}, action) => {
   switch (action.type) {
     case MESSAGE_PROMPT_USER:
@@ -73,7 +73,7 @@ export const messageDialogs = (state={}, action) => {
   }
   return state;
 }
-
+//TODO why do I need this when I have messagePrompts and messagePromptIds
 export const messageDialogIds = (state=[],action) => {
   switch (action.type) {
     case MESSAGE_PROMPT_USER:

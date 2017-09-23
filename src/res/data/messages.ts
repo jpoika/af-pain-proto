@@ -9,6 +9,7 @@ export interface MessagePromptInterface {
   messageId: number;
   maxRepeat: number; //0 == No Limit
   count: number;
+  acknowledged: boolean
 }
 
 
@@ -25,6 +26,7 @@ export const makeMessagePrompt = (id: string, name: string, maxRepeat: number, m
     name,
     maxRepeat,
     messageId,
-    count: 0
+    count: 0,
+    acknowledged: false
   }
 }
