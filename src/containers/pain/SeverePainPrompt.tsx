@@ -1,8 +1,11 @@
 import SeverePainPrompt from '../../appcomponents/pain/SeverePainPrompt';
 import {connect} from 'react-redux';
 import {alertNurse} from '../../actions/nurse'
-import {makeMessage} from '../../res/data/messages';
-import {closePrompt} from '../../actions/messages';
+//import {makeMessage} from '../../res/data/messages';
+import {closePrompt,ackPrompt} from '../../actions/messages';
+import {assessmentPromptSeverePain} from '../../actions/assessment';
+import {getFirstOpenPromptByName,getMessageById} from './selectors';
+import {MessagePromptInterface} from '../../res/data/messages';
 
 
 // const getConfirmMessage = (promptName,state) => {
@@ -18,15 +21,19 @@ import {closePrompt} from '../../actions/messages';
 // }
 
 const stateToProps = (state, ownProps) => {
+  const openPrompt = getFirstOpenPromptByName('severe_pain_assess_prompt')(state, ownProps);
+  const message = openPrompt ? getMessageById(openPrompt.messageId)(state, ownProps) : null;
+  console.log(openPrompt,message);
   return {
-    open: false //isPromptOpen('severe_pain_prompt',state),
-    // messages: [],
+    open: openPrompt ? true : false,
+    prompt: openPrompt,
+    message: message
     // status: state.nurseSystem.status,
     // confirmMessage: getConfirmMessage('nurse_prompt',state)
   }
 }
 
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (dispatch,ownProps) => {
   return {
     setSeverePain: (hasSeverePain: boolean) => {
         if(hasSeverePain){
@@ -34,6 +41,12 @@ const dispatchToProps = (dispatch) => {
         } else {
           dispatch(closePrompt('severe_pain_prompt'));
         }
+    },
+    clearPrompt: (prompt: MessagePromptInterface) => {
+      dispatch(ackPrompt(prompt));
+    },
+    checkForPrompt: () => {
+       dispatch(assessmentPromptSeverePain(ownProps.assessment));
     }
   }
 }

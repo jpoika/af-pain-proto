@@ -211,3 +211,11 @@ export const assessmentReportSeverePain = (assessment: AssessmentInterface) => {
   return messagePromptUser('severe_pain_' + assessment.id,'severe_pain_assess_prompt',1,severePain)
 }
 
+export const assessmentPromptSeverePain = (assessment: AssessmentInterface) => {
+
+  return (dispatch,getState) => {
+      dispatch(editAssessment(assessment,{}));
+      dispatch(messagePromptUser('severe_pain_' + assessment.id,'severe_pain_assess_prompt',1,severePain));
+  }
+}
+

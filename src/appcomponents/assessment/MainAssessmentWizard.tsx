@@ -6,7 +6,7 @@ import MedicationsList  from '../../containers/medication/MedicationsList';
 import PreAssesmentTest  from '../../containers/assessment/PreAssesmentTest';
 import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
-
+import SeverePainPrompt from '../../containers/pain/SeverePainPrompt';
 
 import {AssessmentInterface} from '../../res/data/assessments';
 import {
@@ -109,8 +109,9 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
   render(){
 
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
-    console.log(assessment);
+
     return (<div>
+             <SeverePainPrompt assessment={assessment} />
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Checking In</StepLabel>
