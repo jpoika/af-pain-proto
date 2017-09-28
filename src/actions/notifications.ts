@@ -19,7 +19,7 @@ export const scheduleNotification = (title,text,deadline, data = {}) => {
         data: data,
         sound: 'file://' + require('../res/audio/alert_chime.mp3')
     }
-    console.log('scheduling with cordova plugin');
+  
     isReady && plugins.notification.schedule(scheduleArg);
     dispatch(editNotification(scheduleArg,deadline.getTime()));
   }

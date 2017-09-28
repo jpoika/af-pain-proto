@@ -11,12 +11,28 @@ export interface Props {
   message: {id: number, message: string[]};
   prompt: MessagePromptInterface;
   assessment: AssessmentInterface;
+  responseId?: string;
 }
+
 export interface State {
-  //open: boolean;
+  responseId: string;
+  responses: any[];
 }
 
 export default class SeverePainPrompt extends React.Component<Props, State>{
+  static defaultProps: Partial<Props> = {
+    responseId: 'default'
+  }
+
+  public initialChildren: any[] = [];
+
+  constructor(props){
+    super(props);
+    this.state = {
+      responseId: props.responseId,
+      responses: []
+    }
+  }
 
   handleClose = () => {
     //this.props.closeNurseDialog()
@@ -25,19 +41,43 @@ export default class SeverePainPrompt extends React.Component<Props, State>{
   componentDidMount(){
     this.props.checkForPrompt();
   }
-
-  componentWillReceiveProps(newProps){
-     //  console.log('--componentWillReceiveProps');
-     //  console.log(this.props.assessment,newProps.assessment);
-     // if(!this.props.assessment.id && newProps.assessment.id > 0){
-     //   this.props.checkForPrompt();
-     // }
+  componentWillMount(){
+     this.initialChildren = !this.props.children ? [] : React.Children.map(this.props.children,child => child)
+     this.getResponseChildren(this.state.responseId);
   }
+
+  getResponseChildren = (responseId) => {
+    const respChildren = this.initialChildren.map(
+     (child) => {
+       if(typeof (child as any).props.responseId !== 'undefined' && (child as any).props.responseId === responseId){
+         return child;
+       }
+       return null;
+     }
+    );
+    this.setState({
+      responses: respChildren,
+      responseId
+    });
+  }
+
 
   handlePainSelection = (hasSeverePain: boolean) => {
     return (event) => {
-      this.props.setSeverePain(hasSeverePain)
-      this.props.clearPrompt(this.props.prompt);
+      this.props.setSeverePain(hasSeverePain);
+      if(hasSeverePain){
+        this.getResponseChildren('nurse-alert');
+        setTimeout(() => {
+         this.getResponseChildren('nurse-alert-done');
+         
+        },2000);
+        setTimeout(() => {
+         this.props.clearPrompt(this.props.prompt);
+        },3500);
+      } else {
+        this.props.clearPrompt(this.props.prompt);
+      }
+      
     }
   }
 
@@ -56,6 +96,7 @@ export default class SeverePainPrompt extends React.Component<Props, State>{
         onClick={this.handlePainSelection(false)}
       />,
     ];
+
     const sentences = message ? message.message : []
     return (<div>
               <Dialog
@@ -67,7 +108,7 @@ export default class SeverePainPrompt extends React.Component<Props, State>{
               >
 
                 {sentences.map(msg => msg)}
-          
+                {this.state.responses}
               </Dialog>
             </div>);
   }

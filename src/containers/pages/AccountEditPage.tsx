@@ -37,18 +37,9 @@ const validateData = (data) => {
    return {isValid,errors}
 };
 
-// const gatherAccountInfo = (userInfo):AccountInterface => {
-//   console.log(userInfo);
-//   return {
-//     firstname: userInfo.firstname,
-//     middlename: userInfo.middlename,
-//     lastname: userInfo.lastname,
-//     gender: userInfo.gender,
-//     dob: userInfo.dob
-//   }
-// }
+
 const stateToProps = (state, ownProps) => {
-  console.log(state.user);
+
   return {
     page: {title: 'Account', subtitle: '', content: ''},
     genders: GenderList,
@@ -56,6 +47,7 @@ const stateToProps = (state, ownProps) => {
     initialAssessment: state.assessments['1']
   }
 }
+
 const dispatchToProps = (dispatch,ownProps) => {
   return {
 

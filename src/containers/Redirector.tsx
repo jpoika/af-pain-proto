@@ -12,7 +12,6 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch, ownProps) => {
   return {
     clearRedirect: () => {
-      console.log("dispatch(clearRedirect())");
       dispatch(clearRedirect());
     }
   }

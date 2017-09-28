@@ -7,6 +7,9 @@ import PreAssesmentTest  from '../../containers/assessment/PreAssesmentTest';
 import BodyPinMapShow  from '../../containers/bodymap/BodyPinMapShow';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
 import SeverePainPrompt from '../../containers/pain/SeverePainPrompt';
+import PromptResponse from '../pain/PromptResponse';
+import CircularProgress from 'material-ui/CircularProgress';
+import DoneIcon from 'material-ui/svg-icons/action/done';
 
 import {AssessmentInterface} from '../../res/data/assessments';
 import {
@@ -111,7 +114,14 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
 
     return (<div>
-             <SeverePainPrompt assessment={assessment} />
+             <SeverePainPrompt assessment={assessment}>
+                  <PromptResponse responseId='nurse-alert'>
+                    <CircularProgress /> Alerting Nurse
+                  </PromptResponse>
+                  <PromptResponse responseId='nurse-alert-done'>
+                    <DoneIcon />
+                  </PromptResponse>
+             </SeverePainPrompt>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Checking In</StepLabel>

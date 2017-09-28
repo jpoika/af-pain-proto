@@ -26,7 +26,6 @@ const stateToProps = (state, ownProps) => {
   }
 }
 const dispatchToProps = (dispatch,ownProps) => {
-  console.log(ownProps);
   return {
     assessmentClicked: (assessment: AssessmentInterface) => {
         ownProps.history.push('/main/assess-overview/' + assessment.id);

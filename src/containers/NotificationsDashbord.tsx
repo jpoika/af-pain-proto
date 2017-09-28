@@ -13,7 +13,6 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch) => {
   return {
     deleteNotification: (id) => {
-      console.log('delete noti clicked');
       dispatch(deleteNotification(id));
     }
   }

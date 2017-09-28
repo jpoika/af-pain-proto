@@ -214,7 +214,7 @@ export const assessmentReportSeverePain = (assessment: AssessmentInterface) => {
 export const assessmentPromptSeverePain = (assessment: AssessmentInterface) => {
 
   return (dispatch,getState) => {
-      dispatch(editAssessment(assessment,{}));
+      dispatch(editAssessment(assessment,{})); //make sure assessment has id before prompt is created
       dispatch(messagePromptUser('severe_pain_' + assessment.id,'severe_pain_assess_prompt',1,severePain));
   }
 }

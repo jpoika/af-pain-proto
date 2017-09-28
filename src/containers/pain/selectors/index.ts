@@ -33,7 +33,7 @@ export const getFirstOpenPromptByName = (promptName: String) => {
   return createSelector( 
     [getOpenPrompts],
     (openPrompts) => {
-      console.log(openPrompts);
+   
       return openPrompts.length > 0 ? openPrompts.filter((prmt) => {
                 return prmt.name === promptName;
               })

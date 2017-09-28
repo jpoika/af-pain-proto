@@ -23,7 +23,7 @@ export default class PreAssessmentTest extends React.Component<Props, State>{
 
   handleAssessmentChoice = (cb: (assessment: AssessmentInterface) => any) => {
     const {assessment} = this.props;
-    console.log(assessment);
+
     return (event) => {
       event.preventDefault();
       event.stopPropagation();

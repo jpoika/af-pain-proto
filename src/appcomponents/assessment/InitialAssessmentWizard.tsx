@@ -8,6 +8,9 @@ import MedicationsList  from '../../containers/medication/MedicationsList';
 import AssessmentOverview  from '../../containers/assessment/AssessmentOverview';
 import {AssessmentInterface} from '../../res/data/assessments';
 import SeverePainPrompt from '../../containers/pain/SeverePainPrompt';
+import PromptResponse from '../pain/PromptResponse';
+import CircularProgress from 'material-ui/CircularProgress';
+import DoneIcon from 'material-ui/svg-icons/action/done';
 
 import {
   Step,
@@ -106,7 +109,14 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
     const {appBarTitle,page,title, maxSteps, assessment,replaceContent,restoreContent} = this.props
 
     return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
-             <SeverePainPrompt assessment={assessment} />
+             <SeverePainPrompt assessment={assessment}>
+                  <PromptResponse responseId='nurse-alert'>
+                    <CircularProgress /> Alerting Nurse
+                  </PromptResponse>
+                  <PromptResponse responseId='nurse-alert-done'>
+                    <DoneIcon />
+                  </PromptResponse>
+             </SeverePainPrompt>
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Account Setup</StepLabel>
