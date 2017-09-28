@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
+import AddIcon from 'material-ui/svg-icons/content/add-circle';
 import {floatParentRowStyle, buttonBasic} from '../../components/commonStyles';
 export interface Props{
   medication: MedicationInterface;
@@ -140,7 +141,7 @@ export default class MedicationItem extends React.Component<Props, State>{
                 {medicationchoices.map((med) => {
                   return <MenuItem key={med.id} value={med.id} primaryText={med.name} />
                 })}
-                
+                <MenuItem leftIcon={<AddIcon color={'green'} />} key={'medication_other'} value={'other'} primaryText={"Other"} />
               </SelectField>
             </div>
             <div style={floatParentRowStyle as any}>

@@ -109,14 +109,16 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
     const {appBarTitle,page,title, maxSteps, assessment,replaceContent,restoreContent} = this.props
 
     return <BasicPage restoreContent={restoreContent} replaceContent={replaceContent} appBarTitle={appBarTitle} page={page} title={title}>
+             
              <SeverePainPrompt assessment={assessment}>
                   <PromptResponse responseId='nurse-alert'>
                     <CircularProgress /> Alerting Nurse
                   </PromptResponse>
                   <PromptResponse responseId='nurse-alert-done'>
-                    <DoneIcon />
+                    <DoneIcon /> Nurse on their way
                   </PromptResponse>
              </SeverePainPrompt>
+
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Account Setup</StepLabel>

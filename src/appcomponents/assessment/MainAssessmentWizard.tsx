@@ -114,14 +114,16 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
 
     return (<div>
+      
              <SeverePainPrompt assessment={assessment}>
                   <PromptResponse responseId='nurse-alert'>
                     <CircularProgress /> Alerting Nurse
                   </PromptResponse>
                   <PromptResponse responseId='nurse-alert-done'>
-                    <DoneIcon />
+                    <DoneIcon /> Nurse on their way
                   </PromptResponse>
              </SeverePainPrompt>
+
              <Stepper activeStep={this.props.stepIndex} orientation="vertical">
               <Step>
                 <StepLabel>Checking In</StepLabel>

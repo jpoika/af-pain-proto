@@ -7,16 +7,16 @@ export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
-import {clearNurseAlert} from './nurse';
+//import {clearNurseAlert} from './nurse';
 import {scheduleNotification} from './notifications';
 import {AssessmentInterface} from '../res/data/assessments';
 import {getPreviousCompletedAssessment} from '../containers/assessment/selectors';
 
 import {nextId} from './_helper';
-const messsageNewPain = [
-        "You've indicated you are experiencing pain in a new location.", 
-        "Would you like to speak to a nurse?"
-    ];
+// const messsageNewPain = [
+//         "You've indicated you are experiencing pain in a new location.", 
+//         "Would you like to speak to a nurse?"
+//     ];
 
 const severePain = [
         "Are you experiencing severe pain?"
@@ -31,19 +31,19 @@ const severePain = [
 //             ;
 // }
 
-const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
-  return state.assessmentIds
-            .map(aid => state.assessments[aid])
-            .filter(assess => !type || assess.type === type )
-            .filter(assess =>  assess.isComplete )
-            .pop()
-            ;
-}
+// const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
+//   return state.assessmentIds
+//             .map(aid => state.assessments[aid])
+//             .filter(assess => !type || assess.type === type )
+//             .filter(assess =>  assess.isComplete )
+//             .pop()
+//             ;
+// }
 
-const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[propName: string]: any}) => {
-   const currentBodySectionIds = Object.keys(sections1).map(sectionId => sectionId);
-   return currentBodySectionIds.filter(bsId => typeof sections2[bsId] === 'undefined');
-}
+// const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[propName: string]: any}) => {
+//    const currentBodySectionIds = Object.keys(sections1).map(sectionId => sectionId);
+//    return currentBodySectionIds.filter(bsId => typeof sections2[bsId] === 'undefined');
+// }
 
 
 export const assessMoveStep = (stepIndex: number,assessment: AssessmentInterface) => {
@@ -57,27 +57,27 @@ export const assessDelete = (assessmentId: number) => {
   }
 }
 
-export const checkForNewPain = (currentAssessmentId: number,region: string) => {
-  return (dispatch,getState) => {
-    const lastAssessment = getLastCompleteAssessment(getState());
-    let newPainSectionIds = [];
+// export const checkForNewPain = (currentAssessmentId: number,region: string) => {
+//   return (dispatch,getState) => {
+//     const lastAssessment = getLastCompleteAssessment(getState());
+//     let newPainSectionIds = [];
 
-    let currentAssessment = getState().assessments[currentAssessmentId];
+//     let currentAssessment = getState().assessments[currentAssessmentId];
 
-    if(currentAssessment && lastAssessment && lastAssessment.id !== currentAssessment.id){
-      newPainSectionIds = getDiffBodySections(currentAssessment.bodySections,lastAssessment.bodySections);
+//     if(currentAssessment && lastAssessment && lastAssessment.id !== currentAssessment.id){
+//       newPainSectionIds = getDiffBodySections(currentAssessment.bodySections,lastAssessment.bodySections);
       
 
-      if(newPainSectionIds.length){
-        dispatch(clearNurseAlert());
-        dispatch(messagePromptUser('new_pain_' + region + '_' + currentAssessmentId,'nurse_prompt',1,messsageNewPain));
-      }
+//       if(newPainSectionIds.length){
+//         dispatch(clearNurseAlert());
+//         dispatch(messagePromptUser('new_pain_' + region + '_' + currentAssessmentId,'nurse_prompt',1,messsageNewPain));
+//       }
 
 
-      dispatch(setNewPain(currentAssessment,newPainSectionIds));
-    }
-  }
-}
+//       dispatch(setNewPain(currentAssessment,newPainSectionIds));
+//     }
+//   }
+// }
 
 export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectionIds: string[]) => {
   return {

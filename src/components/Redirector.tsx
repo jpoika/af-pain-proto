@@ -24,8 +24,6 @@ export default class Redirector extends React.Component<Props, State>{
   }
 
   render(){
-    console.log(this.props.path);
-    console.log(this.props.path.length);
     return this.props.path.length > 0 ? <Redirect to={this.props.path} /> : null;
   }
 }
