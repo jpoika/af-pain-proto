@@ -1,15 +1,27 @@
-import {MEDICATION_REMOVE, MEDICATION_EDIT} from '../actions/medication';
+import {
+  MEDICATION_REMOVE, 
+  MEDICATION_EDIT,
+  MEDICATION_CHOICE_EDIT
+} from '../actions/medication';
 import {medicationchoices as medChoiceDefaults, medicationchoiceIds as medicationchoiceIdsDefault} from '../res/data/medication';
 import {arrayPushUnique, arrayRemove} from './_helpers';
 
 export const medicationchoices = (state=medChoiceDefaults,action) => {
-
-  return state;  
+  switch(action.type){
+    case MEDICATION_CHOICE_EDIT:
+      state = {...state,[action.medicationChoice.id]: {...action.medicationChoice}}
+      break;
+  }
+  return state;
 }
 
 export const medicationchoiceIds = (state = medicationchoiceIdsDefault,action) => {
-
-  return state;  
+  switch(action.type){
+    case MEDICATION_CHOICE_EDIT:
+      state = arrayPushUnique(action.medicationChoice.id,state);
+      break;
+  }
+  return state; 
 }
 
 export const medications = (state={},action) => {

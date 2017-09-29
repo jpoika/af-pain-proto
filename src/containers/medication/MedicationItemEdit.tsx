@@ -1,8 +1,8 @@
 import MedicationItem from '../../appcomponents/medication/MedicationItemEdit';
-import {MedicationInterface, frequencyUnits, amountUnits, routes} from '../../res/data/medication';
+import {MedicationInterface, frequencyUnits, amountUnits, routes, makeMedication} from '../../res/data/medication';
 import {connect} from 'react-redux';
-import {medicationEdit} from '../../actions/medication';
-import {Validators} from '../../lib/helpers'
+import {medicationEdit,medicationChoiceEdit} from '../../actions/medication';
+import {Validators} from '../../lib/helpers';
 import {viewActions} from '../../lib/local-t2-view';
 
 const validateData = (data) => {
@@ -48,6 +48,7 @@ const validateData = (data) => {
 
 const stateToProps = (state, ownProps) => {
   return {
+    newMedicationChoice: makeMedication(0,''),
     frequencyUnits,
     routes,
     amountUnits,
@@ -66,6 +67,9 @@ const dispatchToProps = (dispatch) => {
       }
       
       return result;
+    },
+    addMedicationChoice: (medication: MedicationInterface) => {
+      dispatch(medicationChoiceEdit(medication));
     }
   }
 }

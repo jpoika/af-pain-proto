@@ -7,23 +7,27 @@ import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import AddIcon from 'material-ui/svg-icons/content/add-circle';
 import {floatParentRowStyle, buttonBasic} from '../../components/commonStyles';
+import MedicationChoiceEdit from './MedicationChoiceEdit';
 export interface Props{
   medication: MedicationInterface;
+  newMedicationChoice: MedicationInterface;
+  addMedicationChoice: (medication: MedicationInterface) => void;
   update(medication: MedicationInterface): any;
   deleteItem(medicationId: number): any;
   cancelItem(): void;
   validate(data: MedicationInterface): any;
-  onSave?(medication: MedicationInterface): any
-  routes: {id: number, name: string, description: string}[],
-  amountUnits: {id: number, name: string, description: string}[],
-  frequencyUnits: string[]
-  medicationchoices: MedicationInterface[]
+  onSave?(medication: MedicationInterface): any;
+  routes: {id: number, name: string, description: string}[];
+  amountUnits: {id: number, name: string, description: string}[];
+  frequencyUnits: string[];
+  medicationchoices: MedicationInterface[];
 }
 
 export interface State{
   values: any;
   errors: any;
   mode: number; //0 view 1//edit
+  showCreateMedication: boolean;
 }
 
 function normalizeValues(medication: MedicationInterface){
@@ -54,7 +58,8 @@ export default class MedicationItem extends React.Component<Props, State>{
     this.state = {
       values: normalizeValues(this.props.medication),
       errors: normalizeErrors(this.props.medication),
-      mode: this.props.medication.name ? 1 : 0
+      mode: this.props.medication.name ? 1 : 0,
+      showCreateMedication: false
     };
   }
 
@@ -85,7 +90,6 @@ export default class MedicationItem extends React.Component<Props, State>{
 
   handleSubmit = (event) => {
     const {validate,update,onSave} = this.props;
-    console.log(this.state.values);
  
     const result = validate(this.state.values);
    
@@ -103,16 +107,40 @@ export default class MedicationItem extends React.Component<Props, State>{
 
   handleSelectChange = (valueName) => {
     return (event,key,payload) => {
-      this.setState({
-        values: {...this.state.values,[valueName]: payload},
-        errors: {...this.state.errors,[valueName]: ''}
-      } as any);
+      console.log(valueName,key,payload);
+      if(payload !== 'other_medication'){
+        this.setState({
+          values: {...this.state.values,[valueName]: payload},
+          errors: {...this.state.errors,[valueName]: ''}
+        } as any);
+      } else {
+        this.setState({
+          showCreateMedication: true
+        });
+      }
     }
   }
 
+  showCreateMedication = () => {
+    this.setState({
+      showCreateMedication: true
+    });
+  }
+
+  hideCreateMedication = () => {
+    this.setState({
+      showCreateMedication: false
+    });
+  }
+
+  handleOtherMedication = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   render(){
-    const {medication,routes,medicationchoices} = this.props;
-    const {values,errors} = this.state;
+    const {medication,routes,medicationchoices,newMedicationChoice,addMedicationChoice} = this.props;
+    const {values,errors, showCreateMedication} = this.state;
     return <Paper style={{padding: '5px', width: '97%',marginBottom: '15px',marginLeft: '10px'}}>
             <form onSubmit={this.handleSubmit}>
             <div>
@@ -130,7 +158,7 @@ export default class MedicationItem extends React.Component<Props, State>{
               </SelectField>
             </div>
             <div>
-              <SelectField
+              {!showCreateMedication && <SelectField
                 floatingLabelText="Medication name"
                 errorText={errors.medicationId} 
                 value={values.medicationId}
@@ -141,8 +169,11 @@ export default class MedicationItem extends React.Component<Props, State>{
                 {medicationchoices.map((med) => {
                   return <MenuItem key={med.id} value={med.id} primaryText={med.name} />
                 })}
-                <MenuItem leftIcon={<AddIcon color={'green'} />} key={'medication_other'} value={'other'} primaryText={"Other"} />
-              </SelectField>
+                <MenuItem  leftIcon={<AddIcon color={'green'} />} key={'other_medication'} value={'other_medication'} primaryText={"Other"} />
+              </SelectField>}
+            </div>
+            <div>
+              {showCreateMedication && <MedicationChoiceEdit onSave={addMedicationChoice} onCancel={this.hideCreateMedication} medicationChoice={newMedicationChoice} />}
             </div>
             <div style={floatParentRowStyle as any}>
               <div style={buttonBasic}>
