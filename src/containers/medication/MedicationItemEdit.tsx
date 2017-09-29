@@ -70,6 +70,9 @@ const dispatchToProps = (dispatch) => {
     },
     addMedicationChoice: (medication: MedicationInterface) => {
       dispatch(medicationChoiceEdit(medication));
+    },
+    sendMessage: (message: string) => {
+      dispatch(viewActions.sendMessage(message));
     }
   }
 }

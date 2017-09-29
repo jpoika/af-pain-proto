@@ -44,15 +44,20 @@ export default class MedicationChoiceEdit extends React.Component<Props, State>{
     const {medicationChoice} = this.state;
 
     return <div>
-              <TextField
-                floatingLabelText={'Medication Name'}
-                hintText={'Enter medication here'}
-                value={medicationChoice.name}
-                name={'name'}
-                onChange={this.handleChange}
-              /> 
-              <RaisedButton onTouchTap={this.handleSave} label={'Add'} />
-              <RaisedButton onTouchTap={this.props.onCancel}label={'Cancel'} />
+              <div>
+                <TextField
+                  floatingLabelText={'Medication Name'}
+                  hintText={'Enter medication here'}
+                  value={medicationChoice.name}
+                  name={'name'}
+                  onChange={this.handleChange}
+                /> 
+              </div>
+              <div>
+                <RaisedButton onTouchTap={this.handleSave} label={'Add'} />
+                &nbsp;
+                <RaisedButton onTouchTap={this.props.onCancel}label={'Cancel'} />
+              </div>
     </div>;
   }
 }
