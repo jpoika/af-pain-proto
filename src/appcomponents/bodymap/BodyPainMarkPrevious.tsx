@@ -38,7 +38,6 @@ const BodyPainMarkPrevious: React.SFC<Props> = (props) => {
       width: gridSize,
       height: gridSize
     }
-    console.log(iconStyles);
     
     return <div style={styles}>
             <HistoryIcon  style={iconStyles} color={'#000000'} />

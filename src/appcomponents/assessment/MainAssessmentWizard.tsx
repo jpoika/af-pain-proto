@@ -10,6 +10,7 @@ import SeverePainPrompt from '../../containers/pain/SeverePainPrompt';
 import PromptResponse from '../pain/PromptResponse';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done';
+import DecreasedPainPrompt from '../../containers/assessment/DecreasedPainPrompt';
 
 import {AssessmentInterface} from '../../res/data/assessments';
 import {
@@ -19,7 +20,7 @@ import {
   StepContent
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+
 
 
 export interface Props extends PageProps{
@@ -71,7 +72,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
 
   renderBackButton = (step) => {
     const {stepIndex} = this.props;
-     return <FlatButton
+     return <RaisedButton
               label="Back"
               disabled={stepIndex === 0}
               disableTouchRipple={true}
@@ -95,7 +96,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
           labelColor="#FFFFFF"
         />}
         {step > 0 && (
-          <FlatButton
+          <RaisedButton
               label="Back"
               disabled={stepIndex === 0}
               disableTouchRipple={true}
@@ -114,7 +115,11 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
 
     return (<div>
-      
+             <DecreasedPainPrompt assessment={assessment}>
+                <PromptResponse responseId='thank-you'>
+                  Thank you.
+                </PromptResponse>
+             </DecreasedPainPrompt>
              <SeverePainPrompt assessment={assessment}>
                   <PromptResponse responseId='nurse-alert'>
                     <CircularProgress /> Alerting Nurse
@@ -165,7 +170,9 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
               <Step>
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
-                  <MedicationsList actions={this.renderBackButton(4)} onComplete={this.handleNext} />
+                  <div style={{paddingBottom: 3}}>
+                    <MedicationsList actions={this.renderBackButton(4)} onComplete={this.handleNext} />
+                  </div>
                 </StepContent>
               </Step>
               <Step>

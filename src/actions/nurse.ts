@@ -1,5 +1,3 @@
-// import {PainLevelInterface, PainLevelsObject} from '../res/data/pain';
-// import {AssessmentInterface} from '../res/data/assessments';
 import {messagePromptUser, closePrompt} from './messages'
 import {sendMessage} from './';
 export const ALERT_NURSE = 'T2.ALERT_NURSE';
@@ -22,10 +20,6 @@ import {nextId} from './_helper';
 
 let nurseAlertPromptTimeout;
 
-// const messsageIntollerablePain = [
-//         "You've indicated you are experiencing intollerable pain.", 
-//         "Would you like to speak to a nurse?"
-//     ];
 const tmpSimulatedContact = () => {
   return new Promise<any>((res,rej) => {
       setTimeout(() => {
@@ -34,26 +28,6 @@ const tmpSimulatedContact = () => {
   });
 
 }
-
-
-
-// const isPainInTolerable = (assessment: {bodySections: {[propName: string]: number}, painLevels:{[propName: string]: number}}, overallPainLevel:PainLevelInterface, painLevels:PainLevelsObject) => {
-//   const tooPainfulSections = Object.keys(assessment.bodySections).filter(propName => {
-//       const painLevelId = assessment.bodySections[propName];
-//       const bodySectionPainLevel = typeof painLevels[painLevelId] !== 'undefined' ? painLevels[painLevelId] : null;
-//       const currentPainLevelId = typeof assessment.painLevels['1'] !== 'undefined' ? assessment.painLevels['1'] : null ;
-//       const currentPain = currentPainLevelId ? painLevels[currentPainLevelId] : null;
-
-//       if(currentPain && currentPain.level > overallPainLevel.level){
-//         return true; //user has indicated Current Overrall Pain Levels Greater than Tolerable Pain Levels 
-//       }
-//       if(bodySectionPainLevel && bodySectionPainLevel.level > overallPainLevel.level){
-//         return true; //user has indicated unbearable pain on the bodySection map
-//       }
-//       return false;
-//   });
-//   return tooPainfulSections.length > 0;
-// }
 
 export const clearNurseAlert = () => {
   return {
@@ -107,22 +81,6 @@ export const userDoesNotHaveHighPain = () => {
     type: SET_USER_HIGH_PAIN_FALSE,
   }
 }
-
-// export const checkForUserHighPain = (painLevel: PainLevelInterface, assessment: AssessmentInterface) => {
-//   return (dispatch,getState) => {
-//     const currentState = getState();
-  
-//       if(isPainInTolerable(assessment,painLevel,currentState.painLevels)){
-//         dispatch(clearNurseAlert());
-//         if(!currentState.nurseSystem.userPromptedForPain){
-//           dispatch(messagePromptUser(assessment.id + '_high_pain','nurse_prompt',1,messsageIntollerablePain));
-//         }
-//         dispatch(userHasHighPain());
-//       }else{
-//         dispatch(userDoesNotHaveHighPain());
-//       }
-//   }
-// }
 
 export const alertNurseDialogueOpen = () => {
   nurseAlertPromptTimeout && clearTimeout(nurseAlertPromptTimeout);

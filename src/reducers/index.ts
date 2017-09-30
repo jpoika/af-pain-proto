@@ -1,8 +1,6 @@
 import {combineReducers} from 'redux';
 import {device} from './device';
 import {appReducer} from 'local-t2-sw-redux';
-// import {navigationReducer} from 'local-t2-navigation-redux';
-// import {viewReducer} from '../lib/local-t2-view';
 import {notifications, notificationIds} from './notifications';
 import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,messagePrompts} from './messages';
 
@@ -161,7 +159,7 @@ const appHub = combineReducers({
   medicationchoiceIds
 });
 const rootReducer = (state, action) => {
-  // if (action.type === 'RESET') return action.stateFromLocalStorage
+
   if (action.type === RESET_APP) {
     state = undefined;
   }

@@ -1,6 +1,6 @@
 import BodyMap from '../../appcomponents/bodymap/BodyPinMap';
 import {connect} from 'react-redux';
-import { assessMarkPain, assessmentRemoveBodyPain} from '../../actions/assessment';
+import { assessMarkPain, assessmentRemoveBodyPain, assessmentCheckForPainDecrease} from '../../actions/assessment';
 import {PainLevelInterface} from '../../res/data/pain';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {frontBodySectionIds, backBodySectionIds} from '../../res/data/body';
@@ -57,7 +57,6 @@ const getSavedPainMarkings = (assessmentId,currentRegion,state) => {
 
 const stateToProps = (state, ownProps) => {
   const prevAssessm = getPreviousCompletedAssessment(ownProps.assessment)(state, ownProps);
-  console.log(prevAssessm);
   return {
     title: ownProps.side === 'back' ? 'Pain Map Back':'Pain Map Front',
     bodySections: ownProps.side === 'back' ? getBodySections(state.bodySections,backBodySectionIds) : getBodySections(state.bodySections,frontBodySectionIds),
@@ -70,6 +69,7 @@ const dispatchToProps = (dispatch,ownProps) => {
   return {
     markPain: (assessment: AssessmentInterface, side: string, sectionId: number, painLevel: PainLevelInterface) => {
       dispatch(assessMarkPain(assessment.id,side,sectionId,painLevel.id));
+      dispatch(assessmentCheckForPainDecrease(assessment));
     },
     deleteSection: (sectionId: number) => {   
       dispatch(assessmentRemoveBodyPain(ownProps.assessment.id,sectionId));

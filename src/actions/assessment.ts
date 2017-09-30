@@ -7,43 +7,44 @@ export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
 export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
-//import {clearNurseAlert} from './nurse';
+
 import {scheduleNotification} from './notifications';
 import {AssessmentInterface} from '../res/data/assessments';
 import {getPreviousCompletedAssessment} from '../containers/assessment/selectors';
+import {PainLevelInterface} from '../res/data/pain'
 
 import {nextId} from './_helper';
-// const messsageNewPain = [
-//         "You've indicated you are experiencing pain in a new location.", 
-//         "Would you like to speak to a nurse?"
-//     ];
 
 const severePain = [
         "Are you experiencing severe pain?"
 ];
 
-// const getLastNonInitialAssessment = (state,type): AssessmentInterface => {
-//   return state.assessmentIds
-//             .map(aid => state.assessments[aid])
-//             .filter(assess => assess.id !== 1)
-//             .filter(assess => assess.type === type)
-//             .pop()
-//             ;
-// }
+const decreasedPain = [
+        "It appears you pain level may have improved.",
+        "Please select what has helped to decrease your pain?"
 
-// const getLastCompleteAssessment = (state,type = ''): AssessmentInterface => {
-//   return state.assessmentIds
-//             .map(aid => state.assessments[aid])
-//             .filter(assess => !type || assess.type === type )
-//             .filter(assess =>  assess.isComplete )
-//             .pop()
-//             ;
-// }
+];
 
-// const getDiffBodySections = (sections1: {[propName: string]: any},sections2: {[propName: string]: any}) => {
-//    const currentBodySectionIds = Object.keys(sections1).map(sectionId => sectionId);
-//    return currentBodySectionIds.filter(bsId => typeof sections2[bsId] === 'undefined');
-// }
+export const getLocationsPainDecreased = (currentAssessment: AssessmentInterface, prevAssessment: AssessmentInterface, painLevels: PainLevelInterface[]): number[] => {
+  const decreasedPainLocations = [];
+
+  Object.keys(currentAssessment.bodySections).forEach((bodySectionId,i) => {
+    const currentBodySectionPainLevelId = currentAssessment.bodySections[bodySectionId];
+   // console.log(currentBodySectionPainLevelId);
+    if(typeof prevAssessment.bodySections[bodySectionId] !== 'undefined'){
+      const lastBodySectionPainLevelId = prevAssessment.bodySections[bodySectionId];
+     // console.log(lastBodySectionPainLevelId);
+      const currentBodySectionPainLevel = painLevels[currentBodySectionPainLevelId+ '']
+      const lastBodySectionPainLevel = painLevels[lastBodySectionPainLevelId + '']
+      console.log(currentBodySectionPainLevel.level,lastBodySectionPainLevel.level);
+
+      if(lastBodySectionPainLevel.level > currentBodySectionPainLevel.level){
+        decreasedPainLocations.push(bodySectionId);
+      }
+    }
+  });
+  return decreasedPainLocations;
+}
 
 
 export const assessMoveStep = (stepIndex: number,assessment: AssessmentInterface) => {
@@ -56,28 +57,6 @@ export const assessDelete = (assessmentId: number) => {
     assessmentId
   }
 }
-
-// export const checkForNewPain = (currentAssessmentId: number,region: string) => {
-//   return (dispatch,getState) => {
-//     const lastAssessment = getLastCompleteAssessment(getState());
-//     let newPainSectionIds = [];
-
-//     let currentAssessment = getState().assessments[currentAssessmentId];
-
-//     if(currentAssessment && lastAssessment && lastAssessment.id !== currentAssessment.id){
-//       newPainSectionIds = getDiffBodySections(currentAssessment.bodySections,lastAssessment.bodySections);
-      
-
-//       if(newPainSectionIds.length){
-//         dispatch(clearNurseAlert());
-//         dispatch(messagePromptUser('new_pain_' + region + '_' + currentAssessmentId,'nurse_prompt',1,messsageNewPain));
-//       }
-
-
-//       dispatch(setNewPain(currentAssessment,newPainSectionIds));
-//     }
-//   }
-// }
 
 export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectionIds: string[]) => {
   return {
@@ -125,7 +104,7 @@ export const editAssessment = (assessment:AssessmentInterface,newProps) => {
 export const assessmentCopyLastPain = (assessment: AssessmentInterface) => {
   return (dispatch,getState) => {
     const lastAssessment = getPreviousCompletedAssessment(assessment)(getState(),{});
-    if(assessment.id !== lastAssessment.id){
+    if(lastAssessment && assessment.id !== lastAssessment.id){
       dispatch(editAssessment(assessment,
                         {
                           bodySections: lastAssessment.bodySections,
@@ -139,6 +118,17 @@ export const assessMarkPain = (assessmentId: number, side:string, bodySectionId:
   return {
     type: ASSESS_MARK_BODY_SECTION_PAIN,
     assessmentId,
+    bodySectionId,
+    painLevelId,
+    side
+  }
+}
+//
+export const assessMarkPainSafe = (assessment: AssessmentInterface, side:string, bodySectionId: number, painLevelId: number) => {
+  //TODO //BOOKMARK
+  return {
+    type: ASSESS_MARK_BODY_SECTION_PAIN,
+    assessmen: assessment,
     bodySectionId,
     painLevelId,
     side
@@ -216,6 +206,24 @@ export const assessmentPromptSeverePain = (assessment: AssessmentInterface) => {
   return (dispatch,getState) => {
       dispatch(editAssessment(assessment,{})); //make sure assessment has id before prompt is created
       dispatch(messagePromptUser('severe_pain_' + assessment.id,'severe_pain_assess_prompt',1,severePain));
+  }
+}
+
+export const assessmentCheckForPainDecrease = (assessment: AssessmentInterface) => {
+  return (dispatch,getState) => {
+    const lastAssessment = getPreviousCompletedAssessment(assessment)(getState(),{});
+    if(lastAssessment){
+      const decreasedPainBodySectionIds = getLocationsPainDecreased(assessment,lastAssessment,getState().painLevels);
+      console.log('assessmentCheckForPainDecrease');
+      console.log(assessment);
+      console.log(lastAssessment);
+      // console.log(decreasedPainBodySectionIds);
+      if(decreasedPainBodySectionIds.length > 0){
+         decreasedPainBodySectionIds.map((bsId) => {
+           dispatch(messagePromptUser('pain_decrease_location_' + assessment.id + '_' + bsId,'pain_location_decreased_prompt',1,decreasedPain));
+         })
+      }
+    }
   }
 }
 

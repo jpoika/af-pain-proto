@@ -28,11 +28,11 @@ const styles = {
   }
 }
 
-export default class AccountHome extends React.Component<Props, State> {
+export default class AccountHomePage extends React.Component<Props, State> {
 
 
   render(){
-    console.log(this.props);
+    
     const {appBarTitle,appPage, page,title,restoreContent,replaceContent,viewPortSize,haveUserInfo} = this.props;
 
     const leftStyles = viewPortSize === 'large' ? {width: '50%',float: 'left',paddingRight:'20px'} : {width: '100%'};
@@ -53,7 +53,7 @@ export default class AccountHome extends React.Component<Props, State> {
 
                       
                    </div>
-                    <NewPainButton style={styles.appActionContainer as any} />
+                   <NewPainButton style={styles.appActionContainer as any} />
                  
               </div>
             </BasicPage>);

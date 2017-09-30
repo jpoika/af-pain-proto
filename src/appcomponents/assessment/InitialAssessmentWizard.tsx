@@ -20,7 +20,7 @@ import {
 } from 'material-ui/Stepper';
 
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+
 
 export interface Props extends PageProps{
   stepIndex: number;
@@ -67,7 +67,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
 
   renderBackButton = (step) => {
     const {stepIndex} = this.props;
-     return <FlatButton
+     return <RaisedButton
               label="Back"
               disabled={stepIndex === 0}
               disableTouchRipple={true}
@@ -90,7 +90,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
           labelColor="#FFFFFF"
         />}
         {step > 0 && (
-          <FlatButton
+          <RaisedButton
               label="Back"
               disabled={stepIndex === 0}
               disableTouchRipple={true}
@@ -160,7 +160,9 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
               <Step>
                 <StepLabel>Medications</StepLabel>
                 <StepContent>
-                  <MedicationsList actions={this.renderBackButton(4)} onComplete={this.handleNext} />
+                  <div style={{paddingBottom: 3}}>
+                    <MedicationsList actions={this.renderBackButton(4)} onComplete={this.handleNext} />
+                  </div>
                 </StepContent>
               </Step>
               <Step>

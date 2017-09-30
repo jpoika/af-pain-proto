@@ -4,9 +4,6 @@ import {makeAssessment} from '../res/data/assessments';
 import { normalize, schema } from 'normalizr';
 import {
   ASSESS_MARK_BODY_SECTION_PAIN, 
-  //ASSESS_SET_OVERALL_PAIN,
-  //ASSESS_MARK_COMPLETE,
- // ASSESS_MOVE_STEP,
   ASSESSMENT_EDIT,
   ASSESS_REMOVE_BODY_SECTION_PAIN,
   ASSESSMENT_SET_NEW_PAIN,
