@@ -1,6 +1,6 @@
 import BodyMap from '../../appcomponents/bodymap/BodyPinMap';
 import {connect} from 'react-redux';
-import { assessMarkPain, assessmentRemoveBodyPain, assessmentCheckForPainDecrease} from '../../actions/assessment';
+import {assessMarkPain, assessmentRemoveBodyPain, assessmentCheckForPainDecrease} from '../../actions/assessment';
 import {PainLevelInterface} from '../../res/data/pain';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {frontBodySectionIds, backBodySectionIds} from '../../res/data/body';
@@ -68,7 +68,7 @@ const stateToProps = (state, ownProps) => {
 const dispatchToProps = (dispatch,ownProps) => {
   return {
     markPain: (assessment: AssessmentInterface, side: string, sectionId: number, painLevel: PainLevelInterface) => {
-      dispatch(assessMarkPain(assessment.id,side,sectionId,painLevel.id));
+      dispatch(assessMarkPain(assessment,sectionId,painLevel.id));
       dispatch(assessmentCheckForPainDecrease(assessment));
     },
     deleteSection: (sectionId: number) => {   

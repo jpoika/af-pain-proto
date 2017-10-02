@@ -34,6 +34,11 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
     //this.props.closeNurseDialog()
   }
 
+  handleClearPrompt = () => {
+    this.props.clearPrompt(this.props.prompt);
+    this.getResponseChildren('default');
+  }
+
   componentWillMount(){
      this.initialChildren = !this.props.children ? [] : React.Children.map(this.props.children,child => child)
      this.getResponseChildren(this.state.responseId);
@@ -60,10 +65,10 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
       if(isYes){
         this.getResponseChildren('thank-you');
         setTimeout(() => {
-         this.props.clearPrompt(this.props.prompt);
+         this.handleClearPrompt();
         },2000);
       } else {
-        this.props.clearPrompt(this.props.prompt);
+        this.handleClearPrompt();
       }
       
     }

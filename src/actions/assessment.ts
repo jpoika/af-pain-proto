@@ -30,13 +30,12 @@ export const getLocationsPainDecreased = (currentAssessment: AssessmentInterface
 
   Object.keys(currentAssessment.bodySections).forEach((bodySectionId,i) => {
     const currentBodySectionPainLevelId = currentAssessment.bodySections[bodySectionId];
-   // console.log(currentBodySectionPainLevelId);
+   
     if(typeof prevAssessment.bodySections[bodySectionId] !== 'undefined'){
       const lastBodySectionPainLevelId = prevAssessment.bodySections[bodySectionId];
-     // console.log(lastBodySectionPainLevelId);
+     
       const currentBodySectionPainLevel = painLevels[currentBodySectionPainLevelId+ '']
       const lastBodySectionPainLevel = painLevels[lastBodySectionPainLevelId + '']
-      console.log(currentBodySectionPainLevel.level,lastBodySectionPainLevel.level);
 
       if(lastBodySectionPainLevel.level > currentBodySectionPainLevel.level){
         decreasedPainLocations.push(bodySectionId);
@@ -113,26 +112,13 @@ export const assessmentCopyLastPain = (assessment: AssessmentInterface) => {
     }
   }
 }
-//TODO replace with editAssessment?
-export const assessMarkPain = (assessmentId: number, side:string, bodySectionId: number, painLevelId: number) => {
-  return {
-    type: ASSESS_MARK_BODY_SECTION_PAIN,
-    assessmentId,
-    bodySectionId,
-    painLevelId,
-    side
-  }
-}
-//
-export const assessMarkPainSafe = (assessment: AssessmentInterface, side:string, bodySectionId: number, painLevelId: number) => {
+
+export const assessMarkPain = (assessment: AssessmentInterface,bodySectionId: number, painLevelId: number) => {
   //TODO //BOOKMARK
-  return {
-    type: ASSESS_MARK_BODY_SECTION_PAIN,
-    assessmen: assessment,
-    bodySectionId,
-    painLevelId,
-    side
-  }
+  const newBodySections = {...assessment.bodySections,[bodySectionId]: painLevelId};
+  return editAssessment(assessment,{
+      bodySections: newBodySections
+  });
 }
 //TODO replace with editAssessment?
 export const assessmentRemoveBodyPain = (assessmentId: number,bodySectionId: number) => {
@@ -214,10 +200,7 @@ export const assessmentCheckForPainDecrease = (assessment: AssessmentInterface) 
     const lastAssessment = getPreviousCompletedAssessment(assessment)(getState(),{});
     if(lastAssessment){
       const decreasedPainBodySectionIds = getLocationsPainDecreased(assessment,lastAssessment,getState().painLevels);
-      console.log('assessmentCheckForPainDecrease');
-      console.log(assessment);
-      console.log(lastAssessment);
-      // console.log(decreasedPainBodySectionIds);
+
       if(decreasedPainBodySectionIds.length > 0){
          decreasedPainBodySectionIds.map((bsId) => {
            dispatch(messagePromptUser('pain_decrease_location_' + assessment.id + '_' + bsId,'pain_location_decreased_prompt',1,decreasedPain));
