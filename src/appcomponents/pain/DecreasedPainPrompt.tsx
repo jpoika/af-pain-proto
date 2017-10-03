@@ -1,11 +1,17 @@
 import * as React from "react";
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-import {MessagePromptInterface} from '../../res/data/messages'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
+import {MessagePromptInterface} from '../../res/data/messages';
+import {PainReductionInterface} from '../../res/data/painReduction';
 export interface Props {
   open: boolean;
   clearPrompt: (prompt: MessagePromptInterface) => void;
   message: {id: number, message: string[]};
+  logPainReduction: (painReduction: PainReductionInterface) => void;
+  painReduction: PainReductionInterface;
   prompt: MessagePromptInterface;
   responseId?: string;
 }
@@ -13,7 +19,18 @@ export interface Props {
 export interface State {
   responseId: string;
   responses: any[];
+  selectValues: string[];
 }
+
+const selectOptions = [
+  'Medications',
+  'Watching a Movie',
+  'Playing Games',
+  'Listening to Music',
+  'Sleeping',
+  'Meditation',
+  'Other'
+];
 
 export default class DecreasedPainPrompt extends React.Component<Props, State>{
   static defaultProps: Partial<Props> = {
@@ -26,12 +43,23 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
     super(props);
     this.state = {
       responseId: props.responseId,
-      responses: []
+      responses: [],
+      selectValues: []
     }
   }
 
-  handleClose = () => {
-    //this.props.closeNurseDialog()
+  handleSelectChange = (event, index, selectValues) => this.setState({selectValues});
+
+  menuItems(values) {
+    return selectOptions.map((name) => (
+      <MenuItem
+        key={name}
+        insetChildren={true}
+        checked={values && values.indexOf(name) > -1}
+        value={name}
+        primaryText={name}
+      />
+    ));
   }
 
   handleClearPrompt = () => {
@@ -60,9 +88,11 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
   }
 
 
-  handleSelection = (isYes: boolean) => {
+  handleSelection = (saveData: boolean) => {
     return (event) => {
-      if(isYes){
+      const {selectValues} = this.state;
+      //const {logPainReduction} = this.props;
+      if(saveData){
         this.getResponseChildren('thank-you');
         setTimeout(() => {
          this.handleClearPrompt();
@@ -70,25 +100,33 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
       } else {
         this.handleClearPrompt();
       }
-      
+      if(saveData && selectValues.length > 0){
+        //logPainReduction(painReduction)
+      }
     }
   }
 
   render(){
 
     const {open,message} = this.props;
+    const {selectValues} = this.state;
     const actions = [
       <RaisedButton
-        label="Yes"
-        primary={true}
-        onClick={this.handleSelection(true)}
-      />,
-      <RaisedButton
-        label="No"
+        label="Skip"
         primary={true}
         onClick={this.handleSelection(false)}
       />,
     ];
+
+    if(selectValues.length > 0){
+        actions.push(
+              <RaisedButton
+                label="Save"
+                primary={true}
+                onClick={this.handleSelection(true)}
+              />
+          )
+    }
 
     const sentences = message ? message.message : []
     return (<div>
@@ -97,11 +135,20 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
                 modal={false}
                 open={open}
                 actions={actions}
-                onRequestClose={this.handleClose}
+                onRequestClose={this.handleClearPrompt}
               >
 
                 {sentences.map(msg => msg)}
                 {this.state.responses}
+                <div>
+                  <SelectField 
+                    hintText="Select reasons" 
+                    value={selectValues} 
+                    onChange={this.handleSelectChange} 
+                    multiple={true}>
+                    {this.menuItems(selectValues)}
+                  </SelectField>
+                </div>
               </Dialog>
             </div>);
   }
