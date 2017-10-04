@@ -3,7 +3,7 @@ import {device} from './device';
 import {appReducer} from 'local-t2-sw-redux';
 import {notifications, notificationIds} from './notifications';
 import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,messagePrompts} from './messages';
-
+import {arrayPushUnique} from './_helpers'
 import {
   RESET_APP,
   FLAG_AS_AUTHENTICATED,
@@ -17,7 +17,8 @@ import {
   T2_APP_MESSAGE_CLEAR,
   T2_APP_MESSAGE_START,
   REDIRECT_TO,
-  REDIRECT_CLEAR
+  REDIRECT_CLEAR,
+  EDIT_PAIN_REDUCTION
 } from '../actions';
 
 import {
@@ -130,6 +131,26 @@ const view = (state = defaultView, action) => {
 export const migrations = (state = {}, action) => {
   return state;
 };
+
+const painReductions = (state = {}, action) => {
+  switch(action.type){
+    case EDIT_PAIN_REDUCTION:
+      state = {...state,[action.painReduction.id]: action.painReduction}
+      break;
+  }
+  return state;
+};
+
+const painReductionIds = (state = [], action) => {
+  switch(action.type){
+    case EDIT_PAIN_REDUCTION:
+      state = arrayPushUnique(action.painReduction.id,state);
+      break;
+  }
+  return state;
+};
+
+
 const appHub = combineReducers({
   user,
   device,
@@ -156,7 +177,9 @@ const appHub = combineReducers({
   messagePromptIds,
   messagePrompts,
   medicationchoices,
-  medicationchoiceIds
+  medicationchoiceIds,
+  painReductions,
+  painReductionIds
 });
 const rootReducer = (state, action) => {
 

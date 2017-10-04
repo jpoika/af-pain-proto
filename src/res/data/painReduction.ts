@@ -11,7 +11,7 @@ export interface PainReductionTree {
 }
 
 
-export const makePainReduction = (id: number, assessmentId: number, bodySectionId: number = 0, reasons: string[] = []): PainReductionInterface => {
+export const makePainReduction = (id: number, assessmentId: number, bodySectionId: number, reasons: string[] = []): PainReductionInterface => {
   const timestampObject = new Date();
   return {
     id,

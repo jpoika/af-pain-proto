@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect';
-import {MessageInterface} from '../../../res/data/messages'
-
+import {MessageInterface} from '../../../res/data/messages';
+import {AssessmentInterface} from '../../../res/data/assessments';
+import {BodySectionInterface} from '../../../res/data/body';
 
 export const getPrompts = (state, ownProps) => {
   return state.messagePromptIds.map(mid => state.messagePrompts[mid]);
@@ -21,6 +22,19 @@ export const getFirstOpenPrompt = (state, ownProps) => {
 
 export const getMessages = (state, ownProps) => {
   return state.messageIds.map(mid => state.messages[mid]);
+}
+export const getPainReductions = (state, ownProps) => {
+  return state.painReductionIds.map(pid => state.painReductions[pid]);
+}
+
+export const findPainReductions = (state, ownProps: {[propName: string]: any, assessment: AssessmentInterface, bodySection: BodySectionInterface}) => {
+  const {assessment, bodySection} = ownProps;
+  return getPainReductions(state, ownProps).filter(painR => {
+    if(painR.assessmentId === assessment.id && painR.bodySectionId === bodySection.id){
+      return true;
+    }
+    return false;
+  }).pop()
 }
 
 export const getMessageById = (messageId: number) => {

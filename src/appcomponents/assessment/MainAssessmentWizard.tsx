@@ -10,7 +10,7 @@ import SeverePainPrompt from '../../containers/pain/SeverePainPrompt';
 import PromptResponse from '../pain/PromptResponse';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done';
-import DecreasedPainPrompt from '../../containers/assessment/DecreasedPainPrompt';
+
 
 import {AssessmentInterface} from '../../res/data/assessments';
 import {
@@ -115,11 +115,7 @@ export default class MainAssessmentWizard extends React.Component<Props, State>{
     const {replaceContent, restoreContent, maxSteps, assessment} = this.props;
 
     return (<div>
-             <DecreasedPainPrompt assessment={assessment}>
-                <PromptResponse responseId='thank-you'>
-                  Thank you.
-                </PromptResponse>
-             </DecreasedPainPrompt>
+      
              <SeverePainPrompt assessment={assessment}>
                   <PromptResponse responseId='nurse-alert'>
                     <CircularProgress /> Alerting Nurse

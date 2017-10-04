@@ -1,19 +1,24 @@
 import * as React from "react";
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 import {MessagePromptInterface} from '../../res/data/messages';
+import {AssessmentInterface} from '../../res/data/assessments';
+import {BodySectionInterface} from '../../res/data/body';
 import {PainReductionInterface} from '../../res/data/painReduction';
 export interface Props {
   open: boolean;
   clearPrompt: (prompt: MessagePromptInterface) => void;
   message: {id: number, message: string[]};
-  logPainReduction: (painReduction: PainReductionInterface) => void;
+  logPainReduction: (reasons: string[],painReduction: PainReductionInterface) => void;
   painReduction: PainReductionInterface;
   prompt: MessagePromptInterface;
   responseId?: string;
+  assessment: AssessmentInterface;
+  bodySection?: BodySectionInterface;
 }
 
 export interface State {
@@ -41,6 +46,7 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
 
   constructor(props){
     super(props);
+    console.log(props.painReduction);
     this.state = {
       responseId: props.responseId,
       responses: [],
@@ -91,7 +97,7 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
   handleSelection = (saveData: boolean) => {
     return (event) => {
       const {selectValues} = this.state;
-      //const {logPainReduction} = this.props;
+      const {logPainReduction,painReduction} = this.props;
       if(saveData){
         this.getResponseChildren('thank-you');
         setTimeout(() => {
@@ -101,7 +107,7 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
         this.handleClearPrompt();
       }
       if(saveData && selectValues.length > 0){
-        //logPainReduction(painReduction)
+        logPainReduction(this.state.selectValues, painReduction);
       }
     }
   }
@@ -111,15 +117,15 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
     const {open,message} = this.props;
     const {selectValues} = this.state;
     const actions = [
-      <RaisedButton
+      <FlatButton
         label="Skip"
         primary={true}
         onClick={this.handleSelection(false)}
-      />,
+      />
     ];
 
     if(selectValues.length > 0){
-        actions.push(
+        actions.unshift(
               <RaisedButton
                 label="Save"
                 primary={true}

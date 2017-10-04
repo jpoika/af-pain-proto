@@ -1,5 +1,6 @@
 export const SHOW_FLASH_MESSAGE = 'T2.SHOW_FLASH_MESSAGE';
 export const HIDE_FLASH_MESSAGE = 'T2.HIDE_FLASH_MESSAGE';
+export const EDIT_PAIN_REDUCTION = 'T2.EDIT_PAIN_REDUCTION';
 export const FLAG_AS_AUTHENTICATED = 'T2.FLAG_USER_AS_AUTHENTICATED';
 export const FLAG_AS_DEAUTHENTICATED = 'T2.FLAG_USER_AS_DEAUTHENTICATED';
 export const UPDATE_ACCOUNT_INFO = 'T2.UPDATE_ACCOUNT_INFO';
@@ -17,6 +18,8 @@ export const REDIRECT_CLEAR = 'T2.REDIRECT_CLEAR';
 export const USER_SET_MEDICATION_STATUS = 'T2.USER_SET_MEDICATION_STATUS';
 
 import {AccountInterface} from '../res/data/account'
+import {PainReductionInterface} from '../res/data/painReduction'
+import {nextId} from './_helper';
 
 export const setPageTitle = (title:string) => {
   return {
@@ -114,6 +117,21 @@ export const updateAccountInfo = (account: AccountInterface) => {
   return {
     type: UPDATE_ACCOUNT_INFO,
     account
+  }
+}
+
+
+export const editPainReduction = (painReduction: PainReductionInterface, newProps: Partial<PainReductionInterface> = {}) => {
+  return (dispatch,getState) => {
+    if(!painReduction.id){
+      painReduction.id = nextId(getState().painReductionIds);
+    }
+    Object.assign(painReduction,newProps);
+    dispatch({
+      type: EDIT_PAIN_REDUCTION,
+      painReduction
+    })
+    return Promise.resolve(painReduction);
   }
 }
 
