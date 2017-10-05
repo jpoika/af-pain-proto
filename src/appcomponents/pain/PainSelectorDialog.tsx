@@ -51,7 +51,7 @@ export default class PainSelectorDialog extends React.Component<Props, any> {
 
   handleDelete = (event) => {
     const {deleteSection, section} = this.props;
-    console.log(section);
+    
     section && deleteSection(section.id);
     this.handleClose();
   }

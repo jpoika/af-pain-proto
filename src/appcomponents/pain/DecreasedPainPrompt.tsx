@@ -34,6 +34,7 @@ const selectOptions = [
   'Listening to Music',
   'Sleeping',
   'Meditation',
+  'Not Sure',
   'Other'
 ];
 
@@ -46,7 +47,6 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
 
   constructor(props){
     super(props);
-    console.log(props.painReduction);
     this.state = {
       responseId: props.responseId,
       responses: [],
@@ -144,7 +144,7 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
                 onRequestClose={this.handleClearPrompt}
               >
 
-                {sentences.map(msg => msg)}
+                {sentences.map(msg => <p>{msg}</p>)}
                 {this.state.responses}
                 <div>
                   <SelectField 

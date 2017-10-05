@@ -1,18 +1,20 @@
 import * as React from "react";
-
-//import HistoryIcon from 'material-ui/svg-icons/action/history';
 import {BodySectionInterface} from '../../res/data/body';
 import {PainLevelInterface} from '../../res/data/pain';
+import {AssessmentInterface} from '../../res/data/assessments';
+import DecreasedPainPrompt from '../../containers/assessment/DecreasedPainPrompt';
+import PromptResponse from '../pain/PromptResponse';
 
 interface Props{
   section: BodySectionInterface;
   painLevel: PainLevelInterface;
   gridSize: number;
-  itemClick: (section: BodySectionInterface,painLevel: PainLevelInterface) => void;
+  assessment: AssessmentInterface;
+  itemClick: (section: BodySectionInterface, painLevel: PainLevelInterface) => void;
 }
 
 const BodyPainMark: React.SFC<Props> = (props) => {
-    const {section, painLevel,itemClick,gridSize} = props;
+    const {section, painLevel,itemClick,gridSize,assessment} = props;
 
     const itemClicked = (event) => {
       itemClick(section,painLevel);
@@ -21,9 +23,7 @@ const BodyPainMark: React.SFC<Props> = (props) => {
 
     let left = section.col * gridSize;
     let top = section.row * gridSize;
-
-
-    const styles = {
+    let styles = {
       borderRadius: 25, 
       border: '2px solid black', 
       backgroundColor: painLevel.color,
@@ -33,9 +33,18 @@ const BodyPainMark: React.SFC<Props> = (props) => {
       width: gridSize,
       height: gridSize
     };
+
+    if(painLevel.level === 0){
+      styles = {...styles, backgroundColor: 'transparent',border: 'none'};
+    }
+
     
     return <div onTouchTap={itemClicked} style={styles}>
-
+               <DecreasedPainPrompt assessment={assessment} bodySection={section}>
+                  <PromptResponse responseId='thank-you'>
+                    Thank you.
+                  </PromptResponse>
+               </DecreasedPainPrompt>
     </div>;
 }
 

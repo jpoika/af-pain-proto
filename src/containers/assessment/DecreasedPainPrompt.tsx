@@ -12,7 +12,7 @@ const stateToProps = (state, ownProps) => {
   const message = openPrompt ? getMessageById(openPrompt.messageId)(state, ownProps) : null;
   const currPainReduction = ownProps.bodySection ? findPainReductions(state,ownProps) : null;
   const {assessment,bodySection} = ownProps;
-  console.log(bodySection);
+
   return {
     open: openPrompt ? true : false,
     prompt: openPrompt,

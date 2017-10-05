@@ -92,6 +92,7 @@ export default class SeverePainPrompt extends React.Component<Props, State>{
       />,
       <RaisedButton
         label="No"
+        style={{marginLeft: 10}}
         primary={true}
         onClick={this.handlePainSelection(false)}
       />,
@@ -100,7 +101,7 @@ export default class SeverePainPrompt extends React.Component<Props, State>{
     const sentences = message ? message.message : []
     return (<div>
               <Dialog
-                title="Alert Nurse"
+                title="Before we start...."
                 modal={false}
                 open={open}
                 actions={actions}

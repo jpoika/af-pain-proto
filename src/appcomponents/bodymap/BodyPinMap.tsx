@@ -5,8 +5,6 @@ import {PainLevelInterface} from '../../res/data/pain';
 import PainSelectorDialog from '../pain/PainSelectorDialog';
 import BodyPainMark from './BodyPainMark';
 import BodyPainMarkPrevious from './BodyPainMarkPrevious';
-import DecreasedPainPrompt from '../../containers/assessment/DecreasedPainPrompt';
-import PromptResponse from '../pain/PromptResponse';
 
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
@@ -46,8 +44,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   private mapBox;
   private boundingRect;
-  //private tempEl;
-  private gridMap = {};
+
 
   constructor(props){
     super(props)
@@ -99,7 +96,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   handleDeletePain = (sectionId) => {
     const {deleteSection} = this.props;
-    this.state.activeSection && this.handleRemoveBodySelection(this.state.activeSection);
+    //this.state.activeSection && this.handleRemoveBodySelection(this.state.activeSection);
     deleteSection(sectionId);
   }
 
@@ -119,24 +116,6 @@ export default class BodyPinMap extends React.Component<Props, State>{
       activeSection: section,
       currentPainLevel: painLevel
     });
-  }
-
-  handleRemoveBodySelection = (section:BodySectionInterface) => {
-    delete this.gridMap[this.getCellId(section)];
-    let element = document.getElementById(this.getCellId(section));
-    if(element){
-     
-        if(typeof element.remove=='function'){
-           //If support  is found 
-          
-            element.remove();
-        }
-        else{
-          //If not
-        
-           element.parentElement.removeChild(element);
-       }
-    }
   }
 
   getCalcSectionId = (row,col) => {
@@ -167,15 +146,15 @@ export default class BodyPinMap extends React.Component<Props, State>{
   }
 
   gatherCurrentPainLocations = () => {
-    const {painMarkings,gridSize} = this.props;
+    const {painMarkings,gridSize,assessment} = this.props;
     if(painMarkings.length === 0){
       return null;
     }
     return painMarkings.map(({section, painLevel}) => {
-        if(painLevel.level === 0){
-          return null;
-        }
-        return <BodyPainMark key={this.getCellId(section)} itemClick={this.handleDialogOpen} section={section} painLevel={painLevel} gridSize={gridSize} />
+        // if(painLevel.level === 0){
+        //   return null;
+        // }
+        return <BodyPainMark assessment={assessment} key={this.getCellId(section)} itemClick={this.handleDialogOpen} section={section} painLevel={painLevel} gridSize={gridSize} />
     });
   }
 
@@ -194,17 +173,12 @@ export default class BodyPinMap extends React.Component<Props, State>{
 
   render(){
 
-    const {bodyImage,replaceContent,restoreContent,assessment} = this.props;
+    const {bodyImage,replaceContent,restoreContent} = this.props;
     const painMarkings = this.gatherCurrentPainLocations();
     const previousPainMarkings  = this.gatherPreviousPainLocations();
     return (
             <div>
-               <DecreasedPainPrompt assessment={assessment} bodySection={this.state.activeSection}>
-                  <PromptResponse responseId='thank-you'>
-                    Thank you.
-                  </PromptResponse>
-               </DecreasedPainPrompt>
-              <div onClick={this.handleClickEvent} onTouchTap={this.handleClickEvent} style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
+              <div onClick={this.handleClickEvent}  style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                       {previousPainMarkings}
                       {painMarkings}
                     <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
