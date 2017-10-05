@@ -92,6 +92,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
         {step > 0 && (
           <RaisedButton
               label="Back"
+              style={{marginLeft: 10}}
               disabled={stepIndex === 0}
               disableTouchRipple={true}
               disableFocusRipple={true}

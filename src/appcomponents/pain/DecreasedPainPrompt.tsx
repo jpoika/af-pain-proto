@@ -144,7 +144,7 @@ export default class DecreasedPainPrompt extends React.Component<Props, State>{
                 onRequestClose={this.handleClearPrompt}
               >
 
-                {sentences.map(msg => <p>{msg}</p>)}
+                {sentences.map((msg,i) => <p key={i}>{msg}</p>)}
                 {this.state.responses}
                 <div>
                   <SelectField 

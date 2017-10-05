@@ -2,7 +2,7 @@ import * as React from "react";
 import {BodySectionInterface} from '../../res/data/body';
 import {AssessmentInterface} from '../../res/data/assessments';
 import {PainLevelInterface} from '../../res/data/pain';
-
+import BodyPainMark from './BodyPainMark';
 
 export interface Props{
   title: string;
@@ -25,49 +25,9 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
 
   private mapBox;
   private boundingRect;
-  //private tempEl;
-  private gridMap = {};
-
-  isSectionSaved = (section: BodySectionInterface) => {
-     const {painMarkings} = this.props;
-     return painMarkings.filter(mark => mark.section.id === section.id).length > 0;
-  }
-
-
-  handleResolveBodySection = (row, col) => {
-    const {bodySections} = this.props;
-    let filtered = bodySections.filter((section) => {
-       if(section.row === row && section.col === col){
-         return true;
-       }
-       return false;
-    });
-    return filtered.length ? filtered[0] : null;
-  }
-
-
-  shouldIgnore = (row, col) => {
-    const section = this.handleResolveBodySection(row, col);
-    return !section || section.isBlank;
-  }
 
   getCellId = (section: BodySectionInterface) => {
     return 'cell_body_show' + section.id;
-  }
-
-  handleRemoveBodySelection = (section:BodySectionInterface) => {
-    delete this.gridMap[this.getCellId(section)];
-    let element = document.getElementById(this.getCellId(section));
-    if(element){
-        //older ie doesn't suppor remove
-        if(typeof element.remove=='function'){
-           element.remove();
-        }
-        else{
-           element.parentElement.removeChild(element);
-       }
-      
-    }
   }
 
   getCalcSectionId = (row,col) => {
@@ -75,56 +35,31 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
     return offset + col + 1;
   }
 
-  handleAddBodySelection(section:BodySectionInterface, painLevel: PainLevelInterface){
-    this.handleRemoveBodySelection(section);
-    let element = document.createElement('div');
-
-    let left = section.col * this.props.gridSize;
-    let top = section.row * this.props.gridSize;
-    element.setAttribute('id',this.getCellId(section));
-    element.setAttribute('class','body-section-cell');
-    element.setAttribute('style',`border-radius: 25px; border: 2px solid black; background-color: ${painLevel.color}; position: absolute; top: ${top}px; left: ${left}px; width: ${this.props.gridSize}px; height: ${this.props.gridSize}px;`)
-    this.mapBox.appendChild(element);
-
-    element.addEventListener('click', (event) => {
-      // this.handleDialogOpen(section,painLevel);
-    });
-  }
-
-  handleClearCells(){
-     let cells = document.getElementsByClassName("body-section-cell");
-     for(let i = 0; i < cells.length; i++){
-       let item = cells.item(i);
-       item && item.remove();
-     }
-  }
 
   handleUpdateBoundingClientRect = () => {
     this.boundingRect = this.mapBox.getBoundingClientRect();
   }
 
-  componentDidMount(){
-    const {painMarkings} = this.props;
- 
-    painMarkings.map(({section, painLevel}) => {
-     this.handleAddBodySelection(section,painLevel)
+  gatherCurrentPainLocations = () => {
+    const {painMarkings,gridSize,assessment} = this.props;
+    if(painMarkings.length === 0){
+      return null;
+    }
+    return painMarkings.map(({section, painLevel}) => {
+        // if(painLevel.level === 0){
+        //   return null;
+        // }
+        return <BodyPainMark assessment={assessment} key={this.getCellId(section)} itemClick={() => {}} section={section} painLevel={painLevel} gridSize={gridSize} />
     });
-  }  
-
-  componentDidUpdate(prevProps, prevState){
-    const {painMarkings} = this.props;
-    painMarkings.map(({section, painLevel}) => {
-       this.handleAddBodySelection(section,painLevel)
-    });
-  } 
-
+  }
   render(){
     const {bodyImage} = this.props;
-
+    const painMarkings = this.gatherCurrentPainLocations();
     return (
             <div>
               <div style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
-                    <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
+                {painMarkings}
+                <img src={bodyImage} width={(this.props.gridSize * 15)} height={(this.props.gridSize * 26)} />
               </div>
             </div>
            );
