@@ -52,7 +52,7 @@ module.exports = {
           'process.env': {
             'NODE_ENV': JSON.stringify('production')
           },
-          '__DEVTOOLS__': false,
+          '__DEVTOOLS__': true,
           '__IS_CORDOVA_BUILD__': true
         }),
 

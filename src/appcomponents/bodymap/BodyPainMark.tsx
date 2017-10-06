@@ -17,6 +17,8 @@ const BodyPainMark: React.SFC<Props> = (props) => {
     const {section, painLevel,itemClick,gridSize,assessment} = props;
 
     const itemClicked = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       itemClick(section,painLevel);
     }
 

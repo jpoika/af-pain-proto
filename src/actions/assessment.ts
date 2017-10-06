@@ -149,7 +149,7 @@ const makeAssessmentData = (name) => {
 
 export const sheduleInitialAssessment = () => {
   let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 1*60*1000);
+  let minutes_from_now = new Date(now.getTime() + 1 * 60*1000);
   return (dispatch,getState) => {
        dispatch(scheduleNotification(
           "Initial Pain Assessment",
@@ -161,18 +161,27 @@ export const sheduleInitialAssessment = () => {
 }
 
 export const scheduleReassessmentDeadline = (deadline: Date = null) => {
-  let now = new Date();//
-  let finalDeadline = deadline || new Date(now.getTime() + 2*60*1000);
-  return {
-    type: ASSESSMENT_NEXT_REASSESS_DEADLINE,
-    deadline: finalDeadline.getTime()
+
+  return (dispatch,getState,extraArgs) => {
+    const intervalMs = extraArgs.appConfig.notifications.interval;
+    let now = new Date();
+    let finalDeadline = deadline || new Date(now.getTime() + intervalMs);
+    dispatch(
+      {
+        type: ASSESSMENT_NEXT_REASSESS_DEADLINE,
+        deadline: finalDeadline.getTime()
+      }
+    );
+    return Promise.resolve(finalDeadline);
   }
 }
 
 export const sheduleReassessment = () => {
-  let now = new Date();//
-  let minutes_from_now = new Date(now.getTime() + 2*60*1000);
-  return (dispatch,getState) => {
+
+  return (dispatch,getState,extraArgs) => {
+       const intervalMs = extraArgs.appConfig.notifications.interval;
+       let now = new Date();//
+       let minutes_from_now = new Date(now.getTime() + intervalMs);
        dispatch(scheduleReassessmentDeadline(minutes_from_now));
        dispatch(scheduleNotification(
           "Pain Reassessment",

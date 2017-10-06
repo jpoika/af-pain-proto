@@ -12,4 +12,5 @@ export const initCordova = (config: CordovaConfiguratorInterface) => {
         console.log('Error on init of cordova plugin: ' + propName);
       }
     });
+    config.isReady = true;
 }

@@ -46,9 +46,6 @@ export default class BodyPinMapShow extends React.Component<Props, State>{
       return null;
     }
     return painMarkings.map(({section, painLevel}) => {
-        // if(painLevel.level === 0){
-        //   return null;
-        // }
         return <BodyPainMark assessment={assessment} key={this.getCellId(section)} itemClick={() => {}} section={section} painLevel={painLevel} gridSize={gridSize} />
     });
   }

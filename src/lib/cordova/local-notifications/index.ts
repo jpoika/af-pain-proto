@@ -42,6 +42,7 @@ export default class LocalNotification{
         this.notification = this.initCb();
         this.isReady = true;
         this.onReadyCb.call(this);
+        console.log(this);
     }
 
     onReady = (cb) => {
@@ -49,6 +50,7 @@ export default class LocalNotification{
     }
 
     schedule = (arg: any) => {
+        console.log(arg);
         return new Promise((accept, reject) => {
             this.notification.schedule(arg,(result) => {
                 if(result !== 'OK'){

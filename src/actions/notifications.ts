@@ -10,17 +10,17 @@ import {nextId} from './_helper';
 
 export const scheduleNotification = (title,text,deadline, data = {}) => {
 
-  return (dispatch,getState, {isReady, plugins}) => {
+  return (dispatch,getState, {localNotification}) => {
     const scheduleArg = {
         id: nextId(getState().notificationIds),
         title,
         text,
         at: deadline,
-        data: data,
-        sound: 'file://' + require('../res/audio/alert_chime.mp3')
+        data: {app: data}
+        //sound: 'file://' + require('../res/audio/alert_chime.mp3')
     }
-  
-    isReady && plugins.notification.schedule(scheduleArg);
+    console.log(localNotification);
+    localNotification.isReady && localNotification.schedule(scheduleArg);
     dispatch(editNotification(scheduleArg,deadline.getTime()));
   }
 }
@@ -35,9 +35,9 @@ export const editNotification = (schedule,timestamp) => {
 }
 
 export const clearAllNotifications = () => {
-  return (dispatch,getState, {isReady, plugins}) => {
-    if(isReady){
-      plugins.notification.clearAll().then(() => {
+  return (dispatch,getState, {localNotification}) => {
+    if(localNotification.isReady){
+       localNotification.clearAll().then(() => {
         dispatch({
             type: NOTIFICATION_CLEAR_ALL
           });
@@ -59,11 +59,11 @@ export const notificationWasDeleted = (scheduleId) => {
 
 export const deleteNotification = (scheduleId: number) => {
 
-  return (dispatch,getState, {isReady, plugins}) => {
-    if(!isReady){
+  return (dispatch,getState, {localNotification}) => {
+    if(!localNotification.isReady){
       return;
     }
-    plugins.notification.clear(scheduleId).then((result) => {
+    localNotification.clear(scheduleId).then((result) => {
       dispatch(notificationWasDeleted(scheduleId));
     }).catch((err)=> {
                       

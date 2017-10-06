@@ -57,7 +57,8 @@ export default class BodyPinMap extends React.Component<Props, State>{
   }
 
   handleClickEvent = (event) => {
- 
+     event.preventDefault();
+     event.stopPropagation();
      this.handleUpdateBoundingClientRect();
      if(typeof event.clientX !== 'undefined'){
        this.handleLocateSection(event.clientX,event.clientY);
