@@ -102,7 +102,9 @@ const render = (Component: any) => {
 
   configPromise().then((store) => {
 
-    if(getCompleteAssessements(store.getState(),{}).length === 0){
+    if(
+        store.getState().notificationIds.length === 0 && 
+        getCompleteAssessements(store.getState(),{}).length === 0){
       store.dispatch(sheduleInitialAssessment());
     }
 
@@ -127,10 +129,6 @@ const render = (Component: any) => {
         });
     });
 
-  // setTimeout(() => {
-
-  //   store.dispatch(redirectTo('/main/reassess/ruddy'));
-  // }, 5000);
     if(__DEVTOOLS__){
       store.subscribe(() => {
           console.log(store.getState()); // list entire state of app
