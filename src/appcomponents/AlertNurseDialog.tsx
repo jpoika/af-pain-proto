@@ -35,6 +35,10 @@ const styles = {
 };
 
 export default class AlertNurseDialog extends React.Component<Props, State>{
+  public static timeOuts = {
+    nurseAlerted: null,
+    timeoutClose: null
+  }
   constructor(props){
     super(props);
     this.state = {
@@ -42,28 +46,49 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     }
   }
 
-  handleClose = () => {
-    this.props.closeNurseDialog()
-  }
   handleCancelContactNurse = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    this.handleClose();
+    this.handleClearPrompt(this.props.prompt);
   }
+
+
   handleNurseAlert = (event) => {
+    const {prompt} = this.props;
+
     this.setState({
       responseId: 'nurse-contacting'
     });
-    setTimeout(() => {
+
+
+    AlertNurseDialog.timeOuts.nurseAlerted && clearTimeout(AlertNurseDialog.timeOuts.nurseAlerted);
+    AlertNurseDialog.timeOuts.timeoutClose && clearTimeout(AlertNurseDialog.timeOuts.timeoutClose);
+    
+    AlertNurseDialog.timeOuts.nurseAlerted = setTimeout(() => {
       this.setState({
         responseId: 'nurse-alerted'
       });
+
+      AlertNurseDialog.timeOuts.timeoutClose = setTimeout(() => {
+        this.handleClearPrompt(prompt);
+      },2000);
+
     },2000);
+
+  }
+
+  handleClearPrompt = (prompt: MessagePromptInterface) => {
+    AlertNurseDialog.timeOuts.nurseAlerted && clearTimeout(AlertNurseDialog.timeOuts.nurseAlerted);
+    AlertNurseDialog.timeOuts.timeoutClose && clearTimeout(AlertNurseDialog.timeOuts.timeoutClose);
+    this.props.clearPrompt(prompt)
+    this.setState({
+      responseId: 'default'
+    })
   }
 
   render(){
 
-    const {/*confirmMessage,*/prompt,clearPrompt} = this.props;
+    const {/*confirmMessage,*/prompt} = this.props;
 
     // const nurseConfirm = (<div> 
     //                            <div>{confirmMessage.message.map((para,index) => <p key={index}>{para}</p>)}</div>
@@ -77,9 +102,12 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
         <RaisedButton style={flexRowItemStyle as any} primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>,
         <RaisedButton style={flexRowItemStyle as any} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
 
-    ]    
+    ];
+
+    //dialogId={'nurse_prompt'} promptId={'alert_nurse_prompt'}  promptTag={'nurse_prompt'}
+    console.log(this.state);
     return (<div>
-            <DialogPrompt dialogId={'nurse_prompt'} promptId={'alert_nurse_prompt'}  promptTag={'nurse_prompt'}responseId={this.state.responseId} title="Alert Nurse" clearPrompt={clearPrompt} prompt={prompt}>
+            <DialogPrompt responseId={this.state.responseId} title="Alert Nurse" clearPrompt={this.handleClearPrompt} prompt={prompt}>
                 <PromptResponse actions={shouldContactNurseActions} responseId='default'>
                    <div>Are you sure you would like to contact the nurse</div>
                 </PromptResponse>

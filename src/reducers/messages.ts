@@ -56,7 +56,7 @@ export const messagePrompts = (state={},action) => {
       state = {...state,[action.prompt.id]: prompt};
       break;
     case MESSAGE_PROMPT_USER: //add 1 to count
-      var prompt = {...action.prompt, count: getSavedPromptCount(state,action.prompt.id) +  1};
+      var prompt = {...action.prompt,acknowledged: false, count: getSavedPromptCount(state,action.prompt.id) +  1};
       state = {...state,[action.prompt.id]: prompt};
       break;
     case MESSAGE_PROMPT_EDIT:

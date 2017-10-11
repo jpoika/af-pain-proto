@@ -9,6 +9,7 @@ import {MessagePromptInterface} from '../res/data/messages';
 
 const stateToProps = (state, ownProps) => {
   const openPrompt = getFirstOpenPromptByName('nurse_prompt')(state, ownProps);
+
   return {
     //open: isPromptOpen('nurse_prompt',state),
     prompt: openPrompt,
