@@ -1,39 +1,34 @@
 import AlertNurseDialog from '../appcomponents/AlertNurseDialog';
 import {connect} from 'react-redux';
-import {alertNurse} from '../actions/nurse'
-import {makeMessage} from '../res/data/messages';
-import {closePrompt} from '../actions/messages';
-
-
-const getConfirmMessage = (promptName,state) => {
-  const messageId = typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].messageId : null;
-  if(messageId && state.messages[messageId] !== 'undefined'){
-    return state.messages[messageId];
-  }
-  return makeMessage(0,'Are you sure you would like to contact the nurse?')
-}
-
-const isPromptOpen = (promptName,state) => {
-  return typeof state.messageDialogs[promptName] !== 'undefined' ? state.messageDialogs[promptName].open : false;
-}
+//import {alertNurse} from '../actions/nurse'
+//import {makeMessage} from '../res/data/messages';
+import {ackPrompt} from '../actions/messages';
+//import {closePrompt} from '../actions/messages';
+import {getFirstOpenPromptByName/*,getMessageById,findPainReductions*/} from './pain/selectors';
+import {MessagePromptInterface} from '../res/data/messages';
 
 const stateToProps = (state, ownProps) => {
+  const openPrompt = getFirstOpenPromptByName('nurse_prompt')(state, ownProps);
   return {
-    open: isPromptOpen('nurse_prompt',state),
+    //open: isPromptOpen('nurse_prompt',state),
+    prompt: openPrompt,
     messages: [],
     status: state.nurseSystem.status,
-    confirmMessage: getConfirmMessage('nurse_prompt',state)
+    //confirmMessage: getConfirmMessage('nurse_prompt',state)
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
-    closeNurseDialog: () => {  
-      dispatch(closePrompt('nurse_prompt'));
-    },
-    alertNurse: () => {
-      dispatch(alertNurse());
+    clearPrompt: (prompt: MessagePromptInterface) => {
+      dispatch(ackPrompt(prompt));
     }
+    // closeNurseDialog: () => {  
+    //   dispatch(closePrompt('nurse_prompt'));
+    // },
+    // alertNurse: () => {
+    //   dispatch(alertNurse());
+    // }
   }
 }
 export default connect(stateToProps,dispatchToProps)

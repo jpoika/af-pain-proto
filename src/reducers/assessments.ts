@@ -6,7 +6,6 @@ import {
   ASSESS_MARK_BODY_SECTION_PAIN, 
   ASSESSMENT_EDIT,
   ASSESS_REMOVE_BODY_SECTION_PAIN,
-  ASSESSMENT_SET_NEW_PAIN,
   ASSESSMENT_DELETE,
   ASSESSMENT_NEXT_REASSESS_DEADLINE
 } from '../actions/assessment'
@@ -84,19 +83,6 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
       break;
   }
   return state;
-}
-
-const newPainDefault = {
-  assessmentId: 0,
-  sectionIds: []
-}
-export const newPainBodySections = (state = newPainDefault, action: any) => {
-    switch (action.type) {
-      case ASSESSMENT_SET_NEW_PAIN:
-        state = {...state, sectionIds: action.newPainSectionIds, assessmentId: action.assessmentId}
-        break;
-    }
-    return state;
 }
 
 export const assessmentIds = (state = normalizedAssessments.result,action: any) => {

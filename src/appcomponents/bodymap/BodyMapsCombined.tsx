@@ -46,6 +46,7 @@ export default class BodyMapsCombined extends React.Component<Props, State>{
     const {replaceContent,restoreContent,assessment} = this.props;
     const {view} = this.state;
     const buttonLabel = view === 'front' ? "View Back" : "View Front";
+
     return <div style={{position: 'relative'}}>
            <RaisedButton style={{position: 'absolute', left: 0}} onTouchTap={this.handleViewToggle} label={buttonLabel} />
            {view === 'front' && <BodyPinMap replaceContent={replaceContent} restoreContent={restoreContent} side={'front'} assessment={assessment} />}

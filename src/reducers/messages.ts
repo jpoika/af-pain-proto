@@ -2,7 +2,7 @@ import {
   MESSAGE_CREATE,
   MESSAGE_DELETE,
   MESSAGE_PROMPT_USER,
-  MESSAGE_PROMPT_CLEAR,
+  //MESSAGE_PROMPT_CLEAR,
   MESSAGE_UPDATE_PROMPT,
   MESSAGE_PROMPT_EDIT
 } from '../actions/messages'
@@ -65,29 +65,6 @@ export const messagePrompts = (state={},action) => {
   }
   return state;
 }
-//TODO why do I need this when I have messagePrompts and messagePromptIds
-export const messageDialogs = (state={}, action) => {
-  switch (action.type) {
-    case MESSAGE_PROMPT_USER:
-      state = {...state,[action.prompt.name]: {open: true, messageId: action.prompt.messageId}}; //open prompt
-      break;
-    case MESSAGE_PROMPT_CLEAR:
-      state = {...state,[action.promptName]: {open: false, messageId: null}}; //close prompt
-      break;
-  }
-  return state;
-}
-//TODO why do I need this when I have messagePrompts and messagePromptIds
-export const messageDialogIds = (state=[],action) => {
-  switch (action.type) {
-    case MESSAGE_PROMPT_USER:
-      state = arrayPushUnique(action.prompt.name,state);
-      break;
-    case MESSAGE_PROMPT_CLEAR:
-      state = arrayRemove(action.promptName,state);
-      break;
-  }
-  return state;
-}
+
 
 

@@ -12,7 +12,6 @@ import MedTrackerPage from '../containers/pages/MedTrackerPage';
 import ReAssessmentPage from '../containers/pages/ReAssessmentPage';
 import AssessmentOverviewPage from '../containers/pages/AssessmentOverviewPage'
 import ExtrasPage from '../containers/pages/ExtrasPage';
-import AppSnackBarContainer from 'local-t2-sw-redux/lib/containers/UpdateSnackBar';
 import EducationResourcesPage from '../containers/pages/EducationResourcesPage';
 import AlertNurseDialog from '../containers/AlertNurseDialog';
 import AppSnackBar from './AppSnackBar';
@@ -311,7 +310,6 @@ class App extends React.Component<Props, State>{
                   <Route exact path="/main/extras" render={this.renderRouteComponent(ExtrasPage,{title: 'Extras'})} />
                 </div>
                 <AppSnackBar {...flashMessage} />
-                <AppSnackBarContainer />
                 <AlertNurseDialog />
             </div>
           </MuiThemeProvider>;

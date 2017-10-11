@@ -69,7 +69,15 @@ function configPromise() {
         );
 
         persistStore(store,{
-            blacklist: ['medicationchoiceIds','medicationchoices','view','painLevels','painLevelIds','bodySections','bodySectionIds'],
+            //blacklist: ['medicationchoiceIds','medicationchoices','view','painLevels','painLevelIds','bodySections','bodySectionIds'],
+            whitelist: [
+              'assessments',
+              'assessmentIds',
+              'medicationIds',
+              'medications',
+              'medicationchoiceIds',
+              'medicationchoices'
+            ],
             storage: localForage,
             keyPrefix: 'afPainApp:'
           },

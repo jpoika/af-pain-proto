@@ -5,7 +5,7 @@ import {PainLevelInterface} from '../../res/data/pain';
 import PainSelectorDialog from '../pain/PainSelectorDialog';
 import BodyPainMark from './BodyPainMark';
 import BodyPainMarkPrevious from './BodyPainMarkPrevious';
-
+import HistoryIcon from 'material-ui/svg-icons/device/access-time';
 declare module 'react' { //See https://github.com/zilverline/react-tap-event-plugin/issues/58
     interface HTMLProps<T> {
         onTouchTap?: React.EventHandler<React.TouchEvent<T>>;
@@ -177,8 +177,16 @@ export default class BodyPinMap extends React.Component<Props, State>{
     const {bodyImage,replaceContent,restoreContent} = this.props;
     const painMarkings = this.gatherCurrentPainLocations();
     const previousPainMarkings  = this.gatherPreviousPainLocations();
+    const iconStyles = {
+      width: 20,
+      height: 20,
+      position: 'relative',
+      top: 5
+    }
+    const hasPreviousMarkings = previousPainMarkings && previousPainMarkings.length > 0;
     return (
             <div>
+              {hasPreviousMarkings && <div style={{position: 'absolute', top: 0, left: 180}}><HistoryIcon style={iconStyles} color={'#000000'} /> Last Pain Location</div>}
               <div onClick={this.handleClickEvent}  style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                       {previousPainMarkings}
                       {painMarkings}

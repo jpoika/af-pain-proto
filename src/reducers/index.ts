@@ -1,8 +1,7 @@
 import {combineReducers} from 'redux';
 import {device} from './device';
-import {appReducer} from 'local-t2-sw-redux';
 import {notifications, notificationIds} from './notifications';
-import {messageDialogs, messageDialogIds,messages, messageIds,messagePromptIds,messagePrompts} from './messages';
+import {messages, messageIds,messagePromptIds,messagePrompts} from './messages';
 import {arrayPushUnique} from './_helpers'
 import {
   RESET_APP,
@@ -28,8 +27,7 @@ import {
   bodySectionIds,
   painLevels, 
   painLevelIds, 
-  assessmentSystem,
-  newPainBodySections
+  assessmentSystem
 } from './assessments';
 
 import {medications, medicationIds, medicationchoices, medicationchoiceIds} from './medication';
@@ -154,7 +152,6 @@ const painReductionIds = (state = [], action) => {
 const appHub = combineReducers({
   user,
   device,
-  app: appReducer,
   view,
   bodySections, //don't persist
   bodySectionIds, //don't persist
@@ -169,9 +166,8 @@ const appHub = combineReducers({
   nurseSystem,
   notifications,
   notificationIds,
-  newPainBodySections,
-  messageDialogs, 
-  messageDialogIds,
+  // messageDialogs, 
+  // messageDialogIds,
   messages, 
   messageIds,
   messagePromptIds,

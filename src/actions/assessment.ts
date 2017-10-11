@@ -4,7 +4,6 @@ export const ASSESS_REMOVE_BODY_SECTION_PAIN = 'T2.ASSESS_REMOVE_BODY_SECTION_PA
 export const ASSESS_MOVE_STEP_IF_NEXT = 'T2.ASSESS_MOVE_STEP_IF_NEXT';
 export const ASSESSMENT_ADD = 'T2.ASSESSMENT_ADD';
 export const ASSESSMENT_EDIT = 'T2.ASSESSMENT_EDIT';
-export const ASSESSMENT_SET_NEW_PAIN = 'T2.ASSESSMENT_SET_NEW_PAIN';
 export const ASSESSMENT_DELETE = 'T2.ASSESSMENT_DELETE';
 export const ASSESSMENT_NEXT_REASSESS_DEADLINE = 'T2.ASSESSMENT_NEXT_REASSESS_DEADLINE';
 
@@ -54,14 +53,6 @@ export const assessDelete = (assessmentId: number) => {
   return {
     type: ASSESSMENT_DELETE,
     assessmentId
-  }
-}
-
-export const setNewPain = (currentAssessment: AssessmentInterface, newPainSectionIds: string[]) => {
-  return {
-    type:  ASSESSMENT_SET_NEW_PAIN,
-    assessmentId: currentAssessment.id,
-    newPainSectionIds
   }
 }
 

@@ -17,7 +17,9 @@ export const SET_USER_HIGH_PAIN_TRUE = 'T2.SET_USER_HIGH_PAIN_TRUE';
 export const SET_USER_HIGH_PAIN_FALSE = 'T2.SET_USER_HIGH_PAIN_FALSE';
 
 import {nextId} from './_helper';
-
+const alertNurseMessage = [
+        "Are you sure you would like to contact the nurse."
+];
 let nurseAlertPromptTimeout;
 
 const tmpSimulatedContact = () => {
@@ -89,6 +91,9 @@ export const alertNurseDialogueOpen = () => {
     dispatch(clearNurseAlert());
     dispatch(prompt);
   }
+}
+export const alertNurseDialog = () => {
+  return messagePromptUser('alert_nurse_prompt','nurse_prompt',0,alertNurseMessage)
 }
 
 export const systemMessage = (messageString: string) => {
