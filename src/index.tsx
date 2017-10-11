@@ -76,7 +76,12 @@ function configPromise() {
               'medicationIds',
               'medications',
               'medicationchoiceIds',
-              'medicationchoices'
+              'medicationchoices',
+              'migrations',
+              'notificationIds',
+              'notifications',
+              'painReductionIds',
+              'painReductions'
             ],
             storage: localForage,
             keyPrefix: 'afPainApp:'
