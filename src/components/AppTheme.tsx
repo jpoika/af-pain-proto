@@ -261,7 +261,7 @@ class App extends React.Component<Props, State>{
       const defaultExtra = {
         leftIcon: <LeftMenuIcon />,
         appPage: this.getAppPageObject(),
-        titlePath: "/",
+        titlePath: "/main/account-home",
         title: '',
         replaceContent: this.handleReplaceContent,
         restoreContent: this.handleRestoreContent

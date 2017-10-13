@@ -107,11 +107,10 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     const shouldContactNurseActions = [
         <RaisedButton primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>,
         <RaisedButton style={buttonStyles} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
-
     ];
 
     //dialogId={'nurse_prompt'} promptId={'alert_nurse_prompt'}  promptTag={'nurse_prompt'}
-    console.log(this.state);
+ 
     return (<div>
             <DialogPrompt responseId={this.state.responseId} title="Alert Nurse" clearPrompt={this.handleClearPrompt} prompt={prompt}>
                 <PromptResponse actions={shouldContactNurseActions} responseId='default'>
