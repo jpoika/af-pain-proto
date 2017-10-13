@@ -4,11 +4,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 //import ErrorIcon from 'material-ui/svg-icons/alert/error';
-import {/*flexParentRowStyle,*/flexRowItemStyle} from '../components/commonStyles';
+import {/*flexParentRowStyle,flexRowItemStyle*/} from '../components/commonStyles';
 import {MessageInterface} from '../res/data/messages';
 import {MessagePromptInterface} from '../res/data/messages';
 import DialogPrompt from './prompts/DialogPrompt';
 import PromptResponse from  './prompts/PromptResponse';
+
+const buttonStyles = {
+  marginLeft: 15
+}
 
 export interface Props{
   closeNurseDialog(): any;
@@ -54,6 +58,8 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
 
 
   handleNurseAlert = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     const {prompt} = this.props;
 
     this.setState({
@@ -99,8 +105,8 @@ export default class AlertNurseDialog extends React.Component<Props, State>{
     //                      </div>);
 
     const shouldContactNurseActions = [
-        <RaisedButton style={flexRowItemStyle as any} primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>,
-        <RaisedButton style={flexRowItemStyle as any} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
+        <RaisedButton primary={true} type="button" onTouchTap={this.handleNurseAlert}>Yes</RaisedButton>,
+        <RaisedButton style={buttonStyles} type="button" onTouchTap={this.handleCancelContactNurse}>No</RaisedButton>
 
     ];
 
