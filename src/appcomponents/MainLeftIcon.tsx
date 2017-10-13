@@ -20,29 +20,9 @@ export interface Props {
 }
 
 
-const userMenuFilter = (items,user) => {
-  return items.filter((item) => {
-
-        switch(item.type){
-          case 'auth_link':
-            if(user.authenticated){
-              return false;
-            }
-            break;
-          case 'nonauth_link':
-            if(!user.authenticated){
-              return false;
-            }
-            break;
-        }
-        return true;
-
-  });
-}
-
 const subMenuItems = (user,menuItems,pathOnTouchTap) => {
      
-      var menuItemsFinal = menuItems.length ? userMenuFilter(menuItems,user).map(menuItem => {
+      var menuItemsFinal = menuItems.length ? menuItems.map(menuItem => {
 
         switch(menuItem.type){
           case 'divider':
@@ -99,7 +79,7 @@ const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessC
              <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={newPainClick} />
              <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker2')}  />
              {/*<MenuItem key={'menu_top_test'} primaryText="Test" onTouchTap={pathOnTouchTap('/main/assess-overview')} />*/}
-          {userMenuFilter(menuItems,user).map(menuItem => {
+          {menuItems.map(menuItem => {
             
             switch(menuItem.type){
               case 'divider':

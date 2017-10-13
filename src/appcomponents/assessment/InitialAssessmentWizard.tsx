@@ -27,6 +27,8 @@ export interface Props extends PageProps{
   nextStep(idx: number, assessment: AssessmentInterface): any;
   maxSteps: number,
   assessment: AssessmentInterface;
+  replaceContent: (content: JSX.Element) => void;
+  restoreContent: () => void;
 }
 
 export interface State {
@@ -172,7 +174,7 @@ export default class InitialAssessmentWizard extends React.Component<Props, Stat
                   <h2>Is the information below accurate?</h2>
                   {this.renderStepActions(5)}
                   <br /><br />
-                  <AssessmentOverview showStartSummary={false} assessment={assessment} />
+                  <AssessmentOverview restoreContent={restoreContent} replaceContent={replaceContent} showStartSummary={false} assessment={assessment} />
                 </StepContent>
               </Step>
               

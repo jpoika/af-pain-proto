@@ -1,29 +1,29 @@
 {
-    "name": "io.cordova.hellocordova",
-    "version": "1.0.0",
-    "displayName": "Air Force Pain App",
-    "cordova": {
-        "platforms": [
-            "android",
-            "ios"
-        ],
-        "plugins": {
-            "cordova-plugin-device": {},
-            "cordova-plugin-splashscreen": {},
-            "cordova-plugin-whitelist": {},
-            "org.t2crypto": {},
-            "de.appplant.cordova.plugin.local-notification": {}
-        }
-    },
-    "dependencies": {
-        "cordova-ios": "~4.4.0",
-        "cordova-plugin-app-event": "^1.2.1",
-        "cordova-plugin-device": "~1.1.5",
-        "cordova-plugin-local-notifications": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
-        "cordova-plugin-splashscreen": "~4.0.2",
-        "cordova-plugin-whitelist": "1",
-        "org.t2crypto": "../../cordova-plugin-t2crypto",
-        "cordova-android": "~6.2.3",
-        "de.appplant.cordova.plugin.local-notification": "https://github.com/katzer/cordova-plugin-local-notifications"
+  "name": "io.cordova.hellocordova",
+  "version": "1.0.0",
+  "displayName": "Air Force Pain App",
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-whitelist": {},
+      "org.t2crypto": {},
+      "de.appplant.cordova.plugin.local-notification": {}
     }
+  },
+  "dependencies": {
+    "cordova-ios": "~4.4.0",
+    "cordova-plugin-app-event": "^1.2.1",
+    "cordova-plugin-device": "~1.1.5",
+    "cordova-plugin-local-notifications": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "cordova-plugin-splashscreen": "~4.0.2",
+    "cordova-plugin-whitelist": "1",
+    "org.t2crypto": "../../cordova-plugin-t2crypto",
+    "cordova-android": "~6.2.3",
+    "de.appplant.cordova.plugin.local-notification": "https://github.com/katzer/cordova-plugin-local-notifications"
+  }
 }

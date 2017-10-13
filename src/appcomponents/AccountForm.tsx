@@ -85,11 +85,11 @@ export default class LoginForm extends React.Component<Props, State>{
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      values: {...nextProps.savedAccount},
-    });
-  }
+  // componentWillReceiveProps(nextProps){
+  //   this.setState({
+  //     values: {...nextProps.savedAccount},
+  //   });
+  // }
 
   excuseKeyboard = (event) => {
       event.target.focus();
@@ -97,6 +97,7 @@ export default class LoginForm extends React.Component<Props, State>{
 
   render(){
     const {genders} = this.props;
+    console.log("AccountForm render");
     return (
       <div>
       <form onSubmit={this.handleSubmit}>

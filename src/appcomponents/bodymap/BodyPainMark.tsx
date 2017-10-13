@@ -40,8 +40,8 @@ const BodyPainMark: React.SFC<Props> = (props) => {
       styles = {...styles, backgroundColor: 'transparent',border: 'none'};
     }
 
-    
-    return <div onTouchTap={itemClicked} style={styles}>
+    //<div onTouchTap={itemClicked} style={styles}>
+    return <div onClick={itemClicked} style={styles}>
                <DecreasedPainPrompt assessment={assessment} bodySection={section}>
                   <PromptResponse responseId='thank-you'>
                     Thank you.

@@ -73,6 +73,7 @@ function configPromise() {
             whitelist: [
               'assessments',
               'assessmentIds',
+              'assessmentSystem',
               'medicationIds',
               'medications',
               'medicationchoiceIds',
@@ -81,7 +82,8 @@ function configPromise() {
               'notificationIds',
               'notifications',
               'painReductionIds',
-              'painReductions'
+              'painReductions',
+              'user'
             ],
             storage: localForage,
             keyPrefix: 'afPainApp:'
