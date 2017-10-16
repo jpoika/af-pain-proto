@@ -8,6 +8,7 @@ export interface Props{
 export interface State {
   minutesDisplay: string|number;
   secondsDisplay: string|number;
+  hoursDisplay: string|number;
 }
 
 
@@ -21,7 +22,8 @@ export default class CountDown extends React.Component<Props, State>{
     const data = this.calculateCountdown();
     this.state = {
       minutesDisplay: data[1],
-      secondsDisplay: data[0]
+      secondsDisplay: data[0],
+      hoursDisplay: data[2]
     };
   }
 
@@ -31,6 +33,7 @@ export default class CountDown extends React.Component<Props, State>{
     msDiff = msDiff < 0 ? 0 : msDiff;
     const secondsCountdown = Math.floor(msDiff / 1000);
     const minutesCountdown = Math.floor(secondsCountdown / 60);
+    const hoursCountdown = Math.floor(minutesCountdown / 60);
 
     const minutesHour = minutesCountdown % 60;
     const secondsHour = secondsCountdown % 60;
@@ -39,14 +42,15 @@ export default class CountDown extends React.Component<Props, State>{
       this.handleTimeout();
     }
 
-    return [secondsHour, minutesHour];
+    return [secondsHour, minutesHour,hoursCountdown];
   }
 
   handleTick = () => {
     const data = this.calculateCountdown();
     this.setState({ 
       minutesDisplay: data[1],
-      secondsDisplay: data[0]
+      secondsDisplay: data[0],
+      hoursDisplay: data[2]
     });
   }
   handleTimeout = () => {
@@ -66,8 +70,9 @@ export default class CountDown extends React.Component<Props, State>{
   }
 
   render(){
-    const {minutesDisplay, secondsDisplay} = this.state;
-    return <h1>{minutesDisplay} Minutes and {secondsDisplay} Seconds</h1>;
+    const {minutesDisplay, secondsDisplay, hoursDisplay} = this.state;
+    const hoursString = hoursDisplay < 1 ? "" :  hoursDisplay + " " + (hoursDisplay == 1 ? 'hour' : 'hours');
+    return <h1>{hoursString} {minutesDisplay} Minutes and {secondsDisplay} Seconds</h1>;
   }
 }
 
