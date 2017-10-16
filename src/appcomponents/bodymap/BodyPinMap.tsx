@@ -186,7 +186,7 @@ export default class BodyPinMap extends React.Component<Props, State>{
     const hasPreviousMarkings = previousPainMarkings && previousPainMarkings.length > 0;
     return (
             <div>
-              {hasPreviousMarkings && <div style={{position: 'absolute', top: 0, left: 180}}><HistoryIcon style={iconStyles} color={'#000000'} /> Last Pain Location</div>}
+              {hasPreviousMarkings && <div style={{position: 'absolute', top: 0, left: 180}}><HistoryIcon style={iconStyles} color={'#000000'} /> Previous Pain Location</div>}
               <div onClick={this.handleClickEvent}  style={{position: 'relative', width: (this.props.gridSize * 15), height: (this.props.gridSize * 26)}} ref={(el) => { this.mapBox= el; }} >
                       {previousPainMarkings}
                       {painMarkings}

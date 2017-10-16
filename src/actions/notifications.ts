@@ -19,7 +19,7 @@ export const scheduleNotification = (title,text,deadline, data = {}) => {
         data: {app: data}
         //sound: 'file://' + require('../res/audio/alert_chime.mp3')
     }
-    console.log(localNotification);
+    
     localNotification.isReady && localNotification.schedule(scheduleArg);
     dispatch(editNotification(scheduleArg,deadline.getTime()));
   }

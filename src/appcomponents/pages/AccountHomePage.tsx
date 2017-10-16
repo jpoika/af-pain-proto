@@ -5,7 +5,8 @@ import AssessmentList from '../../containers/assessment/AssessmentList';
 import UserOverview from '../../containers/user/UserOverview';
 import MedicationList from '../../containers/medication/MedicationListShow';
 import UserTasks from '../../containers/user/UserTasks';
-import {AppPageInterface} from '../../components/AppTheme'
+import {AppPageInterface} from '../../components/AppTheme';
+
 
 export interface Props extends PageProps{
  initAssessComplete: boolean;

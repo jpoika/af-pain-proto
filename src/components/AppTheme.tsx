@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import AppBar from '../containers/AppBar';
-//import BackButton from './BackButton';
+
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import HomePage from '../containers/Home';
 import InitialAssessWizard from '../containers/assessment/InitialAssessWizard';
@@ -18,8 +18,6 @@ import AppSnackBar from './AppSnackBar';
 import BackButton from './BackButton';
 import siteTheme from './customTheme';
 import Redirector from '../containers/Redirector';
-//import HomeFooter from './HomeFooter';
-// import EulaDialog from '../containers/Eula';
 
 import LeftMenuIcon from '../containers/MainLeftIcon';
 import { Route } from 'react-router-dom';
@@ -28,9 +26,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {withRouter} from 'react-router-dom';
 import Page from '../Containers/Page';
 import FlatButton from 'material-ui/FlatButton';
-// import SnackbarGlobal from '../containers/SnackbarGlobal';
-// import LinearProgress from 'material-ui/LinearProgress';
-//import {homeFooterDefault, homeFooterAbsolute} from './commonStyles';
+
+
 const muiTheme = getMuiTheme(siteTheme);
 
 const styles = {
