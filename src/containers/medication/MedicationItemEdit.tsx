@@ -1,5 +1,5 @@
 import MedicationItem from '../../appcomponents/medication/MedicationItemEdit';
-import {MedicationInterface, frequencyUnits, amountUnits, routes, makeMedication} from '../../res/data/medication';
+import {MedicationInterface, frequencyUnits, amountUnits, routes, makeUserDefinedMedication} from '../../res/data/medication';
 import {connect} from 'react-redux';
 import {medicationEdit,medicationChoiceEdit} from '../../actions/medication';
 import {Validators} from '../../lib/helpers';
@@ -48,7 +48,7 @@ const validateData = (data) => {
 
 const stateToProps = (state, ownProps) => {
   return {
-    newMedicationChoice: makeMedication(0,''),
+    newMedicationChoice: makeUserDefinedMedication(0,''),
     frequencyUnits,
     routes,
     amountUnits,

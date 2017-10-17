@@ -78,6 +78,8 @@ const menuItems: React.SFC<Props> = ({user, menuItems,pathOnTouchTap,initAssessC
              
              <MenuItem key={'menu_top_new_pain'} primaryText="New Pain" disabled={!initAssessComplete} onTouchTap={newPainClick} />
              <MenuItem key={'menu_top_med_tracker'} rightIcon={<TrackChangesIcon color={'#3A7BAD'} />} primaryText="Med Tracker" onTouchTap={pathOnTouchTap('/main/mtracker2')}  />
+             <MenuItem key={'menu_top_med_info'}  primaryText="Medication Info" onTouchTap={pathOnTouchTap('/main/medinfo')}  />
+
              {/*<MenuItem key={'menu_top_test'} primaryText="Test" onTouchTap={pathOnTouchTap('/main/assess-overview')} />*/}
           {menuItems.map(menuItem => {
             

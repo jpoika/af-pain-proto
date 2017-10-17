@@ -12,6 +12,7 @@ import MedTrackerPage from '../containers/pages/MedTrackerPage';
 import ReAssessmentPage from '../containers/pages/ReAssessmentPage';
 import AssessmentOverviewPage from '../containers/pages/AssessmentOverviewPage'
 import ExtrasPage from '../containers/pages/ExtrasPage';
+import MedicationsPage from '../containers/pages/Medications';
 import EducationResourcesPage from '../containers/pages/EducationResourcesPage';
 import AlertNurseDialog from '../containers/AlertNurseDialog';
 import AppSnackBar from './AppSnackBar';
@@ -298,7 +299,9 @@ class App extends React.Component<Props, State>{
                   
                   <Route exact path="/main/mtracker" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker',leftIcon: iconBackHome, titlePath: homePath})} />
                   <Route exact path="/main/mtracker2" render={this.renderRouteComponent(MedTrackerPage,{title: 'Med Tracker'})} />
-
+                  
+                  <Route exact path="/main/medinfo" render={this.renderRouteComponent(MedicationsPage,{title: 'Medication Info'})} />
+                  <Route exact path="/main/medinfo2" render={this.renderRouteComponent(MedicationsPage,{title: 'Medication Info'})} />
 
                   <Route exact path="/main/reassess" render={this.renderRouteComponent(ReAssessmentPage,{title: 'Reassessment'})} />
                   <Route exact path="/main/resources" render={this.renderRouteComponent(EducationResourcesPage,{title: 'Pain Education & Resources'})} />

@@ -27,7 +27,6 @@ export default class AssessmentWizardPage extends React.Component<Props, State>{
   }
 
   handleCountdownComplete = () => {
-    console.log('handleCountdownComplete');
     this.setState({
       isReady: true
     });
