@@ -51,7 +51,7 @@ function configPromise() {
     nativeSettings: __IS_CORDOVA_BUILD__  ? (window as any).cordova.plugins.settings : null,
     appConfig: {
       notifications: {
-        interval: 60 * 1000 * 60 * 2 //2 hours
+        interval: 60 * 1000 * 30//30 minutes //20 hours60 * 1000 * 60 * 2 
       }
     },
     localNotification

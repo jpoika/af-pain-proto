@@ -2,6 +2,7 @@ import MedicationsPage from '../../appcomponents/pages/Medications';
 import {connect} from 'react-redux';
 import {getSystemMedications} from '../medication/selectors'
 import {getInCompleteAssessements} from '../assessment/selectors'
+import {alertNurseDialogueOpen} from '../../actions/nurse';
 
 const stateToProps = (state, ownProps) => {
   return {
@@ -13,6 +14,9 @@ const stateToProps = (state, ownProps) => {
 }
 const dispatchToProps = (dispatch) => {
   return {
+    alertNurse: () => {
+      dispatch(alertNurseDialogueOpen())
+    }
   }
 }
 export default connect(stateToProps,dispatchToProps)

@@ -58,6 +58,7 @@ export const painLevelIds = (state = normalizedPainLevels.result,action: any) =>
 }
 
 export const assessments = (state = normalizedAssessments.entities.assessments, action) => {
+  console.log(action.type);
   switch (action.type) {
     case ASSESS_MARK_BODY_SECTION_PAIN:
     

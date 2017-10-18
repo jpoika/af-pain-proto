@@ -2,8 +2,11 @@ import * as React from 'react';
 import Theme from '../../Theme';
 import Book from '../Book';
 import BookPage from '../Page';
-import { shallow } from 'enzyme';
+import * as enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 
+enzyme.configure({ adapter: new Adapter() });
+const {shallow} = enzyme
 import * as renderer from 'react-test-renderer';
 
 
