@@ -82,13 +82,13 @@ export const editAssessment = (assessment:AssessmentInterface,newProps) => {
       assessment.id = nextId(getState().assessmentIds);
     }
     Object.assign(assessment,newProps);
-    return dispatch(
+    dispatch(
             {
               type: ASSESSMENT_EDIT,
               assessment
              }
           );
-
+    return Promise.resolve(assessment);
   }
 }
 export const assessmentCopyLastPain = (assessment: AssessmentInterface) => {

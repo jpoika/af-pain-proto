@@ -27,7 +27,9 @@ const painLevelsListSchema = new schema.Array(painLevelsSchema);
 const normalizedBodySections = normalize(bodySectionList,bodySectionListSchema);
 
 
-const normalizedAssessments = normalize(assessmentRawData,assessmentListSchema);
+//const normalizedAssessments = normalize(assessmentRawData,assessmentListSchema);
+
+const getNormalizedAssessments = () => normalize(assessmentRawData,assessmentListSchema);
 
 const normalizedPainLevels = normalize(painLevelsRaw,painLevelsListSchema);
 
@@ -56,9 +58,14 @@ export const painLevels = (state = normalizedPainLevels.entities.pain_levels,act
 export const painLevelIds = (state = normalizedPainLevels.result,action: any) => {
   return state;
 }
-
-export const assessments = (state = normalizedAssessments.entities.assessments, action) => {
-  console.log(action.type);
+//let hasSet = false;
+export const assessments = (state = getNormalizedAssessments().entities.assessments, action) => {
+  // if(action.type === '@123321' || hasSet){
+  //     console.log(state['1']);
+  //     console.log(getNormalizedAssessments().entities.assessments['1']);
+  //     hasSet = true;
+  // }
+  
   switch (action.type) {
     case ASSESS_MARK_BODY_SECTION_PAIN:
     
@@ -86,7 +93,7 @@ export const assessments = (state = normalizedAssessments.entities.assessments, 
   return state;
 }
 
-export const assessmentIds = (state = normalizedAssessments.result,action: any) => {
+export const assessmentIds = (state = getNormalizedAssessments().result,action: any) => {
   switch(action.type){
     case ASSESSMENT_EDIT:
       state = arrayPushUnique(action.assessment.id,state);
